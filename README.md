@@ -1,5 +1,5 @@
 # Content
-1. [**Supported Menus**](#SupportedMenus).
+1. [**Supported Menus**](#Supported-Menus).
 2. [**FAQ**](#FAQ).
 
 # Supported Menus
