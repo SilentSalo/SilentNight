@@ -538,4 +538,4 @@ function RenderSilentNight()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.0.6", RenderSilentNight)
+ClickGUI.AddTab("Silent Night v0.0.7", RenderSilentNight)

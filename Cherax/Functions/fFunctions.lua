@@ -100,8 +100,8 @@ function GetPokerPlayersCount()
 		if PLAYER_ID ~= i and playersTable == currentTable then
 			players = players + 1
 		end
-		return players
 	end
+    return players
 end
 
 function GetPokerCards(id)

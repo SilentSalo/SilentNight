@@ -47,15 +47,15 @@ function ReAssign()
     eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845281 + 1 + (PLAYER_ID * 883) + 268 + 358 + 5            }
     eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1877285 + (PLAYER_ID * 77 + 1) + 76                        }
     eGlobal.Player.Property                = { type = "int", global = 2657971 + 1 + (PLAYER_ID * 465) + 322 + 8                  }
-    eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 749 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
+    eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 767 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
     eLocal.World.Casino.Blackjack = {
         Dealer = {
-            FirstCard  = { type = "int", vLocal = 116 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1776 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
-            SecondCard = { type = "int", vLocal = 116 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1776 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
-            ThirdCard  = { type = "int", vLocal = 116 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1776 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
+            FirstCard  = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
+            SecondCard = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
+            ThirdCard  = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
         },
-        CurrentTable = { type = "int", vLocal = 1776 + 1 + (PLAYER_ID * 8) + 4,                                                                           script = "blackjack" },
-        VisibleCards = { type = "int", vLocal = 116 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1776 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
+        CurrentTable = { type = "int", vLocal = 1794 + 1 + (PLAYER_ID * 8) + 4,                                                                           script = "blackjack" },
+        VisibleCards = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
     }
     FeatureMgr.GetFeature(bunkerMade.hash):SetIntValue(eStat.MPX_LIFETIME_BKR_SEL_COMPLETBC5:Get())
     FeatureMgr.GetFeature(bunkerUndertaken.hash):SetIntValue(eStat.MPX_LIFETIME_BKR_SEL_UNDERTABC5:Get())
