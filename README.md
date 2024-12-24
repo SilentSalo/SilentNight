@@ -1,6 +1,11 @@
 # Content
-1. [**Supported Menus**](#Supported-Menus).
-2. [**FAQ**](#FAQ).
+1. [**Installation**](#Installation).
+2. [**Supported Menus**](#Supported-Menus).
+3. [**FAQ**](#FAQ).
+
+# Installation
+1. Download the **`.lua`** file from [**`Releases`**](https://github.com/SilentSalo/SilentNight/releases) tab.
+2. Follow the tutorial from [**`Discord`**](https://discord.com/invite/AYpT8cBaVb) server.
 
 # Supported Menus
 | Menu | Version | Status | 
