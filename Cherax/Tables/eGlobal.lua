@@ -22,7 +22,7 @@ eGlobal = {
                     Top5   = { type = "int", global = 262145 + 23657 },
                     Top100 = { type = "int", global = 262145 + 23676 }
                 },
-                Value = { type = "int", global = 1845221 + 1 + (PLAYER_ID * 889) + 268 + 360 5 }
+                Value = { type = "int", global = 1845221 + 1 + (PLAYER_ID * 889) + 268 + 360 + 5 }
             }
         },
         Supplies = {
