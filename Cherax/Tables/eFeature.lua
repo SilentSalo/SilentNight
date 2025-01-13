@@ -147,7 +147,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Apartment_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Use after the heist has started.",
+                    desc = "Finishes the heist instantly. Use after the heist has started. The Pacific Standard Job cannot be instant finished.",
                     func = function()
                         ForceScriptHost(eScript.Heist.Apartment.name)
                         Script.Yield(1000)

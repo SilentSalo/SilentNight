@@ -94,13 +94,13 @@ eTable = {
                 { name = "Hard",   index = 131055 }
             },
             Approaches = {
-                { name = "Kosatka",             index = 65283 },
-                { name = "Alkonost",            index = 65413 },
-                { name = "Velum",               index = 65289 },
-                { name = "Stealth Annih.",      index = 65425 },
-                { name = "Patrol Boat",         index = 65313 },
-                { name = "Longfin",             index = 65345 },
-                { name = "All Ways",            index = 65535 }
+                { name = "Kosatka",        index = 65283 },
+                { name = "Alkonost",       index = 65413 },
+                { name = "Velum",          index = 65289 },
+                { name = "Stealth Annih.", index = 65425 },
+                { name = "Patrol Boat",    index = 65313 },
+                { name = "Longfin",        index = 65345 },
+                { name = "All Ways",       index = 65535 }
             },
             Loadouts = {
                 { name = "Aggressor",   index = 1 },
