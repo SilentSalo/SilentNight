@@ -43,8 +43,8 @@ eLocal = {
             Launch2 = { type = "int", vLocal = 19875 + 34, script = "fmmc_launcher" }
         },
         Agency = {
-            Finish1 = { type = "int", vLocal = 38432, script = "fm_mission_controller" },
-            Finish2 = { type = "int", vLocal = 39807, script = "fm_mission_controller" }
+            Finish1 = { type = "int", vLocal = 52171 + 1,        script = "fm_mission_controller_2020" },
+            Finish2 = { type = "int", vLocal = 52171 + 1776 + 1, script = "fm_mission_controller_2020" }
         },
         Apartment = {
             Bypass = {
