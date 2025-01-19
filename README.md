@@ -17,7 +17,7 @@
 # FAQ
 1. Is **Silent Night** available on **Cherax Free**?
 - Yes, it's available on  both Paid & Free plans.
-3. Why **Kiddion's Modest Menu** version is **discontinued**?
+2. Why **Kiddion's Modest Menu** version is **discontinued**?
 - The developer of this menu has stopped development.
-4. Why **YimMenu** version is **discontinued**?
+3. Why **YimMenu** version is **discontinued**?
 - This version of the script isn't developed by me and its original developer has stopped development. However, enthusiasts updated the script [**`there`**](https://github.com/xnightli06x/Silent-Night/tree/main).
