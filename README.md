@@ -12,7 +12,7 @@
 |--|--|--|
 | Cherax | 0.0.7 | Updated |
 | Kiddion's | 2.5 | Discontinued |
-| Yim | 0.0.5 | Discontinued |
+| Yim | 0.0.7 | Updated |
 
 # FAQ
 1. Is **Silent Night** available on **Cherax Free**?
