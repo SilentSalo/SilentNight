@@ -68,8 +68,9 @@ eGlobal = {
                 Player3 = { type = "int", global = 2657991 + 1 + (2 * 467) + 269 },
                 Player4 = { type = "int", global = 2657991 + 1 + (3 * 467) + 269 }
             },
-            Reload = { type = "int", global = 1929352                                 },
-            Jobs   = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76 }
+            Reload   = { type = "int", global = 1929352                                 },
+            Jobs     = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76 },
+            Cooldown = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76     }
         },
         CayoPerico = {
             Cut = {

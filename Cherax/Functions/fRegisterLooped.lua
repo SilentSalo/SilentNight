@@ -42,13 +42,14 @@ function EasyLooper()
 end
 
 function ReAssign()
-    PLAYER_ID = GTA.GetLocalPlayerId()
+    PLAYER_ID                              = GTA.GetLocalPlayerId()
     eGlobal.Business.CrateWarehouse.Slot   = { type = "int", global = 1845281 + 1 + (PLAYER_ID * 883) + 268 + 120 + 1 + (0 * 3)  }
     eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845281 + 1 + (PLAYER_ID * 883) + 268 + 358 + 5            }
     eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76                    }
+    eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76                        }
     eGlobal.Player.Property                = { type = "int", global = 2657971 + 1 + (PLAYER_ID * 465) + 322 + 8                  }
     eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 767 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
-    eLocal.World.Casino.Blackjack = {
+    eLocal.World.Casino.Blackjack          = {
         Dealer = {
             FirstCard  = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
             SecondCard = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },

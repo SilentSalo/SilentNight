@@ -191,6 +191,7 @@ eFeature = {
                     desc = "Allows you to play unavailable jobs. Also, skips the heist's cooldown.",
                     func = function()
                         eGlobal.Heist.Apartment.Jobs:Set(31)
+                        eGlobal.Heist.Apartment.Cooldown:Set(-1)
                     end
                 },
                 Unlock = {
