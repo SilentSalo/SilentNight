@@ -3,8 +3,10 @@ local files   = {
     "vVariables",
     "eNative",
     "eTunable",
-    "eGlobal",
-    "eLocal",
+    "eGlobal_EE",
+    "eGlobal_LE",
+    "eLocal_EE",
+    "eLocal_LE",
     "eScript",
     "eStat",
     "ePackedBool",
@@ -27,18 +29,29 @@ local files   = {
     "mSpecialCargo",
     "mEasyMoney",
     "mMisc",
+    "sSettings",
     "fFunctions",
-    "fRegisterLooped",
+    "fRegisterLooped_EE",
+    "fRegisterLooped_LE",
     "fEvents",
     "fRender"
 }
 
 local function RunScript()
-    local root = string.format("%s\\Lua\\SilentNight", FileMgr.GetMenuRootPath())
+    local root       = string.format("%s\\Lua\\SilentNight", FileMgr.GetMenuRootPath())
+    local gtaEdition = Cherax.GetEdition()
+    
     for _, file in ipairs(files) do
-        local found = false
+        local found   = false
+        local skipped = false
+
         for _, folder in ipairs(folders) do
-            local filePath = string.format("%s\\%s\\%s.lua", root, folder, file)
+            if (gtaEdition == "EE" and file:find("_LE")) or (gtaEdition == "LE" and file:find("_EE")) then
+                skipped = true
+                break
+            end
+
+            local filePath   = string.format("%s\\%s\\%s.lua", root, folder, file)
             local fileHandle = io.open(filePath, "r")
             if fileHandle then
                 fileHandle:close()
@@ -47,7 +60,8 @@ local function RunScript()
                 break
             end
         end
-        if not found then
+
+        if not found and not skipped then
             Logger.Log(eLogColor.RED, "Silent Night", string.format("File not found: %s", file))
         end
     end

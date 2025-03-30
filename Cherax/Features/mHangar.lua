@@ -4,13 +4,6 @@ end)
 FeatureMgr.AddFeature(hangarNoXp.hash, hangarNoXp.name, hangarNoXp.type, hangarNoXp.desc, function(f)
 end)
 
-FeatureMgr.AddFeature(hangarDelivered.hash, hangarDelivered.name, hangarDelivered.type, hangarDelivered.desc, function(f)
-end)
-    :SetDefaultValue(0)
-    :SetLimitValues(0, 16)
-    :SetStepSize(1)
-    :Reset()
-
 FeatureMgr.AddFeature(hangarSell.hash, hangarSell.name, hangarSell.type, hangarSell.desc, function(f)
     local bool      = FeatureMgr.GetFeature(hangarNoXp.hash):IsToggled()
     local delivered = FeatureMgr.GetFeature(hangarDelivered.hash):GetIntValue()

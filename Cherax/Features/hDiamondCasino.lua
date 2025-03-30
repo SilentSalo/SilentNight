@@ -79,7 +79,7 @@ end)
 
 FeatureMgr.AddFeature(diamondTarget.hash, diamondTarget.name, diamondTarget.type, diamondTarget.desc, function(f)
 end)
-    :SetList(diamondTarget.list:GetNames())    
+    :SetList(diamondTarget.list:GetNames())
 
 FeatureMgr.AddFeature(diamondComplete.hash, diamondComplete.name, diamondComplete.type, diamondComplete.desc, function(f)
     local difficulty = diamondDifficulty.list[FeatureMgr.GetFeatureListIndex(diamondDifficulty.hash) + 1].index
@@ -92,7 +92,7 @@ FeatureMgr.AddFeature(diamondComplete.hash, diamondComplete.name, diamondComplet
     local masks      = diamondMasks.list[FeatureMgr.GetFeatureListIndex(diamondMasks.hash) + 1].index
     local target     = diamondTarget.list[FeatureMgr.GetFeatureListIndex(diamondTarget.hash) + 1].index
     diamondComplete.func(difficulty, approach, gunman, loadout, driver, vehicles, hacker, masks, target)
-end) 
+end)
 
 FeatureMgr.AddFeature(diamondReload.hash, diamondReload.name, diamondReload.type, diamondReload.desc, function(f)
     diamondReload.func()
@@ -100,6 +100,10 @@ end)
 
 FeatureMgr.AddFeature(diamondForce.hash, diamondForce.name, diamondForce.type, diamondForce.desc, function(f)
     diamondForce.func()
+end)
+
+FeatureMgr.AddFeature(diamondFinish.hash, diamondFinish.name, diamondFinish.type, diamondFinish.desc, function(f)
+    diamondFinish.func()
 end)
 
 FeatureMgr.AddFeature(diamondFingerprintHack.hash, diamondFingerprintHack.name, diamondFingerprintHack.type, diamondFingerprintHack.desc, function(f)

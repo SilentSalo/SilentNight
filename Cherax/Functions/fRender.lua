@@ -158,6 +158,7 @@ function RenderHeistTool()
                         ClickGUI.RenderFeature(genericLaunch.hash)
                         ClickGUI.RenderFeature(genericCutscene.hash)
                         ClickGUI.RenderFeature(diamondForce.hash)
+                        ClickGUI.RenderFeature(diamondFinish.hash)
                         ClickGUI.RenderFeature(diamondFingerprintHack.hash)
                         ClickGUI.RenderFeature(diamondKeypadHack.hash)
                         ClickGUI.RenderFeature(diamondVaultDoorDrill.hash)
@@ -369,7 +370,6 @@ function RenderMoneyTool()
                     if ClickGUI.BeginCustomChildWindow("Sale") then
                         ClickGUI.RenderFeature(hangarPrice.hash)
                         ClickGUI.RenderFeature(hangarNoXp.hash)
-                        ClickGUI.RenderFeature(hangarDelivered.hash)
                         ClickGUI.RenderFeature(hangarSell.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -530,12 +530,437 @@ function RenderMoneyTool()
     end
 end
 
-function RenderSilentNight()
-    if ImGui.BeginTabBar("Silent Night") then
-        RenderHeistTool()
-        RenderMoneyTool()
-        ImGui.EndTabBar()   
+function RenderSettings()
+    if ImGui.BeginTabItem("Settings") then
+        if ImGui.BeginTabBar("Settings Tabs") then
+            if ImGui.BeginTabItem("General") then
+                if ImGui.BeginColumns(2) then
+                    if ClickGUI.BeginCustomChildWindow("Discord") then
+                        ClickGUI.RenderFeature(settingsDiscordLink.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.TableNextColumn()
+                    ImGui.EndColumns()
+                end
+                ImGui.EndTabItem()
+            end
+            ImGui.EndTabBar()
+        end
+        ImGui.EndTabItem()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.0.7", RenderSilentNight)
+function RenderClickGUI()
+    if ImGui.BeginTabBar("Silent Night") then
+        RenderHeistTool()
+        RenderMoneyTool()
+        RenderSettings()
+        ImGui.EndTabBar()
+    end
+end
+
+ClickGUI.AddTab("Silent Night v0.0.8", RenderClickGUI)
+
+function RenderListGUI()
+    local root = ListGUI.GetRootTab()
+    if not root then return end
+
+    local SilentNightTab = root:AddSubTab("Silent Night v0.0.8", "Silent Night")
+
+    local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
+    if HeistToolTab then
+        local AgencyTab = HeistToolTab:AddSubTab("Agency", "Agency")
+        if AgencyTab then
+            AgencyTab:AddSeperator("Preps")
+            AgencyTab:AddFeature(agencyContract.hash)
+            AgencyTab:AddFeature(agencyComplete.hash)
+
+            AgencyTab:AddSeperator("Misc")
+            AgencyTab:AddFeature(genericCutscene.hash)
+            AgencyTab:AddFeature(agencyFinish.hash)
+            AgencyTab:AddFeature(agencyCooldown.hash)
+
+            AgencyTab:AddSeperator("Payout")
+            AgencyTab:AddFeature(agencySelect.hash)
+            AgencyTab:AddFeature(agencyApply.hash)
+        end
+
+        local ApartmentTab = HeistToolTab:AddSubTab("Apartment", "Apartment")
+        if ApartmentTab then
+            ApartmentTab:AddSeperator("Preps")
+            ApartmentTab:AddFeature(apartmentComplete.hash)
+            ApartmentTab:AddFeature(apartmentReload.hash)
+
+            ApartmentTab:AddSeperator("Misc")
+            ApartmentTab:AddFeature(genericLaunch.hash)
+            ApartmentTab:AddFeature(genericCutscene.hash)
+            ApartmentTab:AddFeature(apartmentForce.hash)
+            ApartmentTab:AddFeature(apartmentFinish.hash)
+            ApartmentTab:AddFeature(apartmentFleecaHack.hash)
+            ApartmentTab:AddFeature(apartmentFleecaDrill.hash)
+            ApartmentTab:AddFeature(apartmentPacificHack.hash)
+            ApartmentTab:AddFeature(apartmentPlay.hash)
+            ApartmentTab:AddFeature(apartmentUnlock.hash)
+
+            ApartmentTab:AddSeperator("Cuts")
+            ApartmentTab:AddFeature(apartmentTeam.hash)
+            ApartmentTab:AddFeature(apartmentReceivers.hash)
+            ApartmentTab:AddFeature(apartmentPresets.hash)
+            ApartmentTab:AddFeature(apartmentPlayer1.hash)
+            ApartmentTab:AddFeature(apartmentPlayer2.hash)
+            ApartmentTab:AddFeature(apartmentPlayer3.hash)
+            ApartmentTab:AddFeature(apartmentPlayer4.hash)
+            ApartmentTab:AddFeature(apartmentApply.hash)
+        end
+
+        local AutoShopTab = HeistToolTab:AddSubTab("Auto Shop", "Auto Shop")
+        if AutoShopTab then
+            AutoShopTab:AddSeperator("Preps")
+            AutoShopTab:AddFeature(autoContract.hash)
+            AutoShopTab:AddFeature(autoComplete.hash)
+
+            AutoShopTab:AddSeperator("Misc")
+            AutoShopTab:AddFeature(genericCutscene.hash)
+            AutoShopTab:AddFeature(autoFinish.hash)
+            AutoShopTab:AddFeature(autoCooldown.hash)
+
+            AutoShopTab:AddSeperator("Payout")
+            AutoShopTab:AddFeature(autoSelect.hash)
+            AutoShopTab:AddFeature(autoApply.hash)
+        end
+
+        local CayoPericoTab = HeistToolTab:AddSubTab("Cayo Perico", "Cayo Perico")
+        if CayoPericoTab then
+            CayoPericoTab:AddSeperator("Preps")
+            CayoPericoTab:AddFeature(cayoDifficulty.hash)
+            CayoPericoTab:AddFeature(cayoApproach.hash)
+            CayoPericoTab:AddFeature(cayoLoadout.hash)
+            CayoPericoTab:AddFeature(cayoPrimaryTarget.hash)
+            CayoPericoTab:AddFeature(cayoCompoundTarget.hash)
+            CayoPericoTab:AddFeature(cayoCompoundAmount.hash)
+            CayoPericoTab:AddFeature(cayoArtsAmount.hash)
+            CayoPericoTab:AddFeature(cayoIslandTarget.hash)
+            CayoPericoTab:AddFeature(cayoIslandAmount.hash)
+            CayoPericoTab:AddFeature(cayoComplete.hash)
+            CayoPericoTab:AddFeature(cayoReload.hash)
+
+            CayoPericoTab:AddSeperator("Misc")
+            CayoPericoTab:AddFeature(genericCutscene.hash)
+            CayoPericoTab:AddFeature(cayoForce.hash)
+            CayoPericoTab:AddFeature(cayoFinish.hash)
+            CayoPericoTab:AddFeature(cayoFingerprintHack.hash)
+            CayoPericoTab:AddFeature(cayoPlasmaCutterCut.hash)
+            CayoPericoTab:AddFeature(cayoDrainagePipeCut.hash)
+            CayoPericoTab:AddFeature(cayoBag.hash)
+            CayoPericoTab:AddFeature(cayoSoloCooldown.hash)
+            CayoPericoTab:AddFeature(cayoTeamCooldown.hash)
+            CayoPericoTab:AddFeature(cayoOffline.hash)
+            CayoPericoTab:AddFeature(cayoOnline.hash)
+            CayoPericoTab:AddFeature(cayoUnlock.hash)
+
+            CayoPericoTab:AddSeperator("Cuts")
+            CayoPericoTab:AddFeature(cayoTeam.hash)
+            CayoPericoTab:AddFeature(cayoPresets.hash)
+            CayoPericoTab:AddFeature(cayoPlayer1.hash)
+            CayoPericoTab:AddFeature(cayoPlayer2.hash)
+            CayoPericoTab:AddFeature(cayoPlayer3.hash)
+            CayoPericoTab:AddFeature(cayoPlayer4.hash)
+            CayoPericoTab:AddFeature(cayoApply.hash)
+
+            CayoPericoTab:AddSeperator("Non-Host")
+            CayoPericoTab:AddFeature(genericCut.hash)
+            CayoPericoTab:AddFeature(genericApply.hash)
+        end
+
+        local CasinoHeistTab = HeistToolTab:AddSubTab("Diamond Casino", "Diamond Casino")
+        if CasinoHeistTab then
+            CasinoHeistTab:AddSeperator("Preps")
+            CasinoHeistTab:AddFeature(diamondDifficulty.hash)
+            CasinoHeistTab:AddFeature(diamondApproach.hash)
+            CasinoHeistTab:AddFeature(diamondGunman.hash)
+            CasinoHeistTab:AddFeature(diamondLoadout.hash)
+            CasinoHeistTab:AddFeature(diamondDriver.hash)
+            CasinoHeistTab:AddFeature(diamondVehicles.hash)
+            CasinoHeistTab:AddFeature(diamondHacker.hash)
+            CasinoHeistTab:AddFeature(diamondMasks.hash)
+            CasinoHeistTab:AddFeature(diamondTarget.hash)
+            CasinoHeistTab:AddFeature(diamondComplete.hash)
+            CasinoHeistTab:AddFeature(diamondReload.hash)
+
+            CasinoHeistTab:AddSeperator("Misc")
+            CasinoHeistTab:AddFeature(genericLaunch.hash)
+            CasinoHeistTab:AddFeature(genericCutscene.hash)
+            CasinoHeistTab:AddFeature(diamondForce.hash)
+            CasinoHeistTab:AddFeature(diamondFingerprintHack.hash)
+            CasinoHeistTab:AddFeature(diamondKeypadHack.hash)
+            CasinoHeistTab:AddFeature(diamondVaultDoorDrill.hash)
+            CasinoHeistTab:AddFeature(diamondAutograbber.hash)
+            CasinoHeistTab:AddFeature(diamondCooldown.hash)
+            CasinoHeistTab:AddFeature(diamondUnlock.hash)
+
+            CasinoHeistTab:AddSeperator("Cuts")
+            CasinoHeistTab:AddFeature(diamondTeam.hash)
+            CasinoHeistTab:AddFeature(diamondPresets.hash)
+            CasinoHeistTab:AddFeature(diamondPlayer1.hash)
+            CasinoHeistTab:AddFeature(diamondPlayer2.hash)
+            CasinoHeistTab:AddFeature(diamondPlayer3.hash)
+            CasinoHeistTab:AddFeature(diamondPlayer4.hash)
+            CasinoHeistTab:AddFeature(diamondApply.hash)
+
+            CasinoHeistTab:AddSeperator("Non-Host")
+            CasinoHeistTab:AddFeature(genericCut.hash)
+            CasinoHeistTab:AddFeature(genericApply.hash)
+        end
+
+        local DoomsdayTab = HeistToolTab:AddSubTab("Doomsday", "Doomsday")
+        if DoomsdayTab then
+            DoomsdayTab:AddSeperator("Preps")
+            DoomsdayTab:AddFeature(doomsdayAct.hash)
+            DoomsdayTab:AddFeature(doomsdayComplete.hash)
+            DoomsdayTab:AddFeature(doomsdayReset.hash)
+            DoomsdayTab:AddFeature(doomsdayReload.hash)
+
+            DoomsdayTab:AddSeperator("Misc")
+            DoomsdayTab:AddFeature(genericLaunch.hash)
+            DoomsdayTab:AddFeature(genericCutscene.hash)
+            DoomsdayTab:AddFeature(doomsdayForce.hash)
+            DoomsdayTab:AddFeature(doomsdayFinish.hash)
+            DoomsdayTab:AddFeature(doomsdayDataHack.hash)
+            DoomsdayTab:AddFeature(doomsdayDoomsdayHack.hash)
+
+            DoomsdayTab:AddSeperator("Cuts")
+            DoomsdayTab:AddFeature(doomsdayTeam.hash)
+            DoomsdayTab:AddFeature(doomsdayPresets.hash)
+            DoomsdayTab:AddFeature(doomsdayPlayer1.hash)
+            DoomsdayTab:AddFeature(doomsdayPlayer2.hash)
+            DoomsdayTab:AddFeature(doomsdayPlayer3.hash)
+            DoomsdayTab:AddFeature(doomsdayPlayer4.hash)
+            DoomsdayTab:AddFeature(doomsdayApply.hash)
+
+            DoomsdayTab:AddSeperator("Non-Host")
+            DoomsdayTab:AddFeature(genericCut.hash)
+            DoomsdayTab:AddFeature(genericApply.hash)
+        end
+
+        local SalvageYardTab = HeistToolTab:AddSubTab("Salvage Yard", "Salvage Yard")
+        if SalvageYardTab then
+            SalvageYardTab:AddSeperator("Slot 1")
+            SalvageYardTab:AddFeature(salvageSlot1Robbery.hash)
+            SalvageYardTab:AddFeature(salvageSlot1Vehicle.hash)
+            SalvageYardTab:AddFeature(salvageSlot1Mod.hash)
+            SalvageYardTab:AddFeature(salvageSlot1Keep.hash)
+            SalvageYardTab:AddFeature(salvageSlot1Apply.hash)
+
+            SalvageYardTab:AddSeperator("Preps")
+            SalvageYardTab:AddFeature(salvageApplyAll.hash)
+            SalvageYardTab:AddFeature(salvageComplete.hash)
+            SalvageYardTab:AddFeature(salvageReset.hash)
+            SalvageYardTab:AddFeature(salvageReload.hash)
+
+            SalvageYardTab:AddSeperator("Slot 2")
+            SalvageYardTab:AddFeature(salvageSlot2Robbery.hash)
+            SalvageYardTab:AddFeature(salvageSlot2Vehicle.hash)
+            SalvageYardTab:AddFeature(salvageSlot2Mod.hash)
+            SalvageYardTab:AddFeature(salvageSlot2Keep.hash)
+            SalvageYardTab:AddFeature(salvageSlot2Apply.hash)
+
+            SalvageYardTab:AddSeperator("Misc")
+            SalvageYardTab:AddFeature(salvageCooldown.hash)
+            SalvageYardTab:AddFeature(salvageWeekly.hash)
+            SalvageYardTab:AddFeature(salvageSlot1Available.hash)
+            SalvageYardTab:AddFeature(salvageSlot2Available.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Available.hash)
+            SalvageYardTab:AddFeature(salvageSetup.hash)
+            SalvageYardTab:AddFeature(salvageClaim.hash)
+
+            SalvageYardTab:AddSeperator("Slot 3")
+            SalvageYardTab:AddFeature(salvageSlot3Robbery.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Vehicle.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Mod.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Keep.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Apply.hash)
+
+            SalvageYardTab:AddSeperator("Payout")
+            SalvageYardTab:AddFeature(salvageSalvage.hash)
+            SalvageYardTab:AddFeature(salvageSlot1Value.hash)
+            SalvageYardTab:AddFeature(salvageSlot2Value.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Value.hash)
+            SalvageYardTab:AddFeature(salvageApply.hash)
+        end
+    end
+
+    local MoneyToolTab = SilentNightTab:AddSubTab("Money Tool", "Money Tool")
+    if MoneyToolTab then
+        local BunkerTab = MoneyToolTab:AddSubTab("Bunker", "Bunker")
+        if BunkerTab then
+            BunkerTab:AddSeperator("Sale")
+            BunkerTab:AddFeature(bunkerPrice.hash)
+            BunkerTab:AddFeature(bunkerNoXp.hash)
+            BunkerTab:AddFeature(bunkerSell.hash)
+
+            BunkerTab:AddSeperator("Misc")
+            BunkerTab:AddFeature(bunkerOpen.hash)
+            BunkerTab:AddFeature(bunkerSupply.hash)
+            BunkerTab:AddFeature(bunkerTrigger.hash)
+            BunkerTab:AddFeature(bunkerSupplier.hash)
+
+            BunkerTab:AddSeperator("Stats")
+            BunkerTab:AddFeature(bunkerMade.hash)
+            BunkerTab:AddFeature(bunkerUndertaken.hash)
+            BunkerTab:AddFeature(bunkerEarnings.hash)
+            BunkerTab:AddFeature(bunkerNoSell.hash)
+            BunkerTab:AddFeature(bunkerNoEarnings.hash)
+            BunkerTab:AddFeature(bunkerApply.hash)
+        end
+
+        local CasinoTab = MoneyToolTab:AddSubTab("Casino", "Casino")
+        if CasinoTab then
+            CasinoTab:AddSeperator("Lucky Wheel")
+            CasinoTab:AddFeature(casinoLuckyWheelSelect.hash)
+            CasinoTab:AddFeature(casinoLuckyWheelGive.hash)
+
+            CasinoTab:AddSeperator("Blackjack")
+            CasinoTab:AddFeature(casinoBlackjackCard.hash)
+            CasinoTab:AddFeature(casinoBlackjackReveal.hash)
+            CasinoTab:AddFeature(casinoBlackjackTrick.hash)
+
+            CasinoTab:AddSeperator("Slot Machines")
+            CasinoTab:AddFeature(casinoSlotsWin.hash)
+            CasinoTab:AddFeature(casinoSlotsLose.hash)
+
+            CasinoTab:AddSeperator("Poker")
+            CasinoTab:AddFeature(casinoPokerMyCards.hash)
+            CasinoTab:AddFeature(casinoPokerCards.hash)
+            CasinoTab:AddFeature(casinoPokerReveal.hash)
+            CasinoTab:AddFeature(casinoPokerGive.hash)
+            CasinoTab:AddFeature(casinoPokerTrick.hash)
+
+            CasinoTab:AddSeperator("Roulette")
+            CasinoTab:AddFeature(casinoRouletteLand13.hash)
+            CasinoTab:AddFeature(casinoRouletteLand16.hash)
+
+            CasinoTab:AddSeperator("Misc")
+            CasinoTab:AddFeature(casinoBypass.hash)
+            CasinoTab:AddFeature(casinoSelect.hash)
+            CasinoTab:AddFeature(casinoApply.hash)
+        end
+
+        local HangarTab = MoneyToolTab:AddSubTab("Hangar", "Hangar")
+        if HangarTab then
+            HangarTab:AddSeperator("Sale")
+            HangarTab:AddFeature(hangarPrice.hash)
+            HangarTab:AddFeature(hangarNoXp.hash)
+            HangarTab:AddFeature(hangarSell.hash)
+
+            HangarTab:AddSeperator("Misc")
+            HangarTab:AddFeature(hangarOpen.hash)
+            HangarTab:AddFeature(hangarSupply.hash)
+            HangarTab:AddFeature(hangarSupplier.hash)
+            HangarTab:AddFeature(hangarCooldown.hash)
+
+            HangarTab:AddSeperator("Stats")
+            HangarTab:AddFeature(hangarBuyMade.hash)
+            HangarTab:AddFeature(hangarBuyUndertaken.hash)
+            HangarTab:AddFeature(hangarSellMade.hash)
+            HangarTab:AddFeature(hangarSellUndertaken.hash)
+            HangarTab:AddFeature(hangarEarnings.hash)
+            HangarTab:AddFeature(hangarNoBuy.hash)
+            HangarTab:AddFeature(hangarNoSell.hash)
+            HangarTab:AddFeature(hangarNoEarnings.hash)
+            HangarTab:AddFeature(hangarApply.hash)
+        end
+
+        local NightclubTab = MoneyToolTab:AddSubTab("Nightclub", "Nightclub")
+        if NightclubTab then
+            NightclubTab:AddSeperator("Sale")
+            NightclubTab:AddFeature(nightclubPrice.hash)
+
+            NightclubTab:AddSeperator("Safe")
+            NightclubTab:AddFeature(nightclubFill.hash)
+            NightclubTab:AddFeature(nightclubCollect.hash)
+
+            NightclubTab:AddSeperator("Misc")
+            NightclubTab:AddFeature(nightclubOpen.hash)
+            NightclubTab:AddFeature(nightclubTrigger.hash)
+            NightclubTab:AddFeature(nightclubSupplier.hash)
+            NightclubTab:AddFeature(nightclubCooldown.hash)
+
+            NightclubTab:AddSeperator("Popularity")
+            NightclubTab:AddFeature(nightclubMax.hash)
+            NightclubTab:AddFeature(nightclubMin.hash)
+
+            NightclubTab:AddSeperator("Stats")
+            NightclubTab:AddFeature(nightclubSellMade.hash)
+            NightclubTab:AddFeature(nightclubEarnings.hash)
+            NightclubTab:AddFeature(nightclubNoSell.hash)
+            NightclubTab:AddFeature(nightclubNoEarnings.hash)
+            NightclubTab:AddFeature(nightclubApply.hash)
+        end
+
+        local SpecialCargoTab = MoneyToolTab:AddSubTab("Special Cargo", "Special Cargo")
+        if SpecialCargoTab then
+            SpecialCargoTab:AddSeperator("Sale")
+            SpecialCargoTab:AddFeature(specialPrice.hash)
+            SpecialCargoTab:AddFeature(specialNoXp.hash)
+            SpecialCargoTab:AddFeature(specialNoCrateback.hash)
+            SpecialCargoTab:AddFeature(specialSell.hash)
+
+            SpecialCargoTab:AddSeperator("Misc")
+            SpecialCargoTab:AddFeature(specialOpen.hash)
+            SpecialCargoTab:AddFeature(specialSupply.hash)
+            SpecialCargoTab:AddFeature(specialSelect.hash)
+            SpecialCargoTab:AddFeature(specialBuy.hash)
+            SpecialCargoTab:AddFeature(specialSupplier.hash)
+            SpecialCargoTab:AddFeature(specialCooldown.hash)
+
+            SpecialCargoTab:AddSeperator("Stats")
+            SpecialCargoTab:AddFeature(specialBuyMade.hash)
+            SpecialCargoTab:AddFeature(specialBuyUndertaken.hash)
+            SpecialCargoTab:AddFeature(specialSellMade.hash)
+            SpecialCargoTab:AddFeature(specialSellUndertaken.hash)
+            SpecialCargoTab:AddFeature(specialEarnings.hash)
+            SpecialCargoTab:AddFeature(specialNoBuy.hash)
+            SpecialCargoTab:AddFeature(specialNoSell.hash)
+            SpecialCargoTab:AddFeature(specialNoEarnings.hash)
+            SpecialCargoTab:AddFeature(specialApply.hash)
+        end
+
+        local MiscTab = MoneyToolTab:AddSubTab("Misc", "Misc")
+        if MiscTab then
+            local EasyMoneyTab = MiscTab:AddSubTab("Easy Money", "Easy Money")
+            EasyMoneyTab:AddFeature(easyGive40m.hash)
+            EasyMoneyTab:AddFeature(easyLoop5k.hash)
+            EasyMoneyTab:AddFeature(easyLoop50k.hash)
+            EasyMoneyTab:AddFeature(easyLoop100k.hash)
+            EasyMoneyTab:AddFeature(easyLoop180k.hash)
+            EasyMoneyTab:AddFeature(easyLoop300k.hash)
+
+            MiscTab:AddSeperator("Edit")
+            MiscTab:AddFeature(miscEditSelect.hash)
+            MiscTab:AddFeature(miscEditDeposit.hash)
+            MiscTab:AddFeature(miscEditWithdraw.hash)
+            MiscTab:AddFeature(miscEditRemove.hash)
+            MiscTab:AddFeature(miscEditDepositAll.hash)
+            MiscTab:AddFeature(miscEditWithdrawAll.hash)
+
+            MiscTab:AddSeperator("Story")
+            MiscTab:AddFeature(miscStorySelect.hash)
+            MiscTab:AddFeature(miscStoryCharacter.hash)
+            MiscTab:AddFeature(miscStoryApply.hash)
+
+            MiscTab:AddSeperator("Stats")
+            MiscTab:AddFeature(miscStatsSelect.hash)
+            MiscTab:AddFeature(miscStatsEarned.hash)
+            MiscTab:AddFeature(miscStatsSpent.hash)
+            MiscTab:AddFeature(miscStatsApply.hash)
+        end
+    end
+
+    local SettingsTab = SilentNightTab:AddSubTab("Settings", "Settings")
+    if SettingsTab then
+        SettingsTab:AddSeperator("Discord")
+        SettingsTab:AddFeature(settingsDiscordLink.hash)
+    end
+end
+
+RenderListGUI()

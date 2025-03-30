@@ -92,8 +92,8 @@ end
 
 function GetPokerPlayersCount()
     local currentTable = eLocal.World.Casino.Poker.CurrentTable:Get()
-    local table        = eLocal.World.Casino.Poker.Table.vLocal 
-    local tableSize    = eLocal.World.Casino.Poker.TableSize.vLocal 
+    local table        = eLocal.World.Casino.Poker.Table.vLocal
+    local tableSize    = eLocal.World.Casino.Poker.TableSize.vLocal
     local players      = 0
 	for i = 0, 31 do
 		local playersTable = ScriptLocal.GetInt(eScript.World.Casino.Poker.hash, table + 1 + (i * tableSize) + 2)

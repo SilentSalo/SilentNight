@@ -1,3 +1,9 @@
+function ApartmentCutSetter()
+    if FeatureMgr.GetFeatureListIndex(apartmentPresets.hash) + 1 == 4 then
+        
+    end
+end
+
 function DiamondAutograbber()
     if FeatureMgr.GetFeature(diamondAutograbber.hash):IsToggled() then
         diamondAutograbber.func()
@@ -47,6 +53,7 @@ function ReAssign()
     eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845281 + 1 + (PLAYER_ID * 883) + 268 + 358 + 5            }
     eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76                    }
     eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76                        }
+    eGlobal.Heist.Apartment.HeistType      = { type = "int", global = 1877417 + (PLAYER_ID * 77) + 24 + 2                        }
     eGlobal.Player.Property                = { type = "int", global = 2657971 + 1 + (PLAYER_ID * 465) + 322 + 8                  }
     eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 767 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
     eLocal.World.Casino.Blackjack          = {
@@ -104,6 +111,7 @@ function ReParse()
 end
 
 Script.RegisterLooped(function()
+    ApartmentCutSetter()
     DiamondAutograbber()
     TurkishSupplier()
     PriceMaximizer()

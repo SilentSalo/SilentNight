@@ -60,20 +60,16 @@ eTable = {
                 { name = "Duo",   index = 2 },
                 { name = "Squad", index = 4 }
             },
-            Receivers = { 
+            Receivers = {
                 { name = "All",       index = 0 },
                 { name = "Only Crew", index = 1 },
                 { name = "Only Me",   index = 2 }
             },
             Presets = {
-                { name = "All - 0%",           index = 0    },
-                { name = "All - 85%",          index = 85   },
-                { name = "All - 100%",         index = 100  },
-                { name = "Fleeca J. - 7453%",  index = 7453 },
-                { name = "Prison B. - 2142%",  index = 2142 },
-                { name = "Hum. L. - 1587%",    index = 1587 },
-                { name = "Series A - 2121%",   index = 2121 },
-                { name = "Pacific J. - 1000%", index = 1000 }
+                { name = "All - 0%",     index = 0   },
+                { name = "All - 85%",    index = 85  },
+                { name = "All - 100%",   index = 100 },
+                { name = "15mil Payout", index = -1  }
             }
         },
         AutoShop = {
@@ -200,25 +196,25 @@ eTable = {
                 { name = "Micro SMG",         index = 1 },
                 { name = "Double Barrel",     index = 1 },
                 { name = "Sawed-Off",         index = 1 },
-                { name = "Heavy Revolver",    index = 1 },	 	
+                { name = "Heavy Revolver",    index = 1 },
                 { name = "Assault SMG (S)",   index = 3 },
                 { name = "Bullpup Sh. (S)",   index = 3 },
                 { name = "Machine Pistol",    index = 3 },
                 { name = "Sweeper Shot.",     index = 3 },
                 { name = "Assault SMG",       index = 3 },
-                { name = "Pump Shotgun",      index = 3 },	 	
+                { name = "Pump Shotgun",      index = 3 },
                 { name = "Combat PDW",        index = 5 },
                 { name = "Assault Rif. (S)",  index = 5 },
                 { name = "Sawed-Off",         index = 5 },
                 { name = "Compact Rifle",     index = 5 },
                 { name = "Heavy Shotgun",     index = 5 },
-                { name = "Combat MG",         index = 5 },	 	
+                { name = "Combat MG",         index = 5 },
                 { name = "Carbine Rif. (S)",  index = 2 },
                 { name = "Assault Shot. (S)", index = 2 },
                 { name = "Carbine Rifle",     index = 2 },
                 { name = "Assault Shotgun",   index = 2 },
                 { name = "Carbine Rifle",     index = 2 },
-                { name = "Assault Shotgun",   index = 2 },	 	
+                { name = "Assault Shotgun",   index = 2 },
                 { name = "Pump Sh. II (S)",   index = 4 },
                 { name = "Carbine R. II (S)", index = 4 },
                 { name = "SMG Mk II",         index = 4 },

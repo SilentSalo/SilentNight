@@ -1,4 +1,4 @@
-FeatureMgr.AddFeature(autoContract.hash, autoContract.name, autoContract.type, autoContract.desc, function(f) 
+FeatureMgr.AddFeature(autoContract.hash, autoContract.name, autoContract.type, autoContract.desc, function(f)
 end)
     :SetList(autoContract.list:GetNames())
 

@@ -1,16 +1,16 @@
-FeatureMgr.AddFeature(cayoDifficulty.hash, cayoDifficulty.name, cayoDifficulty.type, cayoDifficulty.desc, function(f) 
+FeatureMgr.AddFeature(cayoDifficulty.hash, cayoDifficulty.name, cayoDifficulty.type, cayoDifficulty.desc, function(f)
 end)
     :SetList(cayoDifficulty.list:GetNames())
 
-FeatureMgr.AddFeature(cayoApproach.hash, cayoApproach.name, cayoApproach.type, cayoApproach.desc, function(f) 
+FeatureMgr.AddFeature(cayoApproach.hash, cayoApproach.name, cayoApproach.type, cayoApproach.desc, function(f)
 end)
     :SetList(cayoApproach.list:GetNames())
 
-FeatureMgr.AddFeature(cayoLoadout.hash, cayoLoadout.name, cayoLoadout.type, cayoLoadout.desc, function(f) 
+FeatureMgr.AddFeature(cayoLoadout.hash, cayoLoadout.name, cayoLoadout.type, cayoLoadout.desc, function(f)
 end)
-    :SetList(cayoLoadout.list:GetNames())    
+    :SetList(cayoLoadout.list:GetNames())
 
-FeatureMgr.AddFeature(cayoPrimaryTarget.hash, cayoPrimaryTarget.name, cayoPrimaryTarget.type, cayoPrimaryTarget.desc, function(f) 
+FeatureMgr.AddFeature(cayoPrimaryTarget.hash, cayoPrimaryTarget.name, cayoPrimaryTarget.type, cayoPrimaryTarget.desc, function(f)
 end)
     :SetList(cayoPrimaryTarget.list:GetNames())
 
@@ -19,32 +19,32 @@ FeatureMgr.AddFeature(cayoCompoundTarget.hash, cayoCompoundTarget.name, cayoComp
         FeatureMgr.GetFeature(cayoCompoundAmount.hash):SetListIndex(0)
     end
 end)
-    :SetList(cayoCompoundTarget.list:GetNames())    
+    :SetList(cayoCompoundTarget.list:GetNames())
 
 FeatureMgr.AddFeature(cayoCompoundAmount.hash, cayoCompoundAmount.name, cayoCompoundAmount.type, cayoCompoundAmount.desc, function(f)
     if f:GetListIndex() == 0 then
         FeatureMgr.GetFeature(cayoCompoundTarget.hash):SetListIndex(0)
     end
 end)
-    :SetList(cayoCompoundAmount.list:GetNames())    
-    
-FeatureMgr.AddFeature(cayoArtsAmount.hash, cayoArtsAmount.name, cayoArtsAmount.type, cayoArtsAmount.desc, function(f) 
-end)
-    :SetList(cayoArtsAmount.list:GetNames())     
+    :SetList(cayoCompoundAmount.list:GetNames())
 
-FeatureMgr.AddFeature(cayoIslandTarget.hash, cayoIslandTarget.name, cayoIslandTarget.type, cayoIslandTarget.desc, function(f) 
+FeatureMgr.AddFeature(cayoArtsAmount.hash, cayoArtsAmount.name, cayoArtsAmount.type, cayoArtsAmount.desc, function(f)
+end)
+    :SetList(cayoArtsAmount.list:GetNames())
+
+FeatureMgr.AddFeature(cayoIslandTarget.hash, cayoIslandTarget.name, cayoIslandTarget.type, cayoIslandTarget.desc, function(f)
     if f:GetListIndex() == 0 then
         FeatureMgr.GetFeature(cayoIslandAmount.hash):SetListIndex(0)
     end
 end)
-    :SetList(cayoIslandTarget.list:GetNames())    
+    :SetList(cayoIslandTarget.list:GetNames())
 
-FeatureMgr.AddFeature(cayoIslandAmount.hash, cayoIslandAmount.name, cayoIslandAmount.type, cayoIslandAmount.desc, function(f) 
+FeatureMgr.AddFeature(cayoIslandAmount.hash, cayoIslandAmount.name, cayoIslandAmount.type, cayoIslandAmount.desc, function(f)
     if f:GetListIndex() == 0 then
         FeatureMgr.GetFeature(cayoIslandTarget.hash):SetListIndex(0)
     end
 end)
-    :SetList(cayoIslandAmount.list:GetNames())         
+    :SetList(cayoIslandAmount.list:GetNames())
 
 FeatureMgr.AddFeature(cayoComplete.hash, cayoComplete.name, cayoComplete.type, cayoComplete.desc, function(f)
     local difficulty     = cayoDifficulty.list[FeatureMgr.GetFeatureListIndex(cayoDifficulty.hash) + 1].index
@@ -95,11 +95,11 @@ FeatureMgr.AddFeature(cayoTeamCooldown.hash, cayoTeamCooldown.name, cayoTeamCool
     cayoTeamCooldown.func()
 end)
 
-FeatureMgr.AddFeature(cayoOffline.hash, cayoOffline.name, cayoOffline.type, cayoOffline.desc, function()
+FeatureMgr.AddFeature(cayoOffline.hash, cayoOffline.name, cayoOffline.type, cayoOffline.desc, function(f)
     cayoOffline.func()
 end)
 
-FeatureMgr.AddFeature(cayoOnline.hash, cayoOnline.name, cayoOnline.type, cayoOnline.desc, function()
+FeatureMgr.AddFeature(cayoOnline.hash, cayoOnline.name, cayoOnline.type, cayoOnline.desc, function(f)
     cayoOnline.func()
 end)
 

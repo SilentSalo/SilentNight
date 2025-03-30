@@ -49,11 +49,23 @@ end)
 FeatureMgr.AddFeature(apartmentPresets.hash, apartmentPresets.name, apartmentPresets.type, apartmentPresets.desc, function(f)
     local team   = apartmentTeam.list[FeatureMgr.GetFeatureListIndex(apartmentTeam.hash) + 1].index
     local preset = apartmentPresets.list[FeatureMgr.GetFeatureListIndex(apartmentPresets.hash) + 1].index
+    local heist  = eGlobal.Heist.Apartment.HeistType:Get()
+    local cuts   = {
+        [1328892776] = 7453,
+        [964111671]  = 2142,
+        [1131632450] = 1587,
+        [1967927346] = 2121,
+        [1182286714] = 1000
+    }
+    if cuts[heist] == nil then
+        FeatureMgr.GetFeature(apartmentPresets.hash):SetListIndex(0)
+        return
+    end
     for i = 1, 4 do
         FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(0)
     end
     for i = 1, team do
-        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(preset)
+        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue((preset == -1) and cuts[heist] or preset)
     end
 end)
     :SetList(apartmentPresets.list.GetNames())

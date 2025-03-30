@@ -2,7 +2,7 @@ eTunable = {
     HAS_PARSED = false,
     Business = {
         Bunker = {
-            Product = { 
+            Product = {
                 Value             = { type = "int", tunable = "GR_MANU_PRODUCT_VALUE",                   defaultValue = 5000 },
                 StaffUpgraded     = { type = "int", tunable = "GR_MANU_PRODUCT_VALUE_STAFF_UPGRADE",     defaultValue = 1000 },
                 EquipmentUpgraded = { type = "int", tunable = "GR_MANU_PRODUCT_VALUE_EQUIPMENT_UPGRADE", defaultValue = 1000 }
@@ -14,7 +14,7 @@ eTunable = {
                     EquipmentUpgraded = { type = "int", tunable = "GR_RESEARCH_UPGRADE_EQUIPMENT_REDUCTION_TIME", defaultValue = 45000 },
                     StaffUpgraded     = { type = "int", tunable = "GR_RESEARCH_UPGRADE_STAFF_REDUCTION_TIME",     defaultValue = 45000 }
                 },
-                MaterialProduct = 
+                MaterialProduct =
                 {
                     Cost         = { type = "int", tunable = "GR_RESEARCH_MATERIAL_PRODUCT_COST",                   defaultValue = 2 },
                     CostUpgraded = { type = "int", tunable = "GR_RESEARCH_MATERIAL_PRODUCT_COST_UPGRADE_REDUCTION", defaultValue = 1 }
@@ -25,8 +25,8 @@ eTunable = {
                 ProductFar   = { type = "float", tunable = "BIKER_SELL_PRODUCT_FAR_MODIFIER",   defaultValue = 1.5 }
             }
         },
-        CrateWarehouse = { 
-            Price = { 
+        CrateWarehouse = {
+            Price = {
                 Threshold1  = { type = "int", tunable = "EXEC_CONTRABAND_SALE_VALUE_THRESHOLD1",  defaultValue = 10000 },
                 Threshold2  = { type = "int", tunable = "EXEC_CONTRABAND_SALE_VALUE_THRESHOLD2",  defaultValue = 11000 },
                 Threshold3  = { type = "int", tunable = "EXEC_CONTRABAND_SALE_VALUE_THRESHOLD3",  defaultValue = 12000 },

@@ -6,7 +6,7 @@ for i = 1, 3 do
     FeatureMgr.AddFeature(salvageSlotsVehicle[i].hash, salvageSlotsVehicle[i].name, salvageSlotsVehicle[i].type, salvageSlotsVehicle[i].desc, function(f)
     end)
         :SetList(salvageSlotsVehicle[i].list:GetNames())
-    
+
     FeatureMgr.AddFeature(salvageSlotsMod[i].hash, salvageSlotsMod[i].name, salvageSlotsMod[i].type, salvageSlotsMod[i].desc, function(f)
     end)
         :SetList(salvageSlotsMod[i].list:GetNames())
@@ -14,7 +14,7 @@ for i = 1, 3 do
     FeatureMgr.AddFeature(salvageSlotsKeep[i].hash, salvageSlotsKeep[i].name, salvageSlotsKeep[i].type, salvageSlotsKeep[i].desc, function(f)
     end)
         :SetList(salvageSlotsKeep[i].list:GetNames())
-    
+
     FeatureMgr.AddFeature(salvageSlotsApply[i].hash, salvageSlotsApply[i].name, salvageSlotsApply[i].type, salvageSlotsApply[i].desc, function(f)
         local robbery      = salvageSlotsRobbery[i].list[FeatureMgr.GetFeatureListIndex(salvageSlotsRobbery[i].hash) + 1].index
         local vehicle      = salvageSlotsVehicle[i].list[FeatureMgr.GetFeatureListIndex(salvageSlotsVehicle[i].hash) + 1].index
@@ -80,7 +80,7 @@ end)
     :SetStepSize(0.1)
     :Reset()
 
-for i = 1, 3 do 
+for i = 1, 3 do
     FeatureMgr.AddFeature(salvageSlotsValue[i].hash, salvageSlotsValue[i].name, salvageSlotsValue[i].type, salvageSlotsValue[i].desc, function(f)
     end)
         :SetDefaultValue(0)

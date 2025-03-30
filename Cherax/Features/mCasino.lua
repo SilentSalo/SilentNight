@@ -2,60 +2,60 @@ FeatureMgr.AddFeature(casinoLuckyWheelSelect.hash, casinoLuckyWheelSelect.name, 
 end)
     :SetList(casinoLuckyWheelSelect.list:GetNames())
 
-FeatureMgr.AddFeature(casinoLuckyWheelGive.hash, casinoLuckyWheelGive.name, casinoLuckyWheelGive.type, casinoLuckyWheelGive.desc, function(f)  
+FeatureMgr.AddFeature(casinoLuckyWheelGive.hash, casinoLuckyWheelGive.name, casinoLuckyWheelGive.type, casinoLuckyWheelGive.desc, function(f)
     local prize = casinoLuckyWheelSelect.list[FeatureMgr.GetFeatureListIndex(casinoLuckyWheelSelect.hash) + 1].index
     casinoLuckyWheelGive.func(prize)
 end)
 
-FeatureMgr.AddFeature(casinoSlotsWin.hash, casinoSlotsWin.name, casinoSlotsWin.type, casinoSlotsWin.desc, function(f) 
+FeatureMgr.AddFeature(casinoSlotsWin.hash, casinoSlotsWin.name, casinoSlotsWin.type, casinoSlotsWin.desc, function(f)
     casinoSlotsWin.func()
 end)
 
-FeatureMgr.AddFeature(casinoSlotsLose.hash, casinoSlotsLose.name, casinoSlotsLose.type, casinoSlotsLose.desc, function(f) 
+FeatureMgr.AddFeature(casinoSlotsLose.hash, casinoSlotsLose.name, casinoSlotsLose.type, casinoSlotsLose.desc, function(f)
     casinoSlotsLose.func()
 end)
 
-FeatureMgr.AddFeature(casinoRouletteLand13.hash, casinoRouletteLand13.name, casinoRouletteLand13.type, casinoRouletteLand13.desc, function(f)   
+FeatureMgr.AddFeature(casinoRouletteLand13.hash, casinoRouletteLand13.name, casinoRouletteLand13.type, casinoRouletteLand13.desc, function(f)
     casinoRouletteLand13.func()
 end)
 
-FeatureMgr.AddFeature(casinoRouletteLand16.hash, casinoRouletteLand16.name, casinoRouletteLand16.type, casinoRouletteLand16.desc, function(f)   
+FeatureMgr.AddFeature(casinoRouletteLand16.hash, casinoRouletteLand16.name, casinoRouletteLand16.type, casinoRouletteLand16.desc, function(f)
     casinoRouletteLand16.func()
 end)
 
-FeatureMgr.AddFeature(casinoBlackjackCard.hash, casinoBlackjackCard.name, casinoBlackjackCard.type, casinoBlackjackCard.desc, function(f)    
+FeatureMgr.AddFeature(casinoBlackjackCard.hash, casinoBlackjackCard.name, casinoBlackjackCard.type, casinoBlackjackCard.desc, function(f)
 end)
 
-FeatureMgr.AddFeature(casinoBlackjackReveal.hash, casinoBlackjackReveal.name, casinoBlackjackReveal.type, casinoBlackjackReveal.desc, function(f) 
+FeatureMgr.AddFeature(casinoBlackjackReveal.hash, casinoBlackjackReveal.name, casinoBlackjackReveal.type, casinoBlackjackReveal.desc, function(f)
     casinoBlackjackReveal.func()
 end)
 
-FeatureMgr.AddFeature(casinoBlackjackTrick.hash, casinoBlackjackTrick.name, casinoBlackjackTrick.type, casinoBlackjackTrick.desc, function(f)   
+FeatureMgr.AddFeature(casinoBlackjackTrick.hash, casinoBlackjackTrick.name, casinoBlackjackTrick.type, casinoBlackjackTrick.desc, function(f)
     casinoBlackjackTrick.func()
     casinoBlackjackReveal.func()
 end)
 
-FeatureMgr.AddFeature(casinoPokerMyCards.hash, casinoPokerMyCards.name, casinoPokerMyCards.type, casinoPokerMyCards.desc, function(f)    
+FeatureMgr.AddFeature(casinoPokerMyCards.hash, casinoPokerMyCards.name, casinoPokerMyCards.type, casinoPokerMyCards.desc, function(f)
 end)
 
-FeatureMgr.AddFeature(casinoPokerCards.hash, casinoPokerCards.name, casinoPokerCards.type, casinoPokerCards.desc, function(f)    
+FeatureMgr.AddFeature(casinoPokerCards.hash, casinoPokerCards.name, casinoPokerCards.type, casinoPokerCards.desc, function(f)
 end)
 
-FeatureMgr.AddFeature(casinoPokerReveal.hash, casinoPokerReveal.name, casinoPokerReveal.type, casinoPokerReveal.desc, function(f) 
+FeatureMgr.AddFeature(casinoPokerReveal.hash, casinoPokerReveal.name, casinoPokerReveal.type, casinoPokerReveal.desc, function(f)
     casinoPokerReveal.func()
 end)
 
-FeatureMgr.AddFeature(casinoPokerGive.hash, casinoPokerGive.name, casinoPokerGive.type, casinoPokerGive.desc, function(f)   
+FeatureMgr.AddFeature(casinoPokerGive.hash, casinoPokerGive.name, casinoPokerGive.type, casinoPokerGive.desc, function(f)
     casinoPokerGive.func()
     casinoPokerReveal.func()
 end)
 
-FeatureMgr.AddFeature(casinoPokerTrick.hash, casinoPokerTrick.name, casinoPokerTrick.type, casinoPokerTrick.desc, function(f)   
+FeatureMgr.AddFeature(casinoPokerTrick.hash, casinoPokerTrick.name, casinoPokerTrick.type, casinoPokerTrick.desc, function(f)
     casinoPokerTrick.func()
     casinoPokerReveal.func()
 end)
 
-FeatureMgr.AddFeature(casinoBypass.hash, casinoBypass.name, casinoBypass.type, casinoBypass.desc, function(f) 
+FeatureMgr.AddFeature(casinoBypass.hash, casinoBypass.name, casinoBypass.type, casinoBypass.desc, function(f)
     casinoBypass.func()
 end)
 
@@ -69,4 +69,4 @@ end)
 FeatureMgr.AddFeature(casinoApply.hash, casinoApply.name, casinoApply.type, casinoApply.desc, function(f)
     local limit = FeatureMgr.GetFeature(casinoSelect.hash):GetIntValue()
     casinoApply.func(limit)
-end)  
+end)

@@ -8,8 +8,8 @@ eGlobal = {
         },
         Bunker = {
             Production = {
-                Trigger1 = { type = "int",  global = 2707577 + 1 + 5 * 2     },
-                Trigger2 = { type = "bool", global = 2707577 + 1 + 5 * 2 + 1 }
+                Trigger1 = { type = "int",  global = 2707927 + 1 + 5 * 2     },
+                Trigger2 = { type = "bool", global = 2707927 + 1 + 5 * 2 + 1 }
             },
             Multiplier = { type = "float", global = 262145 + 18875 }
         },
@@ -62,15 +62,16 @@ eGlobal = {
                     Local  = { type = "int", global = 1931285 + 3008 + 4 }
                 }
             },
-            Ready  = { 
+            Ready  = {
                 Player1 = { type = "int", global = 2657991 + 1 + (0 * 467) + 269 },
                 Player2 = { type = "int", global = 2657991 + 1 + (1 * 467) + 269 },
                 Player3 = { type = "int", global = 2657991 + 1 + (2 * 467) + 269 },
                 Player4 = { type = "int", global = 2657991 + 1 + (3 * 467) + 269 }
             },
-            Reload   = { type = "int", global = 1929352                                 },
-            Jobs     = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76 },
-            Cooldown = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76     }
+            Reload    = { type = "int", global = 1929352                                 },
+            Jobs      = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76 },
+            Cooldown  = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76     },
+            HeistType = { type = "int", global = 1877417 + (PLAYER_ID * 77) + 24 + 2     }
         },
         CayoPerico = {
             Cut = {
@@ -79,7 +80,7 @@ eGlobal = {
                 Player3 = { type = "int", global = 1972414 + 831 + 56 + 3 },
                 Player4 = { type = "int", global = 1972414 + 831 + 56 + 4 }
             },
-            Ready  = { 
+            Ready  = {
                 Player1 = { type = "int", global = 1973526 + 1 + (0 * 27) + 7 + 1 },
                 Player2 = { type = "int", global = 1973526 + 1 + (1 * 27) + 7 + 2 },
                 Player3 = { type = "int", global = 1973526 + 1 + (2 * 27) + 7 + 3 },
@@ -93,7 +94,7 @@ eGlobal = {
                 Player3 = { type = "int", global = 1965614 + 1497 + 736 + 92 + 3 },
                 Player4 = { type = "int", global = 1965614 + 1497 + 736 + 92 + 4 }
             },
-            Ready  = { 
+            Ready  = {
                 Player1 = { type = "int", global = 1969977 + 1 + (0 * 68) + 7 + 1 },
                 Player2 = { type = "int", global = 1969977 + 1 + (1 * 68) + 7 + 2 },
                 Player3 = { type = "int", global = 1969977 + 1 + (2 * 68) + 7 + 3 },
@@ -107,7 +108,7 @@ eGlobal = {
                 Player3 = { type = "int", global = 1961513 + 812 + 50 + 3 },
                 Player4 = { type = "int", global = 1961513 + 812 + 50 + 4 }
             },
-            Ready  = { 
+            Ready  = {
                 Player1 = { type = "int", global = 1882780 + 1 + (0 * 146) + 43 + 11 + 1 },
                 Player2 = { type = "int", global = 1882780 + 1 + (1 * 146) + 43 + 11 + 2 },
                 Player3 = { type = "int", global = 1882780 + 1 + (2 * 146) + 43 + 11 + 3 },
