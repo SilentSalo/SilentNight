@@ -1782,7 +1782,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Hangar_Sell"),
                     name = "Instant Air Cargo Sell",
                     type = eFeatureType.Button,
-                    desc = "Finishes the air cargo sell mission instantly. Select total delivered value first.",
+                    desc = "Finishes the air cargo sell mission instantly.",
                     func = function(bool)
                         eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
                         eLocal.Business.Hangar.Sell.Finish:Set(eLocal.Business.Hangar.Delivered:Get())
