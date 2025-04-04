@@ -76,7 +76,7 @@ eLocal = {
         },
         CayoPerico = {
             Bypass = {
-                FingerprintHack = { type = "int",   vLocal = 26407,     script = "fm_mission_controller_2020" },
+                FingerprintHack = { type = "int",   vLocal = 25388,     script = "fm_mission_controller_2020" },
                 PlasmaCutterCut = { type = "float", vLocal = 31451 + 3, script = "fm_mission_controller_2020" },
                 DrainagePipeCut = { type = "int",   vLocal = 30212,     script = "fm_mission_controller_2020" },
             },

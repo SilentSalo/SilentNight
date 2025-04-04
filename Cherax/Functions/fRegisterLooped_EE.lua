@@ -1,3 +1,15 @@
+function ApartmentCooldownKiller()
+    if FeatureMgr.GetFeature(apartmentCooldown.hash):IsToggled() then
+        apartmentCooldown.func()
+    end
+end
+
+function Apartment15milPayoutSetter()
+    if FeatureMgr.GetFeatureListIndex(apartmentPresets.hash) == 3 then
+        apartmentPresets.func()
+    end
+end
+
 function DiamondAutograbber()
     if FeatureMgr.GetFeature(diamondAutograbber.hash):IsToggled() then
         diamondAutograbber.func()
@@ -44,10 +56,10 @@ end
 function ReAssign()
     PLAYER_ID                              = GTA.GetLocalPlayerId()
     eGlobal.Business.CrateWarehouse.Slot   = { type = "int", global = 1845270 + 1 + (PLAYER_ID * 892) + 268 + 120 + 1 + (0 * 3)  }
-    eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845270 + 1 + (PLAYER_ID * 883) + 268 + 358 + 5            }
-    eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1929794 + 1 + (PLAYER_ID * 77 + 1) + 76                    }
-    eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1929794 + 1 + (PLAYER_ID * 77) + 76                        }
-    eGlobal.Heist.Apartment.HeistType      = { type = "int", global = 1877562 + (PLAYER_ID * 77) + 24 + 2                        }
+    eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845270 + 1 + (PLAYER_ID * 892) + 268 + 360 + 5            }
+    eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77 + 1) + 76                    }
+    eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77) + 76                        }
+    eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1877562 + (PLAYER_ID * 77) + 24 + 2                        }
     eGlobal.Player.Property                = { type = "int", global = 2657994 + 1 + (PLAYER_ID * 465) + 322 + 8                  }
     eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 769 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
     eLocal.World.Casino.Blackjack          = {
@@ -105,6 +117,8 @@ function ReParse()
 end
 
 Script.RegisterLooped(function()
+    ApartmentCooldownKiller()
+    Apartment15milPayoutSetter()
     DiamondAutograbber()
     TurkishSupplier()
     PriceMaximizer()

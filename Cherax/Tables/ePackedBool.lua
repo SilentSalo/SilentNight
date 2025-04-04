@@ -6,6 +6,13 @@ ePackedBool = {
         },
         Hangar = {
             Cargo = { 36828 }
+        },
+        Nightclub = {
+            Setup = {
+                Staff     = { 18161 },
+                Equipment = { 22067 },
+                DJ        = { 22068 }
+            }
         }
     },
     Clothes = {

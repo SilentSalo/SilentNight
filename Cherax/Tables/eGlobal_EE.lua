@@ -3,7 +3,7 @@ eGlobal = {
     Business = {
         Base = {
             OrbitalCannon = {
-                Refund = { type = "int", global = 1963558 }
+                Refund = { type = "int", global = 1963560 }
             }
         },
         Bunker = {
@@ -39,7 +39,7 @@ eGlobal = {
         Generic = {
             Launch1 = { type = "int", global = 4718592 + 3526       },
             Launch2 = { type = "int", global = 4718592 + 3527       },
-            Launch3 = { type = "int", global = 4718592 + 3259 + 1   },
+            Launch3 = { type = "int", global = 4718592 + 3529 + 1   },
             Launch4 = { type = "int", global = 4718592 + 187365 + 1 },
             Cut     = { type = "int", global = 2685663 + 6662       }
         },
@@ -68,45 +68,48 @@ eGlobal = {
                 Player3 = { type = "int", global = 2657994 + 1 + (2 * 467) + 269 },
                 Player4 = { type = "int", global = 2657994 + 1 + (3 * 467) + 269 }
             },
-            Reload    = { type = "int", global = 1929829                                 },
-            Jobs      = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77 + 1) + 76 },
-            Cooldown  = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77) + 76     },
-            HeistType = { type = "int", global = 1877562 + (PLAYER_ID * 77) + 24 + 2     }
+            Reload   = { type = "int", global = 1929829                                 },
+            Jobs     = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77 + 1) + 76 },
+            Cooldown = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77) + 76     },
+            Heist    = {
+                Type       = { type = "int", global = 1877562 + (PLAYER_ID * 77) + 24 + 2 },
+                Difficulty = { type = "int", global = 4718592 + 3525                      }
+            }
         },
         CayoPerico = {
             Cut = {
-                Player1 = { type = "int", global = 1973696 + 831 + 56 + 1 },
-                Player2 = { type = "int", global = 1973696 + 831 + 56 + 2 },
-                Player3 = { type = "int", global = 1973696 + 831 + 56 + 3 },
-                Player4 = { type = "int", global = 1973696 + 831 + 56 + 4 }
+                Player1 = { type = "int", global = 1973698 + 831 + 56 + 1 },
+                Player2 = { type = "int", global = 1973698 + 831 + 56 + 2 },
+                Player3 = { type = "int", global = 1973698 + 831 + 56 + 3 },
+                Player4 = { type = "int", global = 1973698 + 831 + 56 + 4 }
             },
             Ready  = {
-                Player1 = { type = "int", global = 1974808 + 1 + (0 * 27) + 7 + 1 },
-                Player2 = { type = "int", global = 1974808 + 1 + (1 * 27) + 7 + 2 },
-                Player3 = { type = "int", global = 1974808 + 1 + (2 * 27) + 7 + 3 },
-                Player4 = { type = "int", global = 1974808 + 1 + (3 * 27) + 7 + 4 }
+                Player1 = { type = "int", global = 1974810 + 1 + (0 * 27) + 7 + 1 },
+                Player2 = { type = "int", global = 1974810 + 1 + (1 * 27) + 7 + 2 },
+                Player3 = { type = "int", global = 1974810 + 1 + (2 * 27) + 7 + 3 },
+                Player4 = { type = "int", global = 1974810 + 1 + (3 * 27) + 7 + 4 }
             }
         },
         DiamondCasino = {
             Cut = {
-                Player1 = { type = "int", global = 1966896 + 1497 + 736 + 92 + 1 },
-                Player2 = { type = "int", global = 1966896 + 1497 + 736 + 92 + 2 },
-                Player3 = { type = "int", global = 1966896 + 1497 + 736 + 92 + 3 },
-                Player4 = { type = "int", global = 1966896 + 1497 + 736 + 92 + 4 }
+                Player1 = { type = "int", global = 1966898 + 1497 + 736 + 92 + 1 },
+                Player2 = { type = "int", global = 1966898 + 1497 + 736 + 92 + 2 },
+                Player3 = { type = "int", global = 1966898 + 1497 + 736 + 92 + 3 },
+                Player4 = { type = "int", global = 1966898 + 1497 + 736 + 92 + 4 }
             },
             Ready  = {
-                Player1 = { type = "int", global = 1971259 + 1 + (0 * 68) + 7 + 1 },
-                Player2 = { type = "int", global = 1971259 + 1 + (1 * 68) + 7 + 2 },
-                Player3 = { type = "int", global = 1971259 + 1 + (2 * 68) + 7 + 3 },
-                Player4 = { type = "int", global = 1971259 + 1 + (3 * 68) + 7 + 4 }
+                Player1 = { type = "int", global = 1971261 + 1 + (0 * 68) + 7 + 1 },
+                Player2 = { type = "int", global = 1971261 + 1 + (1 * 68) + 7 + 2 },
+                Player3 = { type = "int", global = 1971261 + 1 + (2 * 68) + 7 + 3 },
+                Player4 = { type = "int", global = 1971261 + 1 + (3 * 68) + 7 + 4 }
             }
         },
         Doomsday = {
             Cut = {
-                Player1 = { type = "int", global = 1962076 + 812 + 50 + 1 },
-                Player2 = { type = "int", global = 1962076 + 812 + 50 + 2 },
-                Player3 = { type = "int", global = 1962076 + 812 + 50 + 3 },
-                Player4 = { type = "int", global = 1962076 + 812 + 50 + 4 }
+                Player1 = { type = "int", global = 1962078 + 812 + 50 + 1 },
+                Player2 = { type = "int", global = 1962078 + 812 + 50 + 2 },
+                Player3 = { type = "int", global = 1962078 + 812 + 50 + 3 },
+                Player4 = { type = "int", global = 1962078 + 812 + 50 + 4 }
             },
             Ready  = {
                 Player1 = { type = "int", global = 1882925 + 1 + (0 * 149) + 43 + 11 + 1 },

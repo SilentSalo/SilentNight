@@ -18,6 +18,10 @@ FeatureMgr.AddFeature(nightclubCooldown.hash, nightclubCooldown.name, nightclubC
     nightclubCooldown.func(f:IsToggled())
 end)
 
+FeatureMgr.AddFeature(nightclubSetup.hash, nightclubSetup.name, nightclubSetup.type, nightclubSetup.desc, function(f)
+    nightclubSetup.func()
+end)
+
 FeatureMgr.AddFeature(nightclubSellMade.hash, nightclubSellMade.name, nightclubSellMade.type, nightclubSellMade.desc, function(f)
 end)
     :SetDefaultValue(eStat.MPX_HUB_SALES_COMPLETED:Get())

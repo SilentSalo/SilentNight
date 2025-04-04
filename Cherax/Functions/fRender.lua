@@ -41,6 +41,7 @@ function RenderHeistTool()
                         ClickGUI.RenderFeature(apartmentFleecaHack.hash)
                         ClickGUI.RenderFeature(apartmentFleecaDrill.hash)
                         ClickGUI.RenderFeature(apartmentPacificHack.hash)
+                        ClickGUI.RenderFeature(apartmentCooldown.hash)
                         ClickGUI.RenderFeature(apartmentPlay.hash)
                         ClickGUI.RenderFeature(apartmentUnlock.hash)
                         ClickGUI.EndCustomChildWindow()
@@ -415,6 +416,7 @@ function RenderMoneyTool()
                         ClickGUI.RenderFeature(nightclubTrigger.hash)
                         ClickGUI.RenderFeature(nightclubSupplier.hash)
                         ClickGUI.RenderFeature(nightclubCooldown.hash)
+                        ClickGUI.RenderFeature(nightclubSetup.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     if ClickGUI.BeginCustomChildWindow("Popularity") then
@@ -559,13 +561,13 @@ function RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.0.8", RenderClickGUI)
+ClickGUI.AddTab("Silent Night v0.0.9", RenderClickGUI)
 
 function RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab("Silent Night v0.0.8", "Silent Night")
+    local SilentNightTab = root:AddSubTab("Silent Night v0.0.9", "Silent Night")
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
@@ -599,6 +601,7 @@ function RenderListGUI()
             ApartmentTab:AddFeature(apartmentFleecaHack.hash)
             ApartmentTab:AddFeature(apartmentFleecaDrill.hash)
             ApartmentTab:AddFeature(apartmentPacificHack.hash)
+            ApartmentTab:AddFeature(apartmentCooldown.hash)
             ApartmentTab:AddFeature(apartmentPlay.hash)
             ApartmentTab:AddFeature(apartmentUnlock.hash)
 
@@ -884,6 +887,7 @@ function RenderListGUI()
             NightclubTab:AddFeature(nightclubTrigger.hash)
             NightclubTab:AddFeature(nightclubSupplier.hash)
             NightclubTab:AddFeature(nightclubCooldown.hash)
+            NightclubTab:AddFeature(nightclubSetup.hash)
 
             NightclubTab:AddSeperator("Popularity")
             NightclubTab:AddFeature(nightclubMax.hash)

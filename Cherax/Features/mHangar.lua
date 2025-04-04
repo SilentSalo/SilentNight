@@ -5,10 +5,8 @@ FeatureMgr.AddFeature(hangarNoXp.hash, hangarNoXp.name, hangarNoXp.type, hangarN
 end)
 
 FeatureMgr.AddFeature(hangarSell.hash, hangarSell.name, hangarSell.type, hangarSell.desc, function(f)
-    local bool      = FeatureMgr.GetFeature(hangarNoXp.hash):IsToggled()
-    local delivered = FeatureMgr.GetFeature(hangarDelivered.hash):GetIntValue()
-    FeatureMgr.GetFeature(hangarDelivered.hash):SetIntValue(0)
-    hangarSell.func(bool, delivered)
+    local bool = FeatureMgr.GetFeature(hangarNoXp.hash):IsToggled()
+    hangarSell.func(bool)
 end)
 
 FeatureMgr.AddFeature(hangarOpen.hash, hangarOpen.name, hangarOpen.type, hangarOpen.desc, function(f)

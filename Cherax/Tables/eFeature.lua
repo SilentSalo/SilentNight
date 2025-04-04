@@ -151,7 +151,7 @@ eFeature = {
                     func = function()
                         ForceScriptHost(eScript.Heist.Apartment.name)
                         Script.Yield(1000)
-                        if eGlobal.Heist.Apartment.HeistType:Get() == 1182286714 then
+                        if eGlobal.Heist.Apartment.Heist.Type:Get() == eTable.Heist.Apartment.Heists.PacificJob then
                             eLocal.Heist.Apartment.Finish.Step2:Set(5)
                             eLocal.Heist.Apartment.Finish.Step3:Set(80)
                             eLocal.Heist.Apartment.Finish.Step4:Set(10000000)
@@ -192,14 +192,23 @@ eFeature = {
                         eLocal.Heist.Apartment.Bypass.Pacific.Hack:Set(9)
                     end
                 },
+                Cooldown = {
+                    hash = Utils.Joaat("SN_Apartment_Cooldown"),
+                    name = "Kill Cooldown",
+                    type = eFeatureType.Toggle,
+                    desc = "Skips the heist's cooldown.",
+                    func = function()
+                        eGlobal.Heist.Apartment.Cooldown:Set(-1)
+                        Script.Yield(1000)
+                    end
+                },
                 Play = {
                     hash = Utils.Joaat("SN_Apartment_Play"),
                     name = "Play Unavailable Jobs",
                     type = eFeatureType.Button,
-                    desc = "Allows you to play unavailable jobs. Also, skips the heist's cooldown.",
+                    desc = "Allows you to play unavailable jobs.",
                     func = function()
                         eGlobal.Heist.Apartment.Jobs:Set(31)
-                        eGlobal.Heist.Apartment.Cooldown:Set(-1)
                     end
                 },
                 Unlock = {
@@ -240,8 +249,12 @@ eFeature = {
                     hash = Utils.Joaat("SN_Apartment_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets. 15mil Payout cuts are calculated for Normal difficulty.",
-                    list = eTable.Heist.Apartment.Presets
+                    desc = "Select one of the ready-made presets.",
+                    list = eTable.Heist.Apartment.Presets,
+                    func = function()
+                        SetApartment15milPayout()
+                        Script.Yield(1000)
+                    end
                 },
                 Player1 = {
                     hash = Utils.Joaat("SN_Apartment_Player1"),
@@ -873,7 +886,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_DiamondCasino_Cooldown"),
                     name = "Kill Cooldown",
                     type = eFeatureType.Button,
-                    desc = "Skips the heist's cooldown.",
+                    desc = "Skips the heist's cooldown. Use outside of your arcade.",
                     func = function()
                         eStat.MPX_H3_COMPLETEDPOSIX:Set(-1)
                         eStat.MPPLY_H3_COOLDOWN:Set(-1)
@@ -1785,7 +1798,7 @@ eFeature = {
                     desc = "Finishes the air cargo sell mission instantly.",
                     func = function(bool)
                         eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
-                        eLocal.Business.Hangar.Sell.Finish:Set(eLocal.Business.Hangar.Delivered:Get())
+                        eLocal.Business.Hangar.Sell.Finish:Set(eLocal.Business.Hangar.Sell.Delivered:Get())
                     end
                 }
             },
@@ -1990,6 +2003,17 @@ eFeature = {
                             eTunable.Business.Nightclub.Cooldown.SellDelivery:Reset()
                         end
                     end
+                },
+                Setup = {
+                    hash = Utils.Joaat("SN_Nightclub_Setup"),
+                    name = "Skip Setup",
+                    type = eFeatureType.Button,
+                    desc = "Skips the setup missions for your Nightclub.",
+                    func = function()
+                        ePackedBool.Business.Nightclub.Setup.Staff:Set(true)
+                        ePackedBool.Business.Nightclub.Setup.Equipment:Set(true)
+                        ePackedBool.Business.Nightclub.Setup.D:Set(true)
+                    end
                 }
             },
             Stats = {
@@ -2055,7 +2079,9 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Collects money from your safe. Use inside your Nightclub.",
                     func = function()
-                        eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                        if eGlobal.Business.Nightclub.Safe.Value:Get() > 0 then
+                            eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                        end
                     end
                 }
             },

@@ -39,7 +39,7 @@ eGlobal = {
         Generic = {
             Launch1 = { type = "int", global = 4718592 + 3526       },
             Launch2 = { type = "int", global = 4718592 + 3527       },
-            Launch3 = { type = "int", global = 4718592 + 3259 + 1   },
+            Launch3 = { type = "int", global = 4718592 + 3529 + 1   },
             Launch4 = { type = "int", global = 4718592 + 180865 + 1 },
             Cut     = { type = "int", global = 2685658 + 6651       }
         },
@@ -68,10 +68,14 @@ eGlobal = {
                 Player3 = { type = "int", global = 2657991 + 1 + (2 * 467) + 269 },
                 Player4 = { type = "int", global = 2657991 + 1 + (3 * 467) + 269 }
             },
-            Reload    = { type = "int", global = 1929352                                 },
-            Jobs      = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76 },
-            Cooldown  = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76     },
-            HeistType = { type = "int", global = 1877417 + (PLAYER_ID * 77) + 24 + 2     }
+            Reload   = { type = "int", global = 1929352                                 },
+            Jobs     = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76 },
+            Cooldown = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76     },
+            Heist    = {
+                Type       = { type = "int", global = 1877417 + (PLAYER_ID * 77) + 24 + 2 },
+                Difficulty = { type = "int", global = 4718592 + 3525                      }
+            }
+            
         },
         CayoPerico = {
             Cut = {

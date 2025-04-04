@@ -70,6 +70,13 @@ eTable = {
                 { name = "All - 85%",    index = 85  },
                 { name = "All - 100%",   index = 100 },
                 { name = "15mil Payout", index = -1  }
+            },
+            Heists = {
+                FleecaJob   = 1328892776,
+                PrisonBreak = 964111671,
+                HumaneLabs  = 1131632450,
+                SeriesA     = 1967927346,
+                PacificJob  = 1182286714
             }
         },
         AutoShop = {
