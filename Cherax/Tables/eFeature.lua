@@ -820,7 +820,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_DiamondCasino_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Use after the heist has started.",
+                    desc = "Finishes the heist instantly. Use after the heist has started. Set the buyer to low level to get paid.",
                     func = function()
                         ForceScriptHost(eScript.Heist.DiamondCasino.name)
                         Script.Yield(1000)
