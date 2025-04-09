@@ -488,5 +488,27 @@ eTable = {
             { name = "Franklin", index = 1 },
             { name = "Trevor",   index = 2 }
         }
+    },
+    Editor = {
+        Stats = {
+            Types = {
+                { name = "int",    index = 0 },
+                { name = "float",  index = 1 },
+                { name = "bool",   index = 3 }
+            }
+        },
+        Globals = {
+            Types = {
+                { name = "int",    index = 0 },
+                { name = "float",  index = 1 },
+                { name = "bool",   index = 2 }
+            }
+        },
+        PackedStats = {
+            Types = {
+                { name = "int",    index = 0 },
+                { name = "bool",   index = 1 }
+            }
+        }
     }
 }

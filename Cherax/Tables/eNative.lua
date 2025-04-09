@@ -46,6 +46,9 @@ eNative = {
         HAS_SCRIPT_LOADED                                       = InvokeNative("Bool", 0xE6CC9F3BA0FB9EF1),
     },
     STATS = {
+        GET_PACKED_STAT_INT_CODE  = InvokeNative("Int", 0x0BC900A6FE73770C),
+        GET_PACKED_STAT_BOOL_CODE = InvokeNative("Bool", 0xDA7EBFC49AE3F1B0),
+        SET_PACKED_STAT_INT_CODE  = InvokeNative(0x1581503AE529CD2E),
         SET_PACKED_STAT_BOOL_CODE = InvokeNative(0xDB8A58AEAA67CD07)
     },
     SYSTEM = {

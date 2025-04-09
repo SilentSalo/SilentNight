@@ -29,6 +29,7 @@ local files   = {
     "mSpecialCargo",
     "mEasyMoney",
     "mMisc",
+    "dEditor",
     "sSettings",
     "fFunctions",
     "fRegisterLooped_EE",

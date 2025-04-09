@@ -532,6 +532,51 @@ function RenderMoneyTool()
     end
 end
 
+function RenderDevTool()
+    if ImGui.BeginTabItem("Dev Tool") then
+        if ImGui.BeginTabBar("Dev Tabs") then
+            if ImGui.BeginTabItem("Editor") then
+                if ImGui.BeginColumns(3) then
+                    if ClickGUI.BeginCustomChildWindow("Globals") then
+                        ClickGUI.RenderFeature(devGlobalsType.hash)
+                        ClickGUI.RenderFeature(devGlobalsGlobal.hash)
+                        ClickGUI.RenderFeature(devGlobalsValue.hash)
+                        ClickGUI.RenderFeature(devGlobalsRead.hash)
+                        ClickGUI.RenderFeature(devGlobalsWrite.hash)
+                        ClickGUI.RenderFeature(devGlobalsRevert.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.TableNextColumn()
+                    if ClickGUI.BeginCustomChildWindow("Stats") then
+                        ClickGUI.RenderFeature(devStatsType.hash)
+                        ClickGUI.RenderFeature(devStatsStat.hash)
+                        ClickGUI.RenderFeature(devStatsValue.hash)
+                        ClickGUI.RenderFeature(devStatsRead.hash)
+                        ClickGUI.RenderFeature(devStatsWrite.hash)
+                        ClickGUI.RenderFeature(devStatsRevert.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.TableNextColumn()
+                    if ClickGUI.BeginCustomChildWindow("Packed Stats") then
+                        ClickGUI.RenderFeature(devPackedStatsRange.hash)
+                        ClickGUI.RenderFeature(devPackedStatsType.hash)
+                        ClickGUI.RenderFeature(devPackedStatsPackedStat.hash)
+                        ClickGUI.RenderFeature(devPackedStatsValue.hash)
+                        ClickGUI.RenderFeature(devPackedStatsRead.hash)
+                        ClickGUI.RenderFeature(devPackedStatsWrite.hash)
+                        ClickGUI.RenderFeature(devPackedStatsRevert.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.EndColumns()
+                end
+                ImGui.EndTabItem()
+            end
+            ImGui.EndTabBar()
+        end
+        ImGui.EndTabItem()
+    end
+end
+
 function RenderSettings()
     if ImGui.BeginTabItem("Settings") then
         if ImGui.BeginTabBar("Settings Tabs") then
@@ -556,18 +601,19 @@ function RenderClickGUI()
     if ImGui.BeginTabBar("Silent Night") then
         RenderHeistTool()
         RenderMoneyTool()
+        RenderDevTool()
         RenderSettings()
         ImGui.EndTabBar()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.0.9", RenderClickGUI)
+ClickGUI.AddTab("Silent Night v0.1.0", RenderClickGUI)
 
 function RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab("Silent Night v0.0.9", "Silent Night")
+    local SilentNightTab = root:AddSubTab("Silent Night v0.1.0", "Silent Night")
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
@@ -957,6 +1003,37 @@ function RenderListGUI()
             MiscTab:AddFeature(miscStatsEarned.hash)
             MiscTab:AddFeature(miscStatsSpent.hash)
             MiscTab:AddFeature(miscStatsApply.hash)
+        end
+    end
+
+    local DevToolTab = SilentNightTab:AddSubTab("Dev Tool", "Dev Tool")
+    if DevToolTab then
+        local EditorTab = DevToolTab:AddSubTab("Editor", "Editor")
+        if EditorTab then
+            EditorTab:AddSeperator("Globals")
+            EditorTab:AddFeature(devGlobalsType.hash)
+            EditorTab:AddFeature(devGlobalsGlobal.hash)
+            EditorTab:AddFeature(devGlobalsValue.hash)
+            EditorTab:AddFeature(devGlobalsRead.hash)
+            EditorTab:AddFeature(devGlobalsWrite.hash)
+            EditorTab:AddFeature(devGlobalsRevert.hash)
+
+            EditorTab:AddSeperator("Stats")
+            EditorTab:AddFeature(devStatsType.hash)
+            EditorTab:AddFeature(devStatsStat.hash)
+            EditorTab:AddFeature(devStatsValue.hash)
+            EditorTab:AddFeature(devStatsRead.hash)
+            EditorTab:AddFeature(devStatsWrite.hash)
+            EditorTab:AddFeature(devStatsRevert.hash)
+
+            EditorTab:AddSeperator("Packed Stats")
+            EditorTab:AddFeature(devPackedStatsRange.hash)
+            EditorTab:AddFeature(devPackedStatsType.hash)
+            EditorTab:AddFeature(devPackedStatsPackedStat.hash)
+            EditorTab:AddFeature(devPackedStatsValue.hash)
+            EditorTab:AddFeature(devPackedStatsRead.hash)
+            EditorTab:AddFeature(devPackedStatsWrite.hash)
+            EditorTab:AddFeature(devPackedStatsRevert.hash)
         end
     end
 

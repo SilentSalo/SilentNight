@@ -27,7 +27,16 @@ FeatureMgr.AddFeature(casinoBlackjackCard.hash, casinoBlackjackCard.name, casino
 end)
 
 FeatureMgr.AddFeature(casinoBlackjackReveal.hash, casinoBlackjackReveal.name, casinoBlackjackReveal.type, casinoBlackjackReveal.desc, function(f)
-    casinoBlackjackReveal.func()
+    if IsScriptRunning(eScript.World.Casino.Blackjack.name) then
+        if eLocal.World.Casino.Blackjack.CurrentTable:Get() ~= -1 then
+            local dealersCard = eLocal.World.Casino.Blackjack.Dealer.FirstCard:Get()
+            FeatureMgr.GetFeature(casinoBlackjackCard.hash):SetStringValue(GetCardName(dealersCard))
+        else
+            FeatureMgr.GetFeature(casinoBlackjackCard.hash):SetStringValue("Not at a table!")
+        end
+    else
+        FeatureMgr.GetFeature(casinoBlackjackCard.hash):SetStringValue("Not in Casino!")
+    end
 end)
 
 FeatureMgr.AddFeature(casinoBlackjackTrick.hash, casinoBlackjackTrick.name, casinoBlackjackTrick.type, casinoBlackjackTrick.desc, function(f)
@@ -42,7 +51,20 @@ FeatureMgr.AddFeature(casinoPokerCards.hash, casinoPokerCards.name, casinoPokerC
 end)
 
 FeatureMgr.AddFeature(casinoPokerReveal.hash, casinoPokerReveal.name, casinoPokerReveal.type, casinoPokerReveal.desc, function(f)
-    casinoPokerReveal.func()
+    if IsScriptRunning(eScript.World.Casino.Poker.name) then
+        if eLocal.World.Casino.Poker.CurrentTable:Get() ~= -1 then
+            local myCards      = GetPokerCards(PLAYER_ID)
+            local dealersCards = GetPokerCards(GetPokerPlayersCount() + 1)
+            FeatureMgr.GetFeature(casinoPokerMyCards.hash):SetStringValue(myCards)
+            FeatureMgr.GetFeature(casinoPokerCards.hash):SetStringValue(dealersCards)
+        else
+            FeatureMgr.GetFeature(casinoPokerMyCards.hash):SetStringValue("Not at a table!")
+            FeatureMgr.GetFeature(casinoPokerCards.hash):SetStringValue("Not at a table!")
+        end
+    else
+        FeatureMgr.GetFeature(casinoPokerMyCards.hash):SetStringValue("Not in Casino!")
+        FeatureMgr.GetFeature(casinoPokerCards.hash):SetStringValue("Not in Casino!")
+    end
 end)
 
 FeatureMgr.AddFeature(casinoPokerGive.hash, casinoPokerGive.name, casinoPokerGive.type, casinoPokerGive.desc, function(f)

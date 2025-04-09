@@ -1635,18 +1635,6 @@ eFeature = {
                     name = "Reveal Card",
                     type = eFeatureType.Button,
                     desc = "Reveals the dealer's face down card. Works better in solo session.",
-                    func = function()
-                        if IsScriptRunning(eScript.World.Casino.Blackjack.name) then
-                            if eLocal.World.Casino.Blackjack.CurrentTable:Get() ~= -1 then
-                                local dealersCard = eLocal.World.Casino.Blackjack.Dealer.FirstCard:Get()
-                                FeatureMgr.GetFeature(casinoBlackjackCard.hash):SetStringValue(GetCardName(dealersCard))
-                            else
-                                FeatureMgr.GetFeature(casinoBlackjackCard.hash):SetStringValue("Not at a table!")
-                            end
-                        else
-                            FeatureMgr.GetFeature(casinoBlackjackCard.hash):SetStringValue("Not in Casino!")
-                        end
-                    end
                 },
                 Trick = {
                     hash = Utils.Joaat("SN_Casino_BlackjackTrick"),
@@ -1682,22 +1670,6 @@ eFeature = {
                     name = "Reveal Cards",
                     type = eFeatureType.Button,
                     desc = "Reveals your and the dealer's cards. Works better in solo session.",
-                    func = function()
-                        if IsScriptRunning(eScript.World.Casino.Poker.name) then
-                            if eLocal.World.Casino.Poker.CurrentTable:Get() ~= -1 then
-                                local myCards      = GetPokerCards(PLAYER_ID)
-                                local dealersCards = GetPokerCards(GetPokerPlayersCount() + 1)
-                                FeatureMgr.GetFeature(casinoPokerMyCards.hash):SetStringValue(myCards)
-                                FeatureMgr.GetFeature(casinoPokerCards.hash):SetStringValue(dealersCards)
-                            else
-                                FeatureMgr.GetFeature(casinoPokerMyCards.hash):SetStringValue("Not at a table!")
-                                FeatureMgr.GetFeature(casinoPokerCards.hash):SetStringValue("Not at a table!")
-                            end
-                        else
-                            FeatureMgr.GetFeature(casinoPokerMyCards.hash):SetStringValue("Not in Casino!")
-                            FeatureMgr.GetFeature(casinoPokerCards.hash):SetStringValue("Not in Casino!")
-                        end
-                    end
                 },
                 Give = {
                     hash = Utils.Joaat("SN_Casino_PokerGive"),
@@ -2390,7 +2362,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_EasyMoney_300k"),
                     name = "300k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "Toggles the 300k dollars loop. Use inside your Nightclub.",
+                    desc = "MIGHT BE UNSAFE. Toggles the 300k dollars loop. Use inside your Nightclub.",
                     func = function()
                         local top5      = eGlobal.Business.Nightclub.Safe.Income.Top5.global
                         local top100    = eGlobal.Business.Nightclub.Safe.Income.Top100.global
@@ -2536,6 +2508,203 @@ eFeature = {
     },
     Unlock = {
 
+    },
+    Dev = {
+        Editor = {
+            Globals = {
+                Type = {
+                    hash = Utils.Joaat("SN_Editor_GlobalsType"),
+                    name = "Type",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired global type.",
+                    list = eTable.Editor.Globals.Types
+                },
+                Global = {
+                    hash = Utils.Joaat("SN_Editor_GlobalsGlobal"),
+                    name = "262145 + 9415",
+                    type = eFeatureType.InputText,
+                    desc = "Input your global here."
+                },
+                Value = {
+                    hash = Utils.Joaat("SN_Editor_GlobalsValue"),
+                    name = "100",
+                    type = eFeatureType.InputText,
+                    desc = "Input your value here."
+                },
+                Read = {
+                    hash = Utils.Joaat("SN_Editor_GlobalsRead"),
+                    name = "Read",
+                    type = eFeatureType.Button,
+                    desc = "Reads the entered global value."
+                },
+                Write = {
+                    hash = Utils.Joaat("SN_Editor_GlobalsWrite"),
+                    name = "Write",
+                    type = eFeatureType.Button,
+                    desc = "Writes the selected value to the entered global.",
+                    func = function(type, global, value)
+                        local SetValue = {
+                            ["int"]   = ScriptGlobal.SetInt,
+                            ["float"] = ScriptGlobal.SetFloat,
+                            ["bool"]  = ScriptGlobal.SetBool
+                        }
+                        SetValue[type](global, value)
+                        TEMP_GLOBAL = value
+                    end
+                },
+                Revert = {
+                    hash = Utils.Joaat("SN_Editor_GlobalsRevert"),
+                    name = "Revert",
+                    type = eFeatureType.Button,
+                    desc = "Reverts the previous value to the entered global.",
+                    func = function(type, global)
+                        local SetValue = {
+                            ["int"]   = ScriptGlobal.SetInt,
+                            ["float"] = ScriptGlobal.SetFloat,
+                            ["bool"]  = ScriptGlobal.SetBool
+                        }
+                        if TEMP_GLOBAL ~= "TEMP" then
+                            SetValue[type](global, TEMP_GLOBAL)
+                            TEMP_GLOBAL = "TEMP"
+                        end
+                    end
+                }
+            },
+            Stats = {
+                Type = {
+                    hash = Utils.Joaat("SN_Editor_StatsType"),
+                    name = "Type",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired stat type.",
+                    list = eTable.Editor.Stats.Types
+                },
+                Stat = {
+                    hash = Utils.Joaat("SN_Editor_StatsStat"),
+                    name = "MPX_KILLS",
+                    type = eFeatureType.InputText,
+                    desc = "Input your stat here."
+                },
+                Value = {
+                    hash = Utils.Joaat("SN_Editor_StatsValue"),
+                    name = "7777",
+                    type = eFeatureType.InputText,
+                    desc = "Input your value here."
+                },
+                Read = {
+                    hash = Utils.Joaat("SN_Editor_StatsRead"),
+                    name = "Read",
+                    type = eFeatureType.Button,
+                    desc = "Reads the entered stat value."
+                },
+                Write = {
+                    hash = Utils.Joaat("SN_Editor_StatsWrite"),
+                    name = "Write",
+                    type = eFeatureType.Button,
+                    desc = "Writes the selected value to the entered stat.",
+                    func = function(type, stat, value)
+                        local SetValue = {
+                            ["int"]   = Stats.SetInt,
+                            ["float"] = Stats.SetFloat,
+                            ["bool"]  = Stats.SetBool
+                        }
+                        if stat:sub(1, 3) == "MPX" then
+                            stat = stat:gsub("MPX", string.format("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
+                        end
+                        SetValue[type](Utils.sJoaat(stat), value)  
+                        TEMP_STAT = value
+                    end
+                },
+                Revert = {
+                    hash = Utils.Joaat("SN_Editor_StatsRevert"),
+                    name = "Revert",
+                    type = eFeatureType.Button,
+                    desc = "Reverts the previous value to the entered stat.",
+                    func = function(type, stat)
+                        local SetValue = {
+                            ["int"]   = Stats.SetInt,
+                            ["float"] = Stats.SetFloat,
+                            ["bool"]  = Stats.SetBool
+                        }
+                        if stat:sub(1, 3) == "MPX" then
+                            stat = stat:gsub("MPX", string.format("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
+                        end
+                        if TEMP_STAT ~= "TEMP" then
+                            SetValue[type](Utils.sJoaat(stat), TEMP_STAT)
+                            TEMP_STAT = "TEMP"
+                        end
+                    end
+                }
+            },
+            PackedStats = {
+                Range = {
+                    hash = Utils.Joaat("SN_Editor_PackedStatsRange"),
+                    name = "Range",
+                    type = eFeatureType.Toggle,
+                    desc = "Allows to set a range of packed stats."
+                },
+                Type = {
+                    hash = Utils.Joaat("SN_Editor_PackedStatsType"),
+                    name = "Type",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired packed stat type.",
+                    list = eTable.Editor.PackedStats.Types
+                },
+                PackedStat = {
+                    hash = Utils.Joaat("SN_Editor_PackedStatsPackedStat"),
+                    name = "22050",
+                    type = eFeatureType.InputText,
+                    desc = "Input your packed stat here."
+                },
+                Value = {
+                    hash = Utils.Joaat("SN_Editor_PackedStatsValue"),
+                    name = "5",
+                    type = eFeatureType.InputText,
+                    desc = "Input your value here."
+                },
+                Read = {
+                    hash = Utils.Joaat("SN_Editor_PackedStatsRead"),
+                    name = "Read",
+                    type = eFeatureType.Button,
+                    desc = "Reads the entered packed stat value."
+                },
+                Write = {
+                    hash = Utils.Joaat("SN_Editor_PackedStatsWrite"),
+                    name = "Write",
+                    type = eFeatureType.Button,
+                    desc = "Writes the selected value to the entered packed stat.",
+                    func = function(type, firstPStat, lastPStat, value)
+                        local SetValue = {
+                            ["int"]  = eNative.STATS.SET_PACKED_STAT_INT_CODE,
+                            ["bool"] = eNative.STATS.SET_PACKED_STAT_BOOL_CODE
+                        }
+                        if lastPStat == nil then
+                            SetValue[type](firstPStat, value, eStat.MPPLY_LAST_MP_CHAR:Get())
+                            TEMP_PSTAT = value
+                            return
+                        end
+                        for i = firstPStat, lastPStat do
+                            SetValue[type](i, value, eStat.MPPLY_LAST_MP_CHAR:Get())
+                        end
+                    end
+                },
+                Revert = {
+                    hash = Utils.Joaat("SN_Editor_PackedStatsRevert"),
+                    name = "Revert",
+                    type = eFeatureType.Button,
+                    desc = "Reverts the previous value to the entered global.",
+                    func = function(type, packedStat)
+                        local SetValue = {
+                            ["int"]  = eNative.STATS.SET_PACKED_STAT_INT_CODE,
+                            ["bool"] = eNative.STATS.SET_PACKED_STAT_BOOL_CODE
+                        }
+                        if TEMP_PSTAT ~= "TEMP" then
+                            SetValue[type](packedStat, TEMP_PSTAT, eStat.MPPLY_LAST_MP_CHAR:Get())
+                            TEMP_PSTAT = "TEMP"
+                        end
+                    end
+                }
+            }
+        }
     },
     Settings = {
         Discord = {
