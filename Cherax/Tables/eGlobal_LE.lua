@@ -26,13 +26,13 @@ eGlobal = {
             }
         },
         Supplies = {
-            Cash      = { type = "int", global = 1667995 + 1 },
-            Coke      = { type = "int", global = 1667995 + 2 },
-            Weed      = { type = "int", global = 1667995 + 3 },
-            Meth      = { type = "int", global = 1667995 + 4 },
-            Documents = { type = "int", global = 1667995 + 5 },
-            Bunker    = { type = "int", global = 1667995 + 6 },
-            Acid      = { type = "int", global = 1667995 + 7 },
+            Cash      = { type = "int", global = 1667996 + 1 },
+            Coke      = { type = "int", global = 1667996 + 2 },
+            Weed      = { type = "int", global = 1667996 + 3 },
+            Meth      = { type = "int", global = 1667996 + 4 },
+            Documents = { type = "int", global = 1667996 + 5 },
+            Bunker    = { type = "int", global = 1667996 + 6 },
+            Acid      = { type = "int", global = 1667996 + 7 },
         }
     },
     Heist = {

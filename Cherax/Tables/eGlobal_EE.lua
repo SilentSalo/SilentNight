@@ -3,7 +3,7 @@ eGlobal = {
     Business = {
         Base = {
             OrbitalCannon = {
-                Refund = { type = "int", global = 1963560 }
+                Refund = { type = "int", global = 1963562 }
             }
         },
         Bunker = {
@@ -26,13 +26,13 @@ eGlobal = {
             }
         },
         Supplies = {
-            Cash      = { type = "int", global = 1668002 + 1 },
-            Coke      = { type = "int", global = 1668002 + 2 },
-            Weed      = { type = "int", global = 1668002 + 3 },
-            Meth      = { type = "int", global = 1668002 + 4 },
-            Documents = { type = "int", global = 1668002 + 5 },
-            Bunker    = { type = "int", global = 1668002 + 6 },
-            Acid      = { type = "int", global = 1668002 + 7 },
+            Cash      = { type = "int", global = 1668003 + 1 },
+            Coke      = { type = "int", global = 1668003 + 2 },
+            Weed      = { type = "int", global = 1668003 + 3 },
+            Meth      = { type = "int", global = 1668003 + 4 },
+            Documents = { type = "int", global = 1668003 + 5 },
+            Bunker    = { type = "int", global = 1668003 + 6 },
+            Acid      = { type = "int", global = 1668003 + 7 },
         }
     },
     Heist = {
@@ -173,7 +173,7 @@ eGlobal = {
     World = {
         Casino = {
             Chips = {
-                Bonus = { type = "int", global = 1966465 }
+                Bonus = { type = "int", global = 1966467 }
             }
         },
         GunVan = {
