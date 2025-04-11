@@ -66,11 +66,11 @@ function SetApartment15milPayout()
     local heist      = eGlobal.Heist.Apartment.Heist.Type:Get()
     local difficulty = eGlobal.Heist.Apartment.Heist.Difficulty:Get() + 1
     local cuts       = {
-        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 14906, 7453, 5962 },
-        [eTable.Heist.Apartment.Heists.PrisonBreak] = { 4285, 2142, 1714  },
-        [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 3174, 1587, 1269  },
-        [eTable.Heist.Apartment.Heists.SeriesA]     = { 4243, 2121, 1697  },
-        [eTable.Heist.Apartment.Heists.PacificJob]  = { 2000, 1000, 800   }
+        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 7453, 3726, 2981 },
+        [eTable.Heist.Apartment.Heists.PrisonBreak] = { 2142, 1071, 857  },
+        [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 1587, 793,  648  },
+        [eTable.Heist.Apartment.Heists.SeriesA]     = { 2121, 1060, 848  },
+        [eTable.Heist.Apartment.Heists.PacificJob]  = { 1000, 500,  400  }
     }
     if cuts[heist] == nil then
         return
