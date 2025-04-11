@@ -1980,7 +1980,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Nightclub_Setup"),
                     name = "Skip Setup",
                     type = eFeatureType.Button,
-                    desc = "Skips the setup missions for your Nightclub.",
+                    desc = "Skips the setup missions for your Nightclub. Change the session to apply.",
                     func = function()
                         ePackedBool.Business.Nightclub.Setup.Staff:Set(true)
                         ePackedBool.Business.Nightclub.Setup.Equipment:Set(true)
