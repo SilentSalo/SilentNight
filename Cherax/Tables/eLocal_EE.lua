@@ -33,7 +33,8 @@ eLocal = {
         },
         Nightclub = {
             Safe = {
-                Collect = { type = "int", vLocal = 204 + 32 + 1, script = "am_mp_nightclub" }
+                Type    = { type = "int", vLocal = 204 + 32 + 2,      script = "am_mp_nightclub" },
+                Collect = { type = "int", vLocal = 204 + 32 + 19 + 1, script = "am_mp_nightclub" }
             }
         }
     },
@@ -51,20 +52,20 @@ eLocal = {
         Apartment = {
             Bypass = {
                 Fleeca = {
-                    Hack  = { type = "int",   vLocal = 12214 + 24, script = "fm_mission_controller" },
-                    Drill = { type = "float", vLocal = 10505 + 11, script = "fm_mission_controller" }
+                    Hack  = { type = "int",   vLocal = 12216 + 24, script = "fm_mission_controller" },
+                    Drill = { type = "float", vLocal = 10507 + 11, script = "fm_mission_controller" }
                 },
                 Pacific = {
                     Hack = { type = "int", vLocal = 10211, script = "fm_mission_controller" }
                 }
             },
             Finish = {
-                Step1 = { type = "int", vLocal = 20385,            script = "fm_mission_controller" },
-                Step2 = { type = "int", vLocal = 20385 + 1062,     script = "fm_mission_controller" },
-                Step3 = { type = "int", vLocal = 20385 + 1740 + 1, script = "fm_mission_controller" },
-                Step4 = { type = "int", vLocal = 20385 + 2686,     script = "fm_mission_controller" },
-                Step5 = { type = "int", vLocal = 29004 + 1,        script = "fm_mission_controller" },
-                Step6 = { type = "int", vLocal = 32460 + 68 + 1,   script = "fm_mission_controller" }
+                Step1 = { type = "int", vLocal = 20387,            script = "fm_mission_controller" },
+                Step2 = { type = "int", vLocal = 20387 + 1062,     script = "fm_mission_controller" },
+                Step3 = { type = "int", vLocal = 20387 + 1740 + 1, script = "fm_mission_controller" },
+                Step4 = { type = "int", vLocal = 20387 + 2686,     script = "fm_mission_controller" },
+                Step5 = { type = "int", vLocal = 29006 + 1,        script = "fm_mission_controller" },
+                Step6 = { type = "int", vLocal = 32462 + 1 + 68,   script = "fm_mission_controller" }
             }
         },
         AutoShop = {
@@ -88,23 +89,23 @@ eLocal = {
         },
         DiamondCasino = {
             Autograbber = {
-                Grab  = { type =   "int", vLocal = 10691,      script = "fm_mission_controller" },
-                Speed = { type = "float", vLocal = 10691 + 14, script = "fm_mission_controller" }
+                Grab  = { type =   "int", vLocal = 10693,      script = "fm_mission_controller" },
+                Speed = { type = "float", vLocal = 10693 + 14, script = "fm_mission_controller" }
             },
             Bypass = {
-                FingerprintHack = { type = "int", vLocal = 53997,      script = "fm_mission_controller" },
-                KeypadHack      = { type = "int", vLocal = 55063,      script = "fm_mission_controller" },
-                VaultDrill1     = { type = "int", vLocal = 10505 + 7,  script = "fm_mission_controller" },
-                VaultDrill2     = { type = "int", vLocal = 10505 + 37, script = "fm_mission_controller" }
+                FingerprintHack = { type = "int", vLocal = 53999,      script = "fm_mission_controller" },
+                KeypadHack      = { type = "int", vLocal = 55065,      script = "fm_mission_controller" },
+                VaultDrill1     = { type = "int", vLocal = 10507 + 7,  script = "fm_mission_controller" },
+                VaultDrill2     = { type = "int", vLocal = 10507 + 37, script = "fm_mission_controller" }
             },
             Reload = { type = "int", vLocal = 208, script = "gb_casino_heist_planning" },
             Finish = {
-                Step1 = { type = "int", vLocal = 20385,            script = "fm_mission_controller" },
-                Step2 = { type = "int", vLocal = 20385 + 1062,     script = "fm_mission_controller" },
-                Step3 = { type = "int", vLocal = 20385 + 1740 + 1, script = "fm_mission_controller" },
-                Step4 = { type = "int", vLocal = 20385 + 2686,     script = "fm_mission_controller" },
-                Step5 = { type = "int", vLocal = 29004 + 1,        script = "fm_mission_controller" },
-                Step6 = { type = "int", vLocal = 32460 + 68 + 1,   script = "fm_mission_controller" }
+                Step1 = { type = "int", vLocal = 20387,            script = "fm_mission_controller" },
+                Step2 = { type = "int", vLocal = 20387 + 1062,     script = "fm_mission_controller" },
+                Step3 = { type = "int", vLocal = 20387 + 1740 + 1, script = "fm_mission_controller" },
+                Step4 = { type = "int", vLocal = 20387 + 2686,     script = "fm_mission_controller" },
+                Step5 = { type = "int", vLocal = 29006 + 1,        script = "fm_mission_controller" },
+                Step6 = { type = "int", vLocal = 32462 + 1 + 68,   script = "fm_mission_controller" }
             }
         },
         Doomsday = {
@@ -114,11 +115,11 @@ eLocal = {
             },
             Reload = { type = "int", vLocal = 207, script = "gb_gang_ops_planning" },
             Finish = {
-                Step1 = { type = "int", vLocal = 20385,            script = "fm_mission_controller" },
-                Step2 = { type = "int", vLocal = 20385 + 1740 + 1, script = "fm_mission_controller" },
-                Step3 = { type = "int", vLocal = 29004 + 1,        script = "fm_mission_controller" },
-                Step4 = { type = "int", vLocal = 32460 + 68 + 1,   script = "fm_mission_controller" },
-                Step5 = { type = "int", vLocal = 32460 + 97,       script = "fm_mission_controller" }
+                Step1 = { type = "int", vLocal = 20387,            script = "fm_mission_controller" },
+                Step2 = { type = "int", vLocal = 20387 + 1740 + 1, script = "fm_mission_controller" },
+                Step3 = { type = "int", vLocal = 29006 + 1,        script = "fm_mission_controller" },
+                Step4 = { type = "int", vLocal = 32462 + 1 + 68,   script = "fm_mission_controller" },
+                Step5 = { type = "int", vLocal = 32462 + 97,       script = "fm_mission_controller" }
             }
         },
         SalvageYard = {

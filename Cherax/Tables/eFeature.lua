@@ -2052,6 +2052,7 @@ eFeature = {
                     desc = "Collects money from your safe. Use inside your Nightclub.",
                     func = function()
                         if eGlobal.Business.Nightclub.Safe.Value:Get() > 0 then
+                            eLocal.Business.Nightclub.Safe.Type:Set(3)
                             eLocal.Business.Nightclub.Safe.Collect:Set(1)
                         end
                     end
@@ -2320,7 +2321,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_EasyMoney_5k"),
                     name = "5k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "Toggles the 50k dollars loop.",
+                    desc = "Toggles the 5k chips loop.",
                     func = function()
                         eGlobal.World.Casino.Chips.Bonus:Set(1)
                         Script.Yield(1500)
@@ -2330,7 +2331,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_EasyMoney_50k"),
                     name = "50k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Toggles the 50k dollars loop.",
+                    desc = "Toggles the 50k dollars loop.",
                     func = function()
                         TriggerTransaction(0x610F9AB4)
                         Script.Yield(333)
@@ -2340,7 +2341,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_EasyMoney_100k"),
                     name = "100k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "Toggles the 100k dollars loop.",
+                    desc = "MIGHT BE UNSAFE. Toggles the 100k dollars loop.",
                     func = function()
                         TriggerTransaction(Utils.sJoaat("SERVICE_EARN_AMBIENT_JOB_AMMUNATION_DELIVERY"))
                         Script.Yield(333)
@@ -2373,6 +2374,7 @@ eFeature = {
                             ScriptGlobal.SetInt(i, maxValue)
                         end
                         if safeValue <= maxValue and safeValue ~= 0 then
+                            eLocal.Business.Nightclub.Safe.Type:Set(3)
                             eLocal.Business.Nightclub.Safe.Collect:Set(1)
                         elseif safeValue == 0 then
                             eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
