@@ -64,6 +64,9 @@ FeatureMgr.AddFeature(apartmentPresets.hash, apartmentPresets.name, apartmentPre
 end)
     :SetList(apartmentPresets.list.GetNames())
 
+FeatureMgr.AddFeature(apartmentDouble.hash, apartmentDouble.name, apartmentDouble.type, apartmentDouble.desc, function(f)
+end)
+
 for i = 1, 4 do
     FeatureMgr.AddFeature(apartmentPlayers[i].hash, apartmentPlayers[i].name, apartmentPlayers[i].type, apartmentPlayers[i].desc, function(f)
     end)
