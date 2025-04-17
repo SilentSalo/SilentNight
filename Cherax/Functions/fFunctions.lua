@@ -76,7 +76,7 @@ function SetApartment15milPayout(multiplier)
         return
     end
     for i = 1, team do
-        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(math.floor(cuts[heist][difficulty] / ((multiplier) and 1 or 2)))
+        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(math.floor(cuts[heist][difficulty] / ((multiplier) and 2 or 1)))
     end
 end
 

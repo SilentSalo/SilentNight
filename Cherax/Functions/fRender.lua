@@ -614,7 +614,7 @@ function RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab("Silent Night v0.1.2, "Silent Night")
+    local SilentNightTab = root:AddSubTab("Silent Night v0.1.2", "Silent Night")
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
