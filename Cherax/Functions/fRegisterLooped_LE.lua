@@ -6,7 +6,7 @@ end
 
 function Apartment15milPayoutSetter()
     if FeatureMgr.GetFeatureListIndex(apartmentPresets.hash) == 3 then
-        apartmentPresets.func()
+        apartmentPresets.func(FeatureMgr.GetFeature(apartmentDouble.hash):IsToggled())
     end
 end
 

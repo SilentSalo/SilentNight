@@ -51,6 +51,7 @@ function RenderHeistTool()
                         ClickGUI.RenderFeature(apartmentTeam.hash)
                         ClickGUI.RenderFeature(apartmentReceivers.hash)
                         ClickGUI.RenderFeature(apartmentPresets.hash)
+                        ClickGUI.RenderFeature(apartmentDouble.hash)
                         ClickGUI.RenderFeature(apartmentPlayer1.hash)
                         ClickGUI.RenderFeature(apartmentPlayer2.hash)
                         ClickGUI.RenderFeature(apartmentPlayer3.hash)
@@ -607,13 +608,13 @@ function RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.1.1", RenderClickGUI)
+ClickGUI.AddTab("Silent Night v0.1.2", RenderClickGUI)
 
 function RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab("Silent Night v0.1.1", "Silent Night")
+    local SilentNightTab = root:AddSubTab("Silent Night v0.1.2, "Silent Night")
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
@@ -655,6 +656,7 @@ function RenderListGUI()
             ApartmentTab:AddFeature(apartmentTeam.hash)
             ApartmentTab:AddFeature(apartmentReceivers.hash)
             ApartmentTab:AddFeature(apartmentPresets.hash)
+            ApartmentTab:AddFeature(apartmentDouble.hash)
             ApartmentTab:AddFeature(apartmentPlayer1.hash)
             ApartmentTab:AddFeature(apartmentPlayer2.hash)
             ApartmentTab:AddFeature(apartmentPlayer3.hash)

@@ -60,23 +60,23 @@ function ForceScriptHost(scriptName)
     FeatureMgr.GetFeatureByName("Force Script Host"):OnClick()
 end
 
-function SetApartment15milPayout()
+function SetApartment15milPayout(multiplier)
     local team       = apartmentTeam.list[FeatureMgr.GetFeatureListIndex(apartmentTeam.hash) + 1].index
     local preset     = apartmentPresets.list[FeatureMgr.GetFeatureListIndex(apartmentPresets.hash) + 1].index
     local heist      = eGlobal.Heist.Apartment.Heist.Type:Get()
     local difficulty = eGlobal.Heist.Apartment.Heist.Difficulty:Get() + 1
     local cuts       = {
-        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 7453, 3726, 2981 },
-        [eTable.Heist.Apartment.Heists.PrisonBreak] = { 2142, 1071, 857  },
-        [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 1587, 793,  648  },
-        [eTable.Heist.Apartment.Heists.SeriesA]     = { 2121, 1060, 848  },
-        [eTable.Heist.Apartment.Heists.PacificJob]  = { 1000, 500,  400  }
+        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 14906, 7453, 5962 },
+        [eTable.Heist.Apartment.Heists.PrisonBreak] = { 4285, 2142, 1714  },
+        [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 3174, 1587, 1269  },
+        [eTable.Heist.Apartment.Heists.SeriesA]     = { 4243, 2121, 1697  },
+        [eTable.Heist.Apartment.Heists.PacificJob]  = { 2000, 1000, 800   }
     }
     if cuts[heist] == nil then
         return
     end
     for i = 1, team do
-        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(cuts[heist][difficulty])
+        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(math.floor(cuts[heist][difficulty] / ((multiplier) and 1 or 2)))
     end
 end
 

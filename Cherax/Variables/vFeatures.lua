@@ -21,6 +21,7 @@ apartmentUnlock          = eFeature.Heist.Apartment.Misc.Unlock
 apartmentTeam            = eFeature.Heist.Apartment.Cuts.Team
 apartmentReceivers       = eFeature.Heist.Apartment.Cuts.Receivers
 apartmentPresets         = eFeature.Heist.Apartment.Cuts.Presets
+apartmentDouble          = eFeature.Heist.Apartment.Cuts.Double
 apartmentPlayer1         = eFeature.Heist.Apartment.Cuts.Player1
 apartmentPlayer2         = eFeature.Heist.Apartment.Cuts.Player2
 apartmentPlayer3         = eFeature.Heist.Apartment.Cuts.Player3

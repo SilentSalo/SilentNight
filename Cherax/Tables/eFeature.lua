@@ -251,10 +251,16 @@ eFeature = {
                     type = eFeatureType.Combo,
                     desc = "Select one of the ready-made presets.",
                     list = eTable.Heist.Apartment.Presets,
-                    func = function()
-                        SetApartment15milPayout()
+                    func = function(multiplier)
+                        SetApartment15milPayout(multiplier)
                         Script.Yield(1000)
                     end
+                },
+                Double = {
+                    hash = Utils.Joaat("SN_Apartment_Double"),
+                    name = "Double Rewards Week",
+                    type = eFeatureType.Toggle,
+                    desc = "Enable during double rewards week."
                 },
                 Player1 = {
                     hash = Utils.Joaat("SN_Apartment_Player1"),
@@ -1984,7 +1990,7 @@ eFeature = {
                     func = function()
                         ePackedBool.Business.Nightclub.Setup.Staff:Set(true)
                         ePackedBool.Business.Nightclub.Setup.Equipment:Set(true)
-                        ePackedBool.Business.Nightclub.Setup.D:Set(true)
+                        ePackedBool.Business.Nightclub.Setup.DJ:Set(true)
                     end
                 }
             },
