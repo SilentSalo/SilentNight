@@ -95,7 +95,12 @@ eTunable = {
     Heist = {
         Agency = {
             Payout   = { type = "int", tunable = "FIXER_FINALE_LEADER_CASH_REWARD", defaultValue = 1000000 },
-            Cooldown = { type = "int", tunable = "FIXER_STORY_COOLDOWN_POSIX",      defaultValue = 1800    }
+            Cooldown = { 
+                Story    = { type = "int", tunable = "FIXER_STORY_COOLDOWN_POSIX",             defaultValue = 1800   },
+                Security = { type = "int", tunable = "FIXER_SECURITY_CONTRACT_COOLDOWN_TIME",  defaultValue = 300000 },
+                Reward   = { type = "int", tunable = "VIP_CONTRACT_MIN_CASH_REWARD",           defaultValue = 500    },
+                Payphone = { type = "int", tunable = "REQUEST_FRANKLIN_PAYPHONE_HIT_COOLDOWN", defaultValue = 600000 }
+            }
         },
         Apartment = {
             RootIdHash = {
@@ -123,6 +128,36 @@ eTunable = {
         CayoPerico = {
             Bag = {
                 MaxCapacity = { type = "int", tunable = "HEIST_BAG_MAX_CAPACITY", defaultValue = 1800 }
+            },
+            Cut = {
+                Pavel = { type = "float", tunable = "IH_DEDUCTION_PAVEL_CUT",   defaultValue = -0.02 },
+                Fee   = { type = "float", tunable = "IH_DEDUCTION_FENCING_FEE", defaultValue = -0.1  }
+            }
+        },
+        DiamondCasino = {
+            Cut = {
+                Lester = { type = "int", tunable = "CH_LESTER_CUT", defaultValue = 5 },
+                Gunman = {
+                    Karl    = { type = "int", tunable = "HEIST3_PREPBOARD_GUNMEN_KARL_CUT",    defaultValue = 5  },
+                    Gustavo = { type = "int", tunable = "HEIST3_PREPBOARD_GUNMEN_GUSTAVO_CUT", defaultValue = 9  },
+                    Charlie = { type = "int", tunable = "HEIST3_PREPBOARD_GUNMEN_CHARLIE_CUT", defaultValue = 7  },
+                    Chester = { type = "int", tunable = "HEIST3_PREPBOARD_GUNMEN_CHESTER_CUT", defaultValue = 10 },
+                    Patrick = { type = "int", tunable = "HEIST3_PREPBOARD_GUNMEN_PATRICK_CUT", defaultValue = 8  }
+                },
+                Driver = {
+                    Karim   = { type = "int", tunable = "HEIST3_DRIVERS_KARIM_CUT",   defaultValue = 5  },
+                    Taliana = { type = "int", tunable = "HEIST3_DRIVERS_TALIANA_CUT", defaultValue = 7  },
+                    Eddie   = { type = "int", tunable = "HEIST3_DRIVERS_EDDIE_CUT",   defaultValue = 9  },
+                    Norm    = { type = "int", tunable = "HEIST3_DRIVERS_ZACH_CUT",    defaultValue = 6  },
+                    Chester = { type = "int", tunable = "HEIST3_DRIVERS_CHESTER_CUT", defaultValue = 10 }
+                },
+                Hacker = {
+                    Karim   = { type = "int", tunable = "HEIST3_HACKERS_RICKIE_CUT",    defaultValue = 3  },
+                    Taliana = { type = "int", tunable = "HEIST3_HACKERS_CHRISTIAN_CUT", defaultValue = 7  },
+                    Eddie   = { type = "int", tunable = "HEIST3_HACKERS_YOHAN_CUT",     defaultValue = 5  },
+                    Norm    = { type = "int", tunable = "HEIST3_HACKERS_AVI_CUT",       defaultValue = 10 },
+                    Chester = { type = "int", tunable = "HEIST3_HACKERS_PAIGE_CUT",     defaultValue = 9  }
+                }
             }
         },
         SalvageYard = {

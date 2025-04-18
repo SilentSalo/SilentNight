@@ -768,6 +768,9 @@ eStat = {
     MPX_TATTOO_FM_CURRENT_32        = { type = "int",   stat = "TATTOO_FM_CURRENT_32"           },
     MPPLY_NUM_CAPTURES_CREATED      = { type = "int",   stat = "MPPLY_NUM_CAPTURES_CREATED"     },
     MPX_MOST_TIME_ON_3_PLUS_STARS   = { type = "int",   stat = "MOST_TIME_ON_3_PLUS_STARS"      },
+    MPPLY_HEISTFLOWORDERPROGRESS    = { type = "int",   stat = "MPPLY_HEISTFLOWORDERPROGRESS"   },
+    MPPLY_HEISTTEAMPROGRESSBITSET   = { type = "int",   stat = "MPPLY_HEISTTEAMPROGRESSBITSET"  },
+    MPPLY_HEISTNODEATHPROGREITSET   = { type = "int",   stat = "MPPLY_HEISTNODEATHPROGREITSET"  },
     MPPLY_OVERALL_BADSPORT          = { type = "float", stat = "MPPLY_OVERALL_BADSPORT"         },
     MPX_PLAYER_MENTAL_STATE         = { type = "float", stat = "PLAYER_MENTAL_STATE"            },
     MPPLY_KILL_DEATH_RATIO          = { type = "float", stat = "MPPLY_KILL_DEATH_RATIO"         },
@@ -1072,5 +1075,8 @@ eStat = {
     MPX_SR_TIER_3_REWARD            = { type = "bool",  stat = "SR_TIER_3_REWARD"               },
     MPX_SR_INCREASE_THROW_CAP       = { type = "bool",  stat = "SR_INCREASE_THROW_CAP"          },
     MPX_CARMEET_PV_CHLLGE_CMPLT     = { type = "bool",  stat = "CARMEET_PV_CHLLGE_CMPLT"        },
-    MPX_CARMEET_PV_CLMED            = { type = "bool",  stat = "CARMEET_PV_CLMED"               }
+    MPX_CARMEET_PV_CLMED            = { type = "bool",  stat = "CARMEET_PV_CLMED"               },
+    MPPLY_AWD_HST_ORDER             = { type = "bool",  stat = "MPPLY_AWD_HST_ORDER"            },
+    MPPLY_AWD_HST_SAME_TEAM         = { type = "bool",  stat = "MPPLY_AWD_HST_SAME_TEAM"        },
+    MPPLY_AWD_HST_ULT_CHAL          = { type = "bool",  stat = "MPPLY_AWD_HST_ULT_CHAL"         }
 }

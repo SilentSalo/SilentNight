@@ -121,11 +121,17 @@ FeatureMgr.AddFeature(cayoPresets.hash, cayoPresets.name, cayoPresets.type, cayo
     for i = 1, 4 do
         FeatureMgr.GetFeature(cayoPlayers[i].hash):SetIntValue(0)
     end
+    if preset == -1 then
+        return
+    end
     for i = 1, team do
         FeatureMgr.GetFeature(cayoPlayers[i].hash):SetIntValue(preset)
     end
 end)
     :SetList(cayoPresets.list.GetNames())
+
+FeatureMgr.AddFeature(cayoCrew.hash, cayoCrew.name, cayoCrew.type, cayoCrew.desc, function(f)
+end)
 
 for i = 1, 4 do
     FeatureMgr.AddFeature(cayoPlayers[i].hash, cayoPlayers[i].name, cayoPlayers[i].type, cayoPlayers[i].desc, function(f)

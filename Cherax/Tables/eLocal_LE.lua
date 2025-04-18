@@ -28,7 +28,7 @@ eLocal = {
         Hangar = {
             Sell = {
                 Delivered = { type = "int", vLocal = 1985 + 1078, script = "gb_smuggler" },
-                Finish    = { type = "int", vLocal = 1985 + 768,  script = "gb_smuggler" }
+                Finish    = { type = "int", vLocal = 1985 + 1035, script = "gb_smuggler" }
             }
         },
         Nightclub = {

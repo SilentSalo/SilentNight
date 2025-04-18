@@ -24,8 +24,8 @@ FeatureMgr.AddFeature(diamondGunman.hash, diamondGunman.name, diamondGunman.type
             [3] = { 5, 6 }
         },
         [3] = {
-            [1] = { 7, 8   },
-            [2] = { 9, 10  },
+            [1] = { 7,  8  },
+            [2] = { 9,  10 },
             [3] = { 11, 12 }
         },
         [5] = {
@@ -55,9 +55,9 @@ end)
 FeatureMgr.AddFeature(diamondDriver.hash, diamondDriver.name, diamondDriver.type, diamondDriver.desc, function(f)
     local driver = diamondDriver.list[f:GetListIndex() + 1].index
     local vehicleRanges = {
-        [1] = { 1, 4   },
-        [4] = { 5, 8   },
-        [2] = { 9, 12  },
+        [1] = { 1,  4  },
+        [4] = { 5,  8  },
+        [2] = { 9,  12 },
         [3] = { 13, 16 },
         [5] = { 17, 20 },
     }
@@ -143,11 +143,17 @@ FeatureMgr.AddFeature(diamondPresets.hash, diamondPresets.name, diamondPresets.t
     for i = 1, 4 do
         FeatureMgr.GetFeature(diamondPlayers[i].hash):SetIntValue(0)
     end
+    if preset == -1 then
+        return
+    end
     for i = 1, team do
         FeatureMgr.GetFeature(diamondPlayers[i].hash):SetIntValue(preset)
     end
 end)
     :SetList(diamondPresets.list.GetNames())
+
+FeatureMgr.AddFeature(diamondCrew.hash, diamondCrew.name, diamondCrew.type, diamondCrew.desc, function(f)
+end)
 
 for i = 1, 4 do
     FeatureMgr.AddFeature(diamondPlayers[i].hash, diamondPlayers[i].name, diamondPlayers[i].type, diamondPlayers[i].desc, function(f)

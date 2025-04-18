@@ -1,19 +1,28 @@
-function ApartmentCooldownKiller()
+function ApartmentSetter()
     if FeatureMgr.GetFeature(apartmentCooldown.hash):IsToggled() then
         apartmentCooldown.func()
     end
-end
-
-function Apartment15milPayoutSetter()
     if FeatureMgr.GetFeatureListIndex(apartmentPresets.hash) == 3 then
         apartmentPresets.func(FeatureMgr.GetFeature(apartmentDouble.hash):IsToggled())
     end
+    apartmentBonus.func(FeatureMgr.GetFeature(apartmentBonus.hash):IsToggled())
 end
 
-function DiamondAutograbber()
+function DiamondSetter()
     if FeatureMgr.GetFeature(diamondAutograbber.hash):IsToggled() then
         diamondAutograbber.func()
     end
+    if FeatureMgr.GetFeatureListIndex(diamondPresets.hash) == 3 then
+        diamondPresets.func()
+    end
+    diamondCrew.func(FeatureMgr.GetFeature(diamondCrew.hash):IsToggled())
+end
+
+function CayoSetter()
+    if FeatureMgr.GetFeatureListIndex(cayoPresets.hash) == 3 then
+        cayoPresets.func()
+    end
+    cayoCrew.func(FeatureMgr.GetFeature(cayoCrew.hash):IsToggled())
 end
 
 function TurkishSupplier()
@@ -117,9 +126,9 @@ function ReParse()
 end
 
 Script.RegisterLooped(function()
-    ApartmentCooldownKiller()
-    Apartment15milPayoutSetter()
-    DiamondAutograbber()
+    ApartmentSetter()
+    DiamondSetter()
+    CayoSetter()
     TurkishSupplier()
     PriceMaximizer()
     EasyLooper()

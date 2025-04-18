@@ -60,23 +60,85 @@ function ForceScriptHost(scriptName)
     FeatureMgr.GetFeatureByName("Force Script Host"):OnClick()
 end
 
-function SetApartment15milPayout(multiplier)
+function SetApartmentMaxPayout(bool)
     local team       = apartmentTeam.list[FeatureMgr.GetFeatureListIndex(apartmentTeam.hash) + 1].index
-    local preset     = apartmentPresets.list[FeatureMgr.GetFeatureListIndex(apartmentPresets.hash) + 1].index
     local heist      = eGlobal.Heist.Apartment.Heist.Type:Get()
     local difficulty = eGlobal.Heist.Apartment.Heist.Difficulty:Get() + 1
-    local cuts       = {
-        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 14906, 7453, 5962 },
-        [eTable.Heist.Apartment.Heists.PrisonBreak] = { 4285, 2142, 1714  },
-        [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 3174, 1587, 1269  },
-        [eTable.Heist.Apartment.Heists.SeriesA]     = { 4243, 2121, 1697  },
-        [eTable.Heist.Apartment.Heists.PacificJob]  = { 2000, 1000, 800   }
+    local payouts    = {
+        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 106215, 201250,  250250  },
+        [eTable.Heist.Apartment.Heists.PrisonBreak] = { 350000, 700000,  875000  },
+        [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 472500, 945000,  1181500 },
+        [eTable.Heist.Apartment.Heists.SeriesA]     = { 353500, 707000,  883750  },
+        [eTable.Heist.Apartment.Heists.PacificJob]  = { 750000, 1500000, 1875000 }
     }
+    local maxPayout = 3000000
+    local cuts      = {}
+    for heistType, payout in pairs(payouts) do
+        cuts[heistType] = {
+            math.floor(maxPayout / (payout[1] / 100)),
+            math.floor(maxPayout / (payout[2] / 100)),
+            math.floor(maxPayout / (payout[3] / 100))
+        }
+    end
     if cuts[heist] == nil then
         return
     end
     for i = 1, team do
-        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(math.floor(cuts[heist][difficulty] / ((multiplier) and 2 or 1)))
+        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(math.floor(cuts[heist][difficulty] / ((bool) and 2 or 1)))
+    end
+end
+
+function SetDiamondMaxPayout()
+    local team       = diamondTeam.list[FeatureMgr.GetFeatureListIndex(diamondTeam.hash) + 1].index
+    local target     = eStat.MPX_H3OPT_TARGET:Get()
+    local difficulty = (eStat.MPX_H3OPT_APPROACH:Get() == eStat.MPX_H3_HARD_APPROACH:Get()) and 2 or 1
+    local payouts    = {
+        [0] = { 2115000, 2326500 },
+        [2] = { 2350000, 2585000 },
+        [1] = { 2585000, 2843500 },
+        [3] = { 3290000, 3619000 }
+    }
+    local maxPayout = 3619000
+    local cuts      = {}
+    for targetType, payout in pairs(payouts) do
+        cuts[targetType] = {
+            math.floor(maxPayout / (payout[1] / 100)),
+            math.floor(maxPayout / (payout[2] / 100))
+        }
+    end
+    if cuts[target] == nil then
+        return
+    end
+    for i = 1, team do
+        FeatureMgr.GetFeature(diamondPlayers[i].hash):SetIntValue(cuts[target][difficulty])
+    end
+end
+
+function SetCayoMaxPayout()
+    local team       = cayoTeam.list[FeatureMgr.GetFeatureListIndex(cayoTeam.hash) + 1].index
+    local target     = eStat.MPX_H4CNF_TARGET:Get()
+    local difficulty = (eStat.MPX_H4_PROGRESS:Get() == eTable.Heist.CayoPerico.Difficulties[2].index) and 2 or 1
+    local payouts    = {
+        [0] = { 630000,  693000  },
+        [1] = { 700000,  770000  },
+        [2] = { 770000,  847000  },
+        [3] = { 1300000, 1430000 },
+        [4] = { 1100000, 1210000 },
+        [5] = { 1900000, 2090000 }
+    }
+    local maxPayout = 2550000
+    local cuts      = {}
+    for targetType, payout in pairs(payouts) do
+        cuts[targetType] = {
+            math.floor(maxPayout / (payout[1] / 100)),
+            math.floor(maxPayout / (payout[2] / 100))
+        }
+    end
+    if cuts[target] == nil then
+        return
+    end
+    for i = 1, team do
+        FeatureMgr.GetFeature(cayoPlayers[i].hash):SetIntValue(cuts[target][difficulty])
     end
 end
 

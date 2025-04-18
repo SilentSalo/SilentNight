@@ -82,11 +82,14 @@ eFeature = {
                 },
                 Cooldown = {
                     hash = Utils.Joaat("SN_Agency_Cooldown"),
-                    name = "Kill Cooldown",
+                    name = "Kill Cooldowns",
                     type = eFeatureType.Button,
-                    desc = "Skips the heist's cooldown.",
+                    desc = "Skips the heist's cooldowns. Doesn't skip the cooldown between transactions (20 min).",
                     func = function()
-                        eTunable.Heist.Agency.Cooldown:Set(0)
+                        eTunable.Heist.Agency.Cooldown.Story:Set(0)
+                        eTunable.Heist.Agency.Cooldown.Security:Set(0)
+                        eTunable.Heist.Agency.Cooldown.Reward:Set(0)
+                        eTunable.Heist.Agency.Cooldown.Payphone:Set(0)
                     end
                 }
             },
@@ -252,8 +255,22 @@ eFeature = {
                     desc = "Select one of the ready-made presets.",
                     list = eTable.Heist.Apartment.Presets,
                     func = function(multiplier)
-                        SetApartment15milPayout(multiplier)
+                        SetApartmentMaxPayout(multiplier)
                         Script.Yield(1000)
+                    end
+                },
+                Bonus = {
+                    hash = Utils.Joaat("SN_Apartment_Bonus"),
+                    name = "12mil Bonus",
+                    type = eFeatureType.Toggle,
+                    desc = "Allows only you to get 12 millions bonus for The Pacific Standard Job on hard difficulty, even if you're not the host. Enable before starting the heist.",
+                    func = function(bool)
+                        eStat.MPPLY_HEISTFLOWORDERPROGRESS:Set((bool) and 268435455 or 134217727)
+                        eStat.MPPLY_AWD_HST_ORDER:Set((bool) and true or false)
+                        eStat.MPPLY_HEISTTEAMPROGRESSBITSET:Set((bool) and 268435455 or 134217727)
+                        eStat.MPPLY_AWD_HST_SAME_TEAM:Set((bool) and true or false)
+                        eStat.MPPLY_HEISTNODEATHPROGREITSET:Set((bool) and 268435455 or 134217727)
+                        eStat.MPPLY_AWD_HST_ULT_CHAL:Set((bool) and true or false)
                     end
                 },
                 Double = {
@@ -364,7 +381,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_AutoShop_Cooldown"),
                     name = "Kill Cooldown",
                     type = eFeatureType.Button,
-                    desc = "Skips the heist's cooldown.",
+                    desc = "Skips the heist's cooldown. Doesn't skip the cooldown between transactions (20 min).",
                     func = function()
                         for i = 0, 7 do
                             eStat[string.format("MPX_TUNER_CONTRACT%d_POSIX", i)]:Set(0)
@@ -590,7 +607,7 @@ eFeature = {
                         hash = Utils.Joaat("SN_CayoPerico_SoloCooldown"),
                         name = "Kill Cooldown (after solo)",
                         type = eFeatureType.Button,
-                        desc = "Skips the heist's cooldown after you have played solo. Go offline and online after using.",
+                        desc = "Skips the heist's cooldown after you have played solo. Doesn't skip the cooldown between transactions (20 min). Go offline and online after using.",
                         func = function()
                             eStat.MPX_H4_TARGET_POSIX:Set(1659643454)
                             eStat.MPX_H4_COOLDOWN:Set(0)
@@ -601,7 +618,7 @@ eFeature = {
                         hash = Utils.Joaat("SN_CayoPerico_TeamCooldown"),
                         name = "Kill Cooldown (after team)",
                         type = eFeatureType.Button,
-                        desc = "Skips the heist's cooldown after you have played with a team. Go offline and online after using.",
+                        desc = "Skips the heist's cooldown after you have played with a team. Doesn't skip the cooldown between transactions (20 min). Go offline and online after using.",
                         func = function()
                             eStat.MPX_H4_TARGET_POSIX:Set(1659429119)
                             eStat.MPX_H4_COOLDOWN:Set(0)
@@ -653,8 +670,27 @@ eFeature = {
                     hash = Utils.Joaat("SN_CayoPerico_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets.",
-                    list = eTable.Heist.Generic.Presets
+                    desc = "Select one of the ready-made presets. 2.55mil Payout works only if you've set Difficulty through the script. Use with «Instant Finish».",
+                    list = eTable.Heist.CayoPerico.Presets,
+                    func = function()
+                        SetCayoMaxPayout()
+                        Script.Yield(1000)
+                    end
+                },
+                Crew = {
+                    hash = Utils.Joaat("SN_CayoPerico_Crew"),
+                    name = "Remove Crew Cuts",
+                    type = eFeatureType.Toggle,
+                    desc = "Removes fencing fee and Pavel's cut. Can be used with «Instant Finish».",
+                    func = function(bool)
+                        if bool then
+                            eTunable.Heist.CayoPerico.Cut.Pavel:Set(0)
+                            eTunable.Heist.CayoPerico.Cut.Fee:Set(0)
+                        else
+                            eTunable.Heist.CayoPerico.Cut.Pavel:Reset()
+                            eTunable.Heist.CayoPerico.Cut.Fee:Reset()
+                        end
+                    end
                 },
                 Player1 = {
                     hash = Utils.Joaat("SN_CayoPerico_Player1"),
@@ -826,7 +862,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_DiamondCasino_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Use after the heist has started. Set the buyer to low level to get paid.",
+                    desc = "Finishes the heist instantly. Set the buyer to low level to get paid. Use after the heist has started.",
                     func = function()
                         ForceScriptHost(eScript.Heist.DiamondCasino.name)
                         Script.Yield(1000)
@@ -892,7 +928,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_DiamondCasino_Cooldown"),
                     name = "Kill Cooldown",
                     type = eFeatureType.Button,
-                    desc = "Skips the heist's cooldown. Use outside of your arcade.",
+                    desc = "Skips the heist's cooldown. Doesn't skip the cooldown between transactions (20 min). Use outside of your arcade.",
                     func = function()
                         eStat.MPX_H3_COMPLETEDPOSIX:Set(-1)
                         eStat.MPPLY_H3_COOLDOWN:Set(-1)
@@ -924,8 +960,34 @@ eFeature = {
                     hash = Utils.Joaat("SN_DiamondCasino_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets.",
-                    list = eTable.Heist.Generic.Presets
+                    desc = "Select one of the ready-made presets. Use with «Instant Finish».",
+                    list = eTable.Heist.DiamondCasino.Presets,
+                    func = function()
+                        SetDiamondMaxPayout()
+                        Script.Yield(1000)
+                    end
+                },
+                Crew = {
+                    hash = Utils.Joaat("SN_DiamondCasino_Crew"),
+                    name = "Remove Crew Cuts",
+                    type = eFeatureType.Toggle,
+                    desc = "Removes crew cuts and Lester's cut. Can't be used with «Instant Finish»",
+                    func = function(bool)
+                        local function SetOrResetCuts(tbl, bool)
+                            for _, v in pairs(tbl) do
+                                if type(v) == "table" and v.Set then
+                                    if bool then
+                                        v:Set(0)
+                                    else
+                                        v:Reset()
+                                    end
+                                elseif type(v) == "table" then
+                                    SetOrResetCuts(v, bool)
+                                end
+                            end
+                        end
+                        SetOrResetCuts(eTunable.Heist.DiamondCasino.Cut, bool)
+                    end
                 },
                 Player1 = {
                     hash = Utils.Joaat("SN_DiamondCasino_Player1"),
@@ -2304,21 +2366,25 @@ eFeature = {
         },
         EasyMoney = {
             Instant = {
-                Give40m = {
-                    hash = Utils.Joaat("SN_EasyMoney_40m"),
-                    name = "Give 40mil",
+                Give30m = {
+                    hash = Utils.Joaat("SN_EasyMoney_30m"),
+                    name = "Give 30mil",
                     type = eFeatureType.Button,
-                    desc = "MIGHT BE UNSAFE. Gives 40mil dollars in a few seconds. Has a cooldown of about 1 hour.",
+                    desc = "MIGHT BE UNSAFE. Gives 30mil dollars in a few seconds. Has a cooldown of about 1 hour.",
                     func = function()
-                        TriggerTransaction(0x176D9D54)
-                        Script.Yield(3000)
                         TriggerTransaction(0xA174F633)
                         Script.Yield(3000)
                         TriggerTransaction(0xED97AFC1)
                         Script.Yield(3000)
+                        TriggerTransaction(0x176D9D54)
+                        Script.Yield(3000)
                         TriggerTransaction(0x4B6A869C)
                         Script.Yield(3000)
+                        TriggerTransaction(0x921FCF3C)
+                        Script.Yield(3000)
                         TriggerTransaction(0x314FB8B0)
+                        Script.Yield(3000)
+                        TriggerTransaction(0xBFCBE6B6)
                     end
                 }
             },

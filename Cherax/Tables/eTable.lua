@@ -66,10 +66,10 @@ eTable = {
                 { name = "Only Me",   index = 2 }
             },
             Presets = {
-                { name = "All - 0%",     index = 0   },
-                { name = "All - 85%",    index = 85  },
-                { name = "All - 100%",   index = 100 },
-                { name = "15mil Payout", index = -1  }
+                { name = "All - 0%",    index = 0   },
+                { name = "All - 85%",   index = 85  },
+                { name = "All - 100%",  index = 100 },
+                { name = "3mil Payout", index = -1  }
             },
             Heists = {
                 FleecaJob   = 1328892776,
@@ -178,6 +178,12 @@ eTable = {
                         { name = "6",     index = 126 }
                     }
                 }
+            },
+            Presets = {
+                { name = "All - 0%",       index = 0   },
+                { name = "All - 85%",      index = 85  },
+                { name = "All - 100%",     index = 100 },
+                { name = "2.55mil Payout", index = -1  }
             }
         },
         DiamondCasino = {
@@ -285,6 +291,12 @@ eTable = {
                 { name = "Arts",     index = 2 },
                 { name = "Gold",     index = 1 },
                 { name = "Diamonds", index = 3 }
+            },
+            Presets = {
+                { name = "All - 0%",      index = 0   },
+                { name = "All - 85%",     index = 85  },
+                { name = "All - 100%",    index = 100 },
+                { name = "3.6mil Payout", index = -1  }
             }
         },
         Doomsday = {

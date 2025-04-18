@@ -64,6 +64,10 @@ FeatureMgr.AddFeature(apartmentPresets.hash, apartmentPresets.name, apartmentPre
 end)
     :SetList(apartmentPresets.list.GetNames())
 
+FeatureMgr.AddFeature(apartmentBonus.hash, apartmentBonus.name, apartmentBonus.type, apartmentBonus.desc, function(f)
+    apartmentBonus.func(f:IsToggled())
+end)
+
 FeatureMgr.AddFeature(apartmentDouble.hash, apartmentDouble.name, apartmentDouble.type, apartmentDouble.desc, function(f)
 end)
 

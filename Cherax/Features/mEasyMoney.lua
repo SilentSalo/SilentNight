@@ -1,5 +1,5 @@
-FeatureMgr.AddFeature(easyGive40m.hash, easyGive40m.name, easyGive40m.type, easyGive40m.desc, function(f)
-    easyGive40m.func()
+FeatureMgr.AddFeature(easyGive30m.hash, easyGive30m.name, easyGive30m.type, easyGive30m.desc, function(f)
+    easyGive30m.func()
 end)
 
 for i = 1, 5 do
