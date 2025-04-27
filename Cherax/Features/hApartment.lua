@@ -65,6 +65,7 @@ end)
     :SetList(apartmentPresets.list.GetNames())
 
 FeatureMgr.AddFeature(apartmentBonus.hash, apartmentBonus.name, apartmentBonus.type, apartmentBonus.desc, function(f)
+    f:Toggle((eGlobal.Heist.Apartment.Heist.Type:Get() == eTable.Heist.Apartment.Heists.PacificJob) and true or false)
     apartmentBonus.func(f:IsToggled())
 end)
 

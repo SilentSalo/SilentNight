@@ -1,10 +1,10 @@
 eScript = {
     Business = {
-        Bunker = { 
+        Bunker = {
             Laptop = { name = "appbunkerbusiness", stack = 4592, hash = Utils.Joaat("appbunkerBbusiness") },
             Sell   = { name = "gb_gunrunning",     stack = 0,    hash = Utils.Joaat("gb_gunrunning")      }
         },
-        Hangar = { 
+        Hangar = {
             Laptop = { name = "appsmuggler", stack = 4592, hash = Utils.Joaat("appsmuggler") },
             Sell   = { name = "gb_smuggler", stack = 0,    hash = Utils.Joaat("gb_smuggler") }
         },

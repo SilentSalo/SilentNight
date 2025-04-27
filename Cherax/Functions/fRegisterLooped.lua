@@ -1,3 +1,9 @@
+function SoloLauncher()
+    if FeatureMgr.GetFeature(genericLaunch.hash):IsToggled() then
+        genericLaunch.func()
+    end
+end
+
 function ApartmentSetter()
     if FeatureMgr.GetFeature(apartmentCooldown.hash):IsToggled() then
         apartmentCooldown.func()
@@ -13,6 +19,7 @@ function DiamondSetter()
         diamondAutograbber.func()
     end
     if FeatureMgr.GetFeatureListIndex(diamondPresets.hash) == 3 then
+        FeatureMgr.GetFeature(diamondCrew.hash):Toggle(true)
         diamondPresets.func()
     end
     diamondCrew.func(FeatureMgr.GetFeature(diamondCrew.hash):IsToggled())
@@ -20,6 +27,7 @@ end
 
 function CayoSetter()
     if FeatureMgr.GetFeatureListIndex(cayoPresets.hash) == 3 then
+        FeatureMgr.GetFeature(cayoCrew.hash):Toggle(false)
         cayoPresets.func()
     end
     cayoCrew.func(FeatureMgr.GetFeature(cayoCrew.hash):IsToggled())
@@ -62,24 +70,47 @@ function EasyLooper()
     end
 end
 
+function NightclubSetter()
+    nightclubLock.func(FeatureMgr.GetFeature(nightclubLock.hash):IsToggled())
+end
+
 function ReAssign()
     PLAYER_ID                              = GTA.GetLocalPlayerId()
-    eGlobal.Business.CrateWarehouse.Slot   = { type = "int", global = 1845221 + 1 + (PLAYER_ID * 889) + 268 + 120 + 1 + (0 * 3)  }
-    eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845221 + 1 + (PLAYER_ID * 889) + 268 + 360 + 5            }
-    eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76                    }
-    eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76                        }
-    eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1877417 + (PLAYER_ID * 77) + 24 + 2                        }
-    eGlobal.Player.Property                = { type = "int", global = 2657971 + 1 + (PLAYER_ID * 465) + 322 + 8                  }
-    eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 767 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
-    eLocal.World.Casino.Blackjack          = {
-        Dealer = {
-            FirstCard  = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
-            SecondCard = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
-            ThirdCard  = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
-        },
-        CurrentTable = { type = "int", vLocal = 1794 + 1 + (PLAYER_ID * 8) + 4,                                                                           script = "blackjack" },
-        VisibleCards = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
-    }
+    if GTA_EDITION == "EE" then
+        eGlobal.Business.CrateWarehouse.Slot   = { type = "int", global = 1845270 + 1 + (PLAYER_ID * 892) + 268 + 120 + 1 + (0 * 3)  }
+        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845270 + 1 + (PLAYER_ID * 892) + 268 + 360 + 5            }
+        eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77 + 1) + 76                    }
+        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77) + 76                        }
+        eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1877562 + (PLAYER_ID * 77) + 24 + 2                        }
+        eGlobal.Player.Property                = { type = "int", global = 2657994 + 1 + (PLAYER_ID * 465) + 322 + 8                  }
+        eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 769 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
+        eLocal.World.Casino.Blackjack          = {
+            Dealer = {
+                FirstCard  = { type = "int", vLocal = 136 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1796 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
+                SecondCard = { type = "int", vLocal = 136 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1796 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
+                ThirdCard  = { type = "int", vLocal = 136 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1796 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
+            },
+            CurrentTable = { type = "int", vLocal = 1796 + 1 + (PLAYER_ID * 8) + 4,                                                                           script = "blackjack" },
+            VisibleCards = { type = "int", vLocal = 136 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1796 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
+        }
+    else
+        eGlobal.Business.CrateWarehouse.Slot   = { type = "int", global = 1845221 + 1 + (PLAYER_ID * 889) + 268 + 120 + 1 + (0 * 3)  }
+        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845221 + 1 + (PLAYER_ID * 889) + 268 + 360 + 5            }
+        eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76                    }
+        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76                        }
+        eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1877417 + (PLAYER_ID * 77) + 24 + 2                        }
+        eGlobal.Player.Property                = { type = "int", global = 2657971 + 1 + (PLAYER_ID * 465) + 322 + 8                  }
+        eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 767 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
+        eLocal.World.Casino.Blackjack          = {
+            Dealer = {
+                FirstCard  = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
+                SecondCard = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
+                ThirdCard  = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
+            },
+            CurrentTable = { type = "int", vLocal = 1794 + 1 + (PLAYER_ID * 8) + 4,                                                                           script = "blackjack" },
+            VisibleCards = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
+        }
+    end
     FeatureMgr.GetFeature(bunkerMade.hash):SetIntValue(eStat.MPX_LIFETIME_BKR_SEL_COMPLETBC5:Get())
     FeatureMgr.GetFeature(bunkerUndertaken.hash):SetIntValue(eStat.MPX_LIFETIME_BKR_SEL_UNDERTABC5:Get())
     FeatureMgr.GetFeature(bunkerEarnings.hash):SetIntValue(eStat.MPX_LIFETIME_BKR_SELL_EARNINGS5:Get())
@@ -109,7 +140,6 @@ function ReParse()
     else
         if not HAS_PARSED or LAST_SESSION_STATE ~= IsInSession() then
             Script.Yield(5000)
-            Log("Online session detected")
             ParseTunables(eTunable)
             ParseStats(eStat)
             ReAssign()
@@ -118,7 +148,6 @@ function ReParse()
             while not eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedBool.HAS_PARSED and eTable.HAS_PARSED do
                 Script.Yield(1)
             end
-            Log("All required values parsed")
             HAS_PARSED = true
         end
     end
@@ -126,12 +155,14 @@ function ReParse()
 end
 
 Script.RegisterLooped(function()
+    SoloLauncher()
     ApartmentSetter()
     DiamondSetter()
     CayoSetter()
     TurkishSupplier()
     PriceMaximizer()
     EasyLooper()
+    NightclubSetter()
     ReParse()
     Script.Yield(1)
 end)

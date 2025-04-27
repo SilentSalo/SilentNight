@@ -140,13 +140,19 @@ FeatureMgr.AddFeature(devPackedStatsRange.hash, devPackedStatsRange.name, devPac
         FeatureMgr.GetFeature(devPackedStatsWrite.hash):SetName("Write Range"):SetDesc("Writes the selected value to the entered packed stats range.")
         FeatureMgr.GetFeature(devPackedStatsRead.hash):SetVisible(false)
         FeatureMgr.GetFeature(devPackedStatsRevert.hash):SetVisible(false)
-        FeatureMgr.GetFeature(devPackedStatsPackedStat.hash):SetName(examples[FeatureMgr.GetFeatureListIndex(devPackedStatsType.hash)].index[2]):SetStringValue("")
+        FeatureMgr.GetFeature(devPackedStatsPackedStat.hash)
+            :SetName(examples[FeatureMgr.GetFeatureListIndex(devPackedStatsType.hash)].index[2])
+            :SetDesc("Input your packed stats range here.")
+            :SetStringValue("")
         FeatureMgr.GetFeature(devPackedStatsValue.hash):SetName("1"):SetStringValue("")
     else
         FeatureMgr.GetFeature(devPackedStatsWrite.hash):SetName("Write"):SetDesc("Writes the selected value to the entered packed stat.")
         FeatureMgr.GetFeature(devPackedStatsRead.hash):SetVisible(true)
         FeatureMgr.GetFeature(devPackedStatsRevert.hash):SetVisible(true)
-        FeatureMgr.GetFeature(devPackedStatsPackedStat.hash):SetName(examples[FeatureMgr.GetFeatureListIndex(devPackedStatsType.hash)].index[1]):SetStringValue("")
+        FeatureMgr.GetFeature(devPackedStatsPackedStat.hash)
+            :SetName(examples[FeatureMgr.GetFeatureListIndex(devPackedStatsType.hash)].index[1])
+            :SetDesc("Input your packed stat here.")
+            :SetStringValue("")
         FeatureMgr.GetFeature(devPackedStatsValue.hash):SetName(examples[FeatureMgr.GetFeatureListIndex(devPackedStatsType.hash)].value):SetStringValue("")
     end
 end)
@@ -222,7 +228,6 @@ FeatureMgr.AddFeature(devPackedStatsWrite.hash, devPackedStatsWrite.name, devPac
         end
     end
     value = tonumber(value)
-    Logger.Log("firstPStat: " .. tostring(firstPStat) .. ", lastPStat: " .. tostring(lastPStat) .. ", value: " .. tostring(value))
     devPackedStatsWrite.func(type, firstPStat, lastPStat, value)
 end)
 

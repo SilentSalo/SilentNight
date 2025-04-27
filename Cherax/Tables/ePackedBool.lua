@@ -1,6 +1,9 @@
 ePackedBool = {
     HAS_PARSED = false,
     Business   = {
+        Arcade = {
+            Setup = { 27227 }
+        },
         CrateWarehouse = {
             Cargo = { 32359, 32363 }
         },

@@ -155,6 +155,7 @@ function RenderHeistTool()
                         ClickGUI.RenderFeature(diamondMasks.hash)
                         ClickGUI.RenderFeature(diamondTarget.hash)
                         ClickGUI.RenderFeature(diamondComplete.hash)
+                        ClickGUI.RenderFeature(diamondReset.hash)
                         ClickGUI.RenderFeature(diamondReload.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -170,6 +171,7 @@ function RenderHeistTool()
                         ClickGUI.RenderFeature(diamondAutograbber.hash)
                         ClickGUI.RenderFeature(diamondCooldown.hash)
                         ClickGUI.RenderFeature(diamondUnlock.hash)
+                        ClickGUI.RenderFeature(diamondSetup.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.TableNextColumn()
@@ -427,6 +429,7 @@ function RenderMoneyTool()
                     if ClickGUI.BeginCustomChildWindow("Popularity") then
                         ClickGUI.RenderFeature(nightclubMax.hash)
                         ClickGUI.RenderFeature(nightclubMin.hash)
+                        ClickGUI.RenderFeature(nightclubLock.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.TableNextColumn()
@@ -510,6 +513,11 @@ function RenderMoneyTool()
                         ClickGUI.RenderFeature(miscEditRemove.hash)
                         ClickGUI.RenderFeature(miscEditDepositAll.hash)
                         ClickGUI.RenderFeature(miscEditWithdrawAll.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    if ClickGUI.BeginCustomChildWindow("Supplies") then
+                        ClickGUI.RenderFeature(miscSuppliesBusiness.hash)
+                        ClickGUI.RenderFeature(miscSuppliesResupply.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.TableNextColumn()
@@ -612,13 +620,13 @@ function RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.1.3", RenderClickGUI)
+ClickGUI.AddTab("Silent Night v0.1.4", RenderClickGUI)
 
 function RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab("Silent Night v0.1.3", "Silent Night")
+    local SilentNightTab = root:AddSubTab("Silent Night v0.1.4", "Silent Night")
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
@@ -742,6 +750,7 @@ function RenderListGUI()
             CasinoHeistTab:AddFeature(diamondMasks.hash)
             CasinoHeistTab:AddFeature(diamondTarget.hash)
             CasinoHeistTab:AddFeature(diamondComplete.hash)
+            CasinoHeistTab:AddFeature(diamondReset.hash)
             CasinoHeistTab:AddFeature(diamondReload.hash)
 
             CasinoHeistTab:AddSeperator("Misc")
@@ -754,6 +763,7 @@ function RenderListGUI()
             CasinoHeistTab:AddFeature(diamondAutograbber.hash)
             CasinoHeistTab:AddFeature(diamondCooldown.hash)
             CasinoHeistTab:AddFeature(diamondUnlock.hash)
+            CasinoHeistTab:AddFeature(diamondSetup.hash)
 
             CasinoHeistTab:AddSeperator("Cuts")
             CasinoHeistTab:AddFeature(diamondTeam.hash)
@@ -809,18 +819,25 @@ function RenderListGUI()
             SalvageYardTab:AddFeature(salvageSlot1Keep.hash)
             SalvageYardTab:AddFeature(salvageSlot1Apply.hash)
 
-            SalvageYardTab:AddSeperator("Preps")
-            SalvageYardTab:AddFeature(salvageApplyAll.hash)
-            SalvageYardTab:AddFeature(salvageComplete.hash)
-            SalvageYardTab:AddFeature(salvageReset.hash)
-            SalvageYardTab:AddFeature(salvageReload.hash)
-
             SalvageYardTab:AddSeperator("Slot 2")
             SalvageYardTab:AddFeature(salvageSlot2Robbery.hash)
             SalvageYardTab:AddFeature(salvageSlot2Vehicle.hash)
             SalvageYardTab:AddFeature(salvageSlot2Mod.hash)
             SalvageYardTab:AddFeature(salvageSlot2Keep.hash)
             SalvageYardTab:AddFeature(salvageSlot2Apply.hash)
+
+            SalvageYardTab:AddSeperator("Slot 3")
+            SalvageYardTab:AddFeature(salvageSlot3Robbery.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Vehicle.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Mod.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Keep.hash)
+            SalvageYardTab:AddFeature(salvageSlot3Apply.hash)
+
+            SalvageYardTab:AddSeperator("Preps")
+            SalvageYardTab:AddFeature(salvageApplyAll.hash)
+            SalvageYardTab:AddFeature(salvageComplete.hash)
+            SalvageYardTab:AddFeature(salvageReset.hash)
+            SalvageYardTab:AddFeature(salvageReload.hash)
 
             SalvageYardTab:AddSeperator("Misc")
             SalvageYardTab:AddFeature(salvageCooldown.hash)
@@ -830,13 +847,6 @@ function RenderListGUI()
             SalvageYardTab:AddFeature(salvageSlot3Available.hash)
             SalvageYardTab:AddFeature(salvageSetup.hash)
             SalvageYardTab:AddFeature(salvageClaim.hash)
-
-            SalvageYardTab:AddSeperator("Slot 3")
-            SalvageYardTab:AddFeature(salvageSlot3Robbery.hash)
-            SalvageYardTab:AddFeature(salvageSlot3Vehicle.hash)
-            SalvageYardTab:AddFeature(salvageSlot3Mod.hash)
-            SalvageYardTab:AddFeature(salvageSlot3Keep.hash)
-            SalvageYardTab:AddFeature(salvageSlot3Apply.hash)
 
             SalvageYardTab:AddSeperator("Payout")
             SalvageYardTab:AddFeature(salvageSalvage.hash)
@@ -947,6 +957,7 @@ function RenderListGUI()
             NightclubTab:AddSeperator("Popularity")
             NightclubTab:AddFeature(nightclubMax.hash)
             NightclubTab:AddFeature(nightclubMin.hash)
+            NightclubTab:AddFeature(nightclubLock.hash)
 
             NightclubTab:AddSeperator("Stats")
             NightclubTab:AddFeature(nightclubSellMade.hash)
@@ -1001,6 +1012,10 @@ function RenderListGUI()
             MiscTab:AddFeature(miscEditRemove.hash)
             MiscTab:AddFeature(miscEditDepositAll.hash)
             MiscTab:AddFeature(miscEditWithdrawAll.hash)
+
+            MiscTab:AddSeperator("Supplies")
+            MiscTab:AddFeature(miscSuppliesBusiness.hash)
+            MiscTab:AddFeature(miscSuppliesResupply.hash)
 
             MiscTab:AddSeperator("Story")
             MiscTab:AddFeature(miscStorySelect.hash)

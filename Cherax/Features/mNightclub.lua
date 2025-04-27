@@ -67,3 +67,6 @@ end)
 FeatureMgr.AddFeature(nightclubMin.hash, nightclubMin.name, nightclubMin.type, nightclubMin.desc, function(f)
     nightclubMin.func()
 end)
+
+FeatureMgr.AddFeature(nightclubLock.hash, nightclubLock.name, nightclubLock.type, nightclubLock.desc, function(f)
+end)

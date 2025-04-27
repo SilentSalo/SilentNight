@@ -71,46 +71,71 @@ function SetApartmentMaxPayout(bool)
         [eTable.Heist.Apartment.Heists.SeriesA]     = { 353500, 707000,  883750  },
         [eTable.Heist.Apartment.Heists.PacificJob]  = { 750000, 1500000, 1875000 }
     }
-    local maxPayout = 3000000
-    local cuts      = {}
-    for heistType, payout in pairs(payouts) do
-        cuts[heistType] = {
-            math.floor(maxPayout / (payout[1] / 100)),
-            math.floor(maxPayout / (payout[2] / 100)),
-            math.floor(maxPayout / (payout[3] / 100))
-        }
-    end
-    if cuts[heist] == nil then
+    if payouts[heist] == nil then
         return
     end
+    local payout    = payouts[heist][difficulty]
+    local maxPayout = 3000000
+    local cut       = math.floor(maxPayout / (payout / 100) / ((bool) and 2 or 1))
     for i = 1, team do
-        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(math.floor(cuts[heist][difficulty] / ((bool) and 2 or 1)))
+        FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(cut)
     end
 end
 
 function SetDiamondMaxPayout()
+    eTunable.Heist.DiamondCasino.Buyer.Low:Set(1.0)
+    eTunable.Heist.DiamondCasino.Buyer.Mid:Set(1.0)
+    eTunable.Heist.DiamondCasino.Buyer.High:Set(1.0)
     local team       = diamondTeam.list[FeatureMgr.GetFeatureListIndex(diamondTeam.hash) + 1].index
-    local target     = eStat.MPX_H3OPT_TARGET:Get()
     local difficulty = (eStat.MPX_H3OPT_APPROACH:Get() == eStat.MPX_H3_HARD_APPROACH:Get()) and 2 or 1
+    local target     = eStat.MPX_H3OPT_TARGET:Get()
     local payouts    = {
         [0] = { 2115000, 2326500 },
         [2] = { 2350000, 2585000 },
         [1] = { 2585000, 2843500 },
         [3] = { 3290000, 3619000 }
     }
+    local payout    = payouts[target][difficulty] + 819000
     local maxPayout = 3619000
-    local cuts      = {}
-    for targetType, payout in pairs(payouts) do
-        cuts[targetType] = {
-            math.floor(maxPayout / (payout[1] / 100)),
-            math.floor(maxPayout / (payout[2] / 100))
+    local cut       = math.floor(maxPayout / (payout / 100))
+    FeatureMgr.GetFeature(diamondPlayer1.hash):SetIntValue(cut)
+    if team > 1 then
+        local gunman     = eStat.MPX_H3OPT_CREWWEAP:Get()
+        local driver     = eStat.MPX_H3OPT_CREWDRIVER:Get()
+        local hacker     = eStat.MPX_H3OPT_CREWHACKER:Get()
+        local buyerFee   = 0.1
+        local lesterCut  = 0.05
+        local gunmanCuts = {
+            [1] = 0.05,
+            [3] = 0.07,
+            [5] = 0.08,
+            [2] = 0.09,
+            [4] = 0.1
         }
-    end
-    if cuts[target] == nil then
-        return
-    end
-    for i = 1, team do
-        FeatureMgr.GetFeature(diamondPlayers[i].hash):SetIntValue(cuts[target][difficulty])
+        local driverCuts = {
+            [1] = 0.05,
+            [4] = 0.06,
+            [2] = 0.07,
+            [3] = 0.09,
+            [5] = 0.1
+        }
+        local hackerCuts = {
+            [1] = 0.03,
+            [3] = 0.05,
+            [2] = 0.07,
+            [5] = 0.09,
+            [4] = 0.1
+        }
+        local feePayout = payout - (payout * buyerFee)
+        local lesterCut = feePayout * lesterCut
+        local gunmanCut = feePayout * gunmanCuts[gunman]
+        local driverCut = feePayout * driverCuts[driver]
+        local hackerCut = feePayout * hackerCuts[hacker]
+        local crewCut   = lesterCut + gunmanCut + driverCut + hackerCut
+        local cut       = math.floor(maxPayout / ((feePayout - crewCut) / 100))
+        for i = 2, team do
+            FeatureMgr.GetFeature(diamondPlayers[i].hash):SetIntValue(cut)
+        end
     end
 end
 
@@ -126,19 +151,32 @@ function SetCayoMaxPayout()
         [4] = { 1100000, 1210000 },
         [5] = { 1900000, 2090000 }
     }
-    local maxPayout = 2550000
-    local cuts      = {}
-    for targetType, payout in pairs(payouts) do
-        cuts[targetType] = {
-            math.floor(maxPayout / (payout[1] / 100)),
-            math.floor(maxPayout / (payout[2] / 100))
-        }
-    end
-    if cuts[target] == nil then
-        return
+    local payout      = payouts[target][difficulty]
+    local maxPayout   = 2550000
+    local cut         = math.floor(maxPayout / (payout / 100))
+    local finalPayout = math.floor(payout * (cut / 100))
+    local difference  = 1000
+    local pavelCut    = 0.02
+    local fencingCut  = 0.1
+    local foundCut    = false
+    while not foundCut do
+        local pavelFee   = math.floor(finalPayout * pavelCut)
+        local fencingFee = math.floor(finalPayout * fencingCut)
+        local feePayout  = finalPayout - (pavelFee + fencingFee)
+        if feePayout >= maxPayout - difference and feePayout <= maxPayout then
+            foundCut = true
+        else
+            cut = cut + 1
+            finalPayout = math.floor(payout * (cut / 100))
+            if cut > 500 then
+                cut         = math.floor(maxPayout / (payout / 100))
+                finalPayout = math.floor(payout * (cut / 100))
+                difference  = difference + 1000
+            end
+        end
     end
     for i = 1, team do
-        FeatureMgr.GetFeature(cayoPlayers[i].hash):SetIntValue(cuts[target][difficulty])
+        FeatureMgr.GetFeature(cayoPlayers[i].hash):SetIntValue(cut)
     end
 end
 

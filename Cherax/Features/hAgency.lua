@@ -18,7 +18,7 @@ end)
 FeatureMgr.AddFeature(agencySelect.hash, agencySelect.name, agencySelect.type, agencySelect.desc, function(f)
 end)
     :SetDefaultValue(0)
-    :SetLimitValues(0, 2500000)
+    :SetLimitValues(0, 3000000)
     :SetStepSize(100000)
     :Reset()
 

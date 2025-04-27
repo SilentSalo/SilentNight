@@ -13,7 +13,7 @@ eFeature = {
             Launch = {
                 hash = Utils.Joaat("SN_Generic_Launch"),
                 name = "Solo Launch",
-                type = eFeatureType.Button,
+                type = eFeatureType.Toggle,
                 desc = "Allows launching the heist alone.",
                 func = function()
                     eLocal.Heist.Generic.Launch1:Set(1)
@@ -22,6 +22,7 @@ eFeature = {
                     eGlobal.Heist.Generic.Launch2:Set(1)
                     eGlobal.Heist.Generic.Launch3:Set(1)
                     eGlobal.Heist.Generic.Launch4:Set(0)
+                    Script.Yield(1000)
                 end
             },
             Cut = {
@@ -72,7 +73,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Agency_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Use after the heist has started.",
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
                         ForceScriptHost(eScript.Heist.Agency.name)
                         Script.Yield(1000)
@@ -104,7 +105,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Agency_Apply"),
                     name = "Apply Payout",
                     type = eFeatureType.Button,
-                    desc = "Applies the selected payout. Use after the heist has started.",
+                    desc = "Applies the selected payout. Use after you can see the minimap.",
                     func = function(payout)
                         eTunable.Heist.Agency.Payout:Set(payout)
                     end
@@ -150,7 +151,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Apartment_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Use after the heist has started.",
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
                         ForceScriptHost(eScript.Heist.Apartment.name)
                         Script.Yield(1000)
@@ -263,7 +264,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Apartment_Bonus"),
                     name = "12mil Bonus",
                     type = eFeatureType.Toggle,
-                    desc = "Allows only you to get 12 millions bonus for The Pacific Standard Job on hard difficulty, even if you're not the host. Enable before starting the heist.",
+                    desc = "Allows only you to get 12 millions bonus for The Pacific Standard Job on hard difficulty, even if you're not the host. Has a cooldown of about 1 hour. Enable before starting the heist.",
                     func = function(bool)
                         eStat.MPPLY_HEISTFLOWORDERPROGRESS:Set((bool) and 268435455 or 134217727)
                         eStat.MPPLY_AWD_HST_ORDER:Set((bool) and true or false)
@@ -271,13 +272,14 @@ eFeature = {
                         eStat.MPPLY_AWD_HST_SAME_TEAM:Set((bool) and true or false)
                         eStat.MPPLY_HEISTNODEATHPROGREITSET:Set((bool) and 268435455 or 134217727)
                         eStat.MPPLY_AWD_HST_ULT_CHAL:Set((bool) and true or false)
+                        Script.Yield(1000)
                     end
                 },
                 Double = {
                     hash = Utils.Joaat("SN_Apartment_Double"),
                     name = "Double Rewards Week",
                     type = eFeatureType.Toggle,
-                    desc = "Enable during double rewards week."
+                    desc = "Enable this during double rewards week."
                 },
                 Player1 = {
                     hash = Utils.Joaat("SN_Apartment_Player1"),
@@ -369,7 +371,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_AutoShop_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Use after the heist has started.",
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
                         ForceScriptHost(eScript.Heist.AutoShop.name)
                         Script.Yield(1000)
@@ -401,7 +403,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_AutoShop_Apply"),
                     name = "Apply Payout",
                     type = eFeatureType.Button,
-                    desc = "Applies the selected payout. Use after the heist has started.",
+                    desc = "Applies the selected payout. Use after you can see the minimap.",
                     func = function(payout)
                         eTunable.Heist.AutoShop.Payout.First:Set(payout)
                         eTunable.Heist.AutoShop.Payout.Second:Set(payout)
@@ -558,7 +560,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_CayoPerico_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Use after the heist has started.",
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
                         ForceScriptHost(eScript.Heist.CayoPerico.name)
                         Script.Yield(1000)
@@ -670,7 +672,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_CayoPerico_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets. 2.55mil Payout works only if you've set Difficulty through the script. Use with «Instant Finish».",
+                    desc = "Select one of the ready-made presets. 2.55mil Payout only works if you've set the Difficulty through the script and you don't have any Secondary Targets.",
                     list = eTable.Heist.CayoPerico.Presets,
                     func = function()
                         SetCayoMaxPayout()
@@ -681,7 +683,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_CayoPerico_Crew"),
                     name = "Remove Crew Cuts",
                     type = eFeatureType.Toggle,
-                    desc = "Removes fencing fee and Pavel's cut. Can be used with «Instant Finish».",
+                    desc = "Removes fencing fee and Pavel's cut. Can't be used with «2.55mil Payout».",
                     func = function(bool)
                         if bool then
                             eTunable.Heist.CayoPerico.Cut.Pavel:Set(0)
@@ -834,6 +836,34 @@ eFeature = {
                         eLocal.Heist.DiamondCasino.Reload:Set(2)
                     end
                 },
+                Reset = {
+                    hash = Utils.Joaat("SN_DiamondCasino_Reset"),
+                    name = "Reset Preps",
+                    type = eFeatureType.Button,
+                    desc = "Resets all preparations. Also, redraws the planning board.",
+                    func = function()
+                        eStat.MPX_H3_LAST_APPROACH:Set(0)
+                        eStat.MPX_H3_HARD_APPROACH:Set(0)
+                        eStat.MPX_H3_APPROACH:Set(0)
+                        eStat.MPX_H3OPT_APPROACH:Set(0)
+                        eStat.MPX_H3OPT_CREWWEAP:Set(0)
+                        eStat.MPX_H3OPT_WEAPS:Set(0)
+                        eStat.MPX_H3OPT_CREWDRIVER:Set(0)
+                        eStat.MPX_H3OPT_VEHS:Set(0)
+                        eStat.MPX_H3OPT_CREWHACKER:Set(0)
+                        eStat.MPX_H3OPT_MASKS:Set(0)
+                        eStat.MPX_H3OPT_TARGET:Set(0)
+                        eStat.MPX_H3OPT_BITSET0:Set(0)
+                        eStat.MPX_H3OPT_BITSET1:Set(0)
+                        eStat.MPX_H3OPT_POI:Set(0)
+                        eStat.MPX_H3OPT_ACCESSPOINTS:Set(0)
+                        eStat.MPX_CAS_HEIST_NOTS:Set(0)
+                        eStat.MPX_CAS_HEIST_FLOW:Set(0)
+                        eStat.MPPLY_H3_COOLDOWN:Set(0)
+                        eStat.MPX_H3OPT_COMPLETEDPOSIX:Set(0)
+                        eLocal.Heist.DiamondCasino.Reload:Set(2)
+                    end
+                },
                 Reload = {
                     hash = Utils.Joaat("SN_DiamondCasino_Reload"),
                     name = "Redraw Board",
@@ -862,7 +892,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_DiamondCasino_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Set the buyer to low level to get paid. Use after the heist has started.",
+                    desc = "Finishes the heist instantly. Set the buyer to Low. Use after you can see the minimap.",
                     func = function()
                         ForceScriptHost(eScript.Heist.DiamondCasino.name)
                         Script.Yield(1000)
@@ -946,6 +976,15 @@ eFeature = {
                         eStat.MPX_CAS_HEIST_FLOW:Set(-1)
                         eLocal.Heist.DiamondCasino.Reload:Set(2)
                     end
+                },
+                Setup = {
+                    hash = Utils.Joaat("SN_DiamondCasino_Setup"),
+                    name = "Skip Setup",
+                    type = eFeatureType.Button,
+                    desc = "Skips the setup mission for your Arcade. Change the session to apply.",
+                    func = function()
+                        ePackedBool.Business.Arcade.Setup:Set(true)
+                    end
                 }
             },
             Cuts = {
@@ -960,7 +999,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_DiamondCasino_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets. Use with «Instant Finish».",
+                    desc = "Select one of the ready-made presets.",
                     list = eTable.Heist.DiamondCasino.Presets,
                     func = function()
                         SetDiamondMaxPayout()
@@ -971,7 +1010,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_DiamondCasino_Crew"),
                     name = "Remove Crew Cuts",
                     type = eFeatureType.Toggle,
-                    desc = "Removes crew cuts and Lester's cut. Can't be used with «Instant Finish»",
+                    desc = "Removes crew cuts and Lester's cut. Should be used with «Instant Finish».",
                     func = function(bool)
                         local function SetOrResetCuts(tbl, bool)
                             for _, v in pairs(tbl) do
@@ -1017,7 +1056,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_DiamondCasino_Apply"),
                     name = "Apply Cuts",
                     type = eFeatureType.Button,
-                    desc = "Applies the selected cuts for players.",
+                    desc = "Applies the selected cuts for players. If solo, apply near the planning board.",
                     func = function(cuts)
                         for i = 1, 4 do
                             eGlobal.Heist.DiamondCasino.Cut["Player" .. i]:Set(cuts[i])
@@ -1042,8 +1081,8 @@ eFeature = {
                     desc = "Applies all changes and completes all preparations. Also, reloads the planning screen.",
                     func = function(act)
                         local acts = {
-                            [1] = { 503, 229383   },
-                            [2] = { 240, 229378   },
+                            [1] = { 503,   229383 },
+                            [2] = { 240,   229378 },
                             [3] = { 16368, 229380 }
                         }
                         eStat.MPX_GANGOPS_FLOW_MISSION_PROG:Set(acts[act][1])
@@ -1092,7 +1131,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Doomsday_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Use after the heist has started.",
+                    desc = "Finishes the heist instantly. Doesn't work for Act III. Use after you can see the minimap.",
                     func = function()
                         ForceScriptHost(eScript.Heist.Doomsday.name)
                         Script.Yield(1000)
@@ -2144,6 +2183,23 @@ eFeature = {
                     func = function()
                         eStat.MPX_CLUB_POPULARITY:Set(0)
                     end
+                },
+                Lock = {
+                    hash = Utils.Joaat("SN_Nightclub_Lock"),
+                    name = "Lock Popularity",
+                    type = eFeatureType.Toggle,
+                    desc = "Locks the popularity of your Nightclub on the current level.",
+                    func = function(bool)
+                        if bool then
+                            if NPOPULARITY ~= "TEMP" then
+                                NPOPULARITY = eStat.MPX_CLUB_POPULARITY:Get()
+                            end
+                            eStat.MPX_CLUB_POPULARITY:Set(NPOPULARITY)
+                            Script.Yield(10000)
+                        else
+                            NPOPULARITY = "TEMP"
+                        end
+                    end
                 }
             }
         },
@@ -2383,8 +2439,6 @@ eFeature = {
                         TriggerTransaction(0x921FCF3C)
                         Script.Yield(3000)
                         TriggerTransaction(0x314FB8B0)
-                        Script.Yield(3000)
-                        TriggerTransaction(0xBFCBE6B6)
                     end
                 }
             },
@@ -2515,6 +2569,39 @@ eFeature = {
                     func = function()
                         local charSlot = eStat.MPPLY_LAST_MP_CHAR:Get()
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE())
+                    end
+                }
+            },
+            Supplies = {
+                Business = {
+                    hash = Utils.Joaat("SN_Misc_SuppliesBusiness"),
+                    name = "Business",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired business.",
+                    list = eTable.Business.Supplies
+                },
+                Resupply = {
+                    hash = Utils.Joaat("SN_Misc_SuppliesResupply"),
+                    name = "Resupply",
+                    type = eFeatureType.Button,
+                    desc = "Resupplies the selected business.",
+                    func = function(business)
+                        local businesses = {
+                            [1] = eGlobal.Business.Supplies.Cash,
+                            [2] = eGlobal.Business.Supplies.Coke,
+                            [3] = eGlobal.Business.Supplies.Weed,
+                            [4] = eGlobal.Business.Supplies.Meth,
+                            [5] = eGlobal.Business.Supplies.Documents,
+                            [6] = eGlobal.Business.Supplies.Bunker,
+                            [7] = eGlobal.Business.Supplies.Acid
+                        }
+                        if business == 0 then
+                            for i = 1, #businesses do
+                                businesses[i]:Set(1)
+                            end
+                            return
+                        end
+                        businesses[business]:Set(1)
                     end
                 }
             },
@@ -2684,7 +2771,7 @@ eFeature = {
                         if stat:sub(1, 3) == "MPX" then
                             stat = stat:gsub("MPX", string.format("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
                         end
-                        SetValue[type](Utils.sJoaat(stat), value)  
+                        SetValue[type](Utils.sJoaat(stat), value)
                         TEMP_STAT = value
                     end
                 },

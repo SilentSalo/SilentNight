@@ -50,7 +50,7 @@ end)
 
 FeatureMgr.AddFeature(diamondLoadout.hash, diamondLoadout.name, diamondLoadout.type, diamondLoadout.desc, function(f)
 end)
-    : SetList(diamondLoadout.list:GetNamesRange(1, 2))
+    :SetList(diamondLoadout.list:GetNamesRange(1, 2))
 
 FeatureMgr.AddFeature(diamondDriver.hash, diamondDriver.name, diamondDriver.type, diamondDriver.desc, function(f)
     local driver = diamondDriver.list[f:GetListIndex() + 1].index
@@ -94,6 +94,10 @@ FeatureMgr.AddFeature(diamondComplete.hash, diamondComplete.name, diamondComplet
     diamondComplete.func(difficulty, approach, gunman, loadout, driver, vehicles, hacker, masks, target)
 end)
 
+FeatureMgr.AddFeature(diamondReset.hash, diamondReset.name, diamondReset.type, diamondReset.desc, function(f)
+    diamondReset.func()
+end)
+
 FeatureMgr.AddFeature(diamondReload.hash, diamondReload.name, diamondReload.type, diamondReload.desc, function(f)
     diamondReload.func()
 end)
@@ -129,8 +133,13 @@ FeatureMgr.AddFeature(diamondUnlock.hash, diamondUnlock.name, diamondUnlock.type
     diamondUnlock.func()
 end)
 
+FeatureMgr.AddFeature(diamondSetup.hash, diamondSetup.name, diamondSetup.type, diamondSetup.desc, function(f)
+    diamondSetup.func()
+end)
+
 FeatureMgr.AddFeature(diamondTeam.hash, diamondTeam.name, diamondTeam.type, diamondTeam.desc, function(f)
     FeatureMgr.GetFeature(diamondPresets.hash):SetListIndex(0)
+    FeatureMgr.GetFeature(diamondCrew.hash):Toggle(false)
     for i = 1, 4 do
         FeatureMgr.GetFeature(diamondPlayers[i].hash):SetIntValue(0)
     end
@@ -138,6 +147,7 @@ end)
     :SetList(diamondTeam.list:GetNames())
 
 FeatureMgr.AddFeature(diamondPresets.hash, diamondPresets.name, diamondPresets.type, diamondPresets.desc, function(f)
+    FeatureMgr.GetFeature(diamondCrew.hash):Toggle(false)
     local team   = diamondTeam.list[FeatureMgr.GetFeatureListIndex(diamondTeam.hash) + 1].index
     local preset = diamondPresets.list[FeatureMgr.GetFeatureListIndex(diamondPresets.hash) + 1].index
     for i = 1, 4 do

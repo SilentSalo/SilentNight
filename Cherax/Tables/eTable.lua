@@ -23,6 +23,16 @@ eTable = {
                 { name = "Printing n Copying", index = "HUB_PROD_TOTAL_5" },
                 { name = "Cash Creation",      index = "HUB_PROD_TOTAL_6" },
             }
+        },
+        Supplies = {
+            { name = "All",       index = 0 },
+            { name = "Cash",      index = 1 },
+            { name = "Coke",      index = 2 },
+            { name = "Weed",      index = 3 },
+            { name = "Meth",      index = 4 },
+            { name = "Documents", index = 5 },
+            { name = "Bunker",    index = 6 },
+            { name = "Acid",      index = 7 }
         }
     },
     Heist = {
@@ -192,14 +202,14 @@ eTable = {
                 { name = "Hard",   index = 1 }
             },
             Approaches = {
-                { name = "Silent n Sneaky", index = 1 },
+                { name = "Silent n Sneak.", index = 1 },
                 { name = "Big Con",         index = 2 },
                 { name = "Aggressive",      index = 3 }
             },
             Gunmans = {
                 { name = "Karl Abolaji",    index = 1 },
                 { name = "Charlie Reed",    index = 3 },
-                { name = "Patrick McReary", index = 5 },
+                { name = "Patrick McRear.", index = 5 },
                 { name = "Gustavo Mota",    index = 2 },
                 { name = "Chester McCoy",   index = 4 }
             },
@@ -223,7 +233,7 @@ eTable = {
                 { name = "Heavy Shotgun",     index = 5 },
                 { name = "Combat MG",         index = 5 },
                 { name = "Carbine Rif. (S)",  index = 2 },
-                { name = "Assault Shot. (S)", index = 2 },
+                { name = "Assault Sho. (S)", index = 2 },
                 { name = "Carbine Rifle",     index = 2 },
                 { name = "Assault Shotgun",   index = 2 },
                 { name = "Carbine Rifle",     index = 2 },
