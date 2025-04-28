@@ -2191,7 +2191,7 @@ eFeature = {
                     desc = "Locks the popularity of your Nightclub on the current level.",
                     func = function(bool)
                         if bool then
-                            if NPOPULARITY ~= "TEMP" then
+                            if NPOPULARITY == "TEMP" then
                                 NPOPULARITY = eStat.MPX_CLUB_POPULARITY:Get()
                             end
                             eStat.MPX_CLUB_POPULARITY:Set(NPOPULARITY)
