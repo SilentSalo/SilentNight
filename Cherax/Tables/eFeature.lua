@@ -22,7 +22,6 @@ eFeature = {
                     eGlobal.Heist.Generic.Launch2:Set(1)
                     eGlobal.Heist.Generic.Launch3:Set(1)
                     eGlobal.Heist.Generic.Launch4:Set(0)
-                    Script.Yield(1000)
                 end
             },
             Cut = {
@@ -203,7 +202,6 @@ eFeature = {
                     desc = "Skips the heist's cooldown.",
                     func = function()
                         eGlobal.Heist.Apartment.Cooldown:Set(-1)
-                        Script.Yield(1000)
                     end
                 },
                 Play = {
@@ -257,7 +255,6 @@ eFeature = {
                     list = eTable.Heist.Apartment.Presets,
                     func = function(multiplier)
                         SetApartmentMaxPayout(multiplier)
-                        Script.Yield(1000)
                     end
                 },
                 Bonus = {
@@ -272,7 +269,6 @@ eFeature = {
                         eStat.MPPLY_AWD_HST_SAME_TEAM:Set((bool) and true or false)
                         eStat.MPPLY_HEISTNODEATHPROGREITSET:Set((bool) and 268435455 or 134217727)
                         eStat.MPPLY_AWD_HST_ULT_CHAL:Set((bool) and true or false)
-                        Script.Yield(1000)
                     end
                 },
                 Double = {
@@ -676,7 +672,6 @@ eFeature = {
                     list = eTable.Heist.CayoPerico.Presets,
                     func = function()
                         SetCayoMaxPayout()
-                        Script.Yield(1000)
                     end
                 },
                 Crew = {
@@ -1003,7 +998,6 @@ eFeature = {
                     list = eTable.Heist.DiamondCasino.Presets,
                     func = function()
                         SetDiamondMaxPayout()
-                        Script.Yield(1000)
                     end
                 },
                 Crew = {
@@ -2195,7 +2189,6 @@ eFeature = {
                                 NPOPULARITY = eStat.MPX_CLUB_POPULARITY:Get()
                             end
                             eStat.MPX_CLUB_POPULARITY:Set(NPOPULARITY)
-                            Script.Yield(10000)
                         else
                             NPOPULARITY = "TEMP"
                         end
