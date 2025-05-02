@@ -22,6 +22,7 @@ eFeature = {
                     eGlobal.Heist.Generic.Launch2:Set(1)
                     eGlobal.Heist.Generic.Launch3:Set(1)
                     eGlobal.Heist.Generic.Launch4:Set(0)
+                    Script.Yield()
                 end
             },
             Cut = {
@@ -74,7 +75,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
-                        ForceScriptHost(eScript.Heist.Agency.name)
+                        ForceScriptHost(eScript.Heist.Agency)
                         Script.Yield(1000)
                         eLocal.Heist.Agency.Finish.Step1:Set(51338752)
                         eLocal.Heist.Agency.Finish.Step2:Set(50)
@@ -139,7 +140,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Forces everyone to be «Ready».",
                     func = function()
-                        ForceScriptHost(eScript.Heist.Apartment.name)
+                        ForceScriptHost(eScript.Heist.Apartment)
                         Script.Yield(1000)
                         for i = 2, 4 do
                             eGlobal.Heist.Apartment.Ready["Player" .. i]:Set(6)
@@ -152,7 +153,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
-                        ForceScriptHost(eScript.Heist.Apartment.name)
+                        ForceScriptHost(eScript.Heist.Apartment)
                         Script.Yield(1000)
                         if eGlobal.Heist.Apartment.Heist.Type:Get() == eTable.Heist.Apartment.Heists.PacificJob then
                             eLocal.Heist.Apartment.Finish.Step2:Set(5)
@@ -202,6 +203,7 @@ eFeature = {
                     desc = "Skips the heist's cooldown.",
                     func = function()
                         eGlobal.Heist.Apartment.Cooldown:Set(-1)
+                        Script.Yield()
                     end
                 },
                 Play = {
@@ -255,6 +257,7 @@ eFeature = {
                     list = eTable.Heist.Apartment.Presets,
                     func = function(multiplier)
                         SetApartmentMaxPayout(multiplier)
+                        Script.Yield()
                     end
                 },
                 Bonus = {
@@ -369,7 +372,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
-                        ForceScriptHost(eScript.Heist.AutoShop.name)
+                        ForceScriptHost(eScript.Heist.AutoShop)
                         Script.Yield(1000)
                         eLocal.Heist.AutoShop.Finish.Step1:Set(51338977)
                         eLocal.Heist.AutoShop.Finish.Step2:Set(101)
@@ -545,7 +548,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Forces everyone to be «Ready».",
                     func = function()
-                        ForceScriptHost(eScript.Heist.CayoPerico.name)
+                        ForceScriptHost(eScript.Heist.CayoPerico)
                         Script.Yield(1000)
                         for i = 2, 4 do
                             eGlobal.Heist.CayoPerico.Ready["Player" .. i]:Set(1)
@@ -558,7 +561,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
-                        ForceScriptHost(eScript.Heist.CayoPerico.name)
+                        ForceScriptHost(eScript.Heist.CayoPerico)
                         Script.Yield(1000)
                         eLocal.Heist.CayoPerico.Finish.Step1:Set(9)
                         eLocal.Heist.CayoPerico.Finish.Step2:Set(50)
@@ -672,6 +675,7 @@ eFeature = {
                     list = eTable.Heist.CayoPerico.Presets,
                     func = function()
                         SetCayoMaxPayout()
+                        Script.Yield()
                     end
                 },
                 Crew = {
@@ -876,7 +880,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Forces everyone to be «Ready».",
                     func = function()
-                        ForceScriptHost(eScript.Heist.DiamondCasino.name)
+                        ForceScriptHost(eScript.Heist.DiamondCasino)
                         Script.Yield(1000)
                         for i = 2, 4 do
                             eGlobal.Heist.DiamondCasino.Ready["Player" .. i]:Set(1)
@@ -889,7 +893,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the heist instantly. Set the buyer to Low. Use after you can see the minimap.",
                     func = function()
-                        ForceScriptHost(eScript.Heist.DiamondCasino.name)
+                        ForceScriptHost(eScript.Heist.DiamondCasino)
                         Script.Yield(1000)
                         if eStat.MPX_H3OPT_APPROACH:Get() == 3 then
                             eLocal.Heist.DiamondCasino.Finish.Step1:Set(12)
@@ -943,7 +947,7 @@ eFeature = {
                             if eLocal.Heist.DiamondCasino.Autograbber.Grab:Get() == 3 then
                                 eLocal.Heist.DiamondCasino.Autograbber.Grab:Set(4)
                             elseif eLocal.Heist.DiamondCasino.Autograbber.Grab:Get() == 4 then
-                                eLocal.Heist.DiamondCasino.Autograbber.Speed:Set(2)
+                                eLocal.Heist.DiamondCasino.Autograbber.Speed:Set(2.0)
                             end
                             Script.Yield(1)
                         end
@@ -998,6 +1002,7 @@ eFeature = {
                     list = eTable.Heist.DiamondCasino.Presets,
                     func = function()
                         SetDiamondMaxPayout()
+                        Script.Yield()
                     end
                 },
                 Crew = {
@@ -1114,7 +1119,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Forces everyone to be «Ready».",
                     func = function()
-                        ForceScriptHost(eScript.Heist.Doomsday.name)
+                        ForceScriptHost(eScript.Heist.Doomsday)
                         Script.Yield(1000)
                         for i = 2, 4 do
                             eGlobal.Heist.Doomsday.Ready["Player" .. i]:Set(1)
@@ -1127,7 +1132,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the heist instantly. Doesn't work for Act III. Use after you can see the minimap.",
                     func = function()
-                        ForceScriptHost(eScript.Heist.Doomsday.name)
+                        ForceScriptHost(eScript.Heist.Doomsday)
                         Script.Yield(1000)
                         eLocal.Heist.Doomsday.Finish.Step1:Set(12)
                         eLocal.Heist.Doomsday.Finish.Step2:Set(150)
@@ -1502,7 +1507,7 @@ eFeature = {
             }
         }
     },
-    Money = {
+    Business = {
         Bunker = {
             Sale = {
                 Price = {
@@ -1555,7 +1560,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Opens the Bunker's laptop screen.",
                     func = function()
-                        StartScript(eScript.Business.Bunker.Laptop.name, eScript.Business.Bunker.Laptop.stack)
+                        StartScript(eScript.Business.Bunker.Laptop)
                     end
                 },
                 Supply = {
@@ -1573,7 +1578,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Triggers production of your stock.",
                     func = function()
-                        if not IsScriptRunning(eScript.Business.Bunker.Laptop.name) then
+                        if not IsScriptRunning(eScript.Business.Bunker.Laptop) then
                             eGlobal.Business.Bunker.Production.Trigger1:Set(0)
                             eGlobal.Business.Bunker.Production.Trigger2:Set(true)
                         end
@@ -1583,9 +1588,9 @@ eFeature = {
                     hash = Utils.Joaat("SN_Bunker_Supplier"),
                     name = "Turkish Supplier",
                     type = eFeatureType.Toggle,
-                    desc = "Fills your Bunker stock. Also, gets supplies for your Bunker repeatedly.",
+                    desc = "Fills your Bunker stock. Also, gets supplies for your Bunker repeatedly. Disable before opening the laptop.",
                     func = function()
-                        if not IsScriptRunning(eScript.Business.Bunker.Laptop.name) then
+                        if not IsScriptRunning(eScript.Business.Bunker.Laptop) then
                             eGlobal.Business.Supplies.Bunker:Set(1)
                             eGlobal.Business.Bunker.Production.Trigger1:Set(0)
                             eGlobal.Business.Bunker.Production.Trigger2:Set(true)
@@ -1643,195 +1648,6 @@ eFeature = {
                 }
             }
         },
-        Casino = {
-            LuckyWheel = {
-                Select = {
-                    hash = Utils.Joaat("SN_Casino_LuckyWheelSelect"),
-                    name = "Prize",
-                    type = eFeatureType.Combo,
-                    desc = "Select the desired prize.",
-                    list = eTable.World.Casino.Prizes
-                },
-                Give = {
-                    hash = Utils.Joaat("SN_Casino_LuckyWheelGive"),
-                    name = "Give Prize",
-                    type = eFeatureType.Button,
-                    desc = "Gives the selected prize instantly. Use once per day.",
-                    func = function(prize)
-                        eLocal.World.Casino.LuckyWheel.WinState:Set(prize)
-                        eLocal.World.Casino.LuckyWheel.PrizeState:Set(11)
-                    end
-                }
-            },
-            Slots = {
-                Win = {
-                    hash = Utils.Joaat("SN_Casino_SlotsWin"),
-                    name = "Rig Slots",
-                    type = eFeatureType.Button,
-                    desc = "UNSAFE. Forces the slots to give you the jackpot.",
-                    func = function()
-                        local randomResultTable = eLocal.World.Casino.Slots.RandomResultTable.vLocal
-                        for i = 3, 196 do
-                            if i ~= 67 and i ~= 132 then
-                                ScriptLocal.SetInt(eScript.World.Casino.Slots.hash, randomResultTable + i, 6)
-                            end
-                        end
-                    end
-                },
-                Lose = {
-                    hash = Utils.Joaat("SN_Casino_SlotsLoose"),
-                    name = "Lose Slots",
-                    type = eFeatureType.Button,
-                    desc = "Forces the slots to always lose.",
-                    func = function()
-                        local randomResultTable = eLocal.World.Casino.Slots.RandomResultTable.vLocal
-                        for i = 3, 196 do
-                            if i ~= 67 and i ~= 132 then
-                                ScriptLocal.SetInt(eScript.World.Casino.Slots.hash, randomResultTable + i, 0)
-                            end
-                        end
-                    end
-                }
-            },
-            Roulette = {
-                Land13 = {
-                    hash = Utils.Joaat("SN_Casino_RouletteLand13"),
-                    name = "Land On Black 13",
-                    type = eFeatureType.Button,
-                    desc = "Forces the ball to land on Black 13. Use after there is no time for betting.",
-                    func = function()
-                        ForceScriptHost(eScript.World.Casino.Roulette.name)
-                        local masterTable   = eLocal.World.Casino.Roulette.MasterTable.vLocal
-                        local outcomesTable = eLocal.World.Casino.Roulette.OutcomesTable.vLocal
-                        local ballTable     = eLocal.World.Casino.Roulette.BallTable.vLocal
-                        for i = 0, 5 do
-                            ScriptLocal.SetInt(eScript.World.Casino.Roulette.hash, masterTable + outcomesTable + ballTable + i, 13)
-                        end
-                    end
-                },
-                Land16 = {
-                    hash = Utils.Joaat("SN_Casino_RouletteLand16"),
-                    name = "Land On Red 16",
-                    type = eFeatureType.Button,
-                    desc = "Forces the ball to land on Red 16. Use after there is no time for betting.",
-                    func = function()
-                        local masterTable   = eLocal.World.Casino.Roulette.MasterTable.vLocal
-                        local outcomesTable = eLocal.World.Casino.Roulette.OutcomesTable.vLocal
-                        local ballTable     = eLocal.World.Casino.Roulette.BallTable.vLocal
-                        for i = 0, 5 do
-                            ScriptLocal.SetInt(eScript.World.Casino.Roulette.hash, masterTable + outcomesTable + ballTable + i, 16)
-                        end
-                    end
-                }
-            },
-            Blackjack = {
-                Card = {
-                    hash = Utils.Joaat("SN_Casino_BlackjackCard"),
-                    name = "Dealer's Face Down Card",
-                    type = eFeatureType.InputText,
-                    desc = "Shows the dealer's face down card."
-                },
-                Reveal = {
-                    hash = Utils.Joaat("SN_Casino_BlackjackReveal"),
-                    name = "Reveal Card",
-                    type = eFeatureType.Button,
-                    desc = "Reveals the dealer's face down card. Works better in solo session.",
-                },
-                Trick = {
-                    hash = Utils.Joaat("SN_Casino_BlackjackTrick"),
-                    name = "Trick The Dealer",
-                    type = eFeatureType.Button,
-                    desc = "Forces the dealer's hand to lose. Also, reveals the dealer's cards. Works better in solo session.",
-                    func = function()
-                        ForceScriptHost(eScript.World.Casino.Blackjack.name)
-                        if eLocal.World.Casino.Blackjack.CurrentTable:Get() ~= -1 then
-                            eLocal.World.Casino.Blackjack.Dealer.FirstCard:Set(11)
-                            eLocal.World.Casino.Blackjack.Dealer.SecondCard:Set(12)
-                            eLocal.World.Casino.Blackjack.Dealer.ThirdCard:Set(13)
-                            eLocal.World.Casino.Blackjack.VisibleCards:Set(3)
-                        end
-                    end
-                }
-            },
-            Poker = {
-                MyCards = {
-                    hash = Utils.Joaat("SN_Casino_PokerMyCards"),
-                    name = "Your Cards",
-                    type = eFeatureType.InputText,
-                    desc = "Shows your cards."
-                },
-                Cards = {
-                    hash = Utils.Joaat("SN_Casino_PokerCards"),
-                    name = "Dealer's Cards",
-                    type = eFeatureType.InputText,
-                    desc = "Shows the dealer's cards."
-                },
-                Reveal = {
-                    hash = Utils.Joaat("SN_Casino_PokerReveal"),
-                    name = "Reveal Cards",
-                    type = eFeatureType.Button,
-                    desc = "Reveals your and the dealer's cards. Works better in solo session.",
-                },
-                Give = {
-                    hash = Utils.Joaat("SN_Casino_PokerGive"),
-                    name = "Give Straight Flush",
-                    type = eFeatureType.Button,
-                    desc = "Forces your hand to win. Also, reveals your and the dealer's cards. Use during the animation of your character getting at a table. Works better in solo session.",
-                    func = function()
-                        ForceScriptHost(eScript.World.Casino.Poker.name)
-                        local id = 0
-                        SetPokerCards(id, 50, 51, 52)
-                    end
-                },
-                Trick = {
-                    hash = Utils.Joaat("SN_Casino_PokerTrick"),
-                    name = "Trick The Dealer",
-                    type = eFeatureType.Button,
-                    desc = "Forces the dealer's hand to lose. Also, reveals your and the dealer's cards. Use during the animation of your character getting at a table. Works better in solo session.",
-                    func = function()
-                        ForceScriptHost(eScript.World.Casino.Poker.name)
-                        if eLocal.World.Casino.Poker.CurrentTable:Get() ~= -1 then
-                            local id = GetPokerPlayersCount() + 1
-                            SetPokerCards(id, 2, 17, 32)
-                        end
-                    end
-                }
-            },
-            Misc = {
-                Bypass = {
-                    hash = Utils.Joaat("SN_Casino_Bypass"),
-                    name = "Bypass Casino Limits",
-                    type = eFeatureType.Button,
-                    desc = "Bypasses the casino limits. Might be unsafe if used to earn more chips.",
-                    func = function()
-                        eStat.MPPLY_CASINO_CHIPS_WON_GD:Set(0)
-                        eStat.MPPLY_CASINO_CHIPS_WONTIM:Set(0)
-                        eStat.MPPLY_CASINO_GMBLNG_GD:Set(0)
-                        eStat.MPPLY_CASINO_BAN_TIME:Set(0)
-                        eStat.MPPLY_CASINO_CHIPS_PURTIM:Set(0)
-                        eStat.MPPLY_CASINO_CHIPS_PUR_GD:Set(0)
-                    end
-                },
-                AcquireLimit = {
-                    Select = {
-                        hash = Utils.Joaat("SN_Casino_Select"),
-                        name = "Acquire Chips Limit",
-                        type = eFeatureType.InputInt,
-                        desc = "Select the desired acquire chips limit."
-                    },
-                    Apply = {
-                        hash = Utils.Joaat("SN_Casino_Apply"),
-                        name = "Apply Acquire Chips Limit",
-                        type = eFeatureType.Button,
-                        desc = "Applies the selected acquire chips limit.",
-                        func = function(limit)
-                            eTunable.World.Casino.Chips.AcquireLimit:Set(limit)
-                            eTunable.World.Casino.Chips.AcquireLimitPenthouse:Set(limit)
-                        end
-                    }
-                }
-            }
-        },
         Hangar = {
             Sale = {
                 Price = {
@@ -1840,7 +1656,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "MIGHT BE UNSAFE. Applies the maximum price for your cargo.",
                     func = function(bool)
-                        if not IsScriptRunning(eScript.Business.Hangar.Sell.name) then
+                        if not IsScriptRunning(eScript.Business.Hangar.Sell) then
                             if bool then
                                 if not IsInSessionAlone() then
                                     EmptySession()
@@ -1882,7 +1698,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Opens the Hangar's laptop screen.",
                     func = function()
-                        StartScript(eScript.Business.Hangar.Laptop.name, eScript.Business.Hangar.Laptop.stack)
+                        StartScript(eScript.Business.Hangar.Laptop)
                     end
                 },
                 Supply = {
@@ -1891,7 +1707,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Gets cargo for your Hangar.",
                     func = function()
-                        if not IsScriptRunning(eScript.Business.Hangar.Laptop.name) then
+                        if not IsScriptRunning(eScript.Business.Hangar.Laptop) then
                             ePackedBool.Business.Hangar.Cargo:Set(true)
                         end
                     end
@@ -1900,9 +1716,9 @@ eFeature = {
                     hash = Utils.Joaat("SN_Hangar_Supplier"),
                     name = "Turkish Supplier",
                     type = eFeatureType.Toggle,
-                    desc = "Fills your Hangar stock repeatedly.",
+                    desc = "Fills your Hangar stock repeatedly. Disable before opening the laptop.",
                     func = function()
-                        if not IsScriptRunning(eScript.Business.Hangar.Laptop.name) then
+                        if not IsScriptRunning(eScript.Business.Hangar.Laptop) then
                             ePackedBool.Business.Hangar.Cargo:Set(true)
                             Script.Yield(1000)
                         end
@@ -2006,7 +1822,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Nightclub_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "Applies the maximum price for goods. Don't sell «All Goods».",
+                    desc = "MIGHT BE UNSAFE. Applies the maximum price for goods. Don't sell «All Goods».",
                     func = function(bool)
                         if bool then
                             if not IsInSessionAlone() then
@@ -2039,7 +1855,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Opens the Nightclub's computer screen.",
                     func = function()
-                        StartScript(eScript.Business.Nightclub.name, eScript.Business.Nightclub.stack)
+                        StartScript(eScript.Business.Nightclub)
                     end
                 },
                 Trigger = {
@@ -2157,6 +1973,23 @@ eFeature = {
                             eLocal.Business.Nightclub.Safe.Collect:Set(1)
                         end
                     end
+                },
+                Unbrick = {
+                    hash = Utils.Joaat("SN_Nightclub_Unbrick"),
+                    name = "Unbrick Safe",
+                    type = eFeatureType.Button,
+                    desc = "Unbricks your safe if it shows a dollar sign with $0 inside. Use inside your Nightclub.",
+                    func = function()
+                        local top5   = eGlobal.Business.Nightclub.Safe.Income.Top5.global
+                        local top100 = eGlobal.Business.Nightclub.Safe.Income.Top100.global
+                        for i = top5, top100 do
+                            ScriptGlobal.SetInt(i, 1)
+                        end
+                        eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
+                        Script.Yield(3000)
+                        eLocal.Business.Nightclub.Safe.Type:Set(3)
+                        eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                    end
                 }
             },
             Popularity = {
@@ -2189,6 +2022,7 @@ eFeature = {
                                 NPOPULARITY = eStat.MPX_CLUB_POPULARITY:Get()
                             end
                             eStat.MPX_CLUB_POPULARITY:Set(NPOPULARITY)
+                            Script.Yield()
                         else
                             NPOPULARITY = "TEMP"
                         end
@@ -2202,7 +2036,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_CrateWarehouse_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Applies the maximum price for your crates.",
+                    desc = "UNSAFE. Applies the maximum price for your crates.",
                     func = function(bool)
                         if bool then
                             if not IsInSessionAlone() then
@@ -2256,7 +2090,7 @@ eFeature = {
                     desc = "Finishes the sell mission instantly. Use after the mission has started.",
                     func = function(bool1, bool2)
                         if not bool2 then
-                            if IsScriptRunning(eScript.Business.CrateWarehouse.Sell.name) then
+                            if IsScriptRunning(eScript.Business.CrateWarehouse.Sell) then
                                 ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
                             end
                         end
@@ -2275,8 +2109,8 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Opens the laptop's screen.",
                     func = function()
-                        if not IsScriptRunning(eScript.Business.CrateWarehouse.Laptop.name) then
-                            if StartScript(eScript.Business.CrateWarehouse.Laptop.name, eScript.Business.CrateWarehouse.Laptop.stack) then
+                        if not IsScriptRunning(eScript.Business.CrateWarehouse.Laptop) then
+                            if StartScript(eScript.Business.CrateWarehouse.Laptop) then
                                 local warehouseSlot = eGlobal.Business.CrateWarehouse.Slot:Get()
                                 local x, y, z       = eNative.ENTITY.GET_ENTITY_COORDS(GTA.GetLocalPed())
                                 eGlobal.Player.Property:Set(warehouseSlot - 1)
@@ -2413,6 +2247,237 @@ eFeature = {
                 }
             }
         },
+        Misc = {
+            Supplies = {
+                Business = {
+                    hash = Utils.Joaat("SN_Misc_SuppliesBusiness"),
+                    name = "Business",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired business. If you don't see all the businesses, change the session.",
+                    list = eTable.Business.Supplies
+                },
+                Resupply = {
+                    hash = Utils.Joaat("SN_Misc_SuppliesResupply"),
+                    name = "Resupply",
+                    type = eFeatureType.Button,
+                    desc = "Resupplies the selected business.",
+                    func = function(business)
+                        if business == -1 then
+                            return
+                        end
+                        local businesses = {
+                            [0] = eGlobal.Business.Supplies.Slot0,
+                            [1] = eGlobal.Business.Supplies.Slot1,
+                            [2] = eGlobal.Business.Supplies.Slot2,
+                            [3] = eGlobal.Business.Supplies.Slot3,
+                            [4] = eGlobal.Business.Supplies.Slot4,
+                            [5] = eGlobal.Business.Supplies.Bunker,
+                            [6] = eGlobal.Business.Supplies.Acid
+                        }
+                        if business == 7 then
+                            for _, index in ipairs(eTable.Business.Supplies:GetIndexes()) do
+                                if index ~= 7 then
+                                    businesses[index]:Set(1)
+                                end
+                            end
+                            return
+                        end
+                        businesses[business]:Set(1)
+                    end
+                }
+            }
+        }
+    },
+    Money = {
+        Casino = {
+            LuckyWheel = {
+                Select = {
+                    hash = Utils.Joaat("SN_Casino_LuckyWheelSelect"),
+                    name = "Prize",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired prize.",
+                    list = eTable.World.Casino.Prizes
+                },
+                Give = {
+                    hash = Utils.Joaat("SN_Casino_LuckyWheelGive"),
+                    name = "Give Prize",
+                    type = eFeatureType.Button,
+                    desc = "Gives the selected prize instantly. Use once per day.",
+                    func = function(prize)
+                        eLocal.World.Casino.LuckyWheel.WinState:Set(prize)
+                        eLocal.World.Casino.LuckyWheel.PrizeState:Set(11)
+                    end
+                }
+            },
+            Slots = {
+                Win = {
+                    hash = Utils.Joaat("SN_Casino_SlotsWin"),
+                    name = "Rig Slots",
+                    type = eFeatureType.Button,
+                    desc = "UNSAFE. Forces the slots to give you the jackpot.",
+                    func = function()
+                        local randomResultTable = eLocal.World.Casino.Slots.RandomResultTable.vLocal
+                        for i = 3, 196 do
+                            if i ~= 67 and i ~= 132 then
+                                ScriptLocal.SetInt(eScript.World.Casino.Slots.hash, randomResultTable + i, 6)
+                            end
+                        end
+                    end
+                },
+                Lose = {
+                    hash = Utils.Joaat("SN_Casino_SlotsLoose"),
+                    name = "Lose Slots",
+                    type = eFeatureType.Button,
+                    desc = "Forces the slots to always lose.",
+                    func = function()
+                        local randomResultTable = eLocal.World.Casino.Slots.RandomResultTable.vLocal
+                        for i = 3, 196 do
+                            if i ~= 67 and i ~= 132 then
+                                ScriptLocal.SetInt(eScript.World.Casino.Slots.hash, randomResultTable + i, 0)
+                            end
+                        end
+                    end
+                }
+            },
+            Roulette = {
+                Land13 = {
+                    hash = Utils.Joaat("SN_Casino_RouletteLand13"),
+                    name = "Land On Black 13",
+                    type = eFeatureType.Button,
+                    desc = "Forces the ball to land on Black 13. Use after there is no time for betting.",
+                    func = function()
+                        ForceScriptHost(eScript.World.Casino.Roulette)
+                        local masterTable   = eLocal.World.Casino.Roulette.MasterTable.vLocal
+                        local outcomesTable = eLocal.World.Casino.Roulette.OutcomesTable.vLocal
+                        local ballTable     = eLocal.World.Casino.Roulette.BallTable.vLocal
+                        for i = 0, 5 do
+                            ScriptLocal.SetInt(eScript.World.Casino.Roulette.hash, masterTable + outcomesTable + ballTable + i, 13)
+                        end
+                    end
+                },
+                Land16 = {
+                    hash = Utils.Joaat("SN_Casino_RouletteLand16"),
+                    name = "Land On Red 16",
+                    type = eFeatureType.Button,
+                    desc = "Forces the ball to land on Red 16. Use after there is no time for betting.",
+                    func = function()
+                        local masterTable   = eLocal.World.Casino.Roulette.MasterTable.vLocal
+                        local outcomesTable = eLocal.World.Casino.Roulette.OutcomesTable.vLocal
+                        local ballTable     = eLocal.World.Casino.Roulette.BallTable.vLocal
+                        for i = 0, 5 do
+                            ScriptLocal.SetInt(eScript.World.Casino.Roulette.hash, masterTable + outcomesTable + ballTable + i, 16)
+                        end
+                    end
+                }
+            },
+            Blackjack = {
+                Card = {
+                    hash = Utils.Joaat("SN_Casino_BlackjackCard"),
+                    name = "Dealer's Face Down Card",
+                    type = eFeatureType.InputText,
+                    desc = "Shows the dealer's face down card."
+                },
+                Reveal = {
+                    hash = Utils.Joaat("SN_Casino_BlackjackReveal"),
+                    name = "Reveal Card",
+                    type = eFeatureType.Button,
+                    desc = "Reveals the dealer's face down card. Works better in solo session.",
+                },
+                Trick = {
+                    hash = Utils.Joaat("SN_Casino_BlackjackTrick"),
+                    name = "Trick The Dealer",
+                    type = eFeatureType.Button,
+                    desc = "Forces the dealer's hand to lose. Also, reveals the dealer's cards. Works better in solo session.",
+                    func = function()
+                        ForceScriptHost(eScript.World.Casino.Blackjack)
+                        if eLocal.World.Casino.Blackjack.CurrentTable:Get() ~= -1 then
+                            eLocal.World.Casino.Blackjack.Dealer.FirstCard:Set(11)
+                            eLocal.World.Casino.Blackjack.Dealer.SecondCard:Set(12)
+                            eLocal.World.Casino.Blackjack.Dealer.ThirdCard:Set(13)
+                            eLocal.World.Casino.Blackjack.VisibleCards:Set(3)
+                        end
+                    end
+                }
+            },
+            Poker = {
+                MyCards = {
+                    hash = Utils.Joaat("SN_Casino_PokerMyCards"),
+                    name = "Your Cards",
+                    type = eFeatureType.InputText,
+                    desc = "Shows your cards."
+                },
+                Cards = {
+                    hash = Utils.Joaat("SN_Casino_PokerCards"),
+                    name = "Dealer's Cards",
+                    type = eFeatureType.InputText,
+                    desc = "Shows the dealer's cards."
+                },
+                Reveal = {
+                    hash = Utils.Joaat("SN_Casino_PokerReveal"),
+                    name = "Reveal Cards",
+                    type = eFeatureType.Button,
+                    desc = "Reveals your and the dealer's cards. Works better in solo session.",
+                },
+                Give = {
+                    hash = Utils.Joaat("SN_Casino_PokerGive"),
+                    name = "Give Straight Flush",
+                    type = eFeatureType.Button,
+                    desc = "Forces your hand to win. Also, reveals your and the dealer's cards. Use during the animation of your character getting at a table. Works better in solo session.",
+                    func = function()
+                        ForceScriptHost(eScript.World.Casino.Poker)
+                        local id = 0
+                        SetPokerCards(id, 50, 51, 52)
+                    end
+                },
+                Trick = {
+                    hash = Utils.Joaat("SN_Casino_PokerTrick"),
+                    name = "Trick The Dealer",
+                    type = eFeatureType.Button,
+                    desc = "Forces the dealer's hand to lose. Also, reveals your and the dealer's cards. Use during the animation of your character getting at a table. Works better in solo session.",
+                    func = function()
+                        ForceScriptHost(eScript.World.Casino.Poker)
+                        if eLocal.World.Casino.Poker.CurrentTable:Get() ~= -1 then
+                            local id = GetPokerPlayersCount() + 1
+                            SetPokerCards(id, 2, 17, 32)
+                        end
+                    end
+                }
+            },
+            Misc = {
+                Bypass = {
+                    hash = Utils.Joaat("SN_Casino_Bypass"),
+                    name = "Bypass Casino Limits",
+                    type = eFeatureType.Button,
+                    desc = "Bypasses the casino limits. Might be unsafe if used to earn more chips.",
+                    func = function()
+                        eStat.MPPLY_CASINO_CHIPS_WON_GD:Set(0)
+                        eStat.MPPLY_CASINO_CHIPS_WONTIM:Set(0)
+                        eStat.MPPLY_CASINO_GMBLNG_GD:Set(0)
+                        eStat.MPPLY_CASINO_BAN_TIME:Set(0)
+                        eStat.MPPLY_CASINO_CHIPS_PURTIM:Set(0)
+                        eStat.MPPLY_CASINO_CHIPS_PUR_GD:Set(0)
+                    end
+                },
+                AcquireLimit = {
+                    Select = {
+                        hash = Utils.Joaat("SN_Casino_Select"),
+                        name = "Acquire Chips Limit",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the desired acquire chips limit."
+                    },
+                    Apply = {
+                        hash = Utils.Joaat("SN_Casino_Apply"),
+                        name = "Apply Acquire Chips Limit",
+                        type = eFeatureType.Button,
+                        desc = "Applies the selected acquire chips limit.",
+                        func = function(limit)
+                            eTunable.World.Casino.Chips.AcquireLimit:Set(limit)
+                            eTunable.World.Casino.Chips.AcquireLimitPenthouse:Set(limit)
+                        end
+                    }
+                }
+            }
+        },
         EasyMoney = {
             Instant = {
                 Give30m = {
@@ -2441,9 +2506,9 @@ eFeature = {
                     name = "5k Loop",
                     type = eFeatureType.Toggle,
                     desc = "Toggles the 5k chips loop.",
-                    func = function()
+                    func = function(delay)
                         eGlobal.World.Casino.Chips.Bonus:Set(1)
-                        Script.Yield(1500)
+                        Script.Yield(math.floor(delay * 1000))
                     end
                 },
                 Loop50k = {
@@ -2451,9 +2516,9 @@ eFeature = {
                     name = "50k Loop",
                     type = eFeatureType.Toggle,
                     desc = "Toggles the 50k dollars loop.",
-                    func = function()
+                    func = function(delay)
                         TriggerTransaction(0x610F9AB4)
-                        Script.Yield(333)
+                        Script.Yield(math.floor(delay * 1000))
                     end
                 },
                 Loop100k = {
@@ -2461,19 +2526,19 @@ eFeature = {
                     name = "100k Loop",
                     type = eFeatureType.Toggle,
                     desc = "MIGHT BE UNSAFE. Toggles the 100k dollars loop.",
-                    func = function()
+                    func = function(delay)
                         TriggerTransaction(Utils.sJoaat("SERVICE_EARN_AMBIENT_JOB_AMMUNATION_DELIVERY"))
-                        Script.Yield(333)
+                        Script.Yield(math.floor(delay * 1000))
                     end
                 },
                 Loop180k = {
                     hash = Utils.Joaat("SN_EasyMoney_180k"),
                     name = "180k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Toggles the 180k dollars loop.",
-                    func = function()
+                    desc = "MIGHT BE UNSAFE. Toggles the 180k dollars loop. Has a cooldown after gaining a certain amount of money.",
+                    func = function(delay)
                         TriggerTransaction(0x615762F1)
-                        Script.Yield(333)
+                        Script.Yield(math.floor(delay * 1000))
                     end
                 }
             },
@@ -2482,8 +2547,8 @@ eFeature = {
                     hash = Utils.Joaat("SN_EasyMoney_300k"),
                     name = "300k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Toggles the 300k dollars loop. Use inside your Nightclub.",
-                    func = function()
+                    desc = "MIGHT BE UNSAFE. Toggles the 300k dollars loop. Use inside your Nightclub. Has a cooldown after gaining a certain amount of money.",
+                    func = function(delay)
                         local top5      = eGlobal.Business.Nightclub.Safe.Income.Top5.global
                         local top100    = eGlobal.Business.Nightclub.Safe.Income.Top100.global
                         local safeValue = eGlobal.Business.Nightclub.Safe.Value:Get()
@@ -2498,8 +2563,40 @@ eFeature = {
                         elseif safeValue == 0 then
                             eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
                         end
-                        Script.Yield(1000)
+                        Script.Yield(math.floor(delay * 1000))
                     end
+                }
+            },
+            Delay = {
+                Loop5k = {
+                    hash = Utils.Joaat("SN_EasyMoney_5kDelay"),
+                    name = "5k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
+                },
+                Loop50k = {
+                    hash = Utils.Joaat("SN_EasyMoney_50kDelay"),
+                    name = "50k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors."
+                },
+                Loop100k = {
+                    hash = Utils.Joaat("SN_EasyMoney_100kDelay"),
+                    name = "100k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors."
+                },
+                Loop180k = {
+                    hash = Utils.Joaat("SN_EasyMoney_180kDelay"),
+                    name = "180k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors."
+                },
+                Loop300k = {
+                    hash = Utils.Joaat("SN_EasyMoney_300kDelay"),
+                    name = "300k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors."
                 }
             }
         },
@@ -2517,8 +2614,9 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Deposits the selected money amount to your bank.",
                     func = function(amount)
-                        local charSlot = eStat.MPPLY_LAST_MP_CHAR:Get()
-                        local amount   = (amount > eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)) and eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot) or amount
+                        local charSlot    = eStat.MPPLY_LAST_MP_CHAR:Get()
+                        local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
+                        local amount      = (amount > walletMoney) and walletMoney or amount
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, amount)
                     end
                 },
@@ -2528,8 +2626,9 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Withdraws the selected money amount from your bank.",
                     func = function(amount)
-                        local charSlot = eStat.MPPLY_LAST_MP_CHAR:Get()
-                        local amount   = (amount > eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()) and eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE() or amount
+                        local charSlot  = eStat.MPPLY_LAST_MP_CHAR:Get()
+                        local bankMoney = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
+                        local amount    = (amount > bankMoney) and bankMoney or amount
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, amount)
                     end
                 },
@@ -2539,8 +2638,10 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Removes the selected money amount from your character.",
                     func = function(amount)
-                        local charSlot = eStat.MPPLY_LAST_MP_CHAR:Get()
-                        local amount   = (amount > eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE() + eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)) and eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE() + eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot) or amount
+                        local charSlot    = eStat.MPPLY_LAST_MP_CHAR:Get()
+                        local bankMoney   = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
+                        local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
+                        local amount      = (amount > bankMoney + walletMoney) and bankMoney + walletMoney or amount
                         eGlobal.Player.Cash.Remove:Set(amount)
                     end
                 },
@@ -2550,8 +2651,9 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Deposits all money to your bank.",
                     func = function()
-                        local charSlot = eStat.MPPLY_LAST_MP_CHAR:Get()
-                        eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot))
+                        local charSlot    = eStat.MPPLY_LAST_MP_CHAR:Get()
+                        local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
+                        eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, walletMoney)
                     end
                 },
                 WithdrawAll = {
@@ -2560,41 +2662,9 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Withdraws all money from your bank.",
                     func = function()
-                        local charSlot = eStat.MPPLY_LAST_MP_CHAR:Get()
-                        eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE())
-                    end
-                }
-            },
-            Supplies = {
-                Business = {
-                    hash = Utils.Joaat("SN_Misc_SuppliesBusiness"),
-                    name = "Business",
-                    type = eFeatureType.Combo,
-                    desc = "Select the desired business.",
-                    list = eTable.Business.Supplies
-                },
-                Resupply = {
-                    hash = Utils.Joaat("SN_Misc_SuppliesResupply"),
-                    name = "Resupply",
-                    type = eFeatureType.Button,
-                    desc = "Resupplies the selected business.",
-                    func = function(business)
-                        local businesses = {
-                            [1] = eGlobal.Business.Supplies.Cash,
-                            [2] = eGlobal.Business.Supplies.Coke,
-                            [3] = eGlobal.Business.Supplies.Weed,
-                            [4] = eGlobal.Business.Supplies.Meth,
-                            [5] = eGlobal.Business.Supplies.Documents,
-                            [6] = eGlobal.Business.Supplies.Bunker,
-                            [7] = eGlobal.Business.Supplies.Acid
-                        }
-                        if business == 0 then
-                            for i = 1, #businesses do
-                                businesses[i]:Set(1)
-                            end
-                            return
-                        end
-                        businesses[business]:Set(1)
+                        local charSlot  = eStat.MPPLY_LAST_MP_CHAR:Get()
+                        local bankMoney = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
+                        eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, bankMoney)
                     end
                 }
             },
@@ -2660,9 +2730,6 @@ eFeature = {
             }
         }
     },
-    Unlock = {
-
-    },
     Dev = {
         Editor = {
             Globals = {
@@ -2703,14 +2770,13 @@ eFeature = {
                             ["bool"]  = ScriptGlobal.SetBool
                         }
                         SetValue[type](global, value)
-                        TEMP_GLOBAL = value
                     end
                 },
                 Revert = {
                     hash = Utils.Joaat("SN_Editor_GlobalsRevert"),
                     name = "Revert",
                     type = eFeatureType.Button,
-                    desc = "Reverts the previous value to the entered global.",
+                    desc = "Reverts the previous value you've written to the entered global.",
                     func = function(type, global)
                         local SetValue = {
                             ["int"]   = ScriptGlobal.SetInt,
@@ -2720,6 +2786,69 @@ eFeature = {
                         if TEMP_GLOBAL ~= "TEMP" then
                             SetValue[type](global, TEMP_GLOBAL)
                             TEMP_GLOBAL = "TEMP"
+                        end
+                    end
+                }
+            },
+            Locals = {
+                Type = {
+                    hash = Utils.Joaat("SN_Editor_LocalsType"),
+                    name = "Type",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired local type.",
+                    list = eTable.Editor.Locals.Types
+                },
+                Script = {
+                    hash = Utils.Joaat("SN_Editor_LocalsScript"),
+                    name = "fm_mission_controller",
+                    type = eFeatureType.InputText,
+                    desc = "Input your script here."
+                },
+                Local = {
+                    hash = Utils.Joaat("SN_Editor_LocalsLocal"),
+                    name = "10291",
+                    type = eFeatureType.InputText,
+                    desc = "Input your local here."
+                },
+                Value = {
+                    hash = Utils.Joaat("SN_Editor_LocalsValue"),
+                    name = "4",
+                    type = eFeatureType.InputText,
+                    desc = "Input your value here."
+                },
+                Read = {
+                    hash = Utils.Joaat("SN_Editor_LocalsRead"),
+                    name = "Read",
+                    type = eFeatureType.Button,
+                    desc = "Reads the entered local value."
+                },
+                Write = {
+                    hash = Utils.Joaat("SN_Editor_LocalsWrite"),
+                    name = "Write",
+                    type = eFeatureType.Button,
+                    desc = "Writes the selected value to the entered local.",
+                    func = function(type, script, vLocal, value)
+                        local SetValue = {
+                            ["int"]   = ScriptLocal.SetInt,
+                            ["float"] = ScriptLocal.SetFloat
+                        }
+                        SetValue[type](Utils.sJoaat(script), vLocal, value)
+                    end
+                },
+                Revert = {
+                    hash = Utils.Joaat("SN_Editor_LocalsRevert"),
+                    name = "Revert",
+                    type = eFeatureType.Button,
+                    desc = "Reverts the previous value you've written to the entered local.",
+                    func = function(type, script, vLocal)
+                        local SetValue = {
+                            ["int"]   = ScriptLocal.SetInt,
+                            ["float"] = ScriptLocal.SetFloat
+                        }
+                        if TEMP_LOCAL ~= "TEMP" then
+                            SetValue[type](Utils.sJoaat(script), vLocal, TEMP_LOCAL)
+                            Logger.Log(eLogColor.YELLOW, "Silent Night", "Reverted local " .. script .. " " .. vLocal .. " to " .. TEMP_LOCAL)
+                            TEMP_LOCAL = "TEMP"
                         end
                     end
                 }
@@ -2765,14 +2894,13 @@ eFeature = {
                             stat = stat:gsub("MPX", string.format("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
                         end
                         SetValue[type](Utils.sJoaat(stat), value)
-                        TEMP_STAT = value
                     end
                 },
                 Revert = {
                     hash = Utils.Joaat("SN_Editor_StatsRevert"),
                     name = "Revert",
                     type = eFeatureType.Button,
-                    desc = "Reverts the previous value to the entered stat.",
+                    desc = "Reverts the previous value you've written to the entered stat.",
                     func = function(type, stat)
                         local SetValue = {
                             ["int"]   = Stats.SetInt,
@@ -2833,19 +2961,19 @@ eFeature = {
                         }
                         if lastPStat == nil then
                             SetValue[type](firstPStat, value, eStat.MPPLY_LAST_MP_CHAR:Get())
-                            TEMP_PSTAT = value
                             return
                         end
                         for i = firstPStat, lastPStat do
                             SetValue[type](i, value, eStat.MPPLY_LAST_MP_CHAR:Get())
                         end
+                        TEMP_PSTAT = "TEMP"
                     end
                 },
                 Revert = {
                     hash = Utils.Joaat("SN_Editor_PackedStatsRevert"),
                     name = "Revert",
                     type = eFeatureType.Button,
-                    desc = "Reverts the previous value to the entered global.",
+                    desc = "Reverts the previous value you've written to the entered packed stat.",
                     func = function(type, packedStat)
                         local SetValue = {
                             ["int"]  = eNative.STATS.SET_PACKED_STAT_INT_CODE,

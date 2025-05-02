@@ -140,7 +140,7 @@ end)
 FeatureMgr.AddFeature(diamondTeam.hash, diamondTeam.name, diamondTeam.type, diamondTeam.desc, function(f)
     FeatureMgr.GetFeature(diamondPresets.hash):SetListIndex(0)
     FeatureMgr.GetFeature(diamondCrew.hash):Toggle(false)
-    for i = 1, 4 do
+    for i = 1, #diamondPlayers do
         FeatureMgr.GetFeature(diamondPlayers[i].hash):SetIntValue(0)
     end
 end)
@@ -150,7 +150,7 @@ FeatureMgr.AddFeature(diamondPresets.hash, diamondPresets.name, diamondPresets.t
     FeatureMgr.GetFeature(diamondCrew.hash):Toggle(false)
     local team   = diamondTeam.list[FeatureMgr.GetFeatureListIndex(diamondTeam.hash) + 1].index
     local preset = diamondPresets.list[FeatureMgr.GetFeatureListIndex(diamondPresets.hash) + 1].index
-    for i = 1, 4 do
+    for i = 1, #diamondPlayers do
         FeatureMgr.GetFeature(diamondPlayers[i].hash):SetIntValue(0)
     end
     if preset == -1 then
@@ -165,7 +165,7 @@ end)
 FeatureMgr.AddFeature(diamondCrew.hash, diamondCrew.name, diamondCrew.type, diamondCrew.desc, function(f)
 end)
 
-for i = 1, 4 do
+for i = 1, #diamondPlayers do
     FeatureMgr.AddFeature(diamondPlayers[i].hash, diamondPlayers[i].name, diamondPlayers[i].type, diamondPlayers[i].desc, function(f)
     end)
         :SetDefaultValue(0)
@@ -176,7 +176,7 @@ end
 
 FeatureMgr.AddFeature(diamondApply.hash, diamondApply.name, diamondApply.type, diamondApply.desc, function(f)
     local cuts = {}
-    for i = 1, 4 do
+    for i = 1, #diamondPlayers do
         table.insert(cuts, FeatureMgr.GetFeature(diamondPlayers[i].hash):GetIntValue())
     end
     diamondApply.func(cuts)

@@ -53,13 +53,91 @@ FeatureMgr.AddFeature(devGlobalsWrite.hash, devGlobalsWrite.name, devGlobalsWrit
         end
     end
     value = tonumber(value)
+    local GetValue = {
+        ["int"]   = ScriptGlobal.GetInt,
+        ["float"] = ScriptGlobal.GetFloat,
+        ["bool"]  = ScriptGlobal.GetBool
+    }
+    TEMP_GLOBAL = GetValue[type](global)
     devGlobalsWrite.func(type, global, value)
 end)
 
 FeatureMgr.AddFeature(devGlobalsRevert.hash, devGlobalsRevert.name, devGlobalsRevert.type, devGlobalsRevert.desc, function(f)
     local type   = devGlobalsType.list[FeatureMgr.GetFeatureListIndex(devGlobalsType.hash) + 1].name
     local global = load(string.format("return %s", FeatureMgr.GetFeature(devGlobalsGlobal.hash):GetStringValue()))()
+    if TEMP_GLOBAL ~= "TEMP" then
+        FeatureMgr.GetFeature(devGlobalsValue.hash):SetStringValue(tostring(TEMP_GLOBAL))
+    end
     devGlobalsRevert.func(type, global)
+end)
+
+FeatureMgr.AddFeature(devLocalsType.hash, devLocalsType.name, devLocalsType.type, devLocalsType.desc, function(f)
+    local examples = {
+        [0] = { script = "am_mp_nightclub",            vLocal = "202 + 32 + 1", value = "0"    },
+        [1] = { script = "fm_mission_controller_2020", vLocal = "31049 + 3",    value = "99.9" }
+    }
+    FeatureMgr.GetFeature(devLocalsScript.hash):SetName(examples[f:GetListIndex()].script):SetStringValue("")
+    FeatureMgr.GetFeature(devLocalsLocal.hash):SetName(examples[f:GetListIndex()].vLocal):SetStringValue("")
+    FeatureMgr.GetFeature(devLocalsValue.hash):SetName(examples[f:GetListIndex()].value):SetStringValue("")
+end)
+    :SetList(devLocalsType.list:GetNames())
+
+FeatureMgr.AddFeature(devLocalsScript.hash, devLocalsScript.name, devLocalsScript.type, devLocalsScript.desc, function(f)
+end)
+
+FeatureMgr.AddFeature(devLocalsLocal.hash, devLocalsLocal.name, devLocalsLocal.type, devLocalsLocal.desc, function(f)
+end)
+
+FeatureMgr.AddFeature(devLocalsValue.hash, devLocalsValue.name, devLocalsValue.type, devLocalsValue.desc, function(f)
+end)
+
+FeatureMgr.AddFeature(devLocalsRead.hash, devLocalsRead.name, devLocalsRead.type, devLocalsRead.desc, function(f)
+    local scriptString = FeatureMgr.GetFeature(devLocalsScript.hash):GetStringValue()
+    local localString  = FeatureMgr.GetFeature(devLocalsLocal.hash):GetStringValue()
+    if scriptString == "" or localString == "" then
+        FeatureMgr.GetFeature(devLocalsValue.hash):SetStringValue("")
+        return
+    end
+    if scriptString:match("%s") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
+        FeatureMgr.GetFeature(devLocalsValue.hash):SetStringValue("invalid")
+        return
+    end
+    local vLocal = tonumber(load(string.format("return %s", localString))())
+    if not vLocal then
+        FeatureMgr.GetFeature(devLocalsValue.hash):SetStringValue("invalid")
+        return
+    end
+    local GetValue = {
+        ["int"]   = ScriptLocal.GetInt,
+        ["float"] = ScriptLocal.GetFloat
+    }
+    local type   = devLocalsType.list[FeatureMgr.GetFeatureListIndex(devLocalsType.hash) + 1].name
+    local script = FeatureMgr.GetFeature(devLocalsScript.hash):GetStringValue() 
+    local value  = GetValue[type](Utils.sJoaat(script), vLocal)
+    FeatureMgr.GetFeature(devLocalsValue.hash):SetStringValue(tostring(value))
+end)
+
+FeatureMgr.AddFeature(devLocalsWrite.hash, devLocalsWrite.name, devLocalsWrite.type, devLocalsWrite.desc, function(f)
+    local type     = devLocalsType.list[FeatureMgr.GetFeatureListIndex(devLocalsType.hash) + 1].name
+    local script   = FeatureMgr.GetFeature(devLocalsScript.hash):GetStringValue()
+    local vLocal   = load(string.format("return %s", FeatureMgr.GetFeature(devLocalsLocal.hash):GetStringValue()))()
+    local value    = tonumber(FeatureMgr.GetFeature(devLocalsValue.hash):GetStringValue())
+    local GetValue = {
+        ["int"]   = ScriptLocal.GetInt,
+        ["float"] = ScriptLocal.GetFloat
+    }
+    TEMP_LOCAL = GetValue[type](Utils.sJoaat(script), vLocal)
+    devLocalsWrite.func(type, script, vLocal, value)
+end)
+
+FeatureMgr.AddFeature(devLocalsRevert.hash, devLocalsRevert.name, devLocalsRevert.type, devLocalsRevert.desc, function(f)
+    local type   = devLocalsType.list[FeatureMgr.GetFeatureListIndex(devLocalsType.hash) + 1].name
+    local script = FeatureMgr.GetFeature(devLocalsScript.hash):GetStringValue()
+    local vLocal = load(string.format("return %s", FeatureMgr.GetFeature(devLocalsLocal.hash):GetStringValue()))()
+    if TEMP_LOCAL ~= "TEMP" then
+        FeatureMgr.GetFeature(devLocalsValue.hash):SetStringValue(tostring(TEMP_LOCAL))
+    end
+    devLocalsRevert.func(type, script, vLocal)
 end)
 
 FeatureMgr.AddFeature(devStatsType.hash, devStatsType.name, devStatsType.type, devStatsType.desc, function(f)
@@ -122,12 +200,33 @@ FeatureMgr.AddFeature(devStatsWrite.hash, devStatsWrite.name, devStatsWrite.type
         end
     end
     value = tonumber(value)
+    local hash = 0
+    local function IsStoryStat()
+        return stat:find("SP0") or stat:find("SP1") or stat:find("SP2")
+    end
+    if stat:sub(1, 3) == "MPX" then
+        stat = stat:gsub("MPX", string.format("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
+        hash = Utils.sJoaat(stat)
+    end
+    if stat:find("MPPLY") or IsStoryStat() then
+        hash = Utils.sJoaat(stat)
+    end
+    local GetValue = {
+        ["int"]   = Stats.GetInt,
+        ["float"] = Stats.GetFloat,
+        ["bool"]  = Stats.GetBool
+    }
+    local success, tempValue = GetValue[type](hash)
+    TEMP_STAT = tempValue
     devStatsWrite.func(type, stat, value)
 end)
 
 FeatureMgr.AddFeature(devStatsRevert.hash, devStatsRevert.name, devStatsRevert.type, devStatsRevert.desc, function(f)
     local type = devStatsType.list[FeatureMgr.GetFeatureListIndex(devStatsType.hash) + 1].name
     local stat = FeatureMgr.GetFeature(devStatsStat.hash):GetStringValue()
+    if TEMP_STAT ~= "TEMP" then
+        FeatureMgr.GetFeature(devStatsValue.hash):SetStringValue(tostring(TEMP_STAT))
+    end
     devStatsRevert.func(type, stat)
 end)
 
@@ -228,12 +327,19 @@ FeatureMgr.AddFeature(devPackedStatsWrite.hash, devPackedStatsWrite.name, devPac
         end
     end
     value = tonumber(value)
+    local GetValue = {
+        ["int"]  = eNative.STATS.GET_PACKED_STAT_INT_CODE,
+        ["bool"] = eNative.STATS.GET_PACKED_STAT_BOOL_CODE
+    }
+    TEMP_PSTAT = GetValue[type](firstPStat, eStat.MPPLY_LAST_MP_CHAR:Get())
     devPackedStatsWrite.func(type, firstPStat, lastPStat, value)
 end)
 
 FeatureMgr.AddFeature(devPackedStatsRevert.hash, devPackedStatsRevert.name, devPackedStatsRevert.type, devPackedStatsRevert.desc, function(f)
     local type       = devPackedStatsType.list[FeatureMgr.GetFeatureListIndex(devPackedStatsType.hash) + 1].name
     local packedStat = FeatureMgr.GetFeature(devPackedStatsGlobal.hash):GetStringValue()
+    if TEMP_PSTAT ~= "TEMP" then
+        FeatureMgr.GetFeature(devPackedStatsValue.hash):SetStringValue(tostring(TEMP_PSTAT))
+    end
     devPackedStatsRevert.func(type, packedStat)
 end)
-

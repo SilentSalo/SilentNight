@@ -28,15 +28,6 @@ FeatureMgr.AddFeature(miscEditWithdrawAll.hash, miscEditWithdrawAll.name, miscEd
     miscEditWithdrawAll.func()
 end)
 
-FeatureMgr.AddFeature(miscSuppliesBusiness.hash, miscSuppliesBusiness.name, miscSuppliesBusiness.type, miscSuppliesBusiness.desc, function(f)
-end)
-    :SetList(miscSuppliesBusiness.list:GetNames())
-
-FeatureMgr.AddFeature(miscSuppliesResupply.hash, miscSuppliesResupply.name, miscSuppliesResupply.type, miscSuppliesResupply.desc, function(f)
-    local business = miscSuppliesBusiness.list[FeatureMgr.GetFeatureListIndex(miscSuppliesBusiness.hash) + 1].index
-    miscSuppliesResupply.func(business)
-end)
-
 FeatureMgr.AddFeature(miscStorySelect.hash, miscStorySelect.name, miscStorySelect.type, miscStorySelect.desc, function(f)
 end)
     :SetDefaultValue(eStat.SP0_TOTAL_CASH:Get())

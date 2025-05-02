@@ -110,7 +110,7 @@ end)
 FeatureMgr.AddFeature(cayoTeam.hash, cayoTeam.name, cayoTeam.type, cayoTeam.desc, function(f)
     FeatureMgr.GetFeature(cayoPresets.hash):SetListIndex(0)
     FeatureMgr.GetFeature(cayoCrew.hash):Toggle(false)
-    for i = 1, 4 do
+    for i = 1, #cayoPlayers do
         FeatureMgr.GetFeature(cayoPlayers[i].hash):SetIntValue(0)
     end
 end)
@@ -120,7 +120,7 @@ FeatureMgr.AddFeature(cayoPresets.hash, cayoPresets.name, cayoPresets.type, cayo
     FeatureMgr.GetFeature(cayoCrew.hash):Toggle(false)
     local team   = cayoTeam.list[FeatureMgr.GetFeatureListIndex(cayoTeam.hash) + 1].index
     local preset = cayoPresets.list[FeatureMgr.GetFeatureListIndex(cayoPresets.hash) + 1].index
-    for i = 1, 4 do
+    for i = 1, #cayoPlayers do
         FeatureMgr.GetFeature(cayoPlayers[i].hash):SetIntValue(0)
     end
     if preset == -1 then
@@ -135,7 +135,7 @@ end)
 FeatureMgr.AddFeature(cayoCrew.hash, cayoCrew.name, cayoCrew.type, cayoCrew.desc, function(f)
 end)
 
-for i = 1, 4 do
+for i = 1, #cayoPlayers do
     FeatureMgr.AddFeature(cayoPlayers[i].hash, cayoPlayers[i].name, cayoPlayers[i].type, cayoPlayers[i].desc, function(f)
     end)
         :SetDefaultValue(0)
@@ -146,7 +146,7 @@ end
 
 FeatureMgr.AddFeature(cayoApply.hash, cayoApply.name, cayoApply.type, cayoApply.desc, function(f)
     local cuts = {}
-    for i = 1, 4 do
+    for i = 1, #cayoPlayers do
         table.insert(cuts, FeatureMgr.GetFeature(cayoPlayers[i].hash):GetIntValue())
     end
     cayoApply.func(cuts)

@@ -45,17 +45,17 @@ end)
     :SetStepSize(1000000)
     :Reset()
 
-for i = 1, 2 do
+for i = 1, #bunkerToggles do
     FeatureMgr.AddFeature(bunkerToggles[i].hash, bunkerToggles[i].name, bunkerToggles[i].type, bunkerToggles[i].desc, function(f)
     end)
 end
 
 FeatureMgr.AddFeature(bunkerApply.hash, bunkerApply.name, bunkerApply.type, bunkerApply.desc, function(f)
     local args = {}
-    for i = 1, 2 do
+    for i = 1, #bunkerToggles do
         table.insert(args, FeatureMgr.GetFeature(bunkerToggles[i].hash):IsToggled())
     end
-    for i = 1, 3 do
+    for i = 1, #bunkerStats do
         table.insert(args, FeatureMgr.GetFeature(bunkerStats[i].hash):GetIntValue())
     end
     bunkerApply.func(table.unpack(args))

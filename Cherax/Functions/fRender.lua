@@ -297,9 +297,9 @@ function RenderHeistTool()
     end
 end
 
-function RenderMoneyTool()
-    if ImGui.BeginTabItem("Money Tool") then
-        if ImGui.BeginTabBar("Money Tabs") then
+function RenderBusinessTool()
+    if ImGui.BeginTabItem("Business Tool") then
+        if ImGui.BeginTabBar("Business Tabs") then
             if ImGui.BeginTabItem("Bunker") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
@@ -330,50 +330,7 @@ function RenderMoneyTool()
                 end
                 ImGui.EndTabItem()
             end
-            if ImGui.BeginTabItem("Casino") then
-                if ImGui.BeginColumns(3) then
-                    if ClickGUI.BeginCustomChildWindow("Lucky Wheel") then
-                        ClickGUI.RenderFeature(casinoLuckyWheelSelect.hash)
-                        ClickGUI.RenderFeature(casinoLuckyWheelGive.hash)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    if ClickGUI.BeginCustomChildWindow("Blackjack") then
-                        ClickGUI.RenderFeature(casinoBlackjackCard.hash)
-                        ClickGUI.RenderFeature(casinoBlackjackReveal.hash)
-                        ClickGUI.RenderFeature(casinoBlackjackTrick.hash)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    ImGui.TableNextColumn()
-                    if ClickGUI.BeginCustomChildWindow("Slot Machines") then
-                        ClickGUI.RenderFeature(casinoSlotsWin.hash)
-                        ClickGUI.RenderFeature(casinoSlotsLose.hash)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    if ClickGUI.BeginCustomChildWindow("Poker") then
-                        ClickGUI.RenderFeature(casinoPokerMyCards.hash)
-                        ClickGUI.RenderFeature(casinoPokerCards.hash)
-                        ClickGUI.RenderFeature(casinoPokerReveal.hash)
-                        ClickGUI.RenderFeature(casinoPokerGive.hash)
-                        ClickGUI.RenderFeature(casinoPokerTrick.hash)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    ImGui.TableNextColumn()
-                    if ClickGUI.BeginCustomChildWindow("Roulette") then
-                        ClickGUI.RenderFeature(casinoRouletteLand13.hash)
-                        ClickGUI.RenderFeature(casinoRouletteLand16.hash)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    if ClickGUI.BeginCustomChildWindow("Misc") then
-                        ClickGUI.RenderFeature(casinoBypass.hash)
-                        ClickGUI.RenderFeature(casinoSelect.hash)
-                        ClickGUI.RenderFeature(casinoApply.hash)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    ImGui.EndColumns()
-                end
-                ImGui.EndTabItem()
-            end
-            if ImGui.BeginTabItem("Hangar") then
+            if ImGui.BeginTabItem("Hangar Cargo") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
                         ClickGUI.RenderFeature(hangarPrice.hash)
@@ -415,6 +372,7 @@ function RenderMoneyTool()
                     if ClickGUI.BeginCustomChildWindow("Safe") then
                         ClickGUI.RenderFeature(nightclubFill.hash)
                         ClickGUI.RenderFeature(nightclubCollect.hash)
+                        ClickGUI.RenderFeature(nightclubUnbrick.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.TableNextColumn()
@@ -481,10 +439,81 @@ function RenderMoneyTool()
                 end
                 ImGui.EndTabItem()
             end
+            if ImGui.BeginTabItem("Misc") then
+                if ImGui.BeginColumns(3) then
+                    if ClickGUI.BeginCustomChildWindow("Supplies") then
+                        ClickGUI.RenderFeature(miscSuppliesBusiness.hash)
+                        ClickGUI.RenderFeature(miscSuppliesResupply.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.EndColumns()
+                end
+                ImGui.EndTabItem()
+            end
+            ImGui.EndTabBar()
+        end
+        ImGui.EndTabItem()
+    end
+end
+
+function RenderMoneyTool()
+    if ImGui.BeginTabItem("Money Tool") then
+        if ImGui.BeginTabBar("Money Tabs") then
+            if ImGui.BeginTabItem("Casino") then
+                if ImGui.BeginColumns(3) then
+                    if ClickGUI.BeginCustomChildWindow("Lucky Wheel") then
+                        ClickGUI.RenderFeature(casinoLuckyWheelSelect.hash)
+                        ClickGUI.RenderFeature(casinoLuckyWheelGive.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    if ClickGUI.BeginCustomChildWindow("Blackjack") then
+                        ClickGUI.RenderFeature(casinoBlackjackCard.hash)
+                        ClickGUI.RenderFeature(casinoBlackjackReveal.hash)
+                        ClickGUI.RenderFeature(casinoBlackjackTrick.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.TableNextColumn()
+                    if ClickGUI.BeginCustomChildWindow("Slot Machines") then
+                        ClickGUI.RenderFeature(casinoSlotsWin.hash)
+                        ClickGUI.RenderFeature(casinoSlotsLose.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    if ClickGUI.BeginCustomChildWindow("Poker") then
+                        ClickGUI.RenderFeature(casinoPokerMyCards.hash)
+                        ClickGUI.RenderFeature(casinoPokerCards.hash)
+                        ClickGUI.RenderFeature(casinoPokerReveal.hash)
+                        ClickGUI.RenderFeature(casinoPokerGive.hash)
+                        ClickGUI.RenderFeature(casinoPokerTrick.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.TableNextColumn()
+                    if ClickGUI.BeginCustomChildWindow("Roulette") then
+                        ClickGUI.RenderFeature(casinoRouletteLand13.hash)
+                        ClickGUI.RenderFeature(casinoRouletteLand16.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ClickGUI.RenderFeature(casinoBypass.hash)
+                        ClickGUI.RenderFeature(casinoSelect.hash)
+                        ClickGUI.RenderFeature(casinoApply.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.EndColumns()
+                end
+                ImGui.EndTabItem()
+            end
             if ImGui.BeginTabItem("Easy Money") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Instant") then
                         ClickGUI.RenderFeature(easyGive30m.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    if ClickGUI.BeginCustomChildWindow("Delays") then
+                        ClickGUI.RenderFeature(easyLoop5kDelay.hash)
+                        ClickGUI.RenderFeature(easyLoop50kDelay.hash)
+                        ClickGUI.RenderFeature(easyLoop100kDelay.hash)
+                        ClickGUI.RenderFeature(easyLoop180kDelay.hash)
+                        ClickGUI.RenderFeature(easyLoop300kDelay.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.TableNextColumn()
@@ -513,11 +542,6 @@ function RenderMoneyTool()
                         ClickGUI.RenderFeature(miscEditRemove.hash)
                         ClickGUI.RenderFeature(miscEditDepositAll.hash)
                         ClickGUI.RenderFeature(miscEditWithdrawAll.hash)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    if ClickGUI.BeginCustomChildWindow("Supplies") then
-                        ClickGUI.RenderFeature(miscSuppliesBusiness.hash)
-                        ClickGUI.RenderFeature(miscSuppliesResupply.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.TableNextColumn()
@@ -555,21 +579,12 @@ function RenderDevTool()
                         ClickGUI.RenderFeature(devGlobalsGlobal.hash)
                         ClickGUI.RenderFeature(devGlobalsValue.hash)
                         ClickGUI.RenderFeature(devGlobalsRead.hash)
+                        ImGui.SameLine()
                         ClickGUI.RenderFeature(devGlobalsWrite.hash)
+                        ImGui.SameLine()
                         ClickGUI.RenderFeature(devGlobalsRevert.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
-                    ImGui.TableNextColumn()
-                    if ClickGUI.BeginCustomChildWindow("Stats") then
-                        ClickGUI.RenderFeature(devStatsType.hash)
-                        ClickGUI.RenderFeature(devStatsStat.hash)
-                        ClickGUI.RenderFeature(devStatsValue.hash)
-                        ClickGUI.RenderFeature(devStatsRead.hash)
-                        ClickGUI.RenderFeature(devStatsWrite.hash)
-                        ClickGUI.RenderFeature(devStatsRevert.hash)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    ImGui.TableNextColumn()
                     if ClickGUI.BeginCustomChildWindow("Packed Stats") then
                         ClickGUI.RenderFeature(devPackedStatsRange.hash)
                         ClickGUI.RenderFeature(devPackedStatsType.hash)
@@ -578,6 +593,31 @@ function RenderDevTool()
                         ClickGUI.RenderFeature(devPackedStatsRead.hash)
                         ClickGUI.RenderFeature(devPackedStatsWrite.hash)
                         ClickGUI.RenderFeature(devPackedStatsRevert.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.TableNextColumn()
+                    if ClickGUI.BeginCustomChildWindow("Locals") then
+                        ClickGUI.RenderFeature(devLocalsType.hash)
+                        ClickGUI.RenderFeature(devLocalsScript.hash)
+                        ClickGUI.RenderFeature(devLocalsLocal.hash)
+                        ClickGUI.RenderFeature(devLocalsValue.hash)
+                        ClickGUI.RenderFeature(devLocalsRead.hash)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(devLocalsWrite.hash)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(devLocalsRevert.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.TableNextColumn()
+                    if ClickGUI.BeginCustomChildWindow("Stats") then
+                        ClickGUI.RenderFeature(devStatsType.hash)
+                        ClickGUI.RenderFeature(devStatsStat.hash)
+                        ClickGUI.RenderFeature(devStatsValue.hash)
+                        ClickGUI.RenderFeature(devStatsRead.hash)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(devStatsWrite.hash)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(devStatsRevert.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
@@ -594,7 +634,7 @@ function RenderSettings()
     if ImGui.BeginTabItem("Settings") then
         if ImGui.BeginTabBar("Settings Tabs") then
             if ImGui.BeginTabItem("General") then
-                if ImGui.BeginColumns(2) then
+                if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Discord") then
                         ClickGUI.RenderFeature(settingsDiscordLink.hash)
                         ClickGUI.EndCustomChildWindow()
@@ -613,6 +653,7 @@ end
 function RenderClickGUI()
     if ImGui.BeginTabBar("Silent Night") then
         RenderHeistTool()
+        RenderBusinessTool()
         RenderMoneyTool()
         RenderDevTool()
         RenderSettings()
@@ -620,13 +661,13 @@ function RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.1.4", RenderClickGUI)
+ClickGUI.AddTab("Silent Night v0.1.5", RenderClickGUI)
 
 function RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab("Silent Night v0.1.4", "Silent Night")
+    local SilentNightTab = root:AddSubTab("Silent Night v0.1.5", "Silent Night")
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
@@ -857,9 +898,9 @@ function RenderListGUI()
         end
     end
 
-    local MoneyToolTab = SilentNightTab:AddSubTab("Money Tool", "Money Tool")
-    if MoneyToolTab then
-        local BunkerTab = MoneyToolTab:AddSubTab("Bunker", "Bunker")
+    local BusinessToolTab = SilentNightTab:AddSubTab("Business Tool", "Business Tool")
+    if BusinessToolTab then
+        local BunkerTab = BusinessToolTab:AddSubTab("Bunker", "Bunker")
         if BunkerTab then
             BunkerTab:AddSeperator("Sale")
             BunkerTab:AddFeature(bunkerPrice.hash)
@@ -881,6 +922,99 @@ function RenderListGUI()
             BunkerTab:AddFeature(bunkerApply.hash)
         end
 
+        local HangarCargoTab = BusinessToolTab:AddSubTab("Hangar Cargo", "Hangar Cargo")
+        if HangarCargoTab then
+            HangarCargoTab:AddSeperator("Sale")
+            HangarCargoTab:AddFeature(hangarPrice.hash)
+            HangarCargoTab:AddFeature(hangarNoXp.hash)
+            HangarCargoTab:AddFeature(hangarSell.hash)
+
+            HangarCargoTab:AddSeperator("Misc")
+            HangarCargoTab:AddFeature(hangarOpen.hash)
+            HangarCargoTab:AddFeature(hangarSupply.hash)
+            HangarCargoTab:AddFeature(hangarSupplier.hash)
+            HangarCargoTab:AddFeature(hangarCooldown.hash)
+
+            HangarCargoTab:AddSeperator("Stats")
+            HangarCargoTab:AddFeature(hangarBuyMade.hash)
+            HangarCargoTab:AddFeature(hangarBuyUndertaken.hash)
+            HangarCargoTab:AddFeature(hangarSellMade.hash)
+            HangarCargoTab:AddFeature(hangarSellUndertaken.hash)
+            HangarCargoTab:AddFeature(hangarEarnings.hash)
+            HangarCargoTab:AddFeature(hangarNoBuy.hash)
+            HangarCargoTab:AddFeature(hangarNoSell.hash)
+            HangarCargoTab:AddFeature(hangarNoEarnings.hash)
+            HangarCargoTab:AddFeature(hangarApply.hash)
+        end
+
+        local NightclubTab = BusinessToolTab:AddSubTab("Nightclub", "Nightclub")
+        if NightclubTab then
+            NightclubTab:AddSeperator("Sale")
+            NightclubTab:AddFeature(nightclubPrice.hash)
+
+            NightclubTab:AddSeperator("Safe")
+            NightclubTab:AddFeature(nightclubFill.hash)
+            NightclubTab:AddFeature(nightclubCollect.hash)
+            NightclubTab:AddFeature(nightclubUnbrick.hash)
+
+            NightclubTab:AddSeperator("Misc")
+            NightclubTab:AddFeature(nightclubOpen.hash)
+            NightclubTab:AddFeature(nightclubTrigger.hash)
+            NightclubTab:AddFeature(nightclubSupplier.hash)
+            NightclubTab:AddFeature(nightclubCooldown.hash)
+            NightclubTab:AddFeature(nightclubSetup.hash)
+
+            NightclubTab:AddSeperator("Popularity")
+            NightclubTab:AddFeature(nightclubMax.hash)
+            NightclubTab:AddFeature(nightclubMin.hash)
+            NightclubTab:AddFeature(nightclubLock.hash)
+
+            NightclubTab:AddSeperator("Stats")
+            NightclubTab:AddFeature(nightclubSellMade.hash)
+            NightclubTab:AddFeature(nightclubEarnings.hash)
+            NightclubTab:AddFeature(nightclubNoSell.hash)
+            NightclubTab:AddFeature(nightclubNoEarnings.hash)
+            NightclubTab:AddFeature(nightclubApply.hash)
+        end
+
+        local SpecialCargoTab = BusinessToolTab:AddSubTab("Special Cargo", "Special Cargo")
+        if SpecialCargoTab then
+            SpecialCargoTab:AddSeperator("Sale")
+            SpecialCargoTab:AddFeature(specialPrice.hash)
+            SpecialCargoTab:AddFeature(specialNoXp.hash)
+            SpecialCargoTab:AddFeature(specialNoCrateback.hash)
+            SpecialCargoTab:AddFeature(specialSell.hash)
+
+            SpecialCargoTab:AddSeperator("Misc")
+            SpecialCargoTab:AddFeature(specialOpen.hash)
+            SpecialCargoTab:AddFeature(specialSupply.hash)
+            SpecialCargoTab:AddFeature(specialSelect.hash)
+            SpecialCargoTab:AddFeature(specialBuy.hash)
+            SpecialCargoTab:AddFeature(specialSupplier.hash)
+            SpecialCargoTab:AddFeature(specialCooldown.hash)
+
+            SpecialCargoTab:AddSeperator("Stats")
+            SpecialCargoTab:AddFeature(specialBuyMade.hash)
+            SpecialCargoTab:AddFeature(specialBuyUndertaken.hash)
+            SpecialCargoTab:AddFeature(specialSellMade.hash)
+            SpecialCargoTab:AddFeature(specialSellUndertaken.hash)
+            SpecialCargoTab:AddFeature(specialEarnings.hash)
+            SpecialCargoTab:AddFeature(specialNoBuy.hash)
+            SpecialCargoTab:AddFeature(specialNoSell.hash)
+            SpecialCargoTab:AddFeature(specialNoEarnings.hash)
+            SpecialCargoTab:AddFeature(specialApply.hash)
+        end
+
+        local MiscTab = BusinessToolTab:AddSubTab("Misc", "Misc")
+        if MiscTab then
+            MiscTab:AddSeperator("Supplies")
+            MiscTab:AddFeature(miscSuppliesBusiness.hash)
+            MiscTab:AddFeature(miscSuppliesResupply.hash)
+        end
+    end
+
+    local MoneyToolTab = SilentNightTab:AddSubTab("Money Tool", "Money Tool")
+    if MoneyToolTab then
         local CasinoTab = MoneyToolTab:AddSubTab("Casino", "Casino")
         if CasinoTab then
             CasinoTab:AddSeperator("Lucky Wheel")
@@ -913,88 +1047,6 @@ function RenderListGUI()
             CasinoTab:AddFeature(casinoApply.hash)
         end
 
-        local HangarTab = MoneyToolTab:AddSubTab("Hangar", "Hangar")
-        if HangarTab then
-            HangarTab:AddSeperator("Sale")
-            HangarTab:AddFeature(hangarPrice.hash)
-            HangarTab:AddFeature(hangarNoXp.hash)
-            HangarTab:AddFeature(hangarSell.hash)
-
-            HangarTab:AddSeperator("Misc")
-            HangarTab:AddFeature(hangarOpen.hash)
-            HangarTab:AddFeature(hangarSupply.hash)
-            HangarTab:AddFeature(hangarSupplier.hash)
-            HangarTab:AddFeature(hangarCooldown.hash)
-
-            HangarTab:AddSeperator("Stats")
-            HangarTab:AddFeature(hangarBuyMade.hash)
-            HangarTab:AddFeature(hangarBuyUndertaken.hash)
-            HangarTab:AddFeature(hangarSellMade.hash)
-            HangarTab:AddFeature(hangarSellUndertaken.hash)
-            HangarTab:AddFeature(hangarEarnings.hash)
-            HangarTab:AddFeature(hangarNoBuy.hash)
-            HangarTab:AddFeature(hangarNoSell.hash)
-            HangarTab:AddFeature(hangarNoEarnings.hash)
-            HangarTab:AddFeature(hangarApply.hash)
-        end
-
-        local NightclubTab = MoneyToolTab:AddSubTab("Nightclub", "Nightclub")
-        if NightclubTab then
-            NightclubTab:AddSeperator("Sale")
-            NightclubTab:AddFeature(nightclubPrice.hash)
-
-            NightclubTab:AddSeperator("Safe")
-            NightclubTab:AddFeature(nightclubFill.hash)
-            NightclubTab:AddFeature(nightclubCollect.hash)
-
-            NightclubTab:AddSeperator("Misc")
-            NightclubTab:AddFeature(nightclubOpen.hash)
-            NightclubTab:AddFeature(nightclubTrigger.hash)
-            NightclubTab:AddFeature(nightclubSupplier.hash)
-            NightclubTab:AddFeature(nightclubCooldown.hash)
-            NightclubTab:AddFeature(nightclubSetup.hash)
-
-            NightclubTab:AddSeperator("Popularity")
-            NightclubTab:AddFeature(nightclubMax.hash)
-            NightclubTab:AddFeature(nightclubMin.hash)
-            NightclubTab:AddFeature(nightclubLock.hash)
-
-            NightclubTab:AddSeperator("Stats")
-            NightclubTab:AddFeature(nightclubSellMade.hash)
-            NightclubTab:AddFeature(nightclubEarnings.hash)
-            NightclubTab:AddFeature(nightclubNoSell.hash)
-            NightclubTab:AddFeature(nightclubNoEarnings.hash)
-            NightclubTab:AddFeature(nightclubApply.hash)
-        end
-
-        local SpecialCargoTab = MoneyToolTab:AddSubTab("Special Cargo", "Special Cargo")
-        if SpecialCargoTab then
-            SpecialCargoTab:AddSeperator("Sale")
-            SpecialCargoTab:AddFeature(specialPrice.hash)
-            SpecialCargoTab:AddFeature(specialNoXp.hash)
-            SpecialCargoTab:AddFeature(specialNoCrateback.hash)
-            SpecialCargoTab:AddFeature(specialSell.hash)
-
-            SpecialCargoTab:AddSeperator("Misc")
-            SpecialCargoTab:AddFeature(specialOpen.hash)
-            SpecialCargoTab:AddFeature(specialSupply.hash)
-            SpecialCargoTab:AddFeature(specialSelect.hash)
-            SpecialCargoTab:AddFeature(specialBuy.hash)
-            SpecialCargoTab:AddFeature(specialSupplier.hash)
-            SpecialCargoTab:AddFeature(specialCooldown.hash)
-
-            SpecialCargoTab:AddSeperator("Stats")
-            SpecialCargoTab:AddFeature(specialBuyMade.hash)
-            SpecialCargoTab:AddFeature(specialBuyUndertaken.hash)
-            SpecialCargoTab:AddFeature(specialSellMade.hash)
-            SpecialCargoTab:AddFeature(specialSellUndertaken.hash)
-            SpecialCargoTab:AddFeature(specialEarnings.hash)
-            SpecialCargoTab:AddFeature(specialNoBuy.hash)
-            SpecialCargoTab:AddFeature(specialNoSell.hash)
-            SpecialCargoTab:AddFeature(specialNoEarnings.hash)
-            SpecialCargoTab:AddFeature(specialApply.hash)
-        end
-
         local MiscTab = MoneyToolTab:AddSubTab("Misc", "Misc")
         if MiscTab then
             local EasyMoneyTab = MiscTab:AddSubTab("Easy Money", "Easy Money")
@@ -1005,6 +1057,13 @@ function RenderListGUI()
             EasyMoneyTab:AddFeature(easyLoop180k.hash)
             EasyMoneyTab:AddFeature(easyLoop300k.hash)
 
+            EasyMoneyTab:AddSeperator("Delays")
+            EasyMoneyTab:AddFeature(easyLoop5kDelay.hash)
+            EasyMoneyTab:AddFeature(easyLoop50kDelay.hash)
+            EasyMoneyTab:AddFeature(easyLoop100kDelay.hash)
+            EasyMoneyTab:AddFeature(easyLoop180kDelay.hash)
+            EasyMoneyTab:AddFeature(easyLoop300kDelay.hash)
+
             MiscTab:AddSeperator("Edit")
             MiscTab:AddFeature(miscEditSelect.hash)
             MiscTab:AddFeature(miscEditDeposit.hash)
@@ -1012,10 +1071,6 @@ function RenderListGUI()
             MiscTab:AddFeature(miscEditRemove.hash)
             MiscTab:AddFeature(miscEditDepositAll.hash)
             MiscTab:AddFeature(miscEditWithdrawAll.hash)
-
-            MiscTab:AddSeperator("Supplies")
-            MiscTab:AddFeature(miscSuppliesBusiness.hash)
-            MiscTab:AddFeature(miscSuppliesResupply.hash)
 
             MiscTab:AddSeperator("Story")
             MiscTab:AddFeature(miscStorySelect.hash)

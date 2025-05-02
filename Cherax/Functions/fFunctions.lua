@@ -35,28 +35,28 @@ function StartSession(sessionType)
     FeatureMgr.GetFeatureByName("Start Session"):OnClick()
 end
 
-function IsScriptRunning(scriptName)
-    return eNative.SCRIPT.GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(Utils.Joaat(scriptName)) > 0
+function IsScriptRunning(script)
+    return eNative.SCRIPT.GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(script.hash) > 0
 end
 
-function StartScript(scriptName, stackSize)
-    if not eNative.SCRIPT.DOES_SCRIPT_EXIST(scriptName) then
+function StartScript(script)
+    if not eNative.SCRIPT.DOES_SCRIPT_EXIST(script.name) then
         return false
     end
-    if IsScriptRunning(scriptName) then
+    if IsScriptRunning(script.name) then
         return true
     end
-    eNative.SCRIPT.REQUEST_SCRIPT(scriptName)
-    while not eNative.SCRIPT.HAS_SCRIPT_LOADED(scriptName) do
+    eNative.SCRIPT.REQUEST_SCRIPT(script.name)
+    while not eNative.SCRIPT.HAS_SCRIPT_LOADED(script.name) do
         Script.Yield(1)
     end
-    eNative.SYSTEM.START_NEW_SCRIPT(scriptName, stackSize or 0)
-    eNative.SCRIPT.SET_SCRIPT_AS_NO_LONGER_NEEDED(scriptName)
+    eNative.SYSTEM.START_NEW_SCRIPT(script.name, script.stack)
+    eNative.SCRIPT.SET_SCRIPT_AS_NO_LONGER_NEEDED(script.name)
     return true
 end
 
-function ForceScriptHost(scriptName)
-    GTA.ForceScriptHost(Utils.Joaat(scriptName))
+function ForceScriptHost(script)
+    GTA.ForceScriptHost(script.hash)
     FeatureMgr.GetFeatureByName("Force Script Host"):OnClick()
 end
 
@@ -274,10 +274,4 @@ end
 
 function ImGui.EndColumns()
     ImGui.EndTable()
-end
-
-function Log(message, color)
-    local color = color or eLogColor.YELLOW
-    Logger.Log(color, "Silent Night", message)
-    GUI.AddToast("Silent Night", message, 5000, eToastPos.TOP_RIGHT)
 end

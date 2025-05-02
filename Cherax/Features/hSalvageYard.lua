@@ -59,7 +59,7 @@ FeatureMgr.AddFeature(salvageWeekly.hash, salvageWeekly.name, salvageWeekly.type
     salvageWeekly.func()
 end)
 
-for i = 1, 3 do
+for i = 1, #salvageSlotsAvailable do
     FeatureMgr.AddFeature(salvageSlotsAvailable[i].hash, salvageSlotsAvailable[i].name, salvageSlotsAvailable[i].type, salvageSlotsAvailable[i].desc, function(f)
         salvageSlotsAvailable[i].func()
     end)
@@ -80,7 +80,7 @@ end)
     :SetStepSize(0.1)
     :Reset()
 
-for i = 1, 3 do
+for i = 1, #salvageSlotsValue do
     FeatureMgr.AddFeature(salvageSlotsValue[i].hash, salvageSlotsValue[i].name, salvageSlotsValue[i].type, salvageSlotsValue[i].desc, function(f)
     end)
         :SetDefaultValue(0)
@@ -92,7 +92,7 @@ end
 FeatureMgr.AddFeature(salvageApply.hash, salvageApply.name, salvageApply.type, salvageApply.desc, function(f)
     local salvageMultiplier = FeatureMgr.GetFeature(salvageSalvage.hash):GetFloatValue()
     local sellValues        = {}
-    for i = 1, 3 do
+    for i = 1, #salvageSlotsValue do
         table.insert(sellValues, FeatureMgr.GetFeature(salvageSlotsValue[i].hash):GetIntValue())
     end
     salvageApply.func(salvageMultiplier, table.unpack(sellValues))

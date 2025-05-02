@@ -27,13 +27,13 @@ if GTA_EDITION == "EE" then
                 }
             },
             Supplies = {
-                Cash      = { type = "int", global = 1668003 + 1 },
-                Coke      = { type = "int", global = 1668003 + 2 },
-                Weed      = { type = "int", global = 1668003 + 3 },
-                Meth      = { type = "int", global = 1668003 + 4 },
-                Documents = { type = "int", global = 1668003 + 5 },
-                Bunker    = { type = "int", global = 1668003 + 6 },
-                Acid      = { type = "int", global = 1668003 + 7 }
+                Slot0  = { type = "int", global = 1668003 + 0 + 1 },
+                Slot1  = { type = "int", global = 1668003 + 1 + 1 },
+                Slot2  = { type = "int", global = 1668003 + 2 + 1 },
+                Slot3  = { type = "int", global = 1668003 + 3 + 1 },
+                Slot4  = { type = "int", global = 1668003 + 4 + 1 },
+                Bunker = { type = "int", global = 1668003 + 5 + 1 },
+                Acid   = { type = "int", global = 1668003 + 6 + 1 }
             }
         },
         Heist = {
@@ -215,13 +215,13 @@ else
                 }
             },
             Supplies = {
-                Cash      = { type = "int", global = 1667996 + 1 },
-                Coke      = { type = "int", global = 1667996 + 2 },
-                Weed      = { type = "int", global = 1667996 + 3 },
-                Meth      = { type = "int", global = 1667996 + 4 },
-                Documents = { type = "int", global = 1667996 + 5 },
-                Bunker    = { type = "int", global = 1667996 + 6 },
-                Acid      = { type = "int", global = 1667996 + 7 }
+                Slot0  = { type = "int", global = 1667996 + 0 + 1 },
+                Slot1  = { type = "int", global = 1667996 + 1 + 1 },
+                Slot2  = { type = "int", global = 1667996 + 2 + 1 },
+                Slot3  = { type = "int", global = 1667996 + 3 + 1 },
+                Slot4  = { type = "int", global = 1667996 + 4 + 1 },
+                Bunker = { type = "int", global = 1667996 + 5 + 1 },
+                Acid   = { type = "int", global = 1667996 + 6 + 1 }
             }
         },
         Heist = {

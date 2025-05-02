@@ -34,7 +34,7 @@ end)
 
 FeatureMgr.AddFeature(doomsdayTeam.hash, doomsdayTeam.name, doomsdayTeam.type, doomsdayTeam.desc, function(f)
     FeatureMgr.GetFeature(doomsdayPresets.hash):SetListIndex(0)
-    for i = 1, 4 do
+    for i = 1, #doomsdayPlayers do
         FeatureMgr.GetFeature(doomsdayPlayers[i].hash):SetIntValue(0)
     end
 end)
@@ -43,7 +43,7 @@ end)
 FeatureMgr.AddFeature(doomsdayPresets.hash, doomsdayPresets.name, doomsdayPresets.type, doomsdayPresets.desc, function(f)
     local team   = doomsdayTeam.list[FeatureMgr.GetFeatureListIndex(doomsdayTeam.hash) + 1].index
     local preset = doomsdayPresets.list[FeatureMgr.GetFeatureListIndex(doomsdayPresets.hash) + 1].index
-    for i = 1, 4 do
+    for i = 1, #doomsdayPlayers do
         FeatureMgr.GetFeature(doomsdayPlayers[i].hash):SetIntValue(0)
     end
     for i = 1, team do
@@ -52,7 +52,7 @@ FeatureMgr.AddFeature(doomsdayPresets.hash, doomsdayPresets.name, doomsdayPreset
 end)
     :SetList(doomsdayPresets.list.GetNames())
 
-for i = 1, 4 do
+for i = 1, #doomsdayPlayers do
     FeatureMgr.AddFeature(doomsdayPlayers[i].hash, doomsdayPlayers[i].name, doomsdayPlayers[i].type, doomsdayPlayers[i].desc, function(f)
     end)
         :SetDefaultValue(0)
@@ -63,7 +63,7 @@ end
 
 FeatureMgr.AddFeature(doomsdayApply.hash, doomsdayApply.name, doomsdayApply.type, doomsdayApply.desc, function(f)
     local cuts = {}
-    for i = 1, 4 do
+    for i = 1, #doomsdayPlayers do
         table.insert(cuts, FeatureMgr.GetFeature(doomsdayPlayers[i].hash):GetIntValue())
     end
     doomsdayApply.func(cuts)

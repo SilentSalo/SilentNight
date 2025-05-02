@@ -15,7 +15,6 @@ end)
     :SetVisible(false)
 
 FeatureMgr.AddFeature(nightclubCooldown.hash, nightclubCooldown.name, nightclubCooldown.type, nightclubCooldown.desc, function(f)
-    nightclubCooldown.func(f:IsToggled())
 end)
 
 FeatureMgr.AddFeature(nightclubSetup.hash, nightclubSetup.name, nightclubSetup.type, nightclubSetup.desc, function(f)
@@ -36,17 +35,17 @@ end)
     :SetStepSize(1000000)
     :Reset()
 
-for i = 1, 2 do
+for i = 1, #nightclubToggles do
     FeatureMgr.AddFeature(nightclubToggles[i].hash, nightclubToggles[i].name, nightclubToggles[i].type, nightclubToggles[i].desc, function(f)
     end)
 end
 
 FeatureMgr.AddFeature(nightclubApply.hash, nightclubApply.name, nightclubApply.type, nightclubApply.desc, function(f)
     local args = {}
-    for i = 1, 2 do
+    for i = 1, #nightclubToggles do
         table.insert(args, FeatureMgr.GetFeature(nightclubToggles[i].hash):IsToggled())
     end
-    for i = 1, 2 do
+    for i = 1, #nightclubStats do
         table.insert(args, FeatureMgr.GetFeature(nightclubStats[i].hash):GetIntValue())
     end
     nightclubApply.func(table.unpack(args))
@@ -58,6 +57,10 @@ end)
 
 FeatureMgr.AddFeature(nightclubCollect.hash, nightclubCollect.name, nightclubCollect.type, nightclubCollect.desc, function(f)
     nightclubCollect.func()
+end)
+
+FeatureMgr.AddFeature(nightclubUnbrick.hash, nightclubUnbrick.name, nightclubUnbrick.type, nightclubUnbrick.desc, function(f)
+    nightclubUnbrick.func()
 end)
 
 FeatureMgr.AddFeature(nightclubMax.hash, nightclubMax.name, nightclubMax.type, nightclubMax.desc, function(f)

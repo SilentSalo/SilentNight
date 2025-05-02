@@ -1,15 +1,14 @@
 FeatureMgr.AddFeature(specialPrice.hash, specialPrice.name, specialPrice.type, specialPrice.desc, function(f)
 end)
 
-FeatureMgr.AddFeature(specialNoXp.hash, specialNoXp.name, specialNoXp.type, specialNoXp.desc, function(f)
-end)
-
-FeatureMgr.AddFeature(specialNoCrateback.hash, specialNoCrateback.name, specialNoCrateback.type, specialNoCrateback.desc, function(f)
-end)
+for i = 1, #specialSaleToggles do
+    FeatureMgr.AddFeature(specialSaleToggles[i].hash, specialSaleToggles[i].name, specialSaleToggles[i].type, specialSaleToggles[i].desc, function(f)
+    end)
+end
 
 FeatureMgr.AddFeature(specialSell.hash, specialSell.name, specialSell.type, specialSell.desc, function(f)
     local bools = {}
-    for i = 1, 2 do
+    for i = 1, #specialSaleToggles do
         table.insert(bools, FeatureMgr.GetFeature(specialSaleToggles[i].hash):IsToggled())
     end
     specialSell.func(table.unpack(bools))
@@ -40,7 +39,6 @@ FeatureMgr.AddFeature(specialBuy.hash, specialBuy.name, specialBuy.type, special
 end)
 
 FeatureMgr.AddFeature(specialCooldown.hash, specialCooldown.name, specialCooldown.type, specialCooldown.desc, function(f)
-    specialCooldown.func()
 end)
 
 FeatureMgr.AddFeature(specialBuyMade.hash, specialBuyMade.name, specialBuyMade.type, specialBuyMade.desc, function(f)
@@ -78,17 +76,17 @@ end)
     :SetStepSize(1000000)
     :Reset()
 
-for i = 1, 3 do
+for i = 1, #specialToggles do
     FeatureMgr.AddFeature(specialToggles[i].hash, specialToggles[i].name, specialToggles[i].type, specialToggles[i].desc, function(f)
     end)
 end
 
 FeatureMgr.AddFeature(specialApply.hash, specialApply.name, specialApply.type, specialApply.desc, function(f)
     local args = {}
-    for i = 1, 3 do
+    for i = 1, #specialToggles do
         table.insert(args, FeatureMgr.GetFeature(specialToggles[i].hash):IsToggled())
     end
-    for i = 1, 5 do
+    for i = 1, #specialStats do
         table.insert(args, FeatureMgr.GetFeature(specialStats[i].hash):GetIntValue())
     end
     specialApply.func(table.unpack(args))

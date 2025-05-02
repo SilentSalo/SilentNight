@@ -45,6 +45,12 @@ function TurkishSupplier()
     end
 end
 
+function CooldownKiller()
+    hangarCooldown.func(FeatureMgr.GetFeature(hangarCooldown.hash):IsToggled())
+    nightclubCooldown.func(FeatureMgr.GetFeature(nightclubCooldown.hash):IsToggled())
+    specialCooldown.func(FeatureMgr.GetFeature(specialCooldown.hash):IsToggled())
+end
+
 function PriceMaximizer()
     bunkerPrice.func(FeatureMgr.GetFeature(bunkerPrice.hash):IsToggled())
     hangarPrice.func(FeatureMgr.GetFeature(hangarPrice.hash):IsToggled())
@@ -54,19 +60,39 @@ end
 
 function EasyLooper()
     if FeatureMgr.GetFeature(easyLoop5k.hash):IsToggled() then
-        easyLoop5k.func()
+        FeatureMgr.GetFeature(easyLoop50k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop100k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop180k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop300k.hash):Toggle(false)
+        easyLoop5k.func(FeatureMgr.GetFeature(easyLoop5kDelay.hash):GetFloatValue())
     end
     if FeatureMgr.GetFeature(easyLoop50k.hash):IsToggled() then
-        easyLoop50k.func()
+        FeatureMgr.GetFeature(easyLoop5k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop100k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop180k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop300k.hash):Toggle(false)
+        easyLoop50k.func(FeatureMgr.GetFeature(easyLoop50kDelay.hash):GetFloatValue())
     end
     if FeatureMgr.GetFeature(easyLoop100k.hash):IsToggled() then
-        easyLoop100k.func()
+        FeatureMgr.GetFeature(easyLoop5k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop50k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop180k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop300k.hash):Toggle(false)
+        easyLoop100k.func(FeatureMgr.GetFeature(easyLoop100kDelay.hash):GetFloatValue())
     end
     if FeatureMgr.GetFeature(easyLoop180k.hash):IsToggled() then
-        easyLoop180k.func()
+        FeatureMgr.GetFeature(easyLoop5k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop50k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop100k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop300k.hash):Toggle(false)
+        easyLoop180k.func(FeatureMgr.GetFeature(easyLoop180kDelay.hash):GetFloatValue())
     end
     if FeatureMgr.GetFeature(easyLoop300k.hash):IsToggled() then
-        easyLoop300k.func()
+        FeatureMgr.GetFeature(easyLoop5k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop50k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop100k.hash):Toggle(false)
+        FeatureMgr.GetFeature(easyLoop180k.hash):Toggle(false)
+        easyLoop300k.func(FeatureMgr.GetFeature(easyLoop300kDelay.hash):GetFloatValue())
     end
 end
 
@@ -75,7 +101,7 @@ function NightclubSetter()
 end
 
 function ReAssign()
-    PLAYER_ID                              = GTA.GetLocalPlayerId()
+    PLAYER_ID = GTA.GetLocalPlayerId()
     if GTA_EDITION == "EE" then
         eGlobal.Business.CrateWarehouse.Slot   = { type = "int", global = 1845270 + 1 + (PLAYER_ID * 892) + 268 + 120 + 1 + (0 * 3)  }
         eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845270 + 1 + (PLAYER_ID * 892) + 268 + 360 + 5            }
@@ -126,6 +152,7 @@ function ReAssign()
     FeatureMgr.GetFeature(specialSellMade.hash):SetIntValue(eStat.MPX_LIFETIME_SELL_COMPLETE:Get())
     FeatureMgr.GetFeature(specialSellUndertaken.hash):SetIntValue(eStat.MPX_LIFETIME_SELL_UNDERTAKEN:Get())
     FeatureMgr.GetFeature(specialEarnings.hash):SetIntValue(eStat.MPX_LIFETIME_CONTRA_EARNINGS:Get())
+    FeatureMgr.GetFeature(miscSuppliesBusiness.hash):SetList(miscSuppliesBusiness.list:GetNames())
 end
 
 local HAS_PARSED         = false
@@ -142,9 +169,12 @@ function ReParse()
             Script.Yield(5000)
             ParseTunables(eTunable)
             ParseStats(eStat)
+            FillDynamicTbls()
+            ParseTables(eTable)
             ReAssign()
             ParseGlobals(eGlobal)
             ParseLocals(eLocal)
+            ParsePackedBools(ePackedBool)
             while not eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedBool.HAS_PARSED and eTable.HAS_PARSED do
                 Script.Yield(1)
             end
@@ -160,6 +190,7 @@ Script.RegisterLooped(function()
     DiamondSetter()
     CayoSetter()
     TurkishSupplier()
+    CooldownKiller()
     PriceMaximizer()
     EasyLooper()
     NightclubSetter()

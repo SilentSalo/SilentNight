@@ -7,12 +7,12 @@ function ParseTunables(tbl)
             elseif type(v.tunable) == "number" and v.tunable == math.floor(v.tunable) then
                 joaat = v.tunable
             else
-                Log("Bad tunable! " .. v.tunable, eLogColor.RED)
+                Logger.Log(eLogColor.RED, "Silent Night", "Bad tunable! " .. v.tunable)
                 break
             end
             local pointer = ScriptGlobal.GetTunableByHash(joaat)
             if pointer == 0 then
-                Log("Bad tunable pointer! " .. v.tunable .. " " .. pointer, eLogColor.RED)
+                Logger.Log(eLogColor.RED, "Silent Night", "Bad tunable pointer! " .. v.tunable .. " " .. pointer)
                 break
             end
             v.pointer = pointer
@@ -22,7 +22,7 @@ function ParseTunables(tbl)
                 elseif self.type == "float" then
                     return Memory.ReadFloat(self.pointer)
                 end
-                Log("No type for tunable! " .. self.tunable, eLogColor.RED)
+                Logger.Log(eLogColor.RED, "Silent Night", "No type for tunable! " .. self.tunable)
                 return nil
             end
             v.Set = function(self, value)
@@ -31,7 +31,7 @@ function ParseTunables(tbl)
                 elseif self.type == "float" then
                     Memory.WriteFloat(self.pointer, value)
                 else
-                    Log("No type for tunable! " .. self.tunable, eLogColor.RED)
+                    Logger.Log(eLogColor.RED, "Silent Night", eLogColor.RED, "Silent Night", "No type for tunable! " .. self.tunable)
                 end
             end
             v.Reset = function(self)
@@ -40,7 +40,7 @@ function ParseTunables(tbl)
                 elseif self.type == "float" then
                     Memory.WriteFloat(self.pointer, self.defaultValue)
                 else
-                    Log("No type for tunable! " .. self.tunable, eLogColor.RED)
+                    Logger.Log(eLogColor.RED, "Silent Night", eLogColor.RED, "Silent Night", "No type for tunable! " .. self.tunable)
                 end
             end
         elseif type(v) == "table" then
@@ -61,7 +61,7 @@ function ParseGlobals(tbl)
                 elseif self.type == "bool" then
                     return ScriptGlobal.GetBool(self.global)
                 end
-                Log("No type for global! " .. self.global, eLogColor.RED)
+                Logger.Log(eLogColor.RED, "Silent Night", eLogColor.RED, "Silent Night", "No type for global! " .. self.global)
                 return nil
             end
             v.Set = function(self, value)
@@ -72,7 +72,7 @@ function ParseGlobals(tbl)
                 elseif self.type == "bool" then
                     ScriptGlobal.SetBool(self.global, value)
                 else
-                    Log("No type for global! " .. self.global, eLogColor.RED)
+                    Logger.Log(eLogColor.RED, "Silent Night", "No type for global! " .. self.global)
                 end
             end
         elseif type(v) == "table" then
@@ -92,7 +92,7 @@ function ParseLocals(tbl)
                 elseif self.type == "float" then
                     return ScriptLocal.GetFloat(scriptHash, self.vLocal)
                 end
-                Log("No type for local! ", self.vLocal, eLogColor.RED)
+                Logger.Log(eLogColor.RED, "Silent Night", "No type for local! ", self.vLocal)
                 return nil
             end
             v.Set = function(self, value)
@@ -102,7 +102,7 @@ function ParseLocals(tbl)
                 elseif self.type == "float" then
                     ScriptLocal.SetFloat(scriptHash, self.vLocal, value)
                 else
-                    Log("No type for local! " .. self.vLocal, eLogColor.RED)
+                    Logger.Log(eLogColor.RED, "Silent Night", "No type for local! " .. self.vLocal)
                 end
             end
         elseif type(v) == "table" then
@@ -125,7 +125,7 @@ function ParseStats(tbl)
             elseif v.stat:find("MPPLY") or IsStoryStat() then
                 hash = Utils.sJoaat(v.stat)
             else
-                Log("Bad stat! " .. v.stat, eLogColor.RED)
+                Logger.Log(eLogColor.RED, "Silent Night", "Bad stat! " .. v.stat)
                 break
             end
             v.hash = hash
@@ -140,7 +140,7 @@ function ParseStats(tbl)
                     local success, statValue = Stats.GetBool(self.hash)
                     return statValue
                 end
-                Log("No type for stat! " .. self.stat, eLogColor.RED)
+                Logger.Log(eLogColor.RED, "Silent Night", "No type for stat! " .. self.stat)
                 return nil
             end
             v.Set = function(self, value)
@@ -151,7 +151,7 @@ function ParseStats(tbl)
                 elseif self.type == "bool" then
                     Stats.SetBool(self.hash, value)
                 else
-                    Log("No type for stat! " .. self.stat, eLogColor.RED)
+                    Logger.Log(eLogColor.RED, "Silent Night", "No type for stat! " .. self.stat)
                 end
             end
         elseif type(v) == "table" then
@@ -214,16 +214,55 @@ function ParseTables(tbl)
     tbl.HAS_PARSED = true
 end
 
+function FillDynamicTbls()
+    for i = #eTable.Business.Supplies, 1, -1 do
+        table.remove(eTable.Business.Supplies, i)
+    end
+    local supplies = {
+        { name = "Cash Factory",   ids = { 4,  9, 14, 19 } },
+        { name = "Cocaine Lockup", ids = { 3,  8, 13, 18 } },
+        { name = "Weed Farm",      ids = { 2,  7, 12, 17 } },
+        { name = "Meth Lab",       ids = { 1,  6, 11, 16 } },
+        { name = "Document Forg.", ids = { 5, 10, 15, 20 } }
+    }
+    for i = 0, 4 do
+        local factorySlot = eStat["MPX_FACTORYSLOT" .. i]:Get()
+        if factorySlot ~= -1 then
+            for _, supply in ipairs(supplies) do
+                for _, id in ipairs(supply.ids) do
+                    if factorySlot == id then
+                        table.insert(eTable.Business.Supplies, { name = supply.name, index = i })
+                        break
+                    end
+                end
+            end
+        end
+    end
+    if eStat.MPX_FACTORYSLOT5:Get() ~= -1 then
+        table.insert(eTable.Business.Supplies, { name = "Bunker", index = 5 })
+    end
+    if eStat.MPX_XM22_LAB_OWNED:Get() ~= -1 and eStat.MPX_XM22_LAB_OWNED:Get() ~= 0 then
+        table.insert(eTable.Business.Supplies, { name = "Acid Lab", index = 6 })
+    end
+    if #eTable.Business.Supplies == 0 then
+        table.insert(eTable.Business.Supplies, { name = "None", index = -1 })
+    else
+        table.insert(eTable.Business.Supplies, 1, { name = "All", index = 7 })
+    end
+end
+
 ParseTunables(eTunable)
 ParseGlobals(eGlobal)
 ParseLocals(eLocal)
 ParseStats(eStat)
 ParsePackedBools(ePackedBool)
+FillDynamicTbls()
 ParseTables(eTable)
 
 Script.QueueJob(function()
     while not eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedBool.HAS_PARSED and eTable.HAS_PARSED do
         Script.Yield(1)
     end
-    Log("Script has started", eLogColor.GREEN)
+    Logger.Log(eLogColor.GREEN, "Silent Night", "Script has started")
+    GUI.AddToast("Silent Night", "Script has started", 5000, eToastPos.TOP_RIGHT)
 end)

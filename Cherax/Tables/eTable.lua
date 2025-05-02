@@ -24,16 +24,7 @@ eTable = {
                 { name = "Cash Creation",      index = "HUB_PROD_TOTAL_6" },
             }
         },
-        Supplies = {
-            { name = "All",       index = 0 },
-            { name = "Cash",      index = 1 },
-            { name = "Coke",      index = 2 },
-            { name = "Weed",      index = 3 },
-            { name = "Meth",      index = 4 },
-            { name = "Documents", index = 5 },
-            { name = "Bunker",    index = 6 },
-            { name = "Acid",      index = 7 }
-        }
+        Supplies = {}
     },
     Heist = {
         Generic = {
@@ -395,7 +386,7 @@ eTable = {
                 { name = "Neo",               index = 68  },
                 { name = "Corsita",           index = 69  },
                 { name = "Paragon R",         index = 70  },
-                { name = "Fränken Stange",    index = 71  },
+                { name = "Franken Stange",    index = 71  },
                 { name = "Comet Safari",      index = 72  },
                 { name = "FR36",              index = 73  },
                 { name = "Hotring Everon",    index = 74  },
@@ -512,18 +503,24 @@ eTable = {
         }
     },
     Editor = {
-        Stats = {
-            Types = {
-                { name = "int",    index = 0 },
-                { name = "float",  index = 1 },
-                { name = "bool",   index = 3 }
-            }
-        },
         Globals = {
             Types = {
                 { name = "int",    index = 0 },
                 { name = "float",  index = 1 },
                 { name = "bool",   index = 2 }
+            }
+        },
+        Locals = {
+            Types = {
+                { name = "int",    index = 0 },
+                { name = "float",  index = 1 }
+            }
+        },
+        Stats = {
+            Types = {
+                { name = "int",    index = 0 },
+                { name = "float",  index = 1 },
+                { name = "bool",   index = 3 }
             }
         },
         PackedStats = {

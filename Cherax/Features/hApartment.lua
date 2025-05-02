@@ -39,7 +39,7 @@ end)
 
 FeatureMgr.AddFeature(apartmentTeam.hash, apartmentTeam.name, apartmentTeam.type, apartmentTeam.desc, function(f)
     FeatureMgr.GetFeature(apartmentPresets.hash):SetListIndex(0)
-    for i = 1, 4 do
+    for i = 1, #apartmentPlayers do
         FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(0)
     end
 end)
@@ -50,7 +50,7 @@ end)
     :SetList(apartmentReceivers.list:GetNames())
 
 FeatureMgr.AddFeature(apartmentPresets.hash, apartmentPresets.name, apartmentPresets.type, apartmentPresets.desc, function(f)
-    for i = 1, 4 do
+    for i = 1, #apartmentPlayers do
         FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(0)
     end
     local preset = apartmentPresets.list[FeatureMgr.GetFeatureListIndex(apartmentPresets.hash) + 1].index
@@ -72,7 +72,7 @@ end)
 FeatureMgr.AddFeature(apartmentDouble.hash, apartmentDouble.name, apartmentDouble.type, apartmentDouble.desc, function(f)
 end)
 
-for i = 1, 4 do
+for i = 1, #apartmentPlayers do
     FeatureMgr.AddFeature(apartmentPlayers[i].hash, apartmentPlayers[i].name, apartmentPlayers[i].type, apartmentPlayers[i].desc, function(f)
     end)
         :SetDefaultValue(0)
@@ -85,7 +85,7 @@ FeatureMgr.AddFeature(apartmentApply.hash, apartmentApply.name, apartmentApply.t
     local team      = apartmentTeam.list[FeatureMgr.GetFeatureListIndex(apartmentTeam.hash) + 1].index
     local receivers = apartmentReceivers.list[FeatureMgr.GetFeatureListIndex(apartmentReceivers.hash) + 1].index
     local cuts      = {}
-    for i = 1, 4 do
+    for i = 1, #apartmentPlayers do
         table.insert(cuts, FeatureMgr.GetFeature(apartmentPlayers[i].hash):GetIntValue())
     end
     apartmentApply.func(team, receivers, cuts)

@@ -21,7 +21,6 @@ FeatureMgr.AddFeature(hangarSupplier.hash, hangarSupplier.name, hangarSupplier.t
 end)
 
 FeatureMgr.AddFeature(hangarCooldown.hash, hangarCooldown.name, hangarCooldown.type, hangarCooldown.desc, function(f)
-    hangarCooldown.func(f:IsToggled())
 end)
 
 FeatureMgr.AddFeature(hangarBuyMade.hash, hangarBuyMade.name, hangarBuyMade.type, hangarBuyMade.desc, function(f)
@@ -59,17 +58,17 @@ end)
     :SetStepSize(1000000)
     :Reset()
 
-for i = 1, 3 do
+for i = 1, #hangarToggles do
     FeatureMgr.AddFeature(hangarToggles[i].hash, hangarToggles[i].name, hangarToggles[i].type, hangarToggles[i].desc, function(f)
     end)
 end
 
 FeatureMgr.AddFeature(hangarApply.hash, hangarApply.name, hangarApply.type, hangarApply.desc, function(f)
     local args = {}
-    for i = 1, 3 do
+    for i = 1, #hangarToggles do
         table.insert(args, FeatureMgr.GetFeature(hangarToggles[i].hash):IsToggled())
     end
-    for i = 1, 5 do
+    for i = 1, #hangarStats do
         table.insert(args, FeatureMgr.GetFeature(hangarStats[i].hash):GetIntValue())
     end
     hangarApply.func(table.unpack(args))
