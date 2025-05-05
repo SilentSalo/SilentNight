@@ -1,12 +1,9 @@
 function InvokeNative(returnType, hash)
-    local arg1, arg2
-    if type(returnType) == "string" then
-        arg1, arg2 = returnType, hash
-    else
-        arg1, arg2 = "Void", returnType
+    if type(returnType) ~= "string" then
+        returnType, hash = "Void", returnType
     end
     return function(...)
-        return Natives[string.format("Invoke%s", arg1)](arg2, ...)
+        return Natives[string.format("Invoke%s", returnType)](hash, ...)
     end
 end
 

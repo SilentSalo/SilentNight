@@ -131,7 +131,7 @@ eFeature = {
                     func = function()
                         eGlobal.Heist.Apartment.Reload:Set(22)
                     end
-                },
+                }
             },
             Misc = {
                 Force = {
@@ -412,7 +412,7 @@ eFeature = {
                         eTunable.Heist.AutoShop.Payout.Sixth:Set(payout)
                         eTunable.Heist.AutoShop.Payout.Seventh:Set(payout)
                         eTunable.Heist.AutoShop.Payout.Eight:Set(payout)
-                        eTunable.Heist.AutoShop.Payout.Fee:Set(0)
+                        eTunable.Heist.AutoShop.Payout.Fee:Set(0.0)
                     end
                 }
             }
@@ -2515,7 +2515,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_EasyMoney_50k"),
                     name = "50k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "Toggles the 50k dollars loop.",
+                    desc = "MIGHT BE UNSAFE. Toggles the 50k dollars loop.",
                     func = function(delay)
                         TriggerTransaction(0x610F9AB4)
                         Script.Yield(math.floor(delay * 1000))
