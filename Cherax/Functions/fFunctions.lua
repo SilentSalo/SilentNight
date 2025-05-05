@@ -275,3 +275,11 @@ end
 function ImGui.EndColumns()
     ImGui.EndTable()
 end
+
+function ImGui.RedButton()
+    ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 255, 0, 0, 255)
+end
+
+function ImGui.ResetButton()
+    ImGui.PopStyleColor()
+end
