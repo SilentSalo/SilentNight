@@ -44,9 +44,8 @@ local function RunScript()
 
         for _, folder in ipairs(folders) do
             local filePath = string.format("%s\\%s\\%s.lua", root, folder, file)
-            local fileHandle = io.open(filePath, "r")
-            if fileHandle then
-                fileHandle:close()
+            
+            if FileMgr.DoesFileExist(filePath) then
                 dofile(filePath)
                 found = true
                 break
