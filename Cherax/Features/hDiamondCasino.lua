@@ -163,6 +163,7 @@ end)
     :SetList(diamondPresets.list.GetNames())
 
 FeatureMgr.AddFeature(diamondCrew.hash, diamondCrew.name, diamondCrew.type, diamondCrew.desc, function(f)
+    diamondCrew.func(f:IsToggled())
 end)
 
 for i = 1, #diamondPlayers do

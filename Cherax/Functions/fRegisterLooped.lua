@@ -22,7 +22,9 @@ function DiamondSetter()
         FeatureMgr.GetFeature(diamondCrew.hash):Toggle(true)
         diamondPresets.func()
     end
-    diamondCrew.func(FeatureMgr.GetFeature(diamondCrew.hash):IsToggled())
+    if FeatureMgr.GetFeature(diamondCrew.hash):IsToggled() then
+        diamondCrew.func(FeatureMgr.GetFeature(diamondCrew.hash):IsToggled())
+    end
 end
 
 function CayoSetter()
@@ -30,7 +32,24 @@ function CayoSetter()
         FeatureMgr.GetFeature(cayoCrew.hash):Toggle(false)
         cayoPresets.func()
     end
-    cayoCrew.func(FeatureMgr.GetFeature(cayoCrew.hash):IsToggled())
+    if FeatureMgr.GetFeature(cayoCrew.hash):IsToggled() then
+        cayoCrew.func(FeatureMgr.GetFeature(cayoCrew.hash):IsToggled())
+    end
+end
+
+function PriceMaximizer()
+    if FeatureMgr.GetFeature(bunkerPrice.hash):IsToggled() then
+        bunkerPrice.func(FeatureMgr.GetFeature(bunkerPrice.hash):IsToggled())
+    end
+    if FeatureMgr.GetFeature(hangarPrice.hash):IsToggled() then
+        hangarPrice.func(FeatureMgr.GetFeature(hangarPrice.hash):IsToggled())
+    end
+    if FeatureMgr.GetFeature(nightclubPrice.hash):IsToggled() then
+        nightclubPrice.func(FeatureMgr.GetFeature(nightclubPrice.hash):IsToggled())
+    end
+    if FeatureMgr.GetFeature(specialPrice.hash):IsToggled() then
+        specialPrice.func(FeatureMgr.GetFeature(specialPrice.hash):IsToggled())
+    end
 end
 
 function TurkishSupplier()
@@ -46,16 +65,15 @@ function TurkishSupplier()
 end
 
 function CooldownKiller()
-    hangarCooldown.func(FeatureMgr.GetFeature(hangarCooldown.hash):IsToggled())
-    nightclubCooldown.func(FeatureMgr.GetFeature(nightclubCooldown.hash):IsToggled())
-    specialCooldown.func(FeatureMgr.GetFeature(specialCooldown.hash):IsToggled())
-end
-
-function PriceMaximizer()
-    bunkerPrice.func(FeatureMgr.GetFeature(bunkerPrice.hash):IsToggled())
-    hangarPrice.func(FeatureMgr.GetFeature(hangarPrice.hash):IsToggled())
-    nightclubPrice.func(FeatureMgr.GetFeature(nightclubPrice.hash):IsToggled())
-    specialPrice.func(FeatureMgr.GetFeature(specialPrice.hash):IsToggled())
+    if FeatureMgr.GetFeature(hangarCooldown.hash):IsToggled() then
+        hangarCooldown.func(FeatureMgr.GetFeature(hangarCooldown.hash):IsToggled())
+    end
+    if FeatureMgr.GetFeature(nightclubCooldown.hash):IsToggled() then
+        nightclubCooldown.func(FeatureMgr.GetFeature(nightclubCooldown.hash):IsToggled())
+    end
+    if FeatureMgr.GetFeature(specialCooldown.hash):IsToggled() then
+        specialCooldown.func(FeatureMgr.GetFeature(specialCooldown.hash):IsToggled())
+    end
 end
 
 function EasyLooper()
@@ -137,6 +155,13 @@ function ReAssign()
             VisibleCards = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(Utils.Joaat("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
         }
     end
+end
+
+function ReloadFeatures()
+    FeatureMgr.GetFeature(salvageSalvage.hash):SetFloatValue(eGlobal.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Get())
+    FeatureMgr.GetFeature(salvageSlot1Value.hash):SetIntValue(eGlobal.Heist.SalvageYard.Vehicle.Slot1.Value:Get())
+    FeatureMgr.GetFeature(salvageSlot2Value.hash):SetIntValue(eGlobal.Heist.SalvageYard.Vehicle.Slot2.Value:Get())
+    FeatureMgr.GetFeature(salvageSlot3Value.hash):SetIntValue(eGlobal.Heist.SalvageYard.Vehicle.Slot3.Value:Get())
     FeatureMgr.GetFeature(bunkerMade.hash):SetIntValue(eStat.MPX_LIFETIME_BKR_SEL_COMPLETBC5:Get())
     FeatureMgr.GetFeature(bunkerUndertaken.hash):SetIntValue(eStat.MPX_LIFETIME_BKR_SEL_UNDERTABC5:Get())
     FeatureMgr.GetFeature(bunkerEarnings.hash):SetIntValue(eStat.MPX_LIFETIME_BKR_SELL_EARNINGS5:Get())
@@ -173,6 +198,7 @@ function ReParse()
             ParseTables(eTable)
             ReAssign()
             ParseGlobals(eGlobal)
+            ReloadFeatures()
             ParseLocals(eLocal)
             ParsePackedBools(ePackedBool)
             while not eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedBool.HAS_PARSED and eTable.HAS_PARSED do
@@ -189,9 +215,9 @@ Script.RegisterLooped(function()
     ApartmentSetter()
     DiamondSetter()
     CayoSetter()
+    PriceMaximizer()
     TurkishSupplier()
     CooldownKiller()
-    PriceMaximizer()
     EasyLooper()
     NightclubSetter()
     ReParse()

@@ -1,4 +1,5 @@
 FeatureMgr.AddFeature(hangarPrice.hash, hangarPrice.name, hangarPrice.type, hangarPrice.desc, function(f)
+    hangarPrice.func(f:IsToggled())
 end)
 
 FeatureMgr.AddFeature(hangarNoXp.hash, hangarNoXp.name, hangarNoXp.type, hangarNoXp.desc, function(f)
@@ -21,6 +22,7 @@ FeatureMgr.AddFeature(hangarSupplier.hash, hangarSupplier.name, hangarSupplier.t
 end)
 
 FeatureMgr.AddFeature(hangarCooldown.hash, hangarCooldown.name, hangarCooldown.type, hangarCooldown.desc, function(f)
+    hangarCooldown.func(f:IsToggled())
 end)
 
 FeatureMgr.AddFeature(hangarBuyMade.hash, hangarBuyMade.name, hangarBuyMade.type, hangarBuyMade.desc, function(f)

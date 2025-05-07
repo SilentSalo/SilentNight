@@ -1,4 +1,5 @@
 FeatureMgr.AddFeature(specialPrice.hash, specialPrice.name, specialPrice.type, specialPrice.desc, function(f)
+    specialPrice.func(f:IsToggled())
 end)
 
 for i = 1, #specialSaleToggles do
@@ -39,6 +40,7 @@ FeatureMgr.AddFeature(specialBuy.hash, specialBuy.name, specialBuy.type, special
 end)
 
 FeatureMgr.AddFeature(specialCooldown.hash, specialCooldown.name, specialCooldown.type, specialCooldown.desc, function(f)
+    specialCooldown.func(f:IsToggled())
 end)
 
 FeatureMgr.AddFeature(specialBuyMade.hash, specialBuyMade.name, specialBuyMade.type, specialBuyMade.desc, function(f)

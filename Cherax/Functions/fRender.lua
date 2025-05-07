@@ -540,7 +540,6 @@ function RenderMoneyTool()
                         ClickGUI.RenderFeature(miscEditDeposit.hash)
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(miscEditWithdraw.hash)
-                        ImGui.SameLine()
                         ImGui.RedButton()
                         ClickGUI.RenderFeature(miscEditRemove.hash)
                         ImGui.ResetButton()
@@ -666,13 +665,13 @@ function RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.1.5", RenderClickGUI)
+ClickGUI.AddTab("Silent Night v0.1.6", RenderClickGUI)
 
 function RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab("Silent Night v0.1.5", "Silent Night")
+    local SilentNightTab = root:AddSubTab("Silent Night v0.1.6", "Silent Night")
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then

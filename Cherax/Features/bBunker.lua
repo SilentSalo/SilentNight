@@ -1,4 +1,5 @@
 FeatureMgr.AddFeature(bunkerPrice.hash, bunkerPrice.name, bunkerPrice.type, bunkerPrice.desc, function(f)
+    bunkerPrice.func(f:IsToggled())
 end)
 
 FeatureMgr.AddFeature(bunkerNoXp.hash, bunkerNoXp.name, bunkerNoXp.type, bunkerNoXp.desc, function(f)

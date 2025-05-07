@@ -1152,7 +1152,7 @@ eFeature = {
                 },
                 DoomsdayHack = {
                     hash = Utils.Joaat("SN_Doomsday_DoomsdayHack"),
-                    name = "Bypass Doomsday Scen. Hack",
+                    name = "Bypass Dooms. Scen. Hack",
                     type = eFeatureType.Button,
                     desc = "Skips the hacking process of The Doomsday Scenario heist.",
                     func = function()
@@ -1344,7 +1344,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_SalvageYard_ApplyAll"),
                     name = "Apply All Changes",
                     type = eFeatureType.Button,
-                    desc = "Applies all changes. Also, reloads the planning screen.",
+                    desc = "Applies all changes. Also, reloads the planning screen. Use before you start the preparation.",
                     func = function(robbery1, vehicle1, modification1, keep1, robbery2, vehicle2, modification2, keep2, robbery3, vehicle3, modification3, keep3)
                         eGlobal.Heist.SalvageYard.Robbery.Slot1.Type:Set(robbery1)
                         eGlobal.Heist.SalvageYard.Vehicle.Slot1.Type:Set(vehicle1 + modification1 * 100)
@@ -1546,7 +1546,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Bunker_Sell"),
                     name = "Instant Sell",
                     type = eFeatureType.Button,
-                    desc = "Finishes the sell mission instantly. Use after the mission has started.",
+                    desc = "Finishes the sell mission instantly. Use after you can see the minimap.",
                     func = function(bool)
                         eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
                         eLocal.Business.Bunker.Sell.Finish:Set(0)
@@ -1588,7 +1588,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Bunker_Supplier"),
                     name = "Turkish Supplier",
                     type = eFeatureType.Toggle,
-                    desc = "Fills your Bunker stock. Also, gets supplies for your Bunker repeatedly. Disable before opening the laptop.",
+                    desc = "Fills your Bunker stock. Also, gets supplies for your Bunker repeatedly.",
                     func = function()
                         if not IsScriptRunning(eScript.Business.Bunker.Laptop) then
                             eGlobal.Business.Supplies.Bunker:Set(1)
@@ -1684,7 +1684,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Hangar_Sell"),
                     name = "Instant Air Cargo Sell",
                     type = eFeatureType.Button,
-                    desc = "Finishes the air cargo sell mission instantly.",
+                    desc = "Finishes the air cargo sell mission instantly. Use after you can see the minimap.",
                     func = function(bool)
                         eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
                         eLocal.Business.Hangar.Sell.Finish:Set(eLocal.Business.Hangar.Sell.Delivered:Get())
@@ -1716,7 +1716,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Hangar_Supplier"),
                     name = "Turkish Supplier",
                     type = eFeatureType.Toggle,
-                    desc = "Fills your Hangar stock repeatedly. Disable before opening the laptop.",
+                    desc = "Fills your Hangar stock repeatedly.",
                     func = function()
                         if not IsScriptRunning(eScript.Business.Hangar.Laptop) then
                             ePackedBool.Business.Hangar.Cargo:Set(true)
@@ -2087,7 +2087,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_CrateWarehouse_Sell"),
                     name = "Instant Sell",
                     type = eFeatureType.Button,
-                    desc = "Finishes the sell mission instantly. Use after the mission has started.",
+                    desc = "Finishes the sell mission instantly. Use after you can see the minimap.",
                     func = function(bool1, bool2)
                         if not bool2 then
                             if IsScriptRunning(eScript.Business.CrateWarehouse.Sell) then
@@ -2142,7 +2142,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_CrateWarehouse_Buy"),
                     name = "Instant Buy",
                     type = eFeatureType.Button,
-                    desc = "Finishes the buy mission instantly. Use after the mission has started.",
+                    desc = "Finishes the buy mission instantly. Use after you can see the minimap.",
                     func = function(amount)
                         eLocal.Business.CrateWarehouse.Buy.Amount:Set(amount)
                         eLocal.Business.CrateWarehouse.Buy.Finish1:Set(1)

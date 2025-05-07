@@ -133,6 +133,7 @@ end)
     :SetList(cayoPresets.list.GetNames())
 
 FeatureMgr.AddFeature(cayoCrew.hash, cayoCrew.name, cayoCrew.type, cayoCrew.desc, function(f)
+    cayoCrew.func(f:IsToggled())
 end)
 
 for i = 1, #cayoPlayers do

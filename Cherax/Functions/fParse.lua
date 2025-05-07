@@ -220,10 +220,10 @@ function FillDynamicTbls()
     end
     local businesses = {
         { name = "Cash Factory",   ids = { 4,  9, 14, 19 } },
-        { name = "Cocaine Lockup", ids = { 3,  8, 13, 18 } },
+        { name = "Cocaine Lock.",  ids = { 3,  8, 13, 18 } },
         { name = "Weed Farm",      ids = { 2,  7, 12, 17 } },
         { name = "Meth Lab",       ids = { 1,  6, 11, 16 } },
-        { name = "Document Forg.", ids = { 5, 10, 15, 20 } }
+        { name = "Document For.", ids = { 5, 10, 15, 20 } }
     }
     for i = 0, 4 do
         local slot = eStat["MPX_FACTORYSLOT" .. i]:Get()
@@ -239,43 +239,6 @@ function FillDynamicTbls()
         end
     end
     if eStat.MPX_FACTORYSLOT5:Get() > 0 then
-        table.insert(eTable.Business.Supplies, { name = "Bunker", index = 5 })
-    end
-    if eStat.MPX_XM22_LAB_OWNED:Get() ~= -1 and eStat.MPX_XM22_LAB_OWNED:Get() ~= 0 then
-        table.insert(eTable.Business.Supplies, { name = "Acid Lab", index = 6 })
-    end
-    if #eTable.Business.Supplies == 0 then
-        table.insert(eTable.Business.Supplies, { name = "None", index = -1 })
-    else
-        table.insert(eTable.Business.Supplies, 1, { name = "All", index = 7 })
-    end
-end
-
-function FillDynamicTbls()
-    for i = #eTable.Business.Supplies, 1, -1 do
-        table.remove(eTable.Business.Supplies, i)
-    end
-    local businesses = {
-        { name = "Cash Factory",   ids = { 4,  9, 14, 19 } },
-        { name = "Cocaine Lockup", ids = { 3,  8, 13, 18 } },
-        { name = "Weed Farm",      ids = { 2,  7, 12, 17 } },
-        { name = "Meth Lab",       ids = { 1,  6, 11, 16 } },
-        { name = "Document Forg.", ids = { 5, 10, 15, 20 } }
-    }
-    for i = 0, 4 do
-        local slot = eStat["MPX_FACTORYSLOT" .. i]:Get()
-        if slot ~= -1 then
-            for _, business in ipairs(businesses) do
-                for _, id in ipairs(business.ids) do
-                    if slot == id then
-                        table.insert(eTable.Business.Supplies, { name = business.name, index = i })
-                        break
-                    end
-                end
-            end
-        end
-    end
-    if eStat.MPX_FACTORYSLOT5:Get() ~= -1 then
         table.insert(eTable.Business.Supplies, { name = "Bunker", index = 5 })
     end
     if eStat.MPX_XM22_LAB_OWNED:Get() ~= -1 and eStat.MPX_XM22_LAB_OWNED:Get() ~= 0 then

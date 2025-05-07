@@ -50,7 +50,7 @@ eTable = {
                 { name = "High Soc. Leak",  index = 124  },
                 { name = "Davis",           index = 252  },
                 { name = "The Ballas",      index = 508  },
-                { name = "South Cen. Leak", index = 2044 },
+                { name = "Sou. Cen. Leak",  index = 2044 },
                 { name = "Studio Time",     index = 4095 },
                 { name = "Don't # W. Dre",  index = -1   }
             }
@@ -86,7 +86,7 @@ eTable = {
                 { name = "Superdol. Deal",  index = 1 },
                 { name = "Bank Contract",   index = 2 },
                 { name = "ECU Job",         index = 3 },
-                { name = "Prison Contract", index = 4 },
+                { name = "Prison Contrac.", index = 4 },
                 { name = "Agency Deal",     index = 5 },
                 { name = "Lost Contract",   index = 6 },
                 { name = "Data Contract",   index = 7 }
@@ -115,7 +115,7 @@ eTable = {
             },
             Targets = {
                 Primary = {
-                    { name = "Sinsimito Tequila", index = 0 },
+                    { name = "Sinsimito Tequil.", index = 0 },
                     { name = "Ruby Necklace",     index = 1 },
                     { name = "Bearer Bonds",      index = 2 },
                     { name = "Pink Diamond",      index = 3 },
@@ -193,7 +193,7 @@ eTable = {
                 { name = "Hard",   index = 1 }
             },
             Approaches = {
-                { name = "Silent n Sneak.", index = 1 },
+                { name = "Silent n Snea.",  index = 1 },
                 { name = "Big Con",         index = 2 },
                 { name = "Aggressive",      index = 3 }
             },
@@ -211,7 +211,7 @@ eTable = {
                 { name = "Double Barrel",     index = 1 },
                 { name = "Sawed-Off",         index = 1 },
                 { name = "Heavy Revolver",    index = 1 },
-                { name = "Assault SMG (S)",   index = 3 },
+                { name = "Assau. SMG (S)",    index = 3 },
                 { name = "Bullpup Sh. (S)",   index = 3 },
                 { name = "Machine Pistol",    index = 3 },
                 { name = "Sweeper Shot.",     index = 3 },
@@ -223,12 +223,12 @@ eTable = {
                 { name = "Compact Rifle",     index = 5 },
                 { name = "Heavy Shotgun",     index = 5 },
                 { name = "Combat MG",         index = 5 },
-                { name = "Carbine Rif. (S)",  index = 2 },
-                { name = "Assault Sho. (S)", index = 2 },
+                { name = "Carbin. Rif. (S)",  index = 2 },
+                { name = "Assau. Sho. (S)",   index = 2 },
                 { name = "Carbine Rifle",     index = 2 },
-                { name = "Assault Shotgun",   index = 2 },
+                { name = "Assault Shot.",     index = 2 },
                 { name = "Carbine Rifle",     index = 2 },
-                { name = "Assault Shotgun",   index = 2 },
+                { name = "Assault Shot.",     index = 2 },
                 { name = "Pump Sh. II (S)",   index = 4 },
                 { name = "Carbine R. II (S)", index = 4 },
                 { name = "SMG Mk II",         index = 4 },
@@ -247,7 +247,7 @@ eTable = {
                 { name = "Issi Classic",     index = 1 },
                 { name = "Asbo",             index = 1 },
                 { name = "Blista Kanjo",     index = 1 },
-                { name = "Sentinel Classic", index = 1 },
+                { name = "Sentinel Class.",  index = 1 },
                 { name = "Manchez",          index = 4 },
                 { name = "Stryder",          index = 4 },
                 { name = "Defiler",          index = 4 },
@@ -257,7 +257,7 @@ eTable = {
                 { name = "Sugoi",            index = 2 },
                 { name = "Jugular",          index = 2 },
                 { name = "Sultan Classic",   index = 3 },
-                { name = "Gauntlet Classic", index = 3 },
+                { name = "Gauntl. Classic",  index = 3 },
                 { name = "Ellie",            index = 3 },
                 { name = "Komoda",           index = 3 },
                 { name = "Zhaba",            index = 5 },
@@ -270,7 +270,7 @@ eTable = {
                 { name = "Yohan Blair",     index = 3 },
                 { name = "Christian Feltz", index = 2 },
                 { name = "Page Harris",     index = 5 },
-                { name = "Avi Schwartzman", index = 4 }
+                { name = "Avi Schwartz.",   index = 4 }
             },
             Masks = {
                 { name = "None",              index = 0  },
@@ -330,7 +330,7 @@ eTable = {
                 { name = "Coquette D10",      index = 12  },
                 { name = "Jubilee",           index = 13  },
                 { name = "Astron",            index = 14  },
-                { name = "Comet S2 Cabrio",   index = 15  },
+                { name = "Comet S2 Cabr.",    index = 15  },
                 { name = "Torero",            index = 16  },
                 { name = "Cheetah Classic",   index = 17  },
                 { name = "Turismo Classic",   index = 18  },
@@ -346,7 +346,7 @@ eTable = {
                 { name = "Vigero ZX",         index = 28  },
                 { name = "Buffalo STX",       index = 29  },
                 { name = "Ruston",            index = 30  },
-                { name = "Gauntlet Hellfire", index = 31  },
+                { name = "Gauntl. Hellfire",  index = 31  },
                 { name = "Dominator GTT",     index = 32  },
                 { name = "Roosevelt Valor",   index = 33  },
                 { name = "Swinger",           index = 34  },
@@ -447,7 +447,7 @@ eTable = {
                 { name = "Weapons n Armor",      index = eStat.MPX_MONEY_SPENT_WEAPON_ARMOR    },
                 { name = "Vehicles n Maint.",    index = eStat.MPX_MONEY_SPENT_VEH_MAINTENANCE },
                 { name = "Style n Entert.",      index = eStat.MPX_MONEY_SPENT_STYLE_ENT       },
-                { name = "Property n Utilities", index = eStat.MPX_MONEY_SPENT_PROPERTY_UTIL   },
+                { name = "Property n Utils",     index = eStat.MPX_MONEY_SPENT_PROPERTY_UTIL   },
                 { name = "Job n Ac. Ent. Fees",  index = eStat.MPX_MONEY_SPENT_JOB_ACTIVITY    },
                 { name = "Betting",              index = eStat.MPX_MONEY_SPENT_BETTING         },
                 { name = "Contact Services",     index = eStat.MPX_MONEY_SPENT_CONTACT_SERVICE },
