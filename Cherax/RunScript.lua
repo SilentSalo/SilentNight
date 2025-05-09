@@ -33,6 +33,7 @@ local files   = {
     "fFunctions",
     "fRegisterLooped",
     "fEvents",
+    "fJson",
     "fRender"
 }
 

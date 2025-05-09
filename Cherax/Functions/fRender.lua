@@ -104,6 +104,21 @@ function RenderHeistTool()
                         ClickGUI.RenderFeature(cayoReload.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
+                    if ClickGUI.BeginCustomChildWindow("Presets") then
+                        ClickGUI.RenderFeature(cayoFile.hash)
+                        ClickGUI.RenderFeature(cayoLoad.hash)
+                        ImGui.SameLine()
+                        ImGui.RedButton()
+                        ClickGUI.RenderFeature(cayoRemove.hash)
+                        ImGui.ResetButton()
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(cayoRefresh.hash)
+                        ClickGUI.RenderFeature(cayoName.hash)
+                        ClickGUI.RenderFeature(cayoSave.hash)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(cayoCopy.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
                     ImGui.TableNextColumn()
                     if ClickGUI.BeginCustomChildWindow("Misc") then
                         ClickGUI.RenderFeature(genericCutscene.hash)
@@ -157,6 +172,21 @@ function RenderHeistTool()
                         ClickGUI.RenderFeature(diamondComplete.hash)
                         ClickGUI.RenderFeature(diamondReset.hash)
                         ClickGUI.RenderFeature(diamondReload.hash)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                     if ClickGUI.BeginCustomChildWindow("Presets") then
+                        ClickGUI.RenderFeature(diamondFile.hash)
+                        ClickGUI.RenderFeature(diamondLoad.hash)
+                        ImGui.SameLine()
+                        ImGui.RedButton()
+                        ClickGUI.RenderFeature(diamondRemove.hash)
+                        ImGui.ResetButton()
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(diamondRefresh.hash)
+                        ClickGUI.RenderFeature(diamondName.hash)
+                        ClickGUI.RenderFeature(diamondSave.hash)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(diamondCopy.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.TableNextColumn()
@@ -665,13 +695,13 @@ function RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.1.6", RenderClickGUI)
+ClickGUI.AddTab("Silent Night v0.1.7", RenderClickGUI)
 
 function RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab("Silent Night v0.1.6", "Silent Night")
+    local SilentNightTab = root:AddSubTab("Silent Night v0.1.7", "Silent Night")
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
@@ -753,6 +783,15 @@ function RenderListGUI()
             CayoPericoTab:AddFeature(cayoComplete.hash)
             CayoPericoTab:AddFeature(cayoReload.hash)
 
+            CayoPericoTab:AddSeperator("Presets")
+            CayoPericoTab:AddFeature(cayoFile.hash)
+            CayoPericoTab:AddFeature(cayoLoad.hash)
+            CayoPericoTab:AddFeature(cayoRemove.hash)
+            CayoPericoTab:AddFeature(cayoRefresh.hash)
+            CayoPericoTab:AddFeature(cayoName.hash)
+            CayoPericoTab:AddFeature(cayoSave.hash)
+            CayoPericoTab:AddFeature(cayoCopy.hash)
+
             CayoPericoTab:AddSeperator("Misc")
             CayoPericoTab:AddFeature(genericCutscene.hash)
             CayoPericoTab:AddFeature(cayoForce.hash)
@@ -797,6 +836,15 @@ function RenderListGUI()
             CasinoHeistTab:AddFeature(diamondComplete.hash)
             CasinoHeistTab:AddFeature(diamondReset.hash)
             CasinoHeistTab:AddFeature(diamondReload.hash)
+
+            CayoPericoTab:AddSeperator("Presets")
+            CayoPericoTab:AddFeature(diamondFile.hash)
+            CayoPericoTab:AddFeature(diamondLoad.hash)
+            CayoPericoTab:AddFeature(diamondRemove.hash)
+            CayoPericoTab:AddFeature(diamondRefresh.hash)
+            CayoPericoTab:AddFeature(diamondName.hash)
+            CayoPericoTab:AddFeature(diamondSave.hash)
+            CayoPericoTab:AddFeature(diamondCopy.hash)
 
             CasinoHeistTab:AddSeperator("Misc")
             CasinoHeistTab:AddFeature(genericLaunch.hash)

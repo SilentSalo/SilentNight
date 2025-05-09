@@ -48,7 +48,7 @@ function StartScript(script)
     end
     eNative.SCRIPT.REQUEST_SCRIPT(script.name)
     while not eNative.SCRIPT.HAS_SCRIPT_LOADED(script.name) do
-        Script.Yield(1)
+        Script.Yield()
     end
     eNative.SYSTEM.START_NEW_SCRIPT(script.name, script.stack)
     eNative.SCRIPT.SET_SCRIPT_AS_NO_LONGER_NEEDED(script.name)
@@ -80,6 +80,59 @@ function SetApartmentMaxPayout(bool)
     for i = 1, team do
         FeatureMgr.GetFeature(apartmentPlayers[i].hash):SetIntValue(cut)
     end
+end
+
+function SetCayoMaxPayout()
+    local team       = cayoTeam.list[FeatureMgr.GetFeatureListIndex(cayoTeam.hash) + 1].index
+    local target     = eStat.MPX_H4CNF_TARGET:Get()
+    local difficulty = (eStat.MPX_H4_PROGRESS:Get() == eTable.Heist.CayoPerico.Difficulties[2].index) and 2 or 1
+    local payouts    = {
+        [0] = { 630000,  693000  },
+        [1] = { 700000,  770000  },
+        [2] = { 770000,  847000  },
+        [3] = { 1300000, 1430000 },
+        [4] = { 1100000, 1210000 },
+        [5] = { 1900000, 2090000 }
+    }
+    local payout      = payouts[target][difficulty]
+    local maxPayout   = 2550000
+    local cut         = math.floor(maxPayout / (payout / 100))
+    local finalPayout = math.floor(payout * (cut / 100))
+    local difference  = 1000
+    local pavelCut    = 0.02
+    local fencingCut  = 0.1
+    local foundCut    = false
+    while not foundCut do
+        local pavelFee   = math.floor(finalPayout * pavelCut)
+        local fencingFee = math.floor(finalPayout * fencingCut)
+        local feePayout  = finalPayout - (pavelFee + fencingFee)
+        if feePayout >= maxPayout - difference and feePayout <= maxPayout then
+            foundCut = true
+        else
+            cut = cut + 1
+            finalPayout = math.floor(payout * (cut / 100))
+            if cut > 500 then
+                cut         = math.floor(maxPayout / (payout / 100))
+                finalPayout = math.floor(payout * (cut / 100))
+                difference  = difference + 1000
+            end
+        end
+    end
+    for i = 1, team do
+        FeatureMgr.GetFeature(cayoPlayers[i].hash):SetIntValue(cut)
+    end
+end
+
+function ApplyCayoPreset(preps)
+    FeatureMgr.GetFeature(cayoDifficulty.hash):SetListIndex(preps.difficulty)
+    FeatureMgr.GetFeature(cayoApproach.hash):SetListIndex(preps.approach)
+    FeatureMgr.GetFeature(cayoLoadout.hash):SetListIndex(preps.loadout)
+    FeatureMgr.GetFeature(cayoPrimaryTarget.hash):SetListIndex(preps.primary_target)
+    FeatureMgr.GetFeature(cayoCompoundTarget.hash):SetListIndex(preps.compound_target)
+    FeatureMgr.GetFeature(cayoCompoundAmount.hash):SetListIndex(preps.compound_amount)
+    FeatureMgr.GetFeature(cayoArtsAmount.hash):SetListIndex(preps.arts_amount)
+    FeatureMgr.GetFeature(cayoIslandTarget.hash):SetListIndex(preps.island_target)
+    FeatureMgr.GetFeature(cayoIslandAmount.hash):SetListIndex(preps.island_amount)
 end
 
 function SetDiamondMaxPayout()
@@ -139,45 +192,34 @@ function SetDiamondMaxPayout()
     end
 end
 
-function SetCayoMaxPayout()
-    local team       = cayoTeam.list[FeatureMgr.GetFeatureListIndex(cayoTeam.hash) + 1].index
-    local target     = eStat.MPX_H4CNF_TARGET:Get()
-    local difficulty = (eStat.MPX_H4_PROGRESS:Get() == eTable.Heist.CayoPerico.Difficulties[2].index) and 2 or 1
-    local payouts    = {
-        [0] = { 630000,  693000  },
-        [1] = { 700000,  770000  },
-        [2] = { 770000,  847000  },
-        [3] = { 1300000, 1430000 },
-        [4] = { 1100000, 1210000 },
-        [5] = { 1900000, 2090000 }
-    }
-    local payout      = payouts[target][difficulty]
-    local maxPayout   = 2550000
-    local cut         = math.floor(maxPayout / (payout / 100))
-    local finalPayout = math.floor(payout * (cut / 100))
-    local difference  = 1000
-    local pavelCut    = 0.02
-    local fencingCut  = 0.1
-    local foundCut    = false
-    while not foundCut do
-        local pavelFee   = math.floor(finalPayout * pavelCut)
-        local fencingFee = math.floor(finalPayout * fencingCut)
-        local feePayout  = finalPayout - (pavelFee + fencingFee)
-        if feePayout >= maxPayout - difference and feePayout <= maxPayout then
-            foundCut = true
-        else
-            cut = cut + 1
-            finalPayout = math.floor(payout * (cut / 100))
-            if cut > 500 then
-                cut         = math.floor(maxPayout / (payout / 100))
-                finalPayout = math.floor(payout * (cut / 100))
-                difference  = difference + 1000
-            end
-        end
+function ApplyDiamondPreset(preps)
+    FeatureMgr.GetFeature(diamondDifficulty.hash):SetListIndex(preps.difficulty)
+    FeatureMgr.GetFeature(diamondApproach.hash):SetListIndex(preps.approach)
+    FeatureMgr.GetFeature(diamondGunman.hash):SetListIndex(preps.gunman)
+    FeatureMgr.GetFeature(diamondLoadout.hash):SetListIndex(preps.loadout)
+    FeatureMgr.GetFeature(diamondDriver.hash):SetListIndex(preps.driver)
+    FeatureMgr.GetFeature(diamondVehicles.hash):SetListIndex(preps.vehicles)
+    FeatureMgr.GetFeature(diamondHacker.hash):SetListIndex(preps.hacker)
+    FeatureMgr.GetFeature(diamondMasks.hash):SetListIndex(preps.masks)
+    FeatureMgr.GetFeature(diamondTarget.hash):SetListIndex(preps.target)
+end
+
+function CreateHeistPresetsDirs()
+    if not FileMgr.DoesFileExist(CAYO_DIR) then
+        FileMgr.CreateDir(CAYO_DIR)
     end
-    for i = 1, team do
-        FeatureMgr.GetFeature(cayoPlayers[i].hash):SetIntValue(cut)
+    if not FileMgr.DoesFileExist(DIAMOND_DIR) then
+        FileMgr.CreateDir(DIAMOND_DIR)
     end
+end
+
+function RefreshHeistPresets()
+    FillDynamicTbls()
+    ParseTables(eTable)
+    FeatureMgr.GetFeature(cayoFile.hash):SetList(cayoFile.list:GetNames()):SetListIndex(0)
+    FeatureMgr.GetFeature(cayoName.hash):SetStringValue(cayoFile.list[1].name)
+    FeatureMgr.GetFeature(diamondFile.hash):SetList(diamondFile.list:GetNames()):SetListIndex(0)
+    FeatureMgr.GetFeature(diamondName.hash):SetStringValue(diamondFile.list[1].name)
 end
 
 function GetCardName(index)

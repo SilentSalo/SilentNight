@@ -264,7 +264,7 @@ eFeature = {
                     hash = Utils.Joaat("SN_Apartment_Bonus"),
                     name = "12mil Bonus",
                     type = eFeatureType.Toggle,
-                    desc = "Allows only you to get 12 millions bonus for The Pacific Standard Job on hard difficulty, even if you're not the host. Has a cooldown of about 1 hour. Enable before starting the heist.",
+                    desc = "Allows only you to get 12 millions bonus for The Pacific Standard Job on hard difficulty, even if you're not the host. Enable before starting the heist. Has a cooldown of about 1 hour.",
                     func = function(bool)
                         eStat.MPPLY_HEISTFLOWORDERPROGRESS:Set((bool) and 268435455 or 134217727)
                         eStat.MPPLY_AWD_HST_ORDER:Set((bool) and true or false)
@@ -728,6 +728,77 @@ eFeature = {
                         end
                     end
                 }
+            },
+            Presets = {
+                File = {
+                    hash = Utils.Joaat("SN_CayoPerico_File"),
+                    name = "File",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired preset.",
+                    list = eTable.Heist.CayoPerico.Files
+                },
+                Load = {
+                    hash = Utils.Joaat("SN_CayoPerico_Load"),
+                    name = "Load",
+                    type = eFeatureType.Button,
+                    desc = "Loads the selected preset.",
+                    func = function(name)
+                        local path = string.format("%s\\%s.json", CAYO_DIR, name)
+                        if FileMgr.DoesFileExist(path) then
+                            local preps = Json.DecodeFromFile(path)
+                            ApplyCayoPreset(preps)
+                        end
+                    end
+                },
+                Remove = {
+                    hash = Utils.Joaat("SN_CayoPerico_Remove"),
+                    name = "Remove",
+                    type = eFeatureType.Button,
+                    desc = "Removes the selected preset.",
+                    func = function(name)
+                        local path = string.format("%s\\%s.json", CAYO_DIR, name)
+                        if FileMgr.DoesFileExist(path) then
+                            FileMgr.DeleteFile(path)
+                            RefreshHeistPresets()
+                        end
+                    end
+                },
+                Refresh = {
+                    hash = Utils.Joaat("SN_CayoPerico_Refresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the list of presets.",
+                    func = function()
+                        RefreshHeistPresets()
+                    end
+                },
+                Name = {
+                    hash = Utils.Joaat("SN_CayoPerico_Name"),
+                    name = "QuickPreset",
+                    type = eFeatureType.InputText,
+                    desc = "Input the desired preset name."
+                },
+                Save = {
+                    hash = Utils.Joaat("SN_CayoPerico_Save"),
+                    name = "Save",
+                    type = eFeatureType.Button,
+                    desc = "Saves the current preparations to the file.",
+                    func = function(name, preps)
+                        CreateHeistPresetsDirs()
+                        local path = string.format("%s\\%s.json", CAYO_DIR, name)
+                        Json.EncodeToFile(path, preps)
+                        RefreshHeistPresets()
+                    end
+                },
+                Copy = {
+                    hash = Utils.Joaat("SN_CayoPerico_Copy"),
+                    name = "Copy Folder Path",
+                    type = eFeatureType.Button,
+                    desc = "Copies the presets folder path to the clipboard.",
+                    func = function()
+                        ImGui.SetClipboardText(CAYO_DIR)
+                    end
+                }
             }
         },
         DiamondCasino = {
@@ -949,7 +1020,7 @@ eFeature = {
                             elseif eLocal.Heist.DiamondCasino.Autograbber.Grab:Get() == 4 then
                                 eLocal.Heist.DiamondCasino.Autograbber.Speed:Set(2.0)
                             end
-                            Script.Yield(1)
+                            Script.Yield()
                         end
                     end
                 },
@@ -1060,6 +1131,77 @@ eFeature = {
                         for i = 1, 4 do
                             eGlobal.Heist.DiamondCasino.Cut["Player" .. i]:Set(cuts[i])
                         end
+                    end
+                }
+            },
+            Presets = {
+                File = {
+                    hash = Utils.Joaat("SN_DiamondCasino_File"),
+                    name = "File",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired preset.",
+                    list = eTable.Heist.DiamondCasino.Files
+                },
+                Load = {
+                    hash = Utils.Joaat("SN_DiamondCasino_Load"),
+                    name = "Load",
+                    type = eFeatureType.Button,
+                    desc = "Loads the selected preset.",
+                    func = function(name)
+                        local path = string.format("%s\\%s.json", DIAMOND_DIR, name)
+                        if FileMgr.DoesFileExist(path) then
+                            local preps = Json.DecodeFromFile(path)
+                            ApplyDiamondPreset(preps)
+                        end
+                    end
+                },
+                Remove = {
+                    hash = Utils.Joaat("SN_DiamondCasino_Remove"),
+                    name = "Remove",
+                    type = eFeatureType.Button,
+                    desc = "Removes the selected preset.",
+                    func = function(name)
+                        local path = string.format("%s\\%s.json", DIAMOND_DIR, name)
+                        if FileMgr.DoesFileExist(path) then
+                            FileMgr.DeleteFile(path)
+                            RefreshHeistPresets()
+                        end
+                    end
+                },
+                Refresh = {
+                    hash = Utils.Joaat("SN_DiamondCasino_Refresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the list of presets.",
+                    func = function()
+                        RefreshHeistPresets()
+                    end
+                },
+                Name = {
+                    hash = Utils.Joaat("SN_DiamondCasino_Name"),
+                    name = "QuickPreset",
+                    type = eFeatureType.InputText,
+                    desc = "Input the desired preset name."
+                },
+                Save = {
+                    hash = Utils.Joaat("SN_DiamondCasino_Save"),
+                    name = "Save",
+                    type = eFeatureType.Button,
+                    desc = "Saves the current preparations to the file.",
+                    func = function(name, preps)
+                        CreateHeistPresetsDirs()
+                        local path = string.format("%s\\%s.json", DIAMOND_DIR, name)
+                        Json.EncodeToFile(path, preps)
+                        RefreshHeistPresets()
+                    end
+                },
+                Copy = {
+                    hash = Utils.Joaat("SN_DiamondCasino_Copy"),
+                    name = "Copy Folder Path",
+                    type = eFeatureType.Button,
+                    desc = "Copies the presets folder path to the clipboard.",
+                    func = function()
+                        ImGui.SetClipboardText(DIAMOND_DIR)
                     end
                 }
             }
@@ -1529,6 +1671,7 @@ eFeature = {
                             eTunable.Business.Bunker.Product.Value:Set(math.floor((2500000 / 1.5) / eStat.MPX_PRODTOTALFORFACTORY5:Get()))
                             eTunable.Business.Bunker.Product.StaffUpgraded:Set(0)
                             eTunable.Business.Bunker.Product.EquipmentUpgraded:Set(0)
+                            Script.Yield()
                         else
                             eTunable.Business.Bunker.Product.Value:Reset()
                             eTunable.Business.Bunker.Product.StaffUpgraded:Reset()
@@ -1667,6 +1810,7 @@ eFeature = {
                                 end
                                 eTunable.Business.Hangar.Price:Set(math.floor(4000000 / eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()))
                                 eTunable.Business.Hangar.RonsCut:Set(0.0)
+                                Script.Yield()
                             else
                                 eTunable.Business.Hangar.Price:Reset()
                                 eTunable.Business.Hangar.RonsCut:Reset()
@@ -1836,6 +1980,7 @@ eFeature = {
                             eTunable.Business.Nightclub.Price.Documents:Set(math.floor(price / eStat.MPX_HUB_PROD_TOTAL_5:Get()))
                             eTunable.Business.Nightclub.Price.Cash:Set(math.floor(price / eStat.MPX_HUB_PROD_TOTAL_6:Get()))
                             eTunable.Business.Nightclub.Price.Cargo:Set(math.floor(price / eStat.MPX_HUB_PROD_TOTAL_0:Get()))
+                            Script.Yield()
                         else
                             eTunable.Business.Nightclub.Price.Weapons:Reset()
                             eTunable.Business.Nightclub.Price.Coke:Reset()
@@ -2064,6 +2209,7 @@ eFeature = {
                             eTunable.Business.CrateWarehouse.Price.Threshold19:Set(math.floor(price / 99))
                             eTunable.Business.CrateWarehouse.Price.Threshold20:Set(math.floor(price / 110))
                             eTunable.Business.CrateWarehouse.Price.Threshold21:Set(math.floor(price / 111))
+                            Script.Yield()
                         else
                             for i = 1, 21 do
                                 eTunable.Business.CrateWarehouse.Price["Threshold" .. i]:Reset()

@@ -185,7 +185,8 @@ eTable = {
                 { name = "All - 85%",      index = 85  },
                 { name = "All - 100%",     index = 100 },
                 { name = "2.55mil Payout", index = -1  }
-            }
+            },
+            Files = {}
         },
         DiamondCasino = {
             Difficulties = {
@@ -298,7 +299,8 @@ eTable = {
                 { name = "All - 85%",     index = 85  },
                 { name = "All - 100%",    index = 100 },
                 { name = "3.6mil Payout", index = -1  }
-            }
+            },
+            Files = {}
         },
         Doomsday = {
             Acts = {

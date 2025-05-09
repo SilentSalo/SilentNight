@@ -215,14 +215,43 @@ function ParseTables(tbl)
 end
 
 function FillDynamicTbls()
+    -- eTable.CayoPerico.Files
+    for i = #eTable.Heist.CayoPerico.Files, 1, -1 do
+        table.remove(eTable.Heist.CayoPerico.Files, i)
+    end
+    if FileMgr.DoesFileExist(CAYO_DIR) then
+        local files = FileMgr.FindFiles(CAYO_DIR, ".json", true)
+        for i, file in ipairs(files) do
+            local fileName = string.match(file, "[^\\]+$"):gsub(".json", "")
+            table.insert(eTable.Heist.CayoPerico.Files, { name = fileName, index = i })
+        end
+    end
+    if #eTable.Heist.CayoPerico.Files == 0 then
+        table.insert(eTable.Heist.CayoPerico.Files, { name = "", index = -1 })
+    end
+    -- eTable.DiamondCasino.Files
+    for i = #eTable.Heist.DiamondCasino.Files, 1, -1 do
+        table.remove(eTable.Heist.DiamondCasino.Files, i)
+    end
+    if FileMgr.DoesFileExist(DIAMOND_DIR) then
+        local files = FileMgr.FindFiles(DIAMOND_DIR, ".json", true)
+        for i, file in ipairs(files) do
+            local fileName = string.match(file, "[^\\]+$"):gsub(".json", "")
+            table.insert(eTable.Heist.DiamondCasino.Files, { name = fileName, index = i })
+        end
+    end
+    if #eTable.Heist.DiamondCasino.Files == 0 then
+        table.insert(eTable.Heist.DiamondCasino.Files, { name = "", index = -1 })
+    end
+    -- eTable.Business.Supplies
     for i = #eTable.Business.Supplies, 1, -1 do
         table.remove(eTable.Business.Supplies, i)
     end
     local businesses = {
-        { name = "Cash Factory",   ids = { 4,  9, 14, 19 } },
-        { name = "Cocaine Lock.",  ids = { 3,  8, 13, 18 } },
-        { name = "Weed Farm",      ids = { 2,  7, 12, 17 } },
-        { name = "Meth Lab",       ids = { 1,  6, 11, 16 } },
+        { name = "Cash Factory",  ids = { 4,  9, 14, 19 } },
+        { name = "Cocaine Lock.", ids = { 3,  8, 13, 18 } },
+        { name = "Weed Farm",     ids = { 2,  7, 12, 17 } },
+        { name = "Meth Lab",      ids = { 1,  6, 11, 16 } },
         { name = "Document For.", ids = { 5, 10, 15, 20 } }
     }
     for i = 0, 4 do
@@ -261,7 +290,7 @@ ParseTables(eTable)
 
 Script.QueueJob(function()
     while not eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedBool.HAS_PARSED and eTable.HAS_PARSED do
-        Script.Yield(1)
+        Script.Yield()
     end
     Logger.Log(eLogColor.GREEN, "Silent Night", "Script has started")
     GUI.AddToast("Silent Night", "Script has started", 5000, eToastPos.TOP_RIGHT)

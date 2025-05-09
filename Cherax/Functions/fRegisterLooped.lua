@@ -202,7 +202,7 @@ function ReParse()
             ParseLocals(eLocal)
             ParsePackedBools(ePackedBool)
             while not eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedBool.HAS_PARSED and eTable.HAS_PARSED do
-                Script.Yield(1)
+                Script.Yield()
             end
             HAS_PARSED = true
         end
@@ -221,5 +221,5 @@ Script.RegisterLooped(function()
     EasyLooper()
     NightclubSetter()
     ReParse()
-    Script.Yield(1)
+    Script.Yield()
 end)

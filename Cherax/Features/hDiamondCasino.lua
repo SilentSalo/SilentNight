@@ -182,3 +182,50 @@ FeatureMgr.AddFeature(diamondApply.hash, diamondApply.name, diamondApply.type, d
     end
     diamondApply.func(cuts)
 end)
+
+FeatureMgr.AddFeature(diamondFile.hash, diamondFile.name, diamondFile.type, diamondFile.desc, function(f)
+    local name = diamondFile.list[f:GetListIndex() + 1].name
+    FeatureMgr.GetFeature(diamondName.hash):SetStringValue(name)
+end)
+    :SetList(diamondFile.list:GetNames())
+
+FeatureMgr.AddFeature(diamondLoad.hash, diamondLoad.name, diamondLoad.type, diamondLoad.desc, function(f)
+    local name = diamondFile.list[FeatureMgr.GetFeatureListIndex(diamondFile.hash) + 1].name
+    if name == "" then return end
+    diamondLoad.func(name)
+end)
+
+FeatureMgr.AddFeature(diamondRemove.hash, diamondRemove.name, diamondRemove.type, diamondRemove.desc, function(f)
+    local name = diamondFile.list[FeatureMgr.GetFeatureListIndex(diamondFile.hash) + 1].name
+    diamondRemove.func(name)
+end)
+
+FeatureMgr.AddFeature(diamondRefresh.hash, diamondRefresh.name, diamondRefresh.type, diamondRefresh.desc, function(f)
+    diamondRefresh.func()
+end)
+
+FeatureMgr.AddFeature(diamondName.hash, diamondName.name, diamondName.type, diamondName.desc, function(f)
+end)
+    :SetStringValue(diamondFile.list[FeatureMgr.GetFeatureListIndex(diamondFile.hash) + 1].name)
+
+FeatureMgr.AddFeature(diamondSave.hash, diamondSave.name, diamondSave.type, diamondSave.desc, function(f)
+    local name = FeatureMgr.GetFeature(diamondName.hash):GetStringValue()
+    if name == "" then return end
+    local preps = {
+        difficulty = FeatureMgr.GetFeatureListIndex(diamondDifficulty.hash),
+        approach   = FeatureMgr.GetFeatureListIndex(diamondApproach.hash),
+        gunman     = FeatureMgr.GetFeatureListIndex(diamondGunman.hash),
+        loadout    = FeatureMgr.GetFeatureListIndex(diamondLoadout.hash),
+        driver     = FeatureMgr.GetFeatureListIndex(diamondDriver.hash),
+        vehicles   = FeatureMgr.GetFeatureListIndex(diamondVehicles.hash),
+        hacker     = FeatureMgr.GetFeatureListIndex(diamondHacker.hash),
+        masks      = FeatureMgr.GetFeatureListIndex(diamondMasks.hash),
+        target     = FeatureMgr.GetFeatureListIndex(diamondTarget.hash)
+    }
+    FeatureMgr.GetFeature(diamondName.hash):SetStringValue("")
+    diamondSave.func(name, preps)
+end)
+
+FeatureMgr.AddFeature(diamondCopy.hash, diamondCopy.name, diamondCopy.type, diamondCopy.desc, function(f)
+    diamondCopy.func()
+end)

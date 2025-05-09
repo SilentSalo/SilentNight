@@ -152,3 +152,50 @@ FeatureMgr.AddFeature(cayoApply.hash, cayoApply.name, cayoApply.type, cayoApply.
     end
     cayoApply.func(cuts)
 end)
+
+FeatureMgr.AddFeature(cayoFile.hash, cayoFile.name, cayoFile.type, cayoFile.desc, function(f)
+    local name = cayoFile.list[f:GetListIndex() + 1].name
+    FeatureMgr.GetFeature(cayoName.hash):SetStringValue(name)
+end)
+    :SetList(cayoFile.list:GetNames())
+
+FeatureMgr.AddFeature(cayoLoad.hash, cayoLoad.name, cayoLoad.type, cayoLoad.desc, function(f)
+    local name = cayoFile.list[FeatureMgr.GetFeatureListIndex(cayoFile.hash) + 1].name
+    if name == "" then return end
+    cayoLoad.func(name)
+end)
+
+FeatureMgr.AddFeature(cayoRemove.hash, cayoRemove.name, cayoRemove.type, cayoRemove.desc, function(f)
+    local name = cayoFile.list[FeatureMgr.GetFeatureListIndex(cayoFile.hash) + 1].name
+    cayoRemove.func(name)
+end)
+
+FeatureMgr.AddFeature(cayoRefresh.hash, cayoRefresh.name, cayoRefresh.type, cayoRefresh.desc, function(f)
+    cayoRefresh.func()
+end)
+
+FeatureMgr.AddFeature(cayoName.hash, cayoName.name, cayoName.type, cayoName.desc, function(f)
+end)
+    :SetStringValue(cayoFile.list[FeatureMgr.GetFeatureListIndex(cayoFile.hash) + 1].name)
+
+FeatureMgr.AddFeature(cayoSave.hash, cayoSave.name, cayoSave.type, cayoSave.desc, function(f)
+    local name = FeatureMgr.GetFeature(cayoName.hash):GetStringValue()
+    if name == "" then return end
+    local preps = {
+        difficulty      = FeatureMgr.GetFeatureListIndex(cayoDifficulty.hash),
+        approach        = FeatureMgr.GetFeatureListIndex(cayoApproach.hash),
+        loadout         = FeatureMgr.GetFeatureListIndex(cayoLoadout.hash),
+        primary_target  = FeatureMgr.GetFeatureListIndex(cayoPrimaryTarget.hash),
+        compound_target = FeatureMgr.GetFeatureListIndex(cayoCompoundTarget.hash),
+        compound_amount = FeatureMgr.GetFeatureListIndex(cayoCompoundAmount.hash),
+        arts_amount     = FeatureMgr.GetFeatureListIndex(cayoArtsAmount.hash),
+        island_target   = FeatureMgr.GetFeatureListIndex(cayoIslandTarget.hash),
+        island_amount   = FeatureMgr.GetFeatureListIndex(cayoIslandAmount.hash)
+    }
+    FeatureMgr.GetFeature(cayoName.hash):SetStringValue("")
+    cayoSave.func(name, preps)
+end)
+
+FeatureMgr.AddFeature(cayoCopy.hash, cayoCopy.name, cayoCopy.type, cayoCopy.desc, function(f)
+    cayoCopy.func()
+end)
