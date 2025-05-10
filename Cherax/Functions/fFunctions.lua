@@ -65,15 +65,13 @@ function SetApartmentMaxPayout(bool)
     local heist      = eGlobal.Heist.Apartment.Heist.Type:Get()
     local difficulty = eGlobal.Heist.Apartment.Heist.Difficulty:Get() + 1
     local payouts    = {
-        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 106215, 201250,  250250  },
+        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 100625, 201250,  251562  },
         [eTable.Heist.Apartment.Heists.PrisonBreak] = { 350000, 700000,  875000  },
-        [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 472500, 945000,  1181500 },
+        [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 472500, 945000,  1181250 },
         [eTable.Heist.Apartment.Heists.SeriesA]     = { 353500, 707000,  883750  },
         [eTable.Heist.Apartment.Heists.PacificJob]  = { 750000, 1500000, 1875000 }
     }
-    if payouts[heist] == nil then
-        return
-    end
+    if payouts[heist] == nil then return end
     local payout    = payouts[heist][difficulty]
     local maxPayout = 3000000
     local cut       = math.floor(maxPayout / (payout / 100) / ((bool) and 2 or 1))
