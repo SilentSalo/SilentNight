@@ -1,3 +1,4 @@
+VERSION     = "0.1.7"
 INT32_MAX   = 2147483647
 PLAYER_ID   = GTA.GetLocalPlayerId()
 GTA_EDITION = Cherax.GetEdition()

@@ -695,13 +695,13 @@ function RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab("Silent Night v0.1.7", RenderClickGUI)
+ClickGUI.AddTab(string.format("Silent Night %s", VERSION), RenderClickGUI)
 
 function RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab("Silent Night v0.1.7", "Silent Night")
+    local SilentNightTab = root:AddSubTab(string.format("Silent Night %s", VERSION), "Silent Night")
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
