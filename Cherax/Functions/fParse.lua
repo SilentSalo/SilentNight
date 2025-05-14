@@ -214,11 +214,15 @@ function ParseTables(tbl)
     tbl.HAS_PARSED = true
 end
 
-function FillDynamicTbls()
-    -- eTable.CayoPerico.Files
-    for i = #eTable.Heist.CayoPerico.Files, 1, -1 do
-        table.remove(eTable.Heist.CayoPerico.Files, i)
+function ClearTable(tbl)
+    for i = #tbl, 1, -1 do
+        table.remove(tbl, i)
     end
+end
+
+function FillDynamicTbls()
+    -- eTable.Heist.CayoPerico.Files
+    ClearTable(eTable.Heist.CayoPerico.Files)
     if FileMgr.DoesFileExist(CAYO_DIR) then
         local files = FileMgr.FindFiles(CAYO_DIR, ".json", true)
         for i, file in ipairs(files) do
@@ -229,10 +233,8 @@ function FillDynamicTbls()
     if #eTable.Heist.CayoPerico.Files == 0 then
         table.insert(eTable.Heist.CayoPerico.Files, { name = "", index = -1 })
     end
-    -- eTable.DiamondCasino.Files
-    for i = #eTable.Heist.DiamondCasino.Files, 1, -1 do
-        table.remove(eTable.Heist.DiamondCasino.Files, i)
-    end
+    -- eTable.Heist.DiamondCasino.Files
+    ClearTable(eTable.Heist.DiamondCasino.Files)
     if FileMgr.DoesFileExist(DIAMOND_DIR) then
         local files = FileMgr.FindFiles(DIAMOND_DIR, ".json", true)
         for i, file in ipairs(files) do
@@ -243,10 +245,20 @@ function FillDynamicTbls()
     if #eTable.Heist.DiamondCasino.Files == 0 then
         table.insert(eTable.Heist.DiamondCasino.Files, { name = "", index = -1 })
     end
-    -- eTable.Business.Supplies
-    for i = #eTable.Business.Supplies, 1, -1 do
-        table.remove(eTable.Business.Supplies, i)
+    -- eTable.Editor.Stats.Files
+    ClearTable(eTable.Editor.Stats.Files)
+    if FileMgr.DoesFileExist(STATS_DIR) then
+        local files = FileMgr.FindFiles(STATS_DIR, ".json", true)
+        for i, file in ipairs(files) do
+            local fileName = string.match(file, "[^\\]+$"):gsub(".json", "")
+            table.insert(eTable.Editor.Stats.Files, { name = fileName, index = i })
+        end
     end
+    if #eTable.Editor.Stats.Files == 0 then
+        table.insert(eTable.Editor.Stats.Files, { name = "", index = -1 })
+    end
+    -- eTable.Business.Supplies
+    ClearTable(eTable.Business.Supplies)
     local businesses = {
         { name = "Cash Factory",  ids = { 4,  9, 14, 19 } },
         { name = "Cocaine Lock.", ids = { 3,  8, 13, 18 } },

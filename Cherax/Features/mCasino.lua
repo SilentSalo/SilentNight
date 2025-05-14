@@ -85,10 +85,15 @@ FeatureMgr.AddFeature(casinoSelect.hash, casinoSelect.name, casinoSelect.type, c
 end)
     :SetDefaultValue(0)
     :SetLimitValues(0, INT32_MAX)
-    :SetStepSize(50000)
+    :SetStepSize(1000000)
     :Reset()
 
-FeatureMgr.AddFeature(casinoApply.hash, casinoApply.name, casinoApply.type, casinoApply.desc, function(f)
+FeatureMgr.AddFeature(casinoAcquire.hash, casinoAcquire.name, casinoAcquire.type, casinoAcquire.desc, function(f)
     local limit = FeatureMgr.GetFeature(casinoSelect.hash):GetIntValue()
-    casinoApply.func(limit)
+    casinoAcquire.func(limit)
+end)
+
+FeatureMgr.AddFeature(casinoSell.hash, casinoSell.name, casinoSell.type, casinoSell.desc, function(f)
+    local limit = FeatureMgr.GetFeature(casinoSelect.hash):GetIntValue()
+    casinoSell.func(limit)
 end)

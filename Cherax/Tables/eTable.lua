@@ -523,7 +523,8 @@ eTable = {
                 { name = "int",    index = 0 },
                 { name = "float",  index = 1 },
                 { name = "bool",   index = 3 }
-            }
+            },
+            Files = {}
         },
         PackedStats = {
             Types = {

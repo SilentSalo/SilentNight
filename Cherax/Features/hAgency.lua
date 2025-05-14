@@ -22,6 +22,11 @@ end)
     :SetStepSize(100000)
     :Reset()
 
+FeatureMgr.AddFeature(agencyMax.hash, agencyMax.name, agencyMax.type, agencyMax.desc, function(f)
+    local feature = FeatureMgr.GetFeature(agencySelect.hash)
+    feature:SetIntValue(feature:GetIntMaxValue())
+end)
+
 FeatureMgr.AddFeature(agencyApply.hash, agencyApply.name, agencyApply.type, agencyApply.desc, function(f)
     local payout = FeatureMgr.GetFeature(agencySelect.hash):GetIntValue()
     agencyApply.func(payout)

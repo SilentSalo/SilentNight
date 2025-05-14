@@ -18,6 +18,8 @@ function RenderHeistTool()
                     ImGui.TableNextColumn()
                     if ClickGUI.BeginCustomChildWindow("Payout") then
                         ClickGUI.RenderFeature(agencySelect.hash)
+                        ClickGUI.RenderFeature(agencyMax.hash)
+                        ImGui.SameLine()
                         ClickGUI.RenderFeature(agencyApply.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -81,6 +83,8 @@ function RenderHeistTool()
                     ImGui.TableNextColumn()
                     if ClickGUI.BeginCustomChildWindow("Payout") then
                         ClickGUI.RenderFeature(autoSelect.hash)
+                        ClickGUI.RenderFeature(autoMax.hash)
+                        ImGui.SameLine()
                         ClickGUI.RenderFeature(autoApply.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -525,7 +529,8 @@ function RenderMoneyTool()
                     if ClickGUI.BeginCustomChildWindow("Misc") then
                         ClickGUI.RenderFeature(casinoBypass.hash)
                         ClickGUI.RenderFeature(casinoSelect.hash)
-                        ClickGUI.RenderFeature(casinoApply.hash)
+                        ClickGUI.RenderFeature(casinoAcquire.hash)
+                        ClickGUI.RenderFeature(casinoSell.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
@@ -625,7 +630,13 @@ function RenderDevTool()
                         ClickGUI.RenderFeature(devPackedStatsPackedStat.hash)
                         ClickGUI.RenderFeature(devPackedStatsValue.hash)
                         ClickGUI.RenderFeature(devPackedStatsRead.hash)
+                        if FeatureMgr.GetFeature(devPackedStatsRead.hash):IsVisible() then
+                            ImGui.SameLine()
+                        end
                         ClickGUI.RenderFeature(devPackedStatsWrite.hash)
+                        if FeatureMgr.GetFeature(devPackedStatsWrite.hash):GetName() == "Write" then
+                            ImGui.SameLine()
+                        end
                         ClickGUI.RenderFeature(devPackedStatsRevert.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -644,14 +655,33 @@ function RenderDevTool()
                     end
                     ImGui.TableNextColumn()
                     if ClickGUI.BeginCustomChildWindow("Stats") then
+                        ClickGUI.RenderFeature(devStatsFrom.hash)
                         ClickGUI.RenderFeature(devStatsType.hash)
                         ClickGUI.RenderFeature(devStatsStat.hash)
                         ClickGUI.RenderFeature(devStatsValue.hash)
                         ClickGUI.RenderFeature(devStatsRead.hash)
-                        ImGui.SameLine()
+                        if FeatureMgr.GetFeature(devStatsRead.hash):IsVisible() then
+                            ImGui.SameLine()
+                        end
                         ClickGUI.RenderFeature(devStatsWrite.hash)
-                        ImGui.SameLine()
+                        if FeatureMgr.GetFeature(devStatsWrite.hash):IsVisible() then
+                            ImGui.SameLine()
+                        end
                         ClickGUI.RenderFeature(devStatsRevert.hash)
+                        ClickGUI.RenderFeature(devStatsFile.hash)
+                        ClickGUI.RenderFeature(devStatsWriteAll.hash)
+                        if FeatureMgr.GetFeature(devStatsWriteAll.hash):IsVisible() then
+                            ImGui.SameLine()
+                        end
+                        ImGui.RedButton()
+                        ClickGUI.RenderFeature(devStatsRemove.hash)
+                        ImGui.ResetButton()
+                        if FeatureMgr.GetFeature(devStatsRemove.hash):IsVisible() then
+                            ImGui.SameLine()
+                        end
+                        ClickGUI.RenderFeature(devStatsRefresh.hash)
+                        ClickGUI.RenderFeature(devStatsCopy.hash)
+                        ClickGUI.RenderFeature(devStatsGenerate.hash)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
@@ -718,6 +748,7 @@ function RenderListGUI()
 
             AgencyTab:AddSeperator("Payout")
             AgencyTab:AddFeature(agencySelect.hash)
+            AgencyTab:AddFeature(agencyMax.hash)
             AgencyTab:AddFeature(agencyApply.hash)
         end
 
@@ -765,6 +796,7 @@ function RenderListGUI()
 
             AutoShopTab:AddSeperator("Payout")
             AutoShopTab:AddFeature(autoSelect.hash)
+            AutoShopTab:AddFeature(autoMax.hash)
             AutoShopTab:AddFeature(autoApply.hash)
         end
 
@@ -1096,7 +1128,8 @@ function RenderListGUI()
             CasinoTab:AddSeperator("Misc")
             CasinoTab:AddFeature(casinoBypass.hash)
             CasinoTab:AddFeature(casinoSelect.hash)
-            CasinoTab:AddFeature(casinoApply.hash)
+            CasinoTab:AddFeature(casinoAcquire.hash)
+            CasinoTab:AddFeature(casinoSell.hash)
         end
 
         local MiscTab = MoneyToolTab:AddSubTab("Misc", "Misc")
@@ -1150,12 +1183,19 @@ function RenderListGUI()
             EditorTab:AddFeature(devGlobalsRevert.hash)
 
             EditorTab:AddSeperator("Stats")
+            EditorTab:AddFeature(devStatsFrom.hash)
             EditorTab:AddFeature(devStatsType.hash)
             EditorTab:AddFeature(devStatsStat.hash)
             EditorTab:AddFeature(devStatsValue.hash)
             EditorTab:AddFeature(devStatsRead.hash)
             EditorTab:AddFeature(devStatsWrite.hash)
             EditorTab:AddFeature(devStatsRevert.hash)
+            EditorTab:AddFeature(devStatsFile.hash)
+            EditorTab:AddFeature(devStatsWriteAll.hash)
+            EditorTab:AddFeature(devStatsRemove.hash)
+            EditorTab:AddFeature(devStatsRefresh.hash)
+            EditorTab:AddFeature(devStatsCopy.hash)
+            EditorTab:AddFeature(devStatsGenerate.hash)
 
             EditorTab:AddSeperator("Packed Stats")
             EditorTab:AddFeature(devPackedStatsRange.hash)

@@ -1,10 +1,11 @@
-VERSION     = "0.1.7"
+VERSION     = "0.1.8"
 INT32_MAX   = 2147483647
 PLAYER_ID   = GTA.GetLocalPlayerId()
 GTA_EDITION = Cherax.GetEdition()
 MENU_PATH   = FileMgr.GetMenuRootPath()
 CAYO_DIR    = string.format("%s\\Lua\\SilentNight\\Presets\\CayoPerico", MENU_PATH)
 DIAMOND_DIR = string.format("%s\\Lua\\SilentNight\\Presets\\DiamondCasino", MENU_PATH)
+STATS_DIR   = string.format("%s\\Lua\\SilentNight\\Presets\\Stats", MENU_PATH)
 NPOPULARITY = "TEMP"
 TEMP_GLOBAL = "TEMP"
 TEMP_LOCAL  = "TEMP"

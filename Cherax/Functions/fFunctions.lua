@@ -211,13 +211,31 @@ function CreateHeistPresetsDirs()
     end
 end
 
-function RefreshHeistPresets()
+function CreateStatsPresetsDir(generateExample)
+    if not FileMgr.DoesFileExist(STATS_DIR) then
+        FileMgr.CreateDir(STATS_DIR)
+    end
+    if generateExample then
+        local stats = {
+            comment = "Example stats file.",
+            stats   = {
+                MPX_H3OPT_APPROACH = 2,
+                MPX_PLAYER_MENTAL_STATE = 99.9,
+                MPPLY_CHAR_IS_BADSPORT = false
+            }
+        }
+        Json.EncodeToFile(string.format("%s\\example.json", STATS_DIR), stats)
+    end
+end
+
+function RefreshPresetsFiles()
     FillDynamicTbls()
     ParseTables(eTable)
     FeatureMgr.GetFeature(cayoFile.hash):SetList(cayoFile.list:GetNames()):SetListIndex(0)
     FeatureMgr.GetFeature(cayoName.hash):SetStringValue(cayoFile.list[1].name)
     FeatureMgr.GetFeature(diamondFile.hash):SetList(diamondFile.list:GetNames()):SetListIndex(0)
     FeatureMgr.GetFeature(diamondName.hash):SetStringValue(diamondFile.list[1].name)
+    FeatureMgr.GetFeature(devStatsFile.hash):SetList(devStatsFile.list:GetNames()):SetListIndex(0)
 end
 
 function GetCardName(index)

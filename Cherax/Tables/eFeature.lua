@@ -101,6 +101,12 @@ eFeature = {
                     type = eFeatureType.InputInt,
                     desc = "Select the desired payout."
                 },
+                Max = {
+                    hash = Utils.Joaat("SN_Agency_Max"),
+                    name = "Max",
+                    type = eFeatureType.Button,
+                    desc = "Maximizes the payout, but doesn't apply it.",
+                },
                 Apply = {
                     hash = Utils.Joaat("SN_Agency_Apply"),
                     name = "Apply Payout",
@@ -397,6 +403,12 @@ eFeature = {
                     name = "Payout",
                     type = eFeatureType.InputInt,
                     desc = "Select the desired payout."
+                },
+                Max = {
+                    hash = Utils.Joaat("SN_AutoShop_Max"),
+                    name = "Max",
+                    type = eFeatureType.Button,
+                    desc = "Maximizes the payout, but doesn't apply it.",
                 },
                 Apply = {
                     hash = Utils.Joaat("SN_AutoShop_Apply"),
@@ -759,7 +771,7 @@ eFeature = {
                         local path = string.format("%s\\%s.json", CAYO_DIR, name)
                         if FileMgr.DoesFileExist(path) then
                             FileMgr.DeleteFile(path)
-                            RefreshHeistPresets()
+                            RefreshPresetsFiles()
                         end
                     end
                 },
@@ -769,7 +781,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Refreshes the list of presets.",
                     func = function()
-                        RefreshHeistPresets()
+                        RefreshPresetsFiles()
                     end
                 },
                 Name = {
@@ -787,7 +799,7 @@ eFeature = {
                         CreateHeistPresetsDirs()
                         local path = string.format("%s\\%s.json", CAYO_DIR, name)
                         Json.EncodeToFile(path, preps)
-                        RefreshHeistPresets()
+                        RefreshPresetsFiles()
                     end
                 },
                 Copy = {
@@ -796,6 +808,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Copies the presets folder path to the clipboard.",
                     func = function()
+                        CreateHeistPresetsDirs()
                         ImGui.SetClipboardText(CAYO_DIR)
                     end
                 }
@@ -1164,7 +1177,7 @@ eFeature = {
                         local path = string.format("%s\\%s.json", DIAMOND_DIR, name)
                         if FileMgr.DoesFileExist(path) then
                             FileMgr.DeleteFile(path)
-                            RefreshHeistPresets()
+                            RefreshPresetsFiles()
                         end
                     end
                 },
@@ -1174,7 +1187,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Refreshes the list of presets.",
                     func = function()
-                        RefreshHeistPresets()
+                        RefreshPresetsFiles()
                     end
                 },
                 Name = {
@@ -1192,7 +1205,7 @@ eFeature = {
                         CreateHeistPresetsDirs()
                         local path = string.format("%s\\%s.json", DIAMOND_DIR, name)
                         Json.EncodeToFile(path, preps)
-                        RefreshHeistPresets()
+                        RefreshPresetsFiles()
                     end
                 },
                 Copy = {
@@ -1201,6 +1214,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Copies the presets folder path to the clipboard.",
                     func = function()
+                        CreateHeistPresetsDirs()
                         ImGui.SetClipboardText(DIAMOND_DIR)
                     end
                 }
@@ -2604,21 +2618,30 @@ eFeature = {
                         eStat.MPPLY_CASINO_CHIPS_PUR_GD:Set(0)
                     end
                 },
-                AcquireLimit = {
+                Limit = {
                     Select = {
                         hash = Utils.Joaat("SN_Casino_Select"),
-                        name = "Acquire Chips Limit",
+                        name = "Chips Limit",
                         type = eFeatureType.InputInt,
-                        desc = "Select the desired acquire chips limit."
+                        desc = "Select the desired chips limit."
                     },
-                    Apply = {
-                        hash = Utils.Joaat("SN_Casino_Apply"),
-                        name = "Apply Acquire Chips Limit",
+                    Acquire = {
+                        hash = Utils.Joaat("SN_Casino_Acquire"),
+                        name = "Apply Acquire Limit",
                         type = eFeatureType.Button,
                         desc = "Applies the selected acquire chips limit.",
                         func = function(limit)
-                            eTunable.World.Casino.Chips.AcquireLimit:Set(limit)
-                            eTunable.World.Casino.Chips.AcquireLimitPenthouse:Set(limit)
+                            eTunable.World.Casino.Chips.Limit.Acquire:Set(limit)
+                            eTunable.World.Casino.Chips.Limit.AcquirePenthouse:Set(limit)
+                        end
+                    },
+                    Sell = {
+                        hash = Utils.Joaat("SN_Casino_Sell"),
+                        name = "Apply Sell Limit",
+                        type = eFeatureType.Button,
+                        desc = "MIGHT BE UNSAFE. Applies the selected sell chips limit.",
+                        func = function(limit)
+                            eTunable.World.Casino.Chips.Limit.Sell:Set(limit)
                         end
                     }
                 }
@@ -3000,6 +3023,12 @@ eFeature = {
                 }
             },
             Stats = {
+                From = {
+                    hash = Utils.Joaat("SN_Editor_StatsFrom"),
+                    name = "From File",
+                    type = eFeatureType.Toggle,
+                    desc = "Allows to write the stats from the file."
+                },
                 Type = {
                     hash = Utils.Joaat("SN_Editor_StatsType"),
                     name = "Type",
@@ -3060,6 +3089,82 @@ eFeature = {
                             SetValue[type](Utils.sJoaat(stat), TEMP_STAT)
                             TEMP_STAT = "TEMP"
                         end
+                    end
+                },
+                File = {
+                    hash = Utils.Joaat("SN_Editor_StatsFile"),
+                    name = "File",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired stat file.",
+                    list = eTable.Editor.Stats.Files
+                },
+                WriteAll = {
+                    hash = Utils.Joaat("SN_Editor_StatsWriteAll"),
+                    name = "Write",
+                    type = eFeatureType.Button,
+                    desc = "Writes all the stats from the selected file.",
+                    func = function(name)
+                        local path = string.format("%s\\%s.json", STATS_DIR, name)
+                        if FileMgr.DoesFileExist(path) then
+                            local json = Json.DecodeFromFile(path)
+                            for stat, value in pairs(json.stats) do
+                                if stat:sub(1, 3) == "MPX" then
+                                    stat = stat:gsub("MPX", string.format("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
+                                end
+                                if type(value) == "number" then
+                                    if math.type(value) == "integer" then
+                                        Stats.SetInt(Utils.sJoaat(stat), value)
+                                    else
+                                        Stats.SetFloat(Utils.sJoaat(stat), value)
+                                    end
+                                elseif type(value) == "boolean" then
+                                    Stats.SetBool(Utils.sJoaat(stat), value)
+                                end
+                            end
+                        end
+                    end
+                },
+                Remove = {
+                    hash = Utils.Joaat("SN_Editor_StatsRemove"),
+                    name = "Remove",
+                    type = eFeatureType.Button,
+                    desc = "Removes the selected stats file.",
+                    func = function(name)
+                        local path = string.format("%s\\%s.json", STATS_DIR, name)
+                        if FileMgr.DoesFileExist(path) then
+                            FileMgr.DeleteFile(path)
+                            RefreshPresetsFiles()
+                        end
+                    end
+                },
+                Refresh = {
+                    hash = Utils.Joaat("SN_Editor_StatsRefresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the list of stats files.",
+                    func = function()
+                        RefreshPresetsFiles()
+                    end
+                },
+                Copy = {
+                    hash = Utils.Joaat("SN_Editor_StatsCopy"),
+                    name = "Copy Folder Path",
+                    type = eFeatureType.Button,
+                    desc = "Copies the stats folder path to the clipboard.",
+                    func = function()
+                        CreateStatsPresetsDir()
+                        RefreshPresetsFiles()
+                        ImGui.SetClipboardText(STATS_DIR)
+                    end
+                },
+                Generate = {
+                    hash = Utils.Joaat("SN_Editor_StatsGenerate"),
+                    name = "Generate Example File",
+                    type = eFeatureType.Button,
+                    desc = "Generates the example stats file.",
+                    func = function(name)
+                        CreateStatsPresetsDir(true)
+                        RefreshPresetsFiles()
                     end
                 }
             },

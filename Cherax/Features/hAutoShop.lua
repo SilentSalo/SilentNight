@@ -26,6 +26,11 @@ end)
     :SetStepSize(100000)
     :Reset()
 
+FeatureMgr.AddFeature(autoMax.hash, autoMax.name, autoMax.type, autoMax.desc, function(f)
+    local feature = FeatureMgr.GetFeature(autoSelect.hash)
+    feature:SetIntValue(feature:GetIntMaxValue())
+end)
+
 FeatureMgr.AddFeature(autoApply.hash, autoApply.name, autoApply.type, autoApply.desc, function(f)
     local payout = FeatureMgr.GetFeature(autoSelect.hash):GetIntValue()
     autoApply.func(payout)

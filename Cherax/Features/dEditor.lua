@@ -140,6 +140,15 @@ FeatureMgr.AddFeature(devLocalsRevert.hash, devLocalsRevert.name, devLocalsRever
     devLocalsRevert.func(type, script, vLocal)
 end)
 
+FeatureMgr.AddFeature(devStatsFrom.hash, devStatsFrom.name, devStatsFrom.type, devStatsFrom.desc, function(f)
+    for i = 1, #devStatsDefault do
+        FeatureMgr.GetFeature(devStatsDefault[i].hash):SetVisible((f:IsToggled()) and false or true)
+    end
+    for i = 1, #devStatsFromFile do
+        FeatureMgr.GetFeature(devStatsFromFile[i].hash):SetVisible((f:IsToggled()) and true or false)
+    end
+end)
+
 FeatureMgr.AddFeature(devStatsType.hash, devStatsType.name, devStatsType.type, devStatsType.desc, function(f)
     local examples = {
         [0] = { stat = "MPX_KILLS",               value = "7777" },
@@ -229,6 +238,38 @@ FeatureMgr.AddFeature(devStatsRevert.hash, devStatsRevert.name, devStatsRevert.t
     end
     devStatsRevert.func(type, stat)
 end)
+
+FeatureMgr.AddFeature(devStatsFile.hash, devStatsFile.name, devStatsFile.type, devStatsFile.desc, function(f)
+end)
+    :SetList(devStatsFile.list:GetNames())
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(devStatsWriteAll.hash, devStatsWriteAll.name, devStatsWriteAll.type, devStatsWriteAll.desc, function(f)
+    local name = devStatsFile.list[FeatureMgr.GetFeatureListIndex(devStatsFile.hash) + 1].name
+    devStatsWriteAll.func(name)
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(devStatsRemove.hash, devStatsRemove.name, devStatsRemove.type, devStatsRemove.desc, function(f)
+    local name = devStatsFile.list[FeatureMgr.GetFeatureListIndex(devStatsFile.hash) + 1].name
+    devStatsRemove.func(name)
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(devStatsRefresh.hash, devStatsRefresh.name, devStatsRefresh.type, devStatsRefresh.desc, function(f)
+    devStatsRefresh.func()
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(devStatsCopy.hash, devStatsCopy.name, devStatsCopy.type, devStatsCopy.desc, function(f)
+    devStatsCopy.func()
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(devStatsGenerate.hash, devStatsGenerate.name, devStatsGenerate.type, devStatsGenerate.desc, function(f)
+    devStatsGenerate.func()
+end)
+    :SetVisible(false)
 
 FeatureMgr.AddFeature(devPackedStatsRange.hash, devPackedStatsRange.name, devPackedStatsRange.type, devPackedStatsRange.desc, function(f)
     local examples = {
