@@ -1,5 +1,8 @@
+--#region eStat
+
 eStat = {
-    HAS_PARSED                      = false,
+    HAS_PARSED = false,
+
     MPPLY_LAST_MP_CHAR              = { type = "int",   stat = "MPPLY_LAST_MP_CHAR"             },
     SP0_TOTAL_CASH                  = { type = "int",   stat = "SP0_TOTAL_CASH"                 },
     SP1_TOTAL_CASH                  = { type = "int",   stat = "SP1_TOTAL_CASH"                 },
@@ -632,8 +635,12 @@ eStat = {
     MPX_H4CNF_HEL_DISRP             = { type = "int",   stat = "H4CNF_HEL_DISRP"                },
     MPX_H3OPT_DISRUPTSHIP           = { type = "int",   stat = "H3OPT_DISRUPTSHIP"              },
     MPX_H3OPT_KEYLEVELS             = { type = "int",   stat = "H3OPT_KEYLEVELS"                },
+    MPX_H3OPT_BODYARMORLVL          = { type = "int",   stat = "H3OPT_BODYARMORLVL"             },
     MPX_H3OPT_BITSET0               = { type = "int",   stat = "H3OPT_BITSET0"                  },
     MPX_H3OPT_BITSET1               = { type = "int",   stat = "H3OPT_BITSET1"                  },
+    MPX_H3_BOARD_DIALOGUE0          = { type = "int",   stat = "H3_BOARD_DIALOGUE0"             },
+    MPX_H3_BOARD_DIALOGUE1          = { type = "int",   stat = "H3_BOARD_DIALOGUE1"             },
+    MPX_H3_BOARD_DIALOGUE2          = { type = "int",   stat = "H3_BOARD_DIALOGUE2"             },
     MPX_H3OPT_COMPLETEDPOSIX        = { type = "int",   stat = "H3OPT_COMPLETEDPOSIX"           },
     MPX_HANGAR_CONTRABAND_TOTAL     = { type = "int",   stat = "HANGAR_CONTRABAND_TOTAL"        },
     MPX_SALV23_GEN_BS               = { type = "int",   stat = "SALV23_GEN_BS"                  },
@@ -1087,3 +1094,5 @@ eStat = {
     MPPLY_AWD_HST_SAME_TEAM         = { type = "bool",  stat = "MPPLY_AWD_HST_SAME_TEAM"        },
     MPPLY_AWD_HST_ULT_CHAL          = { type = "bool",  stat = "MPPLY_AWD_HST_ULT_CHAL"         }
 }
+
+--#endregion

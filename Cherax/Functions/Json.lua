@@ -1,10 +1,8 @@
+--#region Json
+
 -- Modified version of https://github.com/rxi/json.lua
 
 Json = {}
-
--------------------------------------------------------------------------------
--- Encode
--------------------------------------------------------------------------------
 
 local Encode
 
@@ -19,12 +17,13 @@ local escapeCharMap = {
 }
 
 local escapeCharMapInv = { [ "/" ] = "/" }
+
 for k, v in pairs(escapeCharMap) do
     escapeCharMapInv[v] = k
 end
 
 local function EscapeChar(c)
-    return "\\" .. (escapeCharMap[c] or string.format("u%04x", c:byte()))
+    return "\\" .. (escapeCharMap[c] or F("u%04x", c:byte()))
 end
 
 local function EncodeNil()
@@ -36,7 +35,7 @@ local function EncodeTable(val, stack)
     stack = stack or {}
 
     -- Circular reference?
-    if stack[val] then Logger.Log(eLogColor.RED, "Silent Night", "circular reference") end
+    if stack[val] then Logger.LogError("circular reference") end
 
     stack[val] = true
 
@@ -45,16 +44,16 @@ local function EncodeTable(val, stack)
         local n = 0
         for k in pairs(val) do
             if type(k) ~= "number" then
-                Logger.Log(eLogColor.RED, "Silent Night", "invalid table: mixed or invalid key types")
+                Logger.LogError("invalid table: mixed or invalid key types")
             end
             n = n + 1
         end
         if n ~= #val then
-            Logger.Log(eLogColor.RED, "Silent Night", "invalid table: sparse array")
+            Logger.LogError("invalid table: sparse array")
         end
         -- Encode
         for i, v in ipairs(val) do
-            table.insert(res, Encode(v, stack))
+            I(res, Encode(v, stack))
         end
         stack[val] = nil
         return "[" .. table.concat(res, ",") .. "]"
@@ -62,9 +61,9 @@ local function EncodeTable(val, stack)
         -- Treat as an object
         for k, v in pairs(val) do
             if type(k) ~= "string" then
-                Logger.Log(eLogColor.RED, "Silent Night", "invalid table: mixed or invalid key types")
+                Logger.LogError("invalid table: mixed or invalid key types")
             end
-            table.insert(res, Encode(k, stack) .. ":" .. Encode(v, stack))
+            I(res, Encode(k, stack) .. ":" .. Encode(v, stack))
         end
         stack[val] = nil
         return "{" .. table.concat(res, ",") .. "}"
@@ -78,9 +77,9 @@ end
 local function EncodeNumber(val)
     -- Check for NaN, -inf and inf
     if val ~= val or val <= -math.huge or val >= math.huge then
-        Logger.Log(eLogColor.RED, "Silent Night", "unexpected number value '" .. tostring(val) .. "'")
+        Logger.LogError("unexpected number value '" .. S(val) .. "'")
     end
-    return string.format("%.14g", val)
+    return F("%.14g", val)
 end
 
 local typeFuncMap = {
@@ -88,7 +87,7 @@ local typeFuncMap = {
     [ "table"   ] = EncodeTable,
     [ "string"  ] = EncodeString,
     [ "number"  ] = EncodeNumber,
-    [ "boolean" ] = tostring,
+    [ "boolean" ] = S,
 }
 
 Encode = function(val, stack)
@@ -97,7 +96,7 @@ Encode = function(val, stack)
     if f then
         return f(val, stack)
     end
-    Logger.Log(eLogColor.RED, "Silent Night", "unexpected type '" .. t .. "'")
+    Logger.LogError("unexpected type '" .. t .. "'")
 end
 
 function Json.Encode(val, indent)
@@ -108,7 +107,7 @@ function Json.Encode(val, indent)
         currentIndent = currentIndent or ""
 
         if t == "table" then
-            if stack[value] then Logger.Log(eLogColor.RED, "Silent Night", "circular reference") end
+            if stack[value] then Logger.LogError("circular reference") end
             stack[value] = true
 
             local res = {}
@@ -117,14 +116,14 @@ function Json.Encode(val, indent)
             if rawget(value, 1) ~= nil or next(value) == nil then
                 -- Array
                 for _, v in ipairs(value) do
-                    table.insert(res, nextIndent .. EncodeValue(v, stack, nextIndent))
+                    I(res, nextIndent .. EncodeValue(v, stack, nextIndent))
                 end
                 stack[value] = nil
                 return "[\n" .. table.concat(res, ",\n") .. "\n" .. currentIndent .. "]"
             else
                 -- Object
                 for k, v in pairs(value) do
-                    table.insert(res, nextIndent .. EncodeString(k) .. ": " .. EncodeValue(v, stack, nextIndent))
+                    I(res, nextIndent .. EncodeString(k) .. ": " .. EncodeValue(v, stack, nextIndent))
                 end
                 stack[value] = nil
                 return "{\n" .. table.concat(res, ",\n") .. "\n" .. currentIndent .. "}"
@@ -136,10 +135,6 @@ function Json.Encode(val, indent)
 
     return EncodeValue(val)
 end
-
--------------------------------------------------------------------------------
--- Decode
--------------------------------------------------------------------------------
 
 local Parse
 
@@ -181,7 +176,7 @@ local function DecodeError(str, idx, msg)
             colCount = 1
         end
     end
-    Logger.Log(eLogColor.RED, "Silent Night", string.format("%s at line %d col %d", msg, lineCount, colCount))
+    Logger.LogError(F("%s at line %d col %d", msg, lineCount, colCount))
 end
 
 local function CodepointToUtf8(n)
@@ -195,12 +190,12 @@ local function CodepointToUtf8(n)
     elseif n <= 0x10ffff then
         return string.char(f(n / 262144) + 240, f(n % 262144 / 4096) + 128, f(n % 4096 / 64) + 128, n % 64 + 128)
     end
-    Logger.Log(eLogColor.RED, "Silent Night", string.format("invalid unicode codepoint '%x'", n))
+    Logger.LogError(F("invalid unicode codepoint '%x'", n))
 end
 
 local function ParseUnicodeEscape(s)
-    local n1 = tonumber(s:sub(1, 4), 16)
-    local n2 = tonumber(s:sub(7, 10), 16)
+    local n1 = N(s:sub(1, 4), 16)
+    local n2 = N(s:sub(7, 10), 16)
     -- Surrogate pair?
     if n2 then
         return CodepointToUtf8((n1 - 0xd800) * 0x400 + (n2 - 0xdc00) + 0x10000)
@@ -250,7 +245,7 @@ end
 local function ParseNumber(str, i)
     local x = NextChar(str, i, delimChars)
     local s = str:sub(i, x - 1)
-    local n = tonumber(s)
+    local n = N(s)
     if not n then
         DecodeError(str, i, "invalid number '" .. s .. "'")
     end
@@ -359,7 +354,7 @@ end
 
 function Json.Decode(str)
     if type(str) ~= "string" or str == "" then
-        Logger.Log(eLogColor.RED, "Silent Night", "expected non-empty string, got " .. tostring(str))
+        Logger.LogError("expected non-empty string, got " .. S(str))
     end
     local res, idx = Parse(str, NextChar(str, 1, spaceChars, true))
     idx = NextChar(str, idx, spaceChars, true)
@@ -373,12 +368,16 @@ function Json.EncodeToFile(path, tbl)
     if FileMgr.DoesFileExist(path) then
         FileMgr.DeleteFile(path)
     end
+
     FileMgr.WriteFileContent(path, Json.Encode(tbl), false)
 end
 
 function Json.DecodeFromFile(path)
     if not FileMgr.DoesFileExist(path) then
-       Logger.Log(eLogColor.RED, "Silent Night", string.format("File not found: %s", path))
+       Logger.LogError(F("File not found: %s", path))
     end
+
     return Json.Decode(FileMgr.ReadFileContent(path))
 end
+
+--#endregion

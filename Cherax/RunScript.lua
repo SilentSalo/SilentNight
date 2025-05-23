@@ -1,62 +1,84 @@
-local folders = { "Features", "Functions", "Tables", "Variables" }
-local files   = {
-    "vVariables",
-    "eNative",
+--#region Run Script
+
+local folders = { "Features", "Functions", "Tables", "Variables", "Wrappers" }
+
+local files = {
+    "Shortcuts",
+    "Generic",
+    "Logger",
+    "GUI",
+    "Natives",
     "eTunable",
     "eGlobal",
     "eLocal",
-    "eScript",
     "eStat",
     "ePackedBool",
     "eTable",
+    "eNative",
+    "eScript",
+    "Utils",
+    "Parser",
+    "Helper",
     "eFeature",
-    "fParse",
-    "vFeatures",
-    "hGeneric",
-    "hAgency",
-    "hApartment",
-    "hAutoShop",
-    "hCayoPerico",
-    "hDiamondCasino",
-    "hDoomsday",
-    "hSalvageYard",
-    "bBunker",
-    "bHangarCargo",
-    "bNightclub",
-    "bSpecialCargo",
-    "bMisc",
-    "mCasino",
-    "mEasyMoney",
-    "mMisc",
-    "dEditor",
-    "sSettings",
-    "fFunctions",
-    "fRegisterLooped",
-    "fEvents",
-    "fJson",
-    "fRender"
+    "Features",
+    "ClickGUI",
+    "Tab",
+    "EventMgr",
+    "FeatureMgr",
+    "FileMgr",
+    "GTA",
+    "ImGui",
+    "Json",
+    "HeistTool",
+    "BusinessTool",
+    "MoneyTool",
+    "DevTool",
+    "Settings",
+    "Script",
+    "Renderer"
 }
 
 local function RunScript()
     local root = string.format("%s\\Lua\\SilentNight", FileMgr.GetMenuRootPath())
+    local missingFiles = {}
+    local filePaths = {}
 
     for _, file in ipairs(files) do
         local found = false
 
         for _, folder in ipairs(folders) do
             local filePath = string.format("%s\\%s\\%s.lua", root, folder, file)
-            
+
             if FileMgr.DoesFileExist(filePath) then
-                dofile(filePath)
                 found = true
+                filePaths[#filePaths + 1] = filePath
                 break
             end
         end
 
         if not found then
-            Logger.Log(eLogColor.RED, "Silent Night", string.format("File not found: %s", file))
+            missingFiles[#missingFiles + 1] = file
         end
+    end
+
+    if #missingFiles > 0 then
+        Logger.Log(eLogColor.LIGHTRED, "Silent Night (Error)", "Couldn't start Silent Night. Some files are missing.")
+
+        for _, file in ipairs(missingFiles) do
+            Logger.Log(eLogColor.LIGHTRED, "Silent Night (Error)", string.format("File not found: %s.lua", file))
+        end
+
+        GUI.AddToast("Silent Night", "Couldn't start Silent Night. Some files are missing.", 5000, eToastPos.TOP_RIGHT)
+
+        SetShouldUnload()
+        return
+    end
+
+    for _, filePath in ipairs(filePaths) do
+        dofile(filePath)
     end
 end
 
 RunScript()
+
+--#endregion

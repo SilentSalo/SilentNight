@@ -1,5 +1,8 @@
+--#region eTable
+
 eTable = {
     HAS_PARSED = false,
+
     Business = {
         Hangar = {
             Cargoes = {
@@ -13,6 +16,7 @@ eTable = {
                 { name = "Tabacco n Alcohol", index = 8 },
             }
         },
+
         Nightclub = {
             Cargoes = {
                 { name = "Cargo n Shipments",  index = "HUB_PROD_TOTAL_0" },
@@ -24,8 +28,10 @@ eTable = {
                 { name = "Cash Creation",      index = "HUB_PROD_TOTAL_6" },
             }
         },
+
         Supplies = {}
     },
+
     Heist = {
         Generic = {
             Team = {
@@ -33,13 +39,9 @@ eTable = {
                 { name = "Duo",   index = 2 },
                 { name = "Trio",  index = 3 },
                 { name = "Squad", index = 4 }
-            },
-            Presets = {
-                { name = "All - 0%",   index = 0   },
-                { name = "All - 85%",  index = 85  },
-                { name = "All - 100%", index = 100 }
             }
         },
+
         Agency = {
             Contracts = {
                 { name = "Nightclub",       index = 3    },
@@ -55,23 +57,21 @@ eTable = {
                 { name = "Don't # W. Dre",  index = -1   }
             }
         },
+
         Apartment = {
-            Team = {
-                { name = "Solo",  index = 1 },
-                { name = "Duo",   index = 2 },
-                { name = "Squad", index = 4 }
-            },
             Receivers = {
                 { name = "All",       index = 0 },
                 { name = "Only Crew", index = 1 },
                 { name = "Only Me",   index = 2 }
             },
+
             Presets = {
                 { name = "All - 0%",    index = 0   },
                 { name = "All - 85%",   index = 85  },
                 { name = "All - 100%",  index = 100 },
                 { name = "3mil Payout", index = -1  }
             },
+
             Heists = {
                 FleecaJob   = 1328892776,
                 PrisonBreak = 964111671,
@@ -80,6 +80,7 @@ eTable = {
                 PacificJob  = 1182286714
             }
         },
+
         AutoShop = {
             Contracts = {
                 { name = "Union Deposit.",  index = 0 },
@@ -92,11 +93,13 @@ eTable = {
                 { name = "Data Contract",   index = 7 }
             }
         },
+
         CayoPerico = {
             Difficulties = {
                 { name = "Normal", index = 126823 },
                 { name = "Hard",   index = 131055 }
             },
+
             Approaches = {
                 { name = "Kosatka",        index = 65283 },
                 { name = "Alkonost",       index = 65413 },
@@ -106,6 +109,7 @@ eTable = {
                 { name = "Longfin",        index = 65345 },
                 { name = "All Ways",       index = 65535 }
             },
+
             Loadouts = {
                 { name = "Aggressor",   index = 1 },
                 { name = "Conspirator", index = 2 },
@@ -113,6 +117,7 @@ eTable = {
                 { name = "Saboteur",    index = 4 },
                 { name = "Marksman",    index = 5 },
             },
+
             Targets = {
                 Primary = {
                     { name = "Sinsimito Tequil.", index = 0 },
@@ -180,24 +185,29 @@ eTable = {
                     }
                 }
             },
+
             Presets = {
                 { name = "All - 0%",       index = 0   },
                 { name = "All - 85%",      index = 85  },
                 { name = "All - 100%",     index = 100 },
                 { name = "2.55mil Payout", index = -1  }
             },
+
             Files = {}
         },
+
         DiamondCasino = {
             Difficulties = {
                 { name = "Normal", index = 0 },
                 { name = "Hard",   index = 1 }
             },
+
             Approaches = {
                 { name = "Silent n Snea.",  index = 1 },
                 { name = "Big Con",         index = 2 },
                 { name = "Aggressive",      index = 3 }
             },
+
             Gunmans = {
                 { name = "Karl Abolaji",    index = 1 },
                 { name = "Charlie Reed",    index = 3 },
@@ -205,6 +215,7 @@ eTable = {
                 { name = "Gustavo Mota",    index = 2 },
                 { name = "Chester McCoy",   index = 4 }
             },
+
             Loadouts = {
                 { name = "Micro SMG (S)",     index = 1 },
                 { name = "Mac. Pistol (S)",   index = 1 },
@@ -237,6 +248,7 @@ eTable = {
                 { name = "Pump Shot. II",     index = 4 },
                 { name = "Assault Rifle II",  index = 4 }
             },
+
             Drivers = {
                 { name = "Karim Denz",       index = 1 },
                 { name = "Zach Nelson",      index = 4 },
@@ -244,6 +256,7 @@ eTable = {
                 { name = "Eddie Toh",        index = 3 },
                 { name = "Chester McCoy",    index = 5 }
             },
+
             Vehicles = {
                 { name = "Issi Classic",     index = 1 },
                 { name = "Asbo",             index = 1 },
@@ -266,6 +279,7 @@ eTable = {
                 { name = "Outlaw",           index = 5 },
                 { name = "Everon",           index = 5 }
             },
+
             Hackers = {
                 { name = "Rickie Lukens",   index = 1 },
                 { name = "Yohan Blair",     index = 3 },
@@ -273,9 +287,10 @@ eTable = {
                 { name = "Page Harris",     index = 5 },
                 { name = "Avi Schwartz.",   index = 4 }
             },
+
             Masks = {
                 { name = "None",              index = 0  },
-                { name = "Geometic Set",      index = 1  },
+                { name = "Geometric Set",     index = 1  },
                 { name = "Hunter Set",        index = 2  },
                 { name = "Oni Half Mask Set", index = 3  },
                 { name = "Emoji Set",         index = 4  },
@@ -288,27 +303,58 @@ eTable = {
                 { name = "Oni Full Mask Set", index = 11 },
                 { name = "Hockey Set",        index = 12 }
             },
+
+            Guards = {
+                { name = "Elite",  index = 0 },
+                { name = "Pro",    index = 1 },
+                { name = "Unit",   index = 2 },
+                { name = "Rookie", index = 3 }
+            },
+
+            Keycards = {
+                { name = "None",    index = 0 },
+                { name = "Level 1", index = 1 },
+                { name = "Level 2", index = 2 }
+            },
+
             Targets = {
                 { name = "Cash",     index = 0 },
                 { name = "Arts",     index = 2 },
                 { name = "Gold",     index = 1 },
                 { name = "Diamonds", index = 3 }
             },
+
             Presets = {
                 { name = "All - 0%",      index = 0   },
                 { name = "All - 85%",     index = 85  },
                 { name = "All - 100%",    index = 100 },
                 { name = "3.6mil Payout", index = -1  }
             },
+
             Files = {}
         },
+
         Doomsday = {
             Acts = {
                 { name = "Data Breaches",     index = 1 },
                 { name = "Bogdan Problem",    index = 2 },
                 { name = "Doomsday Scenario", index = 3 }
+            },
+
+            Presets = {
+                { name = "All - 0%",       index = 0   },
+                { name = "All - 85%",      index = 85  },
+                { name = "All - 100%",     index = 100 },
+                { name = "2.55mil Payout", index = -1  }
+            },
+
+            Heists = {
+                Data     = 503,
+                Bogdan   = 240,
+                Doomsday = 16368,
             }
         },
+
         SalvageYard = {
             Robberies = {
                 { name = "Cargo Ship", index = 0 },
@@ -317,6 +363,7 @@ eTable = {
                 { name = "Podium",     index = 3 },
                 { name = "McTony",     index = 4 }
             },
+
             Vehicles = {
                 { name = "LM87",              index = 1   },
                 { name = "Cinquemila",        index = 2   },
@@ -419,6 +466,7 @@ eTable = {
                 { name = "Kanjo SJ",          index = 99  },
                 { name = "Previon",           index = 100 }
             },
+
             Modifications = {
                 { name = "Version 1", index = 0 },
                 { name = "Version 2", index = 1 },
@@ -426,12 +474,14 @@ eTable = {
                 { name = "Version 4", index = 3 },
                 { name = "Version 5", index = 4 },
             },
+
             Keeps = {
                 { name = "Can't Claim", index = false },
                 { name = "Can Claim",   index = true  }
             }
         }
     },
+
     Cash = {
         Stats = {
             Earneds = {
@@ -458,6 +508,7 @@ eTable = {
             }
         }
     },
+
     Session = {
         Types = {
             Public       = 0,
@@ -472,6 +523,7 @@ eTable = {
             Offline      = 9
         }
     },
+
     World = {
         Casino = {
             Prizes = {
@@ -497,6 +549,7 @@ eTable = {
             }
         }
     },
+
     Story = {
         Characters = {
             { name = "Michael",  index = 0 },
@@ -504,6 +557,7 @@ eTable = {
             { name = "Trevor",   index = 2 }
         }
     },
+
     Editor = {
         Globals = {
             Types = {
@@ -512,20 +566,24 @@ eTable = {
                 { name = "bool",   index = 2 }
             }
         },
+
         Locals = {
             Types = {
                 { name = "int",    index = 0 },
                 { name = "float",  index = 1 }
             }
         },
+
         Stats = {
             Types = {
                 { name = "int",    index = 0 },
                 { name = "float",  index = 1 },
                 { name = "bool",   index = 3 }
             },
+
             Files = {}
         },
+
         PackedStats = {
             Types = {
                 { name = "int",    index = 0 },
@@ -534,3 +592,5 @@ eTable = {
         }
     }
 }
+
+--#endregion

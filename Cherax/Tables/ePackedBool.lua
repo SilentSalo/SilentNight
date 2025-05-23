@@ -1,15 +1,21 @@
+--#region ePackedBool
+
 ePackedBool = {
     HAS_PARSED = false,
-    Business   = {
+
+    Business = {
         Arcade = {
             Setup = { 27227 }
         },
+
         CrateWarehouse = {
             Cargo = { 32359, 32363 }
         },
+
         Hangar = {
             Cargo = { 36828 }
         },
+
         Nightclub = {
             Setup = {
                 Staff     = { 18161 },
@@ -18,14 +24,17 @@ ePackedBool = {
             }
         }
     },
+
     Clothes = {
         DiamondCasino = { 28225, 28248 },
+
         Parachutes = {
             Part1 = { 3609         },
             Part2 = { 31791, 31796 },
             Part3 = { 34378, 34379 }
         }
     },
+
     Player = {
         Awards = {
             Doomsday            = { 18098, 18161 },
@@ -39,15 +48,18 @@ ePackedBool = {
             Contract            = { 32283, 32474 }
         }
     },
+
     Vehicle = {
         Unlock = {
             ArenaWar = { 24992, 24999 }
         },
+
         TradePrices = {
             ArenaWarVehicles = { 24963, 25109 },
             Headlights       = { 24980, 24991 }
         }
     },
+
     Weapon = {
         Livery = {
             DildodudeMicroSMG    = { 36788 },
@@ -62,3 +74,5 @@ ePackedBool = {
         }
     }
 }
+
+--#endregion
