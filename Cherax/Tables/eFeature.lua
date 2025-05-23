@@ -47,6 +47,9 @@ eFeature = {
                 desc = "Finishes the heist instantly. Use after you can see the minimap.",
                 func = function()
                     if GTA.IsScriptRunning(eScript.Heist.Old) then
+                        GTA.ForceScriptHost(eScript.Heist.Old)
+                        Script.Yield(1000)
+
                         eLocal.Heist.Generic.Finish.Old.Step1:Set(5)
                         eLocal.Heist.Generic.Finish.Old.Step2:Set(999999)
 
@@ -56,6 +59,9 @@ eFeature = {
 
                         eLocal.Heist.Generic.Finish.Old.Step3:Set(value)
                     elseif GTA.IsScriptRunning(eScript.Heist.New) then
+                        GTA.ForceScriptHost(eScript.Heist.New)
+                        Script.Yield(1000)
+
                         eLocal.Heist.Generic.Finish.New.Step1:Set(5)
                         eLocal.Heist.Generic.Finish.New.Step2:Set(999999)
 
