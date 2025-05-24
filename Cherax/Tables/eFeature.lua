@@ -215,7 +215,10 @@ eFeature = {
                     func = function()
                         GTA.ForceScriptHost(eScript.Heist.Apartment)
                         Script.Yield(1000)
-                        if eGlobal.Heist.Apartment.Heist.Type:Get() == eTable.Heist.Apartment.Heists.PacificJob then
+
+                        local heist = eGlobal.Heist.Apartment.Heist.Type:Get()
+
+                        if heist == eTable.Heist.Apartment.Heists.PacificJob then
                             eLocal.Heist.Apartment.Finish.Step2:Set(5)
                             eLocal.Heist.Apartment.Finish.Step3:Set(80)
                             eLocal.Heist.Apartment.Finish.Step4:Set(10000000)
@@ -1164,6 +1167,7 @@ eFeature = {
                     func = function()
                         GTA.ForceScriptHost(eScript.Heist.DiamondCasino)
                         Script.Yield(1000)
+
                         if eStat.MPX_H3OPT_APPROACH:Get() == 3 then
                             eLocal.Heist.DiamondCasino.Finish.Step1:Set(12)
                             eLocal.Heist.DiamondCasino.Finish.Step3:Set(80)

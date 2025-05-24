@@ -86,6 +86,15 @@ if GTA_EDITION == "EE" then
                     Pacific = {
                         Hack = { type = "int", vLocal = 10211, script = "fm_mission_controller" }
                     }
+                },
+
+                Finish = {
+                    Step1 = { type = "int", vLocal = 20387,            script = "fm_mission_controller" },
+                    Step2 = { type = "int", vLocal = 20387 + 1062,     script = "fm_mission_controller" },
+                    Step3 = { type = "int", vLocal = 20387 + 1740 + 1, script = "fm_mission_controller" },
+                    Step4 = { type = "int", vLocal = 20387 + 2686,     script = "fm_mission_controller" },
+                    Step5 = { type = "int", vLocal = 29006 + 1,        script = "fm_mission_controller" },
+                    Step6 = { type = "int", vLocal = 32462 + 1 + 68,   script = "fm_mission_controller" }
                 }
             },
 
@@ -275,6 +284,15 @@ else
                     Pacific = {
                         Hack = { type = "int", vLocal = 9811, script = "fm_mission_controller" }
                     }
+                },
+
+                Finish = {
+                    Step1 = { type = "int", vLocal = 19783,            script = "fm_mission_controller" },
+                    Step2 = { type = "int", vLocal = 19783 + 1062,     script = "fm_mission_controller" },
+                    Step3 = { type = "int", vLocal = 19783 + 1740 + 1, script = "fm_mission_controller" },
+                    Step4 = { type = "int", vLocal = 19783 + 2686,     script = "fm_mission_controller" },
+                    Step5 = { type = "int", vLocal = 28402 + 1,        script = "fm_mission_controller" },
+                    Step6 = { type = "int", vLocal = 31658 + 1 + 68,   script = "fm_mission_controller" }
                 }
             },
 

@@ -52,6 +52,8 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Reload)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Force)
 
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Finish)
+
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.FleecaHack)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.FleecaDrill)
@@ -90,9 +92,9 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Presets, function(f)
     local ftr    = eFeature.Heist.Apartment.Cuts.Presets
     local preset = ftr.list[f:GetListIndex() + 1].index
 
-    if preset == -1 then 
+    if preset == -1 then
         FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(true)
-        return 
+        return
     else
         FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(false)
     end
@@ -105,7 +107,9 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Presets, function(f)
     end
 end)
 
-FeatureMgr.AddLoop(eFeature.Heist.Apartment.Cuts.Bonus)
+FeatureMgr.AddLoop(eFeature.Heist.Apartment.Cuts.Bonus, nil, function(f)
+    eFeature.Heist.Apartment.Cuts.Bonus.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(false)
 
@@ -203,7 +207,9 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.PlasmaCutterCut)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.DrainagePipeCut)
 
-FeatureMgr.AddLoop(eFeature.Heist.CayoPerico.Misc.Bag)
+FeatureMgr.AddLoop(eFeature.Heist.CayoPerico.Misc.Bag, nil, function(f)
+    eFeature.Heist.CayoPerico.Misc.Bag.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Cooldown.Solo)
 
@@ -225,7 +231,9 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.Presets)
 
-FeatureMgr.AddLoop(eFeature.Heist.CayoPerico.Cuts.Crew)
+FeatureMgr.AddLoop(eFeature.Heist.CayoPerico.Cuts.Crew, nil, function(f)
+    eFeature.Heist.CayoPerico.Cuts.Crew.func(f)
+end)
 
 for i = 1, #cayoPlayers do
     FeatureMgr.AddFeature(cayoPlayers[i])
@@ -445,7 +453,9 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.Presets, function(f)
     end
 end)
 
-FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Cuts.Crew)
+FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Cuts.Crew, nil, function(f)
+    eFeature.Heist.DiamondCasino.Cuts.Crew.func(f)
+end)
 
 for i = 1, #diamondPlayers do
     FeatureMgr.AddFeature(diamondPlayers[i])
@@ -626,9 +636,13 @@ for i = 1, #salvageSlotsAvailable do
     FeatureMgr.AddFeature(salvageSlotsAvailable[i])
 end
 
-FeatureMgr.AddLoop(eFeature.Heist.SalvageYard.Misc.Free.Setup)
+FeatureMgr.AddLoop(eFeature.Heist.SalvageYard.Misc.Free.Setup, nil, function(f)
+    eFeature.Heist.SalvageYard.Misc.Free.Setup.func(f)
+end)
 
-FeatureMgr.AddLoop(eFeature.Heist.SalvageYard.Misc.Free.Claim)
+FeatureMgr.AddLoop(eFeature.Heist.SalvageYard.Misc.Free.Claim, nil, function(f)
+    eFeature.Heist.SalvageYard.Misc.Free.Claim.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Payout.Salvage)
 

@@ -2,7 +2,9 @@
 
 --#region Bunker
 
-FeatureMgr.AddLoop(eFeature.Business.Bunker.Sale.Price)
+FeatureMgr.AddLoop(eFeature.Business.Bunker.Sale.Price, nil, function(f)
+    eFeature.Business.Bunker.Sale.Price.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Sale.NoXp)
 
@@ -47,12 +49,14 @@ end)
 
 --#region Hangar Cargo
 
-FeatureMgr.AddLoop(eFeature.Business.Hangar.Sale.Price)
+FeatureMgr.AddLoop(eFeature.Business.Hangar.Sale.Price, nil, function(f)
+    eFeature.Business.Hangar.Sale.Price.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Sale.NoXp)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Sale.Sell, function(f)
-    local bool = FeatureMgr.GetFeature(eFeature.Business.Hangar.Sale.NoXp):IsToggled()
+    local bool = FeatureMgr.GetFeature(eFeature.Business.Hangar.Sale.NoXp)
     eFeature.Business.Hangar.Sale.Sell.func(bool)
 end)
 
@@ -62,7 +66,9 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Supply)
 
 FeatureMgr.AddLoop(eFeature.Business.Hangar.Misc.Supplier)
 
-FeatureMgr.AddLoop(eFeature.Business.Hangar.Misc.Cooldown)
+FeatureMgr.AddLoop(eFeature.Business.Hangar.Misc.Cooldown, nil, function(f)
+    eFeature.Business.Hangar.Misc.Cooldown.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Stats.BuyMade)
 
@@ -96,11 +102,15 @@ end)
 
 --#region Nightclub
 
-FeatureMgr.AddLoop(eFeature.Business.Nightclub.Sale.Price)
+FeatureMgr.AddLoop(eFeature.Business.Nightclub.Sale.Price, nil, function(f)
+    eFeature.Business.Nightclub.Sale.Price.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Open)
 
-FeatureMgr.AddLoop(eFeature.Business.Nightclub.Misc.Cooldown)
+FeatureMgr.AddLoop(eFeature.Business.Nightclub.Misc.Cooldown, nil, function(f)
+    eFeature.Business.Nightclub.Misc.Cooldown.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Setup)
 
@@ -136,13 +146,17 @@ FeatureMgr.AddFeature(eFeature.Business.Nightclub.Popularity.Max)
 
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Popularity.Min)
 
-FeatureMgr.AddLoop(eFeature.Business.Nightclub.Popularity.Lock)
+FeatureMgr.AddLoop(eFeature.Business.Nightclub.Popularity.Lock, nil, function(f)
+    eFeature.Business.Nightclub.Popularity.Lock.func(f)
+end)
 
 --#endregion
 
 --#region Special Cargo
 
-FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Sale.Price)
+FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Sale.Price, nil, function(f)
+    eFeature.Business.CrateWarehouse.Sale.Price.func(f)
+end)
 
 for i = 1, #specialSaleToggles do
     FeatureMgr.AddFeature(specialSaleToggles[i])
@@ -152,7 +166,7 @@ FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Sale.Sell, function(f)
     local bools = {}
 
     for i = 1, #specialSaleToggles do
-        I(bools, FeatureMgr.GetFeature(specialSaleToggles[i]):IsToggled())
+        I(bools, FeatureMgr.GetFeature(specialSaleToggles[i]))
     end
 
     eFeature.Business.CrateWarehouse.Sale.Sell.func(U(bools))
@@ -165,7 +179,7 @@ FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Misc.Supplier)
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Select)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Max, function(f)
-     FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Select):SetIntValue(111)
+    FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Select):SetIntValue(111)
 end)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Buy, function(f)
@@ -173,7 +187,9 @@ FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Buy, function(f)
     eFeature.Business.CrateWarehouse.Misc.Buy.func(amount)
 end)
 
-FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Misc.Cooldown)
+FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Misc.Cooldown, nil, function(f)
+    eFeature.Business.CrateWarehouse.Misc.Cooldown.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Stats.BuyMade)
 
