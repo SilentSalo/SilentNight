@@ -8,8 +8,6 @@ FeatureMgr.AddFeature(eFeature.Heist.Generic.Cutscene)
 
 FeatureMgr.AddFeature(eFeature.Heist.Generic.Skip)
 
-FeatureMgr.AddFeature(eFeature.Heist.Generic.Finish)
-
 FeatureMgr.AddFeature(eFeature.Heist.Generic.Cut)
 
 FeatureMgr.AddFeature(eFeature.Heist.Generic.Apply, function(f)
@@ -29,7 +27,9 @@ FeatureMgr.AddFeature(eFeature.Heist.Agency.Preps.Complete, function(f)
     eFeature.Heist.Agency.Preps.Complete.func(contract)
 end)
 
-FeatureMgr.AddLoop(eFeature.Heist.Agency.Misc.Cooldown)
+FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Finish)
+
+FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
 
 FeatureMgr.AddFeature(eFeature.Heist.Agency.Payout.Select)
 
@@ -150,6 +150,8 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Preps.Reload)
 
+FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Finish)
+
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Cooldown)
 
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Select)
@@ -200,6 +202,8 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Reset)
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Reload)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Force)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Finish)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.FingerprintHack)
 
@@ -539,6 +543,8 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Reset)
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Reload)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Force)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Finish)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.DataHack)
 

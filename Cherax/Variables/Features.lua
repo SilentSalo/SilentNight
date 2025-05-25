@@ -152,16 +152,12 @@ specialToggles = {
     eFeature.Business.CrateWarehouse.Stats.NoEarnings
 }
 
-easyFreeLoops = {
-    eFeature.Money.EasyMoney.Freeroam.Loop50k,
-    eFeature.Money.EasyMoney.Freeroam.Loop100k,
-    eFeature.Money.EasyMoney.Freeroam.Loop180k
-}
-
-easyFreeLoopDelays = {
-    eFeature.Money.EasyMoney.Delay.Loop50k,
-    eFeature.Money.EasyMoney.Delay.Loop100k,
-    eFeature.Money.EasyMoney.Delay.Loop180k
+easyLoops = {
+    eFeature.Money.EasyMoney.Freeroam._5k,
+    eFeature.Money.EasyMoney.Freeroam._50k,
+    eFeature.Money.EasyMoney.Freeroam._100k,
+    eFeature.Money.EasyMoney.Freeroam._180k,
+    eFeature.Money.EasyMoney.Property._300k
 }
 
 devStatsDefault = {
@@ -180,6 +176,23 @@ devStatsFromFile = {
     eFeature.Dev.Editor.Stats.Refresh,
     eFeature.Dev.Editor.Stats.Copy,
     eFeature.Dev.Editor.Stats.Generate
+}
+
+settingsInstantFinishes = {
+    eFeature.Settings.InstantFinish.Agency,
+    eFeature.Settings.InstantFinish.Apartment,
+    eFeature.Settings.InstantFinish.AutoShop,
+    eFeature.Settings.InstantFinish.CayoPerico,
+    eFeature.Settings.InstantFinish.DiamondCasino,
+    eFeature.Settings.InstantFinish.Doomsday
+}
+
+settingsEasyDelays = {
+    eFeature.Settings.EasyMoney.Delay._5k,
+    eFeature.Settings.EasyMoney.Delay._50k,
+    eFeature.Settings.EasyMoney.Delay._100k,
+    eFeature.Settings.EasyMoney.Delay._180k,
+    eFeature.Settings.EasyMoney.Delay._300k
 }
 
 --#endregion

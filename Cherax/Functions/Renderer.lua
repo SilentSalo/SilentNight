@@ -18,7 +18,7 @@ function Renderer.RenderHeistTool()
                     if ClickGUI.BeginCustomChildWindow("Misc") then
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
-                        ClickGUI.RenderFeature(eFeature.Heist.Generic.Finish)
+                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Finish)
                         ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Cooldown)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -96,7 +96,7 @@ function Renderer.RenderHeistTool()
                     if ClickGUI.BeginCustomChildWindow("Misc") then
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
-                        ClickGUI.RenderFeature(eFeature.Heist.Generic.Finish)
+                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Misc.Finish)
                         ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Misc.Cooldown)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -155,7 +155,7 @@ function Renderer.RenderHeistTool()
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.Force)
-                        ClickGUI.RenderFeature(eFeature.Heist.Generic.Finish)
+                        ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.Finish)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.FingerprintHack)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.PlasmaCutterCut)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.DrainagePipeCut)
@@ -288,7 +288,7 @@ function Renderer.RenderHeistTool()
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Misc.Force)
-                        ClickGUI.RenderFeature(eFeature.Heist.Generic.Finish)
+                        ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Misc.Finish)
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Misc.DataHack)
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Misc.DoomsdayHack)
                         ClickGUI.EndCustomChildWindow()
@@ -630,29 +630,20 @@ function Renderer.RenderMoneyTool()
                         ClickGUI.EndCustomChildWindow()
                     end
 
-                    if ClickGUI.BeginCustomChildWindow("Delays") then
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Delay.Loop5k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Delay.Loop50k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Delay.Loop100k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Delay.Loop180k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Delay.Loop300k)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Freeroam") then
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam.Loop5k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam.Loop50k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam.Loop100k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam.Loop180k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._50k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._100k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._180k)
                         ClickGUI.EndCustomChildWindow()
                     end
 
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Property") then
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Property.Loop300k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Property._300k)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
@@ -812,8 +803,41 @@ function Renderer.RenderSettings()
         if ImGui.BeginTabBar("Settings Tabs") then
             if ImGui.BeginTabItem("General") then
                 if ImGui.BeginColumns(3) then
+                    if ClickGUI.BeginCustomChildWindow("Config") then
+                        ImGui.RedButtonStyle()
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Reset)
+                        ImGui.ResetButtonStyle()
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Copy)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     if ClickGUI.BeginCustomChildWindow("Discord") then
-                        ClickGUI.RenderFeature(eFeature.Settings.Discord.CopyLink)
+                        ClickGUI.RenderFeature(eFeature.Settings.Discord.Copy)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("Instant Finish") then
+                        ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.Agency)
+                        ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.Apartment)
+                        ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.AutoShop)
+                        ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.CayoPerico)
+                        ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.DiamondCasino)
+                        ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.Doomsday)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("Easy Money") then
+                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Prevention)
+                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._5k)
+                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._50k)
+                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._100k)
+                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._180k)
+                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._300k)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
@@ -856,7 +880,7 @@ function Renderer.RenderListGUI()
             AgencyTab:AddSeperator("Misc")
             AgencyTab:AddFeature(eFeature.Heist.Generic.Cutscene)
             AgencyTab:AddFeature(eFeature.Heist.Generic.Skip)
-            AgencyTab:AddFeature(eFeature.Heist.Generic.Finish)
+            AgencyTab:AddFeature(eFeature.Heist.Agency.Misc.Finish)
             AgencyTab:AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
 
             AgencyTab:AddSeperator("Payout")
@@ -907,7 +931,7 @@ function Renderer.RenderListGUI()
             AutoShopTab:AddSeperator("Misc")
             AutoShopTab:AddFeature(eFeature.Heist.Generic.Cutscene)
             AutoShopTab:AddFeature(eFeature.Heist.Generic.Skip)
-            AutoShopTab:AddFeature(eFeature.Heist.Generic.Finish)
+            AutoShopTab:AddFeature(eFeature.Heist.AutoShop.Misc.Finish)
             AutoShopTab:AddFeature(eFeature.Heist.AutoShop.Misc.Cooldown)
 
             AutoShopTab:AddSeperator("Payout")
@@ -945,7 +969,7 @@ function Renderer.RenderListGUI()
             CayoPericoTab:AddFeature(eFeature.Heist.Generic.Cutscene)
             CayoPericoTab:AddFeature(eFeature.Heist.Generic.Skip)
             CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Misc.Force)
-            CayoPericoTab:AddFeature(eFeature.Heist.Generic.Finish)
+            CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Misc.Finish)
             CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Misc.FingerprintHack)
             CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Misc.PlasmaCutterCut)
             CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Misc.DrainagePipeCut)
@@ -1038,7 +1062,7 @@ function Renderer.RenderListGUI()
             DoomsdayTab:AddFeature(eFeature.Heist.Generic.Cutscene)
             DoomsdayTab:AddFeature(eFeature.Heist.Generic.Skip)
             DoomsdayTab:AddFeature(eFeature.Heist.Doomsday.Misc.Force)
-            DoomsdayTab:AddFeature(eFeature.Heist.Generic.Finish)
+            DoomsdayTab:AddFeature(eFeature.Heist.Doomsday.Misc.Finish)
             DoomsdayTab:AddFeature(eFeature.Heist.Doomsday.Misc.DataHack)
             DoomsdayTab:AddFeature(eFeature.Heist.Doomsday.Misc.DoomsdayHack)
 
@@ -1258,18 +1282,11 @@ function Renderer.RenderListGUI()
         if MiscTab then
             local EasyMoneyTab = MiscTab:AddSubTab("Easy Money", "Easy Money")
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Instant.Give30m)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam.Loop5k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam.Loop50k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam.Loop100k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam.Loop180k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Property.Loop300k)
-
-            EasyMoneyTab:AddSeperator("Delays")
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Delay.Loop5k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Delay.Loop50k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Delay.Loop100k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Delay.Loop180k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Delay.Loop300k)
+            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._5k)
+            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._50k)
+            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._100k)
+            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._180k)
+            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Property._300k)
 
             MiscTab:AddSeperator("Edit")
             MiscTab:AddFeature(eFeature.Money.Misc.Edit.Select)
@@ -1342,7 +1359,7 @@ function Renderer.RenderListGUI()
     local SettingsTab = SilentNightTab:AddSubTab("Settings", "Settings")
     if SettingsTab then
         SettingsTab:AddSeperator("Discord")
-        SettingsTab:AddFeature(eFeature.Settings.Discord.CopyLink)
+        SettingsTab:AddFeature(eFeature.Settings.Discord.Copy)
     end
 end
 

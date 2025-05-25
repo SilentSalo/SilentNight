@@ -209,19 +209,11 @@ end)
 local lastStates = { false, false, false, false, false }
 
 Script.RegisterLooped(function()
-    local loops = {
-        eFeature.Money.EasyMoney.Freeroam.Loop5k,
-        eFeature.Money.EasyMoney.Freeroam.Loop50k,
-        eFeature.Money.EasyMoney.Freeroam.Loop100k,
-        eFeature.Money.EasyMoney.Freeroam.Loop180k,
-        eFeature.Money.EasyMoney.Property.Loop300k
-    }
-
-    if ShouldUnload() then return end
+    if ShouldUnload() or not CONFIG.easy_money.dummy_prevention then return end
 
     local toggledNow = nil
 
-    for i, ftr in ipairs(loops) do
+    for i, ftr in ipairs(easyLoops) do
         local isOn = FeatureMgr.GetFeature(ftr):IsToggled()
 
         if isOn and not lastStates[i] then
@@ -232,7 +224,7 @@ Script.RegisterLooped(function()
     end
 
     if toggledNow then
-        for i, ftr in ipairs(loops) do
+        for i, ftr in ipairs(easyLoops) do
             FeatureMgr.GetFeature(ftr):Toggle(i == toggledNow)
         end
     end

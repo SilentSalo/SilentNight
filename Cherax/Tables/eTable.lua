@@ -44,17 +44,18 @@ eTable = {
 
         Agency = {
             Contracts = {
-                { name = "Nightclub",       index = 3    },
-                { name = "Marina",          index = 4    },
-                { name = "Nightclub Leak",  index = 12   },
-                { name = "Country Club",    index = 28   },
-                { name = "Guest List",      index = 60   },
-                { name = "High Soc. Leak",  index = 124  },
-                { name = "Davis",           index = 252  },
-                { name = "The Ballas",      index = 508  },
+                { name = "None",            index = 3    },
+                { name = "Nightclub",       index = 4    },
+                { name = "Marina",          index = 12   },
+                { name = "Nightlife Leak",  index = 28   },
+                { name = "Country Club",    index = 60   },
+                { name = "Guest List",      index = 123  },
+                { name = "High Soc. Leak",  index = 254  },
+                { name = "Davis",           index = 508  },
+                { name = "Ballas",          index = 1020 },
                 { name = "Sou. Cen. Leak",  index = 2044 },
-                { name = "Studio Time",     index = 4095 },
-                { name = "Don't # W. Dre",  index = -1   }
+                { name = "Studio Time",     index = 2045 },
+                { name = "Don't # W. Dre",  index = 4095 }
             }
         },
 
@@ -83,14 +84,15 @@ eTable = {
 
         AutoShop = {
             Contracts = {
-                { name = "Union Deposit.",  index = 0 },
-                { name = "Superdol. Deal",  index = 1 },
-                { name = "Bank Contract",   index = 2 },
-                { name = "ECU Job",         index = 3 },
-                { name = "Prison Contrac.", index = 4 },
-                { name = "Agency Deal",     index = 5 },
-                { name = "Lost Contract",   index = 6 },
-                { name = "Data Contract",   index = 7 }
+                { name = "None",            index = -1 },
+                { name = "Union Deposit.",  index = 0  },
+                { name = "Superdol. Deal",  index = 1  },
+                { name = "Bank Contract",   index = 2  },
+                { name = "ECU Job",         index = 3  },
+                { name = "Prison Contrac.", index = 4  },
+                { name = "Agency Deal",     index = 5  },
+                { name = "Lost Contract",   index = 6  },
+                { name = "Data Contract",   index = 7  }
             }
         },
 
@@ -589,6 +591,13 @@ eTable = {
                 { name = "int",    index = 0 },
                 { name = "bool",   index = 1 }
             }
+        }
+    },
+
+    Settings = {
+        Methods = {
+            { name = "Old", index = 0 },
+            { name = "New", index = 1 }
         }
     }
 }

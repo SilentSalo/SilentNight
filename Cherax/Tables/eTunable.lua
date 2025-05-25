@@ -116,7 +116,6 @@ eTunable = {
             Cooldown = {
                 Story    = { type = "int", tunable = "FIXER_STORY_COOLDOWN_POSIX",             defaultValue = 1800   },
                 Security = { type = "int", tunable = "FIXER_SECURITY_CONTRACT_COOLDOWN_TIME",  defaultValue = 300000 },
-                Reward   = { type = "int", tunable = "VIP_CONTRACT_MIN_CASH_REWARD",           defaultValue = 500    },
                 Payphone = { type = "int", tunable = "REQUEST_FRANKLIN_PAYPHONE_HIT_COOLDOWN", defaultValue = 600000 }
             }
         },

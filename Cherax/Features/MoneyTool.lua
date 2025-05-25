@@ -89,30 +89,12 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Instant.Give30m)
 
-FeatureMgr.AddLoop(eFeature.Money.EasyMoney.Freeroam.Loop5k, function(f)
-    local delay = FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Delay.Loop5k):GetFloatValue()
-    eFeature.Money.EasyMoney.Freeroam.Loop5k.func(delay)
-end)
-
-for i = 1, #easyFreeLoops do
-    FeatureMgr.AddLoop(easyFreeLoops[i], function(f)
-        local delay = FeatureMgr.GetFeature(easyFreeLoopDelays[i]):GetFloatValue()
-        easyFreeLoops[i].func(delay)
+for i = 1, #easyLoops do
+    FeatureMgr.AddLoop(easyLoops[i], function(f)
+        local delay = FeatureMgr.GetFeature(settingsEasyDelays[i]):GetFloatValue()
+        easyLoops[i].func(delay)
     end)
 end
-
-FeatureMgr.AddLoop(eFeature.Money.EasyMoney.Property.Loop300k, function(f)
-    local delay = FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Delay.Loop300k):GetFloatValue()
-    eFeature.Money.EasyMoney.Property.Loop300k.func(delay)
-end)
-
-FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Delay.Loop5k)
-
-for i = 1, #easyFreeLoopDelays do
-    FeatureMgr.AddFeature(easyFreeLoopDelays[i])
-end
-
-FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Delay.Loop300k)
 
 --#endregion
 

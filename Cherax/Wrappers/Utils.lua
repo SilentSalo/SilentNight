@@ -66,7 +66,7 @@ function Utils.FillDynamicTables()
     }
 
     for i = 0, 4 do
-        local slot = eStat["MPX_FACTORYSLOT" .. i]:Get()
+        local slot = eStat[F("MPX_FACTORYSLOT%d", i)]:Get()
 
         if slot > 0 then
             for _, business in ipairs(businesses) do

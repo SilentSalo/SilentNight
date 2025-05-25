@@ -40,40 +40,6 @@ eFeature = {
                 end
             },
 
-            Finish = {
-                hash = J("SN_Generic_Finish"),
-                name = "Instant Finish",
-                type = eFeatureType.Button,
-                desc = "Finishes the heist instantly. Use after you can see the minimap.",
-                func = function()
-                    if GTA.IsScriptRunning(eScript.Heist.Old) then
-                        GTA.ForceScriptHost(eScript.Heist.Old)
-                        Script.Yield(1000)
-
-                        eLocal.Heist.Generic.Finish.Old.Step1:Set(5)
-                        eLocal.Heist.Generic.Finish.Old.Step2:Set(999999)
-
-                        local value = eLocal.Heist.Generic.Finish.Old.Step3:Get()
-                        value = Helper.SetBit(value, 9)
-                        value = Helper.SetBit(value, 16)
-
-                        eLocal.Heist.Generic.Finish.Old.Step3:Set(value)
-                    elseif GTA.IsScriptRunning(eScript.Heist.New) then
-                        GTA.ForceScriptHost(eScript.Heist.New)
-                        Script.Yield(1000)
-
-                        eLocal.Heist.Generic.Finish.New.Step1:Set(5)
-                        eLocal.Heist.Generic.Finish.New.Step2:Set(999999)
-
-                        local value = eLocal.Heist.Generic.Finish.New.Step3:Get()
-                        value = Helper.SetBit(value, 9)
-                        value = Helper.SetBit(value, 16)
-
-                        eLocal.Heist.Generic.Finish.New.Step3:Set(value)
-                    end
-                end
-            },
-
             Cut = {
                 hash = J("SN_Generic_Cut"),
                 name = "Self",
@@ -111,20 +77,43 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Applies all changes and completes all preparations.",
                     func = function(contract)
-                        if contract < 12 then
-                            eStat.MPX_FIXER_STORY_BS:Set(contract)
+                        eStat.MPX_FIXER_STORY_BS:Set(contract)
+
+                        if contract < 18 then
+                            eStat.MPX_FIXER_STORY_STRAND:Set(0)
+                        elseif contract < 128 then
+                            eStat.MPX_FIXER_STORY_STRAND:Set(1)
+                        elseif contract < 2044 then
+                            eStat.MPX_FIXER_STORY_STRAND:Set(2)
                         else
-                            eStat.MPX_FIXER_STORY_BS:Set(contract)
-                            eStat.MPX_FIXER_FIXER_STORY_STRAND:Set(-1)
+                            eStat.MPX_FIXER_STORY_STRAND:Set(-1)
                         end
+
                         eStat.MPX_FIXER_GENERAL_BS:Set(-1)
                         eStat.MPX_FIXER_COMPLETED_BS:Set(-1)
-                        eStat.MPX_FIXER_STORY_COOLDOWN:Set(-1)
                     end
                 }
             },
 
             Misc = {
+                Finish = {
+                    hash = Utils.Joaat("SN_Agency_Finish"),
+                    name = "Instant Finish",
+                    type = eFeatureType.Button,
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
+                    func = function()
+                        if CONFIG.instant_finish.agency == 1 then
+                            Helper.NewInstantFinishHeist()
+                            return
+                        end
+
+                        ForceScriptHost(eScript.Heist.Agency)
+                        Script.Yield(1000)
+                        eLocal.Heist.Agency.Finish.Step1:Set(51338752)
+                        eLocal.Heist.Agency.Finish.Step2:Set(50)
+                    end
+                },
+
                 Cooldown = {
                     hash = J("SN_Agency_Cooldown"),
                     name = "Kill Cooldowns",
@@ -133,7 +122,6 @@ eFeature = {
                     func = function()
                         eTunable.Heist.Agency.Cooldown.Story:Set(0)
                         eTunable.Heist.Agency.Cooldown.Security:Set(0)
-                        eTunable.Heist.Agency.Cooldown.Reward:Set(0)
                         eTunable.Heist.Agency.Cooldown.Payphone:Set(0)
                     end
                 }
@@ -213,6 +201,11 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
+                        if CONFIG.instant_finish.apartment == 1 then
+                            Helper.NewInstantFinishHeist()
+                            return
+                        end
+
                         GTA.ForceScriptHost(eScript.Heist.Apartment)
                         Script.Yield(1000)
 
@@ -421,6 +414,8 @@ eFeature = {
                             eGlobal.Heist.Apartment.Cut.Player1.Local:Set(cuts[1])
                         elseif team ~= 1 and receivers == 1 then
                             SetCuts()
+                            Script.Yield(1000)
+                            eGlobal.Heist.Apartment.Cut.Player1.Local:Set(0)
                         elseif team == 1 or receivers == 2 then
                             eGlobal.Heist.Apartment.Cut.Player1.Local:Set(cuts[1])
                         end
@@ -465,6 +460,24 @@ eFeature = {
             },
 
             Misc = {
+                 Finish = {
+                    hash = Utils.Joaat("SN_AutoShop_Finish"),
+                    name = "Instant Finish",
+                    type = eFeatureType.Button,
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
+                    func = function()
+                        if CONFIG.instant_finish.auto_shop == 1 then
+                            Helper.NewInstantFinishHeist()
+                            return
+                        end
+
+                        ForceScriptHost(eScript.Heist.AutoShop)
+                        Script.Yield(1000)
+                        eLocal.Heist.AutoShop.Finish.Step1:Set(51338977)
+                        eLocal.Heist.AutoShop.Finish.Step2:Set(101)
+                    end
+                },
+
                 Cooldown = {
                     hash = J("SN_AutoShop_Cooldown"),
                     name = "Kill Cooldown",
@@ -681,6 +694,24 @@ eFeature = {
                         for i = 2, 4 do
                             eGlobal.Heist.CayoPerico.Ready[F("Player%d", i)]:Set(1)
                         end
+                    end
+                },
+
+                Finish = {
+                    hash = Utils.Joaat("SN_CayoPerico_Finish"),
+                    name = "Instant Finish",
+                    type = eFeatureType.Button,
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
+                    func = function()
+                        if CONFIG.instant_finish.cayo_perico == 1 then
+                            Helper.NewInstantFinishHeist()
+                            return
+                        end
+
+                        ForceScriptHost(eScript.Heist.CayoPerico)
+                        Script.Yield(1000)
+                        eLocal.Heist.CayoPerico.Finish.Step1:Set(9)
+                        eLocal.Heist.CayoPerico.Finish.Step2:Set(50)
                     end
                 },
 
@@ -1163,8 +1194,13 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Set the buyer to Low. Use after you can see the minimap.",
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.\nIf it doesn't work, try changing the «Instant Finish Method» in settings to «New».",
                     func = function()
+                        if CONFIG.instant_finish.cayo_perico == 1 then
+                            Helper.NewInstantFinishHeist()
+                            return
+                        end
+
                         GTA.ForceScriptHost(eScript.Heist.DiamondCasino)
                         Script.Yield(1000)
 
@@ -1512,6 +1548,27 @@ eFeature = {
                         for i = 2, 4 do
                             eGlobal.Heist.Doomsday.Ready[F("Player%d", i)]:Set(1)
                         end
+                    end
+                },
+
+                Finish = {
+                    hash = Utils.Joaat("SN_Doomsday_Finish"),
+                    name = "Instant Finish",
+                    type = eFeatureType.Button,
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
+                    func = function()
+                        if CONFIG.instant_finish.doomsday == 1 then
+                            Helper.NewInstantFinishHeist()
+                            return
+                        end
+
+                        ForceScriptHost(eScript.Heist.Doomsday)
+                        Script.Yield(1000)
+                        eLocal.Heist.Doomsday.Finish.Step1:Set(12)
+                        eLocal.Heist.Doomsday.Finish.Step2:Set(150)
+                        eLocal.Heist.Doomsday.Finish.Step3:Set(99999)
+                        eLocal.Heist.Doomsday.Finish.Step4:Set(99999)
+                        eLocal.Heist.Doomsday.Finish.Step5:Set(80)
                     end
                 },
 
@@ -3081,7 +3138,7 @@ eFeature = {
             },
 
             Freeroam = {
-                Loop5k = {
+                _5k = {
                     hash = J("SN_EasyMoney_5k"),
                     name = "5k Loop",
                     type = eFeatureType.Toggle,
@@ -3092,7 +3149,7 @@ eFeature = {
                     end
                 },
 
-                Loop50k = {
+                _50k = {
                     hash = J("SN_EasyMoney_50k"),
                     name = "50k Loop",
                     type = eFeatureType.Toggle,
@@ -3103,7 +3160,7 @@ eFeature = {
                     end
                 },
 
-                Loop100k = {
+                _100k = {
                     hash = J("SN_EasyMoney_100k"),
                     name = "100k Loop",
                     type = eFeatureType.Toggle,
@@ -3114,7 +3171,7 @@ eFeature = {
                     end
                 },
 
-                Loop180k = {
+                _180k = {
                     hash = J("SN_EasyMoney_180k"),
                     name = "180k Loop",
                     type = eFeatureType.Toggle,
@@ -3127,7 +3184,7 @@ eFeature = {
             },
 
             Property = {
-                Loop300k = {
+                _300k = {
                     hash = J("SN_EasyMoney_300k"),
                     name = "300k Loop",
                     type = eFeatureType.Toggle,
@@ -3153,53 +3210,6 @@ eFeature = {
 
                         Script.Yield(math.floor(delay * 1000))
                     end
-                }
-            },
-
-            Delay = {
-                Loop5k = {
-                    hash = J("SN_EasyMoney_5kDelay"),
-                    name = "5k Loop",
-                    type = eFeatureType.SliderFloat,
-                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
-                    defv = 1.5,
-                    lims = { 1.0, 5.0 }
-                },
-
-                Loop50k = {
-                    hash = J("SN_EasyMoney_50kDelay"),
-                    name = "50k Loop",
-                    type = eFeatureType.SliderFloat,
-                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
-                    defv = 0.333,
-                    lims = { 0.333, 5.0 }
-                },
-
-                Loop100k = {
-                    hash = J("SN_EasyMoney_100kDelay"),
-                    name = "100k Loop",
-                    type = eFeatureType.SliderFloat,
-                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
-                    defv = 0.333,
-                    lims = { 0.333, 5.0 }
-                },
-
-                Loop180k = {
-                    hash = J("SN_EasyMoney_180kDelay"),
-                    name = "180k Loop",
-                    type = eFeatureType.SliderFloat,
-                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
-                    defv = 0.333,
-                    lims = { 0.333, 5.0 }
-                },
-
-                Loop300k = {
-                    hash = J("SN_EasyMoney_300kDelay"),
-                    name = "300k Loop",
-                    type = eFeatureType.SliderFloat,
-                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
-                    defv = 1.0,
-                    lims = { 1.0, 5.0 }
                 }
             }
         },
@@ -3632,7 +3642,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Copies the stats folder path to the clipboard.",
                     func = function()
-                        FileMgr.CreateStatsPresetsDir()
+                        FileMgr.CreateStatsDir()
                         Helper.RefreshPresetsFiles()
                         ImGui.SetClipboardText(STATS_DIR)
                     end
@@ -3644,8 +3654,10 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Generates the example stats file.",
                     func = function()
-                        FileMgr.CreateStatsPresetsDir(true)
+                        FileMgr.CreateStatsDir(true)
                         Helper.RefreshPresetsFiles()
+                        Logger.LogInfo("Generated example stats file.")
+                        GUI.AddToast("Generated example stats file.")
                     end
                 }
             },
@@ -3734,14 +3746,198 @@ eFeature = {
 
     Settings = {
         Discord = {
-            CopyLink = {
-                hash = J("SN_Settings_DiscordCopyLink"),
+            Copy = {
+                hash = J("SN_Settings_CopyLink"),
                 name = "Copy Server Invite Link",
                 type = eFeatureType.Button,
                 desc = "Copies Discord server invite link to your clipboard.",
                 func = function()
                     ImGui.SetClipboardText(DISCORD)
                 end
+            }
+        },
+
+        Config = {
+            Reset = {
+                hash = J("SN_Settings_Reset"),
+                name = "Reset",
+                type = eFeatureType.Button,
+                desc = "Resets the config to default.",
+                func = function()
+                    FileMgr.ResetConfig()
+                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                end
+            },
+
+            Copy = {
+                hash = J("SN_Settings_Copy"),
+                name = "Copy Folder Path",
+                type = eFeatureType.Button,
+                desc = "Copies the config folder path to the clipboard.",
+                func = function()
+                    ImGui.SetClipboardText(CONFIG_DIR)
+                end
+            }
+        },
+
+        InstantFinish = {
+            Agency = {
+                hash = J("SN_Settings_Agency"),
+                name = "Agency",
+                type = eFeatureType.Combo,
+                desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
+                list = eTable.Settings.Methods,
+                func = function(ftr)
+                    CONFIG.instant_finish.agency = ftr:GetListIndex()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                end
+            },
+
+            Apartment = {
+                hash = J("SN_Settings_Apartment"),
+                name = "Apartment",
+                type = eFeatureType.Combo,
+                desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
+                list = eTable.Settings.Methods,
+                func = function(ftr)
+                    CONFIG.instant_finish.apartment = ftr:GetListIndex()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                end
+            },
+
+            AutoShop = {
+                hash = J("SN_Settings_AutoShop"),
+                name = "Auto Shop",
+                type = eFeatureType.Combo,
+                desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
+                list = eTable.Settings.Methods,
+                func = function(ftr)
+                    CONFIG.instant_finish.auto_shop = ftr:GetListIndex()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                end
+            },
+
+            CayoPerico = {
+                hash = J("SN_Settings_CayoPerico"),
+                name = "Cayo Perico",
+                type = eFeatureType.Combo,
+                desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
+                list = eTable.Settings.Methods,
+                func = function(ftr)
+                    CONFIG.instant_finish.cayo_perico = ftr:GetListIndex()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                end
+            },
+
+            DiamondCasino = {
+                hash = J("SN_Settings_DiamondCasino"),
+                name = "Diam. Casino",
+                type = eFeatureType.Combo,
+                desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
+                list = eTable.Settings.Methods,
+                func = function(ftr)
+                    CONFIG.instant_finish.diamond_casino = ftr:GetListIndex()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                end
+            },
+
+            Doomsday = {
+                hash = J("SN_Settings_Doomsday"),
+                name = "Doomsday",
+                type = eFeatureType.Combo,
+                desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
+                list = eTable.Settings.Methods,
+                func = function(ftr)
+                    CONFIG.instant_finish.doomsday = ftr:GetListIndex()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                end
+            }
+        },
+
+        EasyMoney = {
+            Prevention = {
+                hash = J("SN_Settings_Prevention"),
+                name = "Dummy Prevention",
+                type = eFeatureType.Toggle,
+                desc = "Prevents enabling multiple «Easy Money» loops simultaneously.",
+                func = function(ftr)
+                    CONFIG.easy_money.dummy_prevention = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                end
+            },
+
+            Delay = {
+                _5k = {
+                    hash = J("SN_Settings_5k"),
+                    name = "5k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
+                    lims = { 1.0, 5.0 },
+                    func = function(ftr)
+                        CONFIG.easy_money.delay._5k = ftr:GetFloatValue()
+                        FileMgr.SaveConfig(CONFIG)
+                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    end
+                },
+
+                _50k = {
+                    hash = J("SN_Settings_50k"),
+                    name = "50k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
+                    lims = { 0.333, 5.0 },
+                    func = function(ftr)
+                       CONFIG.easy_money.delay._50k = ftr:GetFloatValue()
+                        FileMgr.SaveConfig(CONFIG)
+                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    end
+                },
+
+                _100k = {
+                    hash = J("SN_Settings_100k"),
+                    name = "100k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
+                    lims = { 0.333, 5.0 },
+                    func = function(ftr)
+                        CONFIG.easy_money.delay._100k = ftr:GetFloatValue()
+                        FileMgr.SaveConfig(CONFIG)
+                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    end
+                },
+
+                _180k = {
+                    hash = J("SN_Settings_180k"),
+                    name = "180k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
+                    lims = { 0.333, 5.0 },
+                    func = function(ftr)
+                        CONFIG.easy_money.delay._180k = ftr:GetFloatValue()
+                        FileMgr.SaveConfig(CONFIG)
+                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    end
+                },
+
+                _300k = {
+                    hash = J("SN_Settings_300k"),
+                    name = "300k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
+                    lims = { 1.0, 5.0 },
+                    func = function(ftr)
+                        CONFIG.easy_money.delay._300k = ftr:GetFloatValue()
+                        FileMgr.SaveConfig(CONFIG)
+                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    end
+                }
             }
         }
     }
