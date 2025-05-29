@@ -16,12 +16,10 @@ end
 function EventMgr.OnUnload()
     EventMgr.RegisterHandler(eLuaEvent.ON_UNLOAD, function()
         if logTransactions then
-            Logger.LogError(F("Log Transactions is enabled. %s is unloading...", SCRIPT_NAME))
-            GUI.AddToast(F("Log Transactions is enabled. %s is unloading...", SCRIPT_NAME))
+            SilentLogger.LogError(F("«Log Transactions» is enabled. %s is unloading... ツ", SCRIPT_NAME))
         end
 
-        Logger.LogInfo(F("%s has unloaded.", SCRIPT_NAME))
-        GUI.AddToast(F("%s has unloaded.", SCRIPT_NAME))
+        SilentLogger.LogInfo(F("%s has unloaded ツ", SCRIPT_NAME))
     end)
 end
 

@@ -165,7 +165,6 @@ function Renderer.RenderHeistTool()
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.Cooldown.Offline)
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.Cooldown.Online)
-                        ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.Unlock)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -242,7 +241,6 @@ function Renderer.RenderHeistTool()
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.VaultDoorDrill)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Autograbber)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Cooldown)
-                        ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Unlock)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Setup)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -803,17 +801,27 @@ function Renderer.RenderSettings()
         if ImGui.BeginTabBar("Settings Tabs") then
             if ImGui.BeginTabItem("General") then
                 if ImGui.BeginColumns(3) then
-                    if ClickGUI.BeginCustomChildWindow("Config") then
+                    if ClickGUI.BeginCustomChildWindow("Config & Discord") then
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Logging)
                         ImGui.RedButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Reset)
                         ImGui.ResetButtonStyle()
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Copy)
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Discord)
                         ClickGUI.EndCustomChildWindow()
                     end
 
-                    if ClickGUI.BeginCustomChildWindow("Discord") then
-                        ClickGUI.RenderFeature(eFeature.Settings.Discord.Copy)
+                    if ClickGUI.BeginCustomChildWindow("Collabs") then
+                        ClickGUI.RenderFeature(eFeature.Settings.Collab.JinxScript.Toggle)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Settings.Collab.JinxScript.Discord)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    if ClickGUI.BeginCustomChildWindow("Unlock All POI") then
+                        ClickGUI.RenderFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
+                        ClickGUI.RenderFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -861,13 +869,13 @@ function Renderer.RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab(F("%s %s", SCRIPT_NAME, SCRIPT_VER), Renderer.RenderClickGUI)
+ClickGUI.AddTab(F("%s %s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), Renderer.RenderClickGUI)
 
 function Renderer.RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab(F("%s %s", SCRIPT_NAME, SCRIPT_VER), SCRIPT_NAME)
+    local SilentNightTab = root:AddSubTab(F("%s %s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), SCRIPT_NAME)
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
@@ -978,7 +986,6 @@ function Renderer.RenderListGUI()
             CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Misc.Cooldown.Team)
             CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Misc.Cooldown.Offline)
             CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Misc.Cooldown.Online)
-            CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Misc.Unlock)
 
             CayoPericoTab:AddSeperator("Cuts")
             CayoPericoTab:AddFeature(eFeature.Heist.CayoPerico.Cuts.Team)
@@ -1031,7 +1038,6 @@ function Renderer.RenderListGUI()
             CasinoHeistTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.VaultDoorDrill)
             CasinoHeistTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Autograbber)
             CasinoHeistTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Cooldown)
-            CasinoHeistTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Unlock)
             CasinoHeistTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup)
 
             CasinoHeistTab:AddSeperator("Cuts")
@@ -1358,8 +1364,35 @@ function Renderer.RenderListGUI()
 
     local SettingsTab = SilentNightTab:AddSubTab("Settings", "Settings")
     if SettingsTab then
-        SettingsTab:AddSeperator("Discord")
-        SettingsTab:AddFeature(eFeature.Settings.Discord.Copy)
+        SettingsTab:AddSeperator("Config & Discord")
+        SettingsTab:AddFeature(eFeature.Settings.Config.Logging)
+        SettingsTab:AddFeature(eFeature.Settings.Config.Reset)
+        SettingsTab:AddFeature(eFeature.Settings.Config.Copy)
+        SettingsTab:AddFeature(eFeature.Settings.Config.Discord)
+
+        SettingsTab:AddSeperator("Collabs")
+        SettingsTab:AddFeature(eFeature.Settings.Collab.JinxScript.Toggle)
+        SettingsTab:AddFeature(eFeature.Settings.Collab.JinxScript.Discord)
+
+        SettingsTab:AddSeperator("Unlock All POI")
+        SettingsTab:AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
+        SettingsTab:AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
+
+        SettingsTab:AddSeperator("Instant Finish")
+        SettingsTab:AddFeature(eFeature.Settings.InstantFinish.Agency)
+        SettingsTab:AddFeature(eFeature.Settings.InstantFinish.Apartment)
+        SettingsTab:AddFeature(eFeature.Settings.InstantFinish.AutoShop)
+        SettingsTab:AddFeature(eFeature.Settings.InstantFinish.CayoPerico)
+        SettingsTab:AddFeature(eFeature.Settings.InstantFinish.DiamondCasino)
+        SettingsTab:AddFeature(eFeature.Settings.InstantFinish.Doomsday)
+
+        SettingsTab:AddSeperator("Easy Money")
+        SettingsTab:AddFeature(eFeature.Settings.EasyMoney.Prevention)
+        SettingsTab:AddFeature(eFeature.Settings.EasyMoney.Delay._5k)
+        SettingsTab:AddFeature(eFeature.Settings.EasyMoney.Delay._50k)
+        SettingsTab:AddFeature(eFeature.Settings.EasyMoney.Delay._100k)
+        SettingsTab:AddFeature(eFeature.Settings.EasyMoney.Delay._180k)
+        SettingsTab:AddFeature(eFeature.Settings.EasyMoney.Delay._300k)
     end
 end
 

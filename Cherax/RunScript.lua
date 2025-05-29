@@ -7,6 +7,7 @@ local files = {
     "Generic",
     "Logger",
     "GUI",
+    "SilentLogger",
     "Natives",
     "eTunable",
     "eGlobal",

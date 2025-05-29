@@ -3,13 +3,18 @@
 function FileMgr.CreateConfig()
     if not FileMgr.DoesFileExist(CONFIG_DIR) then
         FileMgr.CreateDir(CONFIG_DIR)
-        Logger.LogInfo("Created config directory.")
     end
 
-    local path = F("%s\\config.json", CONFIG_DIR)
+    local path = CONFIG_PATH
 
     if not FileMgr.DoesFileExist(path) then
         local config = {
+            logging = 2,
+
+            collab = {
+                jinxscript = true
+            },
+
             instant_finish = {
                 agency         = 1,
                 apartment      = 0,
@@ -17,6 +22,11 @@ function FileMgr.CreateConfig()
                 cayo_perico    = 1,
                 diamond_casino = 0,
                 doomsday       = 1
+            },
+
+            unlock_all_poi = {
+                cayo_perico    = true,
+                diamond_casino = true
             },
 
             easy_money = {
@@ -38,17 +48,73 @@ function FileMgr.CreateConfig()
 end
 
 function FileMgr.SaveConfig(config)
-    Json.EncodeToFile(F("%s\\config.json", CONFIG_DIR), config)
+    Json.EncodeToFile(CONFIG_PATH, config)
 end
 
 function FileMgr.ResetConfig()
-    local path = F("%s\\config.json", CONFIG_DIR)
+    local path = CONFIG_PATH
 
     if FileMgr.DoesFileExist(path) then
         FileMgr.DeleteFile(path)
     end
 
     FileMgr.CreateConfig()
+end
+
+function FileMgr.EnsureConfigKeys()
+    if not CONFIG then
+        FileMgr.ResetConfig()
+        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+        SilentLogger.LogError("Config is missing something. Config reset ツ")
+        return
+    end
+
+    local required         = { "logging", "collab", "instant_finish", "unlock_all_poi", "easy_money" }
+    local required_collab  = { "jinxscript" }
+    local required_instant = { "agency", "apartment", "auto_shop", "cayo_perico", "diamond_casino", "doomsday" }
+    local required_unlock  = { "cayo_perico", "diamond_casino" }
+    local required_easy    = { "dummy_prevention", "delay" }
+    local required_delay   = { "_5k", "_50k", "_100k", "_180k", "_300k" }
+
+    local function HasKeys(tbl, keys)
+        for _, k in ipairs(keys) do
+            if not tbl or tbl[k] == nil then return false end
+        end
+
+        return true
+    end
+
+    local missing = false
+
+    if not HasKeys(CONFIG, required) then
+        missing = true
+    end
+
+    if not HasKeys(CONFIG.collab, required_collab) then
+        missing = true
+    end
+    
+    if not HasKeys(CONFIG.instant_finish, required_instant) then
+        missing = true
+    end
+
+    if not HasKeys(CONFIG.unlock_all_poi, required_unlock) then
+        missing = true
+    end
+
+    if not HasKeys(CONFIG.easy_money, required_easy) then
+        missing = true
+    end
+
+    if not HasKeys(CONFIG.easy_money.delay, required_delay) then
+        missing = true
+    end
+
+    if missing then
+        FileMgr.ResetConfig()
+        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+        SilentLogger.LogError("Config is missing something. Config reset ツ")
+    end 
 end
 
 function FileMgr.CreateHeistPresetsDirs()
@@ -85,6 +151,8 @@ end
 
 FileMgr.CreateConfig()
 
-CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+FileMgr.EnsureConfigKeys()
 
 --#endregion

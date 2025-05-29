@@ -8,14 +8,25 @@ eFeature = {
                 name = "Solo Launch",
                 type = eFeatureType.Toggle,
                 desc = "Allows launching the heist alone.",
-                func = function()
-                    eLocal.Heist.Generic.Launch.Step1:Set(1)
-                    ScriptGlobal.SetInt(794744 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 89) + 69, 1)
-                    eGlobal.Heist.Generic.Launch.Step1:Set(1)
-                    eGlobal.Heist.Generic.Launch.Step2:Set(1)
-                    eGlobal.Heist.Generic.Launch.Step3:Set(1)
-                    eGlobal.Heist.Generic.Launch.Step4:Set(0)
-                    Script.Yield()
+                func = function(ftr)
+                    if GTA.IsInSession() then
+                        if ftr:IsToggled() then
+                            eLocal.Heist.Generic.Launch.Step1:Set(1)
+                            ScriptGlobal.SetInt(794744 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 89) + 69, 1)
+                            eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                            eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                            eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                            eGlobal.Heist.Generic.Launch.Step4:Set(0)
+
+                            if not loggedSoloLaunch then
+                                SilentLogger.LogInfo("[Solo Launch] Heists should've been made launchable ツ")
+                                loggedSoloLaunch = true
+                            end
+                        else
+                            SilentLogger.LogInfo("[Solo Launch] Heists should've been made unlaunchable ツ")
+                            loggedSoloLaunch = false
+                        end
+                    end
                 end
             },
 
@@ -26,6 +37,7 @@ eFeature = {
                 desc = "Skips the current cutscene.",
                 func = function()
                     eNative.CUTSCENE.STOP_CUTSCENE_IMMEDIATELY()
+                    SilentLogger.LogInfo("[Skip Cutscene] Cutscene should've been skipped ツ")
                 end
             },
 
@@ -37,6 +49,7 @@ eFeature = {
                 func = function()
                     eLocal.Heist.Generic.Skip.Old:Set(eLocal.Heist.Generic.Skip.Old:Get() | (1 << 17))
                     eLocal.Heist.Generic.Skip.New:Set(eLocal.Heist.Generic.Skip.New:Get() | (1 << 17))
+                    SilentLogger.LogInfo("[Skip Checkpoint] Checkpoint should've been skipped ツ")
                 end
             },
 
@@ -47,7 +60,10 @@ eFeature = {
                 desc = "Select the cut for yourself.",
                 defv = 0,
                 lims = { 0, 999 },
-                step = 1
+                step = 1,
+                func = function(ftr)
+                    SilentLogger.LogInfo("[Self] Self cut should've been changed. Don't forget to apply ツ")
+                end
             },
 
             Apply = {
@@ -57,6 +73,7 @@ eFeature = {
                 desc = "Applies the selected cut for yourself.",
                 func = function(cut)
                     eGlobal.Heist.Generic.Cut:Set(cut)
+                    SilentLogger.LogInfo("[Apply Cut] Cut should've been applied ツ")
                 end
             }
         },
@@ -68,7 +85,12 @@ eFeature = {
                     name = "Contract",
                     type = eFeatureType.Combo,
                     desc = "Select the desired VIP contract.",
-                    list = eTable.Heist.Agency.Contracts
+                    list = eTable.Heist.Agency.Contracts,
+                    func = function(ftr)
+                        local list  = eTable.Heist.Agency.Contracts
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Contract (Agency)] Selected contract: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Complete = {
@@ -91,6 +113,8 @@ eFeature = {
 
                         eStat.MPX_FIXER_GENERAL_BS:Set(-1)
                         eStat.MPX_FIXER_COMPLETED_BS:Set(-1)
+
+                        SilentLogger.LogInfo("[Apply & Complete Preps (Agency)] Preps should've been completed ツ")
                     end
                 }
             },
@@ -104,13 +128,17 @@ eFeature = {
                     func = function()
                         if CONFIG.instant_finish.agency == 1 then
                             Helper.NewInstantFinishHeist()
+
+                            SilentLogger.LogInfo("[Instant Finish] Heist should've been finished. Method used: New ツ")
                             return
                         end
 
-                        ForceScriptHost(eScript.Heist.Agency)
+                        GTA.ForceScriptHost(eScript.Heist.Agency)
                         Script.Yield(1000)
                         eLocal.Heist.Agency.Finish.Step1:Set(51338752)
                         eLocal.Heist.Agency.Finish.Step2:Set(50)
+
+                        SilentLogger.LogInfo("[Instant Finish (Agency)] Heist should've been finished. Method used: Old ツ")
                     end
                 },
 
@@ -123,6 +151,7 @@ eFeature = {
                         eTunable.Heist.Agency.Cooldown.Story:Set(0)
                         eTunable.Heist.Agency.Cooldown.Security:Set(0)
                         eTunable.Heist.Agency.Cooldown.Payphone:Set(0)
+                        SilentLogger.LogInfo("[Kill Cooldowns (Agency)] Cooldowns should've been killed ツ")
                     end
                 }
             },
@@ -135,14 +164,20 @@ eFeature = {
                     desc = "Select the desired payout.",
                     defv = 0,
                     lims = { 0, 3000000 },
-                    step = 100000
+                    step = 100000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Payout (Agency)] Payout should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Max = {
                     hash = J("SN_Agency_Max"),
                     name = "Max",
                     type = eFeatureType.Button,
-                    desc = "Maximizes the payout, but doesn't apply it."
+                    desc = "Maximizes the payout, but doesn't apply it.",
+                    func = function()
+                        SilentLogger.LogInfo("[Max (Agency)] Payout should've been maximized. Don't forget to apply ツ")
+                    end
                 },
 
                 Apply = {
@@ -152,6 +187,7 @@ eFeature = {
                     desc = "Applies the selected payout. Use after you can see the minimap.",
                     func = function(payout)
                         eTunable.Heist.Agency.Payout:Set(payout)
+                        SilentLogger.LogInfo("[Apply Payout (Agency)] Payout should've been applied ツ")
                     end
                 }
             }
@@ -166,6 +202,18 @@ eFeature = {
                     desc = "Completes all preparations.",
                     func = function()
                         eStat.MPX_HEIST_PLANNING_STAGE:Set(-1)
+
+                        if CONFIG.collab.jinxscript then
+                            if FeatureMgr.GetFeatureByName("Restart Freemode") then
+                                SilentLogger.LogInfo("[JinxScript (Settings)] Restarting freemode using JinxScript. ツ")
+                                FeatureMgr.GetFeatureByName("Restart Freemode"):OnClick()
+                                SilentLogger.LogInfo("[JinxScript (Settings)] Freemode should've been restarted using JinxScript ツ")
+                            else
+                                SilentLogger.LogError("[JinxScript (Settings)] JinxScript collab is enabled, but the script isn't running.")
+                            end
+                        end
+
+                        SilentLogger.LogInfo("[Complete Preps (Apartment)] Preps should've been completed ツ")
                     end
                 },
 
@@ -176,6 +224,7 @@ eFeature = {
                     desc = "Redraws the planning board.",
                     func = function()
                         eGlobal.Heist.Apartment.Reload:Set(22)
+                        SilentLogger.LogInfo("[Redraw Board (Apartment)] Board should've been redrawn ツ")
                     end
                 }
             },
@@ -189,9 +238,12 @@ eFeature = {
                     func = function()
                         GTA.ForceScriptHost(eScript.Heist.Apartment)
                         Script.Yield(1000)
+
                         for i = 2, 4 do
                             eGlobal.Heist.Apartment.Ready[F("Player%d", i)]:Set(6)
                         end
+
+                        SilentLogger.LogInfo("[Force Ready (Apartment)] Everyone should've been forced ready ツ")
                     end
                 },
 
@@ -203,6 +255,8 @@ eFeature = {
                     func = function()
                         if CONFIG.instant_finish.apartment == 1 then
                             Helper.NewInstantFinishHeist()
+
+                            SilentLogger.LogInfo("[Instant Finish (Apartment)] Heist should've been finished. Method used: New ツ")
                             return
                         end
 
@@ -223,6 +277,8 @@ eFeature = {
                             eLocal.Heist.Apartment.Finish.Step5:Set(99999)
                             eLocal.Heist.Apartment.Finish.Step6:Set(99999)
                         end
+
+                        SilentLogger.LogInfo("[Instant Finish (Apartment)] Heist should've been finished. Method used: Old ツ")
                     end
                 },
 
@@ -233,6 +289,7 @@ eFeature = {
                     desc = "Skips the hacking process of The Fleeca Job heist.",
                     func = function()
                         eLocal.Heist.Apartment.Bypass.Fleeca.Hack:Set(7)
+                        SilentLogger.LogInfo("[Bypass Fleeca Hack (Apartment)] Hacking process should've been skipped ツ")
                     end
                 },
 
@@ -243,6 +300,7 @@ eFeature = {
                     desc = "Skips the drilling process of The Fleeca Job.",
                     func = function()
                         eLocal.Heist.Apartment.Bypass.Fleeca.Drill:Set(100)
+                        SilentLogger.LogInfo("[Bypass Fleeca Drill (Apartment)] Drilling process should've been skipped ツ")
                     end
                 },
 
@@ -253,6 +311,7 @@ eFeature = {
                     desc = "Skips the hacking process of The Pacific Standard Job heist.",
                     func = function()
                         eLocal.Heist.Apartment.Bypass.Pacific.Hack:Set(9)
+                        SilentLogger.LogInfo("[Bypass Pacific Hack (Apartment)] Hacking process should've been skipped ツ")
                     end
                 },
 
@@ -263,7 +322,7 @@ eFeature = {
                     desc = "Skips the heist's cooldown.",
                     func = function()
                         eGlobal.Heist.Apartment.Cooldown:Set(-1)
-                        Script.Yield()
+                        SilentLogger.LogInfo("[Kill Cooldown (Apartment)] Cooldown should've been killed ツ")
                     end
                 },
 
@@ -274,6 +333,7 @@ eFeature = {
                     desc = "Allows you to play unavailable jobs temporarily.",
                     func = function()
                         eGlobal.Heist.Apartment.Cooldown:Set(-1)
+                        SilentLogger.LogInfo("[Play Unavailable Jobs (Apartment)] Unavailable jobs should've been made playable ツ")
                     end
                 },
 
@@ -293,6 +353,8 @@ eFeature = {
                         eStat.MPX_HEIST_SAVED_STRAND_3_L:Set(5)
                         eStat.MPX_HEIST_SAVED_STRAND_4:Set(eTunable.Heist.Apartment.RootIdHash.Pacific:Get())
                         eStat.MPX_HEIST_SAVED_STRAND_4_L:Set(5)
+
+                        SilentLogger.LogInfo("[Unlock All Jobs (Apartment)] All jobs should've been unlocked. Don't forget to restart the game ツ")
                     end
                 }
             },
@@ -303,7 +365,12 @@ eFeature = {
                     name = "Team",
                     type = eFeatureType.Combo,
                     desc = "Select your number of players.",
-                    list = eTable.Heist.Generic.Team
+                    list = eTable.Heist.Apartment.Team,
+                    func = function(ftr)
+                        local list  = eTable.Heist.Apartment.Team
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Team (Apartment)] Selected team size: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Receivers = {
@@ -311,7 +378,12 @@ eFeature = {
                     name = "Receivers",
                     type = eFeatureType.Combo,
                     desc = "Decide who will receive the money.",
-                    list = eTable.Heist.Apartment.Receivers
+                    list = eTable.Heist.Apartment.Receivers,
+                    func = function(ftr)
+                        local list  = eTable.Heist.Apartment.Receivers
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Receivers (Apartment)] Selected payout receivers: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Presets = {
@@ -322,7 +394,6 @@ eFeature = {
                     list = eTable.Heist.Apartment.Presets,
                     func = function(bool)
                         Helper.SetApartmentMaxPayout(bool)
-                        Script.Yield()
                     end
                 },
 
@@ -332,13 +403,22 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Allows only you to get 12 millions bonus for The Pacific Standard Job on hard difficulty, even if you're not the host. Enable before starting the heist. Has a cooldown of about 1 hour.",
                     func = function(ftr)
-                        local bool = ftr:IsToggled()
-                        eStat.MPPLY_HEISTFLOWORDERPROGRESS:Set((bool) and 268435455 or 134217727)
-                        eStat.MPPLY_AWD_HST_ORDER:Set((bool) and true or false)
-                        eStat.MPPLY_HEISTTEAMPROGRESSBITSET:Set((bool) and 268435455 or 134217727)
-                        eStat.MPPLY_AWD_HST_SAME_TEAM:Set((bool) and true or false)
-                        eStat.MPPLY_HEISTNODEATHPROGREITSET:Set((bool) and 268435455 or 134217727)
-                        eStat.MPPLY_AWD_HST_ULT_CHAL:Set((bool) and true or false)
+                        eStat.MPPLY_HEISTFLOWORDERPROGRESS:Set((ftr:IsToggled()) and 268435455 or 134217727)
+                        eStat.MPPLY_AWD_HST_ORDER:Set((ftr:IsToggled()) and true or false)
+                        eStat.MPPLY_HEISTTEAMPROGRESSBITSET:Set((ftr:IsToggled()) and 268435455 or 134217727)
+                        eStat.MPPLY_AWD_HST_SAME_TEAM:Set((ftr:IsToggled()) and true or false)
+                        eStat.MPPLY_HEISTNODEATHPROGREITSET:Set((ftr:IsToggled()) and 268435455 or 134217727)
+                        eStat.MPPLY_AWD_HST_ULT_CHAL:Set((ftr:IsToggled()) and true or false)
+
+                        if ftr:IsToggled() then
+                            if not loggedApartmentBonus then
+                                SilentLogger.LogInfo("[12mil Bonus (Apartment)] Bonus should've been applied. Don't forget to put hard difficulty ツ")
+                                loggedApartmentBonus = true
+                            end
+                        else
+                            SilentLogger.LogInfo("[12mil Bonus (Apartment)] Bonus should've been unapplied ツ")
+                            loggedApartmentBonus = false
+                        end
                     end
                 },
 
@@ -346,7 +426,10 @@ eFeature = {
                     hash = J("SN_Apartment_Double"),
                     name = "Double Rewards Week",
                     type = eFeatureType.Toggle,
-                    desc = "Enable this during double rewards week."
+                    desc = "Enable this during double rewards week.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Double Rewards Week (Apartment)] Cuts should've been %s ツ", (ftr:IsToggled()) and "decreased" or "increased"))
+                    end
                 },
 
                 Player1 = {
@@ -356,7 +439,10 @@ eFeature = {
                     desc = "Select the cut for Player 1.",
                     defv = 0,
                     lims = { 0, 10000 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 1 (Apartment)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player2 = {
@@ -366,7 +452,10 @@ eFeature = {
                     desc = "Select the cut for Player 2.",
                     defv = 0,
                     lims = { 0, 10000 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 2 (Apartment)] Player 2 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player3 = {
@@ -376,7 +465,10 @@ eFeature = {
                     desc = "Select the cut for Player 3.",
                     defv = 0,
                     lims = { 0, 10000 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 3 (Apartment)] Player 3 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player4 = {
@@ -386,7 +478,10 @@ eFeature = {
                     desc = "Select the cut for Player 4.",
                     defv = 0,
                     lims = { 0, 10000 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 4 (Apartment)] Player 4 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Apply = {
@@ -421,6 +516,7 @@ eFeature = {
                         end
 
                         GUI.Toggle()
+                        SilentLogger.LogInfo("[Apply Cuts (Apartment)] Cuts should've been applied ツ")
                     end
                 }
             }
@@ -433,7 +529,12 @@ eFeature = {
                     name = "Contract",
                     type = eFeatureType.Combo,
                     desc = "Select the desired contract.",
-                    list = eTable.Heist.AutoShop.Contracts
+                    list = eTable.Heist.AutoShop.Contracts,
+                    func = function(ftr)
+                        local list  = eTable.Heist.AutoShop.Contracts
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Contract (Auto Shop)] Selected contract: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Complete = {
@@ -445,6 +546,7 @@ eFeature = {
                         eStat.MPX_TUNER_CURRENT:Set(contract)
                         eStat.MPX_TUNER_GEN_BS:Set((contract == 1) and 4351 or 12543)
                         eLocal.Heist.AutoShop.Reload:Set(2)
+                        SilentLogger.LogInfo("[Apply & Complete Preps (Auto Shop)] Preps should've been completed ツ")
                     end
                 },
 
@@ -455,6 +557,7 @@ eFeature = {
                     desc = "Redraws the planning board.",
                     func = function()
                         eLocal.Heist.AutoShop.Reload:Set(2)
+                        SilentLogger.LogInfo("[Redraw Board (Auto Shop)] Board should've been redrawn ツ")
                     end
                 }
             },
@@ -468,13 +571,17 @@ eFeature = {
                     func = function()
                         if CONFIG.instant_finish.auto_shop == 1 then
                             Helper.NewInstantFinishHeist()
+
+                            SilentLogger.LogInfo("[Instant Finish (Auto Shop)] Heist should've been finished. Method used: New ツ")
                             return
                         end
 
-                        ForceScriptHost(eScript.Heist.AutoShop)
+                        GTA.ForceScriptHost(eScript.Heist.AutoShop)
                         Script.Yield(1000)
                         eLocal.Heist.AutoShop.Finish.Step1:Set(51338977)
                         eLocal.Heist.AutoShop.Finish.Step2:Set(101)
+
+                        SilentLogger.LogInfo("[Instant Finish (Auto Shop)] Heist should've been finished. Method used: Old ツ")
                     end
                 },
 
@@ -487,7 +594,10 @@ eFeature = {
                         for i = 0, 7 do
                             eStat[F("MPX_TUNER_CONTRACT%d_POSIX", i)]:Set(0)
                         end
+
                         eTunable.Heist.AutoShop.Cooldown:Set(0)
+
+                        SilentLogger.LogInfo("[Kill Cooldown (Auto Shop)] Cooldowns should've been killed ツ")
                     end
                 }
             },
@@ -500,14 +610,20 @@ eFeature = {
                     desc = "Select the desired payout.",
                     defv = 0,
                     lims = { 0, 2000000 },
-                    step = 100000
+                    step = 100000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Payout (Auto Shop)] Payout should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Max = {
                     hash = J("SN_AutoShop_Max"),
                     name = "Max",
                     type = eFeatureType.Button,
-                    desc = "Maximizes the payout, but doesn't apply it."
+                    desc = "Maximizes the payout, but doesn't apply it.",
+                    func = function()
+                        SilentLogger.LogInfo("[Max (Auto Shop)] Payout should've been maximized. Don't forget to apply ツ")
+                    end
                 },
 
                 Apply = {
@@ -525,6 +641,7 @@ eFeature = {
                         eTunable.Heist.AutoShop.Payout.Seventh:Set(payout)
                         eTunable.Heist.AutoShop.Payout.Eight:Set(payout)
                         eTunable.Heist.AutoShop.Payout.Fee:Set(0.0)
+                        SilentLogger.LogInfo("[Apply Payout (Auto Shop)] Payout should've been applied ツ")
                     end
                 }
             }
@@ -537,7 +654,12 @@ eFeature = {
                     name = "Difficulty",
                     type = eFeatureType.Combo,
                     desc = "Select the desired difficulty.",
-                    list = eTable.Heist.CayoPerico.Difficulties
+                    list = eTable.Heist.CayoPerico.Difficulties,
+                    func = function(ftr)
+                        local list  = eTable.Heist.CayoPerico.Difficulties
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Difficulty (Cayo Perico)] Selected difficulty: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Approach = {
@@ -545,7 +667,12 @@ eFeature = {
                     name = "Approach",
                     type = eFeatureType.Combo,
                     desc = "Select the desired approach.",
-                    list = eTable.Heist.CayoPerico.Approaches
+                    list = eTable.Heist.CayoPerico.Approaches,
+                    func = function(ftr)
+                        local list  = eTable.Heist.CayoPerico.Approaches
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Approach (Cayo Perico)] Selected approach: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Loadout = {
@@ -553,7 +680,12 @@ eFeature = {
                     name = "Loadout",
                     type = eFeatureType.Combo,
                     desc = "Select the desired loadout.",
-                    list = eTable.Heist.CayoPerico.Loadouts
+                    list = eTable.Heist.CayoPerico.Loadouts,
+                    func = function(ftr)
+                        local list  = eTable.Heist.CayoPerico.Loadouts
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Loadout (Cayo Perico)] Selected loadout: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Target = {
@@ -562,7 +694,12 @@ eFeature = {
                         name = "Target",
                         type = eFeatureType.Combo,
                         desc = "Select the desired primary target.",
-                        list = eTable.Heist.CayoPerico.Targets.Primary
+                        list = eTable.Heist.CayoPerico.Targets.Primary,
+                        func = function(ftr)
+                            local list  = eTable.Heist.CayoPerico.Targets.Primary
+                            local index = list[ftr:GetListIndex() + 1].index
+                            SilentLogger.LogInfo(F("[Primary Target (Cayo Perico)] Selected primary target: %s ツ", list:GetName(index)))
+                        end
                     },
 
                     Secondary = {
@@ -571,7 +708,12 @@ eFeature = {
                             name = "Com. Target",
                             type = eFeatureType.Combo,
                             desc = "Select the desired compound target.",
-                            list = eTable.Heist.CayoPerico.Targets.Secondary
+                            list = eTable.Heist.CayoPerico.Targets.Secondary,
+                            func = function(ftr)
+                                local list  = eTable.Heist.CayoPerico.Targets.Secondary
+                                local index = list[ftr:GetListIndex() + 1].index
+                                SilentLogger.LogInfo(F("[Compound Target (Cayo Perico)] Selected compound target: %s ツ", list:GetName(index)))
+                            end
                         },
 
                         Island = {
@@ -579,7 +721,12 @@ eFeature = {
                             name = "Isl. Target",
                             type = eFeatureType.Combo,
                             desc = "Select the desired island target.",
-                            list = eTable.Heist.CayoPerico.Targets.Secondary
+                            list = eTable.Heist.CayoPerico.Targets.Secondary,
+                            func = function(ftr)
+                                local list  = eTable.Heist.CayoPerico.Targets.Secondary
+                                local index = list[ftr:GetListIndex() + 1].index
+                                SilentLogger.LogInfo(F("[Island Target (Cayo Perico)] Selected island target: %s ツ", list:GetName(index)))
+                            end
                         }
                     },
 
@@ -589,7 +736,12 @@ eFeature = {
                             name = "Com. Amount",
                             type = eFeatureType.Combo,
                             desc = "Select the desired compound target amount.",
-                            list = eTable.Heist.CayoPerico.Targets.Amounts.Compound
+                            list = eTable.Heist.CayoPerico.Targets.Amounts.Compound,
+                            func = function(ftr)
+                                local list  = eTable.Heist.CayoPerico.Targets.Amounts.Compound
+                                local index = list[ftr:GetListIndex() + 1].index
+                                SilentLogger.LogInfo(F("[Compound Amount (Cayo Perico)] Selected compound amount: %s ツ", list:GetName(index)))
+                            end
                         },
 
                         Island = {
@@ -597,7 +749,12 @@ eFeature = {
                             name = "Isl. Amount",
                             type = eFeatureType.Combo,
                             desc = "Select the desired island target amount.",
-                            list = eTable.Heist.CayoPerico.Targets.Amounts.Island
+                            list = eTable.Heist.CayoPerico.Targets.Amounts.Island,
+                            func = function(ftr)
+                                local list  = eTable.Heist.CayoPerico.Targets.Amounts.Island
+                                local index = list[ftr:GetListIndex() + 1].index
+                                SilentLogger.LogInfo(F("[Island Amount (Cayo Perico)] Selected island amount: %s ツ", list:GetName(index)))
+                            end
                         },
 
                         Arts = {
@@ -605,7 +762,12 @@ eFeature = {
                             name = "Arts Amount",
                             type = eFeatureType.Combo,
                             desc = "Select the desired compound arts amount.",
-                            list = eTable.Heist.CayoPerico.Targets.Amounts.Arts
+                            list = eTable.Heist.CayoPerico.Targets.Amounts.Arts,
+                            func = function(ftr)
+                                local list  = eTable.Heist.CayoPerico.Targets.Amounts.Arts
+                                local index = list[ftr:GetListIndex() + 1].index
+                                SilentLogger.LogInfo(F("[Arts Amount (Cayo Perico)] Selected arts amount: %s ツ", list:GetName(index)))
+                            end
                         }
                     }
                 },
@@ -650,7 +812,16 @@ eFeature = {
                         eStat.MPX_H4CNF_ARM_DISRP:Set(3)
                         eStat.MPX_H4CNF_HEL_DISRP:Set(3)
                         eStat.MPX_H4_PLAYTHROUGH_STATUS:Set(10)
+
+                        if CONFIG.unlock_all_poi.cayo_perico then
+                            eStat.MPX_H4CNF_BS_GEN:Set(-1)
+                            eStat.MPX_H4CNF_BS_ENTR:Set(63)
+                            eStat.MPX_H4CNF_BS_ABIL:Set(63)
+                            eStat.MPX_H4CNF_APPROACH:Set(-1)
+                        end
+
                         eLocal.Heist.CayoPerico.Reload:Set(2)
+                        SilentLogger.LogInfo("[Apply & Complete Preps (Cayo Perico)] Preps should've been completed ツ")
                     end
                 },
 
@@ -668,6 +839,7 @@ eFeature = {
                         eStat.MPX_H4CNF_BS_ENTR:Set(0)
                         eStat.H4_PLAYTHROUGH_STATUS:Set(0)
                         eLocal.Heist.CayoPerico.Reload:Set(2)
+                        SilentLogger.LogInfo("[Reset Preps (Cayo Perico)] Preps should've been reset ツ")
                     end
                 },
 
@@ -678,6 +850,7 @@ eFeature = {
                     desc = "Reloads the planning screen.",
                     func = function()
                         eLocal.Heist.CayoPerico.Reload:Set(2)
+                        SilentLogger.LogInfo("[Reload Screen (Cayo Perico)] Screen should've been reloaded ツ")
                     end
                 }
             },
@@ -691,9 +864,12 @@ eFeature = {
                     func = function()
                         GTA.ForceScriptHost(eScript.Heist.CayoPerico)
                         Script.Yield(1000)
+
                         for i = 2, 4 do
                             eGlobal.Heist.CayoPerico.Ready[F("Player%d", i)]:Set(1)
                         end
+
+                        SilentLogger.LogInfo("[Force Ready (Cayo Perico)] Everyone should've been forced ready ツ")
                     end
                 },
 
@@ -705,13 +881,17 @@ eFeature = {
                     func = function()
                         if CONFIG.instant_finish.cayo_perico == 1 then
                             Helper.NewInstantFinishHeist()
+
+                            SilentLogger.LogInfo("[Instant Finish (Cayo Perico)] Heist should've been finished. Method used: New ツ")
                             return
                         end
 
-                        ForceScriptHost(eScript.Heist.CayoPerico)
+                        GTA.ForceScriptHost(eScript.Heist.CayoPerico)
                         Script.Yield(1000)
                         eLocal.Heist.CayoPerico.Finish.Step1:Set(9)
                         eLocal.Heist.CayoPerico.Finish.Step2:Set(50)
+
+                        SilentLogger.LogInfo("[Instant Finish (Cayo Perico)] Heist should've been finished. Method used: Old ツ")
                     end
                 },
 
@@ -722,6 +902,7 @@ eFeature = {
                     desc = "Skips the fingerprint hacking process.",
                     func = function()
                         eLocal.Heist.CayoPerico.Bypass.FingerprintHack:Set(5)
+                        SilentLogger.LogInfo("[Bypass Fingerprint Hack (Cayo Perico)] Hacking process should've been skipped ツ")
                     end
                 },
 
@@ -732,6 +913,7 @@ eFeature = {
                     desc = "Skips the cutting process.",
                     func = function()
                         eLocal.Heist.CayoPerico.Bypass.PlasmaCutterCut:Set(100)
+                        SilentLogger.LogInfo("[Bypass Plasma Cutter Cut (Cayo Perico)] Cutting process should've been skipped ツ")
                     end
                 },
 
@@ -742,6 +924,7 @@ eFeature = {
                     desc = "Skips the cutting process.",
                     func = function()
                         eLocal.Heist.CayoPerico.Bypass.DrainagePipeCut:Set(6)
+                        SilentLogger.LogInfo("[Bypass Drainage Pipe Cut (Cayo Perico)] Cutting process should've been skipped ツ")
                     end
                 },
 
@@ -751,10 +934,20 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Increases the size of the bag. Use with caution.",
                     func = function(ftr)
-                        if ftr:IsToggled() then
-                            eTunable.Heist.CayoPerico.Bag.MaxCapacity:Set(99999)
-                        else
-                            eTunable.Heist.CayoPerico.Bag.MaxCapacity:Reset()
+                        if GTA.IsInSession() then
+                            if ftr:IsToggled() then
+                                eTunable.Heist.CayoPerico.Bag.MaxCapacity:Set(99999)
+
+                                if not loggedCayoBag then
+                                    SilentLogger.LogInfo("[Woman's Bag (Cayo Perico)] Bag size should've been increased ツ")
+                                    loggedCayoBag = true
+                                end
+                            else
+                                eTunable.Heist.CayoPerico.Bag.MaxCapacity:Reset()
+
+                                SilentLogger.LogInfo("[Woman's Bag (Cayo Perico)] Bag size should've been reset ツ")
+                                loggedCayoBag = false
+                            end
                         end
                     end
                 },
@@ -769,6 +962,7 @@ eFeature = {
                             eStat.MPX_H4_TARGET_POSIX:Set(1659643454)
                             eStat.MPX_H4_COOLDOWN:Set(0)
                             eStat.MPX_H4_COOLDOWN_HARD:Set(0)
+                            SilentLogger.LogInfo("[Kill Cooldown (Cayo Perico)] Cooldown should've been killed ツ")
                         end
                     },
 
@@ -781,6 +975,7 @@ eFeature = {
                             eStat.MPX_H4_TARGET_POSIX:Set(1659429119)
                             eStat.MPX_H4_COOLDOWN:Set(0)
                             eStat.MPX_H4_COOLDOWN_HARD:Set(0)
+                            SilentLogger.LogInfo("[Kill Cooldown (Cayo Perico)] Cooldown should've been killed ツ")
                         end
                     },
 
@@ -792,6 +987,7 @@ eFeature = {
                         func = function()
                             eGlobal.Session.Switch:Set(1)
                             eGlobal.Session.Quit:Set(-1)
+                            SilentLogger.LogInfo("[Go Offline (Cayo Perico)] Offline should've been loaded ツ")
                         end
                     },
 
@@ -802,22 +998,9 @@ eFeature = {
                         desc = "Connects to GTA Online.",
                         func = function()
                             GTA.StartSession(eTable.Session.Types.NewPublic)
+                            SilentLogger.LogInfo("[Go Online (Cayo Perico)] Online should've been loaded ツ")
                         end
                     }
-                },
-
-                Unlock = {
-                    hash = J("SN_CayoPerico_Unlock"),
-                    name = "Unlock All POI",
-                    type = eFeatureType.Button,
-                    desc = "Unlocks all points of interest. Also, reloads the planning screen.",
-                    func = function()
-                        eStat.MPX_H4CNF_BS_GEN:Set(-1)
-                        eStat.MPX_H4CNF_BS_ENTR:Set(63)
-                        eStat.MPX_H4CNF_BS_ABIL:Set(63)
-                        eStat.MPX_H4CNF_APPROACH:Set(-1)
-                        eLocal.Heist.CayoPerico.Reload:Set(2)
-                    end
                 }
             },
 
@@ -827,7 +1010,12 @@ eFeature = {
                     name = "Team",
                     type = eFeatureType.Combo,
                     desc = "Select your number of players.",
-                    list = eTable.Heist.Generic.Team
+                    list = eTable.Heist.Generic.Team,
+                    func = function(ftr)
+                        local list = eTable.Heist.Generic.Team
+                        local team = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Team (Cayo Perico)] Selected team size: %s ツ", list:GetName(team)))
+                    end
                 },
 
                 Presets = {
@@ -851,9 +1039,16 @@ eFeature = {
                         if ftr:IsToggled() then
                             eTunable.Heist.CayoPerico.Cut.Pavel:Set(0)
                             eTunable.Heist.CayoPerico.Cut.Fee:Set(0)
+
+                            if not loggedCayoCrew then
+                                SilentLogger.LogInfo("[Remove Crew Cuts (Cayo Perico)] Crew cuts should've been removed ツ")
+                                loggedCayoCrew = true
+                            end
                         else
                             eTunable.Heist.CayoPerico.Cut.Pavel:Reset()
                             eTunable.Heist.CayoPerico.Cut.Fee:Reset()
+                            SilentLogger.LogInfo("[Remove Crew Cuts (Cayo Perico)] Crew cuts should've been reset ツ")
+                            loggedCayoCrew = false
                         end
                     end
                 },
@@ -865,7 +1060,10 @@ eFeature = {
                     desc = "Select the cut for Player 1.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 1 (Cayo Perico)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player2 = {
@@ -875,7 +1073,10 @@ eFeature = {
                     desc = "Select the cut for Player 2.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 2 (Cayo Perico)] Player 2 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player3 = {
@@ -885,7 +1086,10 @@ eFeature = {
                     desc = "Select the cut for Player 3.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 3 (Cayo Perico)] Player 3 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player4 = {
@@ -895,7 +1099,10 @@ eFeature = {
                     desc = "Select the cut for Player 4.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 4 (Cayo Perico)] Player 4 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Apply = {
@@ -907,6 +1114,7 @@ eFeature = {
                         for i = 1, 4 do
                             eGlobal.Heist.CayoPerico.Cut[F("Player%d", i)]:Set(cuts[i])
                         end
+                        SilentLogger.LogInfo("[Apply Cuts (Cayo Perico)] Cuts should've been applied ツ")
                     end
                 }
             },
@@ -917,7 +1125,12 @@ eFeature = {
                     name = "File",
                     type = eFeatureType.Combo,
                     desc = "Select the desired preset.",
-                    list = eTable.Heist.CayoPerico.Files
+                    list = eTable.Heist.CayoPerico.Files,
+                    func = function(ftr)
+                        local list  = eTable.Heist.CayoPerico.Files
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[File (Cayo Perico)] Selected heist preset: %s ツ", (list:GetName(index) == "") and "Empty" or list:GetName(index)))
+                    end
                 },
 
                 Load = {
@@ -927,10 +1140,15 @@ eFeature = {
                     desc = "Loads the selected preset.",
                     func = function(file)
                         local path = F("%s\\%s.json", CAYO_DIR, file)
+
                         if FileMgr.DoesFileExist(path) then
                             local preps = Json.DecodeFromFile(path)
                             Helper.ApplyCayoPreset(preps)
+                            SilentLogger.LogInfo(F("[Load (Cayo Perico)] Preset «%s» should've been loaded ツ", file))
+                            return
                         end
+
+                        SilentLogger.LogError(F("[Load (Cayo Perico)] Preset «%s» doesn't exist ツ", (file == "") and "Empty" or file))
                     end
                 },
 
@@ -941,10 +1159,15 @@ eFeature = {
                     desc = "Removes the selected preset.",
                     func = function(file)
                         local path = F("%s\\%s.json", CAYO_DIR, file)
+
                         if FileMgr.DoesFileExist(path) then
                             FileMgr.DeleteFile(path)
                             Helper.RefreshPresetsFiles()
+                            SilentLogger.LogInfo(F("[Remove (Cayo Perico)] Preset «%s» should've been removed ツ", file))
+                            return
                         end
+
+                        SilentLogger.LogError(F("[Remove (Cayo Perico)] Preset «%s» doesn't exist ツ", (file == "") and "Empty" or file))
                     end
                 },
 
@@ -955,6 +1178,7 @@ eFeature = {
                     desc = "Refreshes the list of presets.",
                     func = function()
                         Helper.RefreshPresetsFiles()
+                        SilentLogger.LogInfo("[Refresh (Cayo Perico)] Heist presets should've been refreshed ツ")
                     end
                 },
 
@@ -975,6 +1199,7 @@ eFeature = {
                         FileMgr.CreateHeistPresetsDirs()
                         Json.EncodeToFile(path, preps)
                         Helper.RefreshPresetsFiles()
+                        SilentLogger.LogInfo(F("[Save (Cayo Perico)] Preset «%s» should've been saved ツ", file))
                     end
                 },
 
@@ -986,6 +1211,7 @@ eFeature = {
                     func = function()
                         FileMgr.CreateHeistPresetsDirs()
                         ImGui.SetClipboardText(CAYO_DIR)
+                        SilentLogger.LogInfo("[Copy Folder Path (Cayo Perico)] Presets folder path should've been copied ツ")
                     end
                 }
             }
@@ -998,7 +1224,12 @@ eFeature = {
                     name = "Difficulty",
                     type = eFeatureType.Combo,
                     desc = "Select the desired difficulty.",
-                    list = eTable.Heist.DiamondCasino.Difficulties
+                    list = eTable.Heist.DiamondCasino.Difficulties,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Difficulties
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Difficulty (Diamond Casino)] Selected difficulty: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Approach = {
@@ -1006,7 +1237,12 @@ eFeature = {
                     name = "Approach",
                     type = eFeatureType.Combo,
                     desc = "Select the desired approach.",
-                    list = eTable.Heist.DiamondCasino.Approaches
+                    list = eTable.Heist.DiamondCasino.Approaches,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Approaches
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Approach (Diamond Casino)] Selected approach: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Gunman = {
@@ -1014,7 +1250,12 @@ eFeature = {
                     name = "Gunman",
                     type = eFeatureType.Combo,
                     desc = "Select the desired gunman.",
-                    list = eTable.Heist.DiamondCasino.Gunmans
+                    list = eTable.Heist.DiamondCasino.Gunmans,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Gunmans
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Gunman (Diamond Casino)] Selected gunman: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Loadout = {
@@ -1022,7 +1263,12 @@ eFeature = {
                     name = "Loadout",
                     type = eFeatureType.Combo,
                     desc = "Select the desired loadout.",
-                    list = eTable.Heist.DiamondCasino.Loadouts
+                    list = eTable.Heist.DiamondCasino.Loadouts,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Loadouts
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Loadout (Diamond Casino)] Selected loadout: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Driver = {
@@ -1030,7 +1276,12 @@ eFeature = {
                     name = "Driver",
                     type = eFeatureType.Combo,
                     desc = "Select the desired driver.",
-                    list = eTable.Heist.DiamondCasino.Drivers
+                    list = eTable.Heist.DiamondCasino.Drivers,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Drivers
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Driver (Diamond Casino)] Selected driver: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Vehicles = {
@@ -1038,7 +1289,12 @@ eFeature = {
                     name = "Vehicles",
                     type = eFeatureType.Combo,
                     desc = "Select the desired vehicles.",
-                    list = eTable.Heist.DiamondCasino.Vehicles
+                    list = eTable.Heist.DiamondCasino.Vehicles,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Vehicles
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Vehicles (Diamond Casino)] Selected vehicles: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Hacker = {
@@ -1046,7 +1302,12 @@ eFeature = {
                     name = "Hacker",
                     type = eFeatureType.Combo,
                     desc = "Select the desired hacker.",
-                    list = eTable.Heist.DiamondCasino.Hackers
+                    list = eTable.Heist.DiamondCasino.Hackers,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Hackers
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Hacker (Diamond Casino)] Selected hacker: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Masks = {
@@ -1054,7 +1315,12 @@ eFeature = {
                     name = "Masks",
                     type = eFeatureType.Combo,
                     desc = "Select the desired masks.",
-                    list = eTable.Heist.DiamondCasino.Masks
+                    list = eTable.Heist.DiamondCasino.Masks,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Masks
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Masks (Diamond Casino)] Selected masks: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Keycards = {
@@ -1062,7 +1328,12 @@ eFeature = {
                     name = "Keycards",
                     type = eFeatureType.Combo,
                     desc = "Select the desired keycards level.",
-                    list = eTable.Heist.DiamondCasino.Keycards
+                    list = eTable.Heist.DiamondCasino.Keycards,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Keycards
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Keycards (Diamond Casino)] Selected keycards level: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Guards = {
@@ -1070,7 +1341,12 @@ eFeature = {
                     name = "Guards",
                     type = eFeatureType.Combo,
                     desc = "Select the desired guards strength.",
-                    list = eTable.Heist.DiamondCasino.Guards
+                    list = eTable.Heist.DiamondCasino.Guards,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Guards
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Guards (Diamond Casino)] Selected guards strength: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Target = {
@@ -1078,7 +1354,12 @@ eFeature = {
                     name = "Target",
                     type = eFeatureType.Combo,
                     desc = "Select the desired target.",
-                    list = eTable.Heist.DiamondCasino.Targets
+                    list = eTable.Heist.DiamondCasino.Targets,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Targets
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Target (Diamond Casino)] Selected target: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Complete = {
@@ -1086,7 +1367,7 @@ eFeature = {
                     name = "Apply & Complete Preps",
                     type = eFeatureType.Button,
                     desc = "Applies all changes and completes all preparations. Also, redraws the planning board.",
-                    func = function(difficulty, approach, gunman, driver, hacker, masks, guards, keycards, target, loadout, vehicles)
+                    func = function(difficulty, approach, gunman, driver, hacker, masks, guards, keycards, target, loadout, vehicles, unlock)
                         local function SetApproach(lastApproach, hardApproach, normalApproach)
                             eStat.MPX_H3_LAST_APPROACH:Set(lastApproach)
                             eStat.MPX_H3_HARD_APPROACH:Set(hardApproach)
@@ -1125,7 +1406,16 @@ eFeature = {
                         eStat.MPX_H3OPT_BITSET0:Set(-1)
                         eStat.MPX_H3OPT_BITSET1:Set(-1)
                         eStat.MPX_H3OPT_COMPLETEDPOSIX:Set(-1)
+
+                        if CONFIG.unlock_all_poi.diamond_casino then
+                            eStat.MPX_H3OPT_POI:Set(-1)
+                            eStat.MPX_H3OPT_ACCESSPOINTS:Set(-1)
+                            eStat.MPX_CAS_HEIST_NOTS:Set(-1)
+                            eStat.MPX_CAS_HEIST_FLOW:Set(-1)
+                        end
+
                         eLocal.Heist.DiamondCasino.Reload:Set(2)
+                        SilentLogger.LogInfo("[Apply & Complete Preps (Diamond Casino)] Preps should've been completed ツ")
                     end
                 },
 
@@ -1161,6 +1451,7 @@ eFeature = {
                         eStat.MPPLY_H3_COOLDOWN:Set(0)
                         eStat.MPX_H3OPT_COMPLETEDPOSIX:Set(0)
                         eLocal.Heist.DiamondCasino.Reload:Set(2)
+                        SilentLogger.LogInfo("[Reset Preps (Diamond Casino)] Preps should've been reset ツ")
                     end
                 },
 
@@ -1171,6 +1462,7 @@ eFeature = {
                     desc = "Redraws the planning board.",
                     func = function()
                         eLocal.Heist.DiamondCasino.Reload:Set(2)
+                        SilentLogger.LogInfo("[Redraw Board (Diamond Casino)] Board should've been redrawn ツ")
                     end
                 }
             },
@@ -1184,9 +1476,12 @@ eFeature = {
                     func = function()
                         GTA.ForceScriptHost(eScript.Heist.DiamondCasino)
                         Script.Yield(1000)
+
                         for i = 2, 4 do
                             eGlobal.Heist.DiamondCasino.Ready[F("Player%d", i)]:Set(1)
                         end
+
+                        SilentLogger.LogInfo("[Force Ready (Diamond Casino)] Everyone should've been forced ready ツ")
                     end
                 },
 
@@ -1194,10 +1489,12 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
-                    desc = "Finishes the heist instantly. Use after you can see the minimap.\nIf it doesn't work, try changing the «Instant Finish Method» in settings to «New».",
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
-                        if CONFIG.instant_finish.cayo_perico == 1 then
+                        if CONFIG.instant_finish.diamond_casino == 1 then
                             Helper.NewInstantFinishHeist()
+
+                            SilentLogger.LogInfo("[Instant Finish (Diamond Casino)] Heist should've been finished. Method used: New ツ")
                             return
                         end
 
@@ -1217,6 +1514,8 @@ eFeature = {
                             eLocal.Heist.DiamondCasino.Finish.Step5:Set(99999)
                             eLocal.Heist.DiamondCasino.Finish.Step6:Set(99999)
                         end
+
+                        SilentLogger.LogInfo("[Instant Finish (Diamond Casino)] Heist should've been finished. Method used: Old ツ")
                     end
                 },
 
@@ -1227,6 +1526,7 @@ eFeature = {
                     desc = "Skips the fingerprint hacking process.",
                     func = function()
                         eLocal.Heist.DiamondCasino.Bypass.FingerprintHack:Set(5)
+                        SilentLogger.LogInfo("[Bypass Fingerprint Hack (Diamond Casino)] Hacking process should've been skipped ツ")
                     end
                 },
 
@@ -1237,6 +1537,7 @@ eFeature = {
                     desc = "Skips the keypad hacking process.",
                     func = function()
                         eLocal.Heist.DiamondCasino.Bypass.KeypadHack:Set(5)
+                        SilentLogger.LogInfo("[Bypass Keypad Hack (Diamond Casino)] Hacking process should've been skipped ツ")
                     end
                 },
 
@@ -1247,6 +1548,7 @@ eFeature = {
                     desc = "Skips the vault door drilling process.",
                     func = function()
                         eLocal.Heist.DiamondCasino.Bypass.VaultDrill1:Set(eLocal.Heist.DiamondCasino.Bypass.VaultDrill2:Get())
+                        SilentLogger.LogInfo("[Bypass Vault Door Drill (Diamond Casino)] Drilling process should've been skipped ツ")
                     end
                 },
 
@@ -1262,7 +1564,14 @@ eFeature = {
                             elseif eLocal.Heist.DiamondCasino.Autograbber.Grab:Get() == 4 then
                                 eLocal.Heist.DiamondCasino.Autograbber.Speed:Set(2.0)
                             end
-                            Script.Yield()
+
+                            if not loggedDiamondAuto then
+                                SilentLogger.LogInfo("[Autograbber (Diamond Casino)] Autograbber should've been enabled ツ")
+                                loggedDiamondAuto = true
+                            end
+                        else
+                            SilentLogger.LogInfo("[Autograbber (Diamond Casino)] Autograbber should've been disabled ツ")
+                            loggedDiamondAuto = false
                         end
                     end
                 },
@@ -1275,20 +1584,7 @@ eFeature = {
                     func = function()
                         eStat.MPX_H3_COMPLETEDPOSIX:Set(-1)
                         eStat.MPPLY_H3_COOLDOWN:Set(-1)
-                    end
-                },
-
-                Unlock = {
-                    hash = J("SN_DiamondCasino_Unlock"),
-                    name = "Unlock All POI",
-                    type = eFeatureType.Button,
-                    desc = "Unlocks all points of interest. Also, redraws the planning board.",
-                    func = function()
-                        eStat.MPX_H3OPT_POI:Set(-1)
-                        eStat.MPX_H3OPT_ACCESSPOINTS:Set(-1)
-                        eStat.MPX_CAS_HEIST_NOTS:Set(-1)
-                        eStat.MPX_CAS_HEIST_FLOW:Set(-1)
-                        eLocal.Heist.DiamondCasino.Reload:Set(2)
+                        SilentLogger.LogInfo("[Kill Cooldown (Diamond Casino)] Cooldown should've been killed ツ")
                     end
                 },
 
@@ -1299,6 +1595,7 @@ eFeature = {
                     desc = "Skips the setup mission for your Arcade. Change the session to apply.",
                     func = function()
                         ePackedBool.Business.Arcade.Setup:Set(true)
+                        SilentLogger.LogInfo("[Skip Setup (Diamond Casino)] Setups should've been skipped. Don't forget to change the session ツ")
                     end
                 }
             },
@@ -1309,7 +1606,12 @@ eFeature = {
                     name = "Team",
                     type = eFeatureType.Combo,
                     desc = "Select your number of players.",
-                    list = eTable.Heist.Generic.Team
+                    list = eTable.Heist.Generic.Team,
+                    func = function(ftr)
+                        local list = eTable.Heist.Generic.Team
+                        local team = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Team (Diamond Casino)] Selected team size: %s ツ", list:GetName(team)))
+                    end
                 },
 
                 Presets = {
@@ -1330,8 +1632,6 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Removes crew cuts and Lester's cut. Should be used with «Instant Finish».",
                     func = function(ftr)
-                        local bool = ftr:IsToggled()
-
                         local function SetOrResetCuts(tbl, bool)
                             for _, v in pairs(tbl) do
                                 if type(v) == "table" and v.Set then
@@ -1346,7 +1646,17 @@ eFeature = {
                             end
                         end
 
-                        SetOrResetCuts(eTunable.Heist.DiamondCasino.Cut, bool)
+                        SetOrResetCuts(eTunable.Heist.DiamondCasino.Cut, ftr:IsToggled())
+
+                        if ftr:IsToggled() then
+                            if not loggedDiamondCrew then
+                                SilentLogger.LogInfo("[Remove Crew Cuts (Diamond Casino)] Crew cuts should've been removed ツ")
+                                loggedDiamondCrew = true
+                            end
+                        else
+                            SilentLogger.LogInfo("[Remove Crew Cuts (Diamond Casino)] Crew cuts should've been reset ツ")
+                            loggedDiamondCrew = false
+                        end
                     end
                 },
 
@@ -1357,7 +1667,10 @@ eFeature = {
                     desc = "Select the cut for Player 1.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 1 (Diamond Casino)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player2 = {
@@ -1367,7 +1680,10 @@ eFeature = {
                     desc = "Select the cut for Player 2.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 2 (Diamond Casino)] Player 2 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player3 = {
@@ -1377,7 +1693,10 @@ eFeature = {
                     desc = "Select the cut for Player 3.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 3 (Diamond Casino)] Player 3 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player4 = {
@@ -1387,7 +1706,10 @@ eFeature = {
                     desc = "Select the cut for Player 4.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 4 (Diamond Casino)] Player 4 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Apply = {
@@ -1399,6 +1721,7 @@ eFeature = {
                         for i = 1, 4 do
                             eGlobal.Heist.DiamondCasino.Cut[F("Player%d", i)]:Set(cuts[i])
                         end
+                        SilentLogger.LogInfo("[Apply Cuts (Diamond Casino)] Cuts should've been applied ツ")
                     end
                 }
             },
@@ -1409,7 +1732,12 @@ eFeature = {
                     name = "File",
                     type = eFeatureType.Combo,
                     desc = "Select the desired preset.",
-                    list = eTable.Heist.DiamondCasino.Files
+                    list = eTable.Heist.DiamondCasino.Files,
+                    func = function(ftr)
+                        local list  = eTable.Heist.DiamondCasino.Files
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[File (Diamond Casino)] Selected heist preset: %s ツ", (list:GetName(index) == "") and "Empty" or list:GetName(index)))
+                    end
                 },
 
                 Load = {
@@ -1419,10 +1747,15 @@ eFeature = {
                     desc = "Loads the selected preset.",
                     func = function(file)
                         local path = F("%s\\%s.json", DIAMOND_DIR, file)
+
                         if FileMgr.DoesFileExist(path) then
                             local preps = Json.DecodeFromFile(path)
                             Helper.ApplyDiamondPreset(preps)
+                            SilentLogger.LogInfo(F("[Load (Diamond Casino)] Preset «%s» should've been loaded ツ", file))
+                            return
                         end
+
+                        SilentLogger.LogError(F("[Load (Diamond Casino)] Preset «%s» doesn't exist ツ", (file == "") and "Empty" or file))
                     end
                 },
 
@@ -1433,10 +1766,15 @@ eFeature = {
                     desc = "Removes the selected preset.",
                     func = function(file)
                         local path = F("%s\\%s.json", DIAMOND_DIR, file)
+
                         if FileMgr.DoesFileExist(path) then
                             FileMgr.DeleteFile(path)
                             Helper.RefreshPresetsFiles()
+                            SilentLogger.LogInfo(F("[Remove (Diamond Casino)] Preset «%s» should've been removed ツ", file))
+                            return
                         end
+
+                        SilentLogger.LogError(F("[Remove (Diamond Casino)] Preset «%s» doesn't exist ツ", (file == "") and "Empty" or file))
                     end
                 },
 
@@ -1447,6 +1785,7 @@ eFeature = {
                     desc = "Refreshes the list of presets.",
                     func = function()
                         Helper.RefreshPresetsFiles()
+                        SilentLogger.LogInfo("[Refresh (Diamond Casino)] Heist presets should've been refreshed ツ")
                     end
                 },
 
@@ -1463,10 +1802,11 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Saves the current preparations to the file.",
                     func = function(file, preps)
-                        FileMgr.CreateHeistPresetsDirs()
                         local path = F("%s\\%s.json", DIAMOND_DIR, file)
+                        FileMgr.CreateHeistPresetsDirs()
                         Json.EncodeToFile(path, preps)
                         Helper.RefreshPresetsFiles()
+                        SilentLogger.LogInfo(F("[Save (Diamond Casino)] Preset «%s» should've been saved ツ", file))
                     end
                 },
 
@@ -1478,6 +1818,7 @@ eFeature = {
                     func = function()
                         FileMgr.CreateHeistPresetsDirs()
                         ImGui.SetClipboardText(DIAMOND_DIR)
+                        SilentLogger.LogInfo("[Copy Folder Path (Diamond Casino)] Presets folder path should've been copied ツ")
                     end
                 }
             }
@@ -1490,7 +1831,12 @@ eFeature = {
                     name = "Act",
                     type = eFeatureType.Combo,
                     desc = "Select the desired doomsday act.",
-                    list = eTable.Heist.Doomsday.Acts
+                    list = eTable.Heist.Doomsday.Acts,
+                    func = function(ftr)
+                        local list  = eTable.Heist.Doomsday.Acts
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Act (Doomsday)] Selected act: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Complete = {
@@ -1509,6 +1855,7 @@ eFeature = {
                         eStat.MPX_GANGOPS_HEIST_STATUS:Set(acts[act][2])
                         eStat.MPX_GANGOPS_FLOW_NOTIFICATIONS:Set(1557)
                         eLocal.Heist.Doomsday.Reload:Set(6)
+                        SilentLogger.LogInfo(F("[Apply & Complete Preps (Doomsday)] Preps should've been completed ツ", act))
                     end
                 },
 
@@ -1522,6 +1869,7 @@ eFeature = {
                         eStat.MPX_GANGOPS_HEIST_STATUS:Set(0)
                         eStat.MPX_GANGOPS_FLOW_NOTIFICATIONS:Set(1557)
                         eLocal.Heist.Doomsday.Reload:Set(6)
+                        SilentLogger.LogInfo("[Reset Preps (Doomsday)] Preps should've been reset ツ")
                     end
                 },
 
@@ -1532,6 +1880,7 @@ eFeature = {
                     desc = "Reloads the planning screen.",
                     func = function()
                         eLocal.Heist.Doomsday.Reload:Set(6)
+                        SilentLogger.LogInfo("[Reload Screen (Doomsday)] Screen should've been reloaded ツ")
                     end
                 }
             },
@@ -1545,9 +1894,12 @@ eFeature = {
                     func = function()
                         GTA.ForceScriptHost(eScript.Heist.Doomsday)
                         Script.Yield(1000)
+
                         for i = 2, 4 do
                             eGlobal.Heist.Doomsday.Ready[F("Player%d", i)]:Set(1)
                         end
+
+                        SilentLogger.LogInfo("[Force Ready (Doomsday)] Everyone should've been forced ready ツ")
                     end
                 },
 
@@ -1559,16 +1911,19 @@ eFeature = {
                     func = function()
                         if CONFIG.instant_finish.doomsday == 1 then
                             Helper.NewInstantFinishHeist()
+
+                            SilentLogger.LogInfo("[Instant Finish (Doomsday)] Heist should've been finished. Method used: New ツ")
                             return
                         end
 
-                        ForceScriptHost(eScript.Heist.Doomsday)
+                        GTA.ForceScriptHost(eScript.Heist.Doomsday)
                         Script.Yield(1000)
                         eLocal.Heist.Doomsday.Finish.Step1:Set(12)
                         eLocal.Heist.Doomsday.Finish.Step2:Set(150)
                         eLocal.Heist.Doomsday.Finish.Step3:Set(99999)
                         eLocal.Heist.Doomsday.Finish.Step4:Set(99999)
                         eLocal.Heist.Doomsday.Finish.Step5:Set(80)
+                        SilentLogger.LogInfo("[Instant Finish (Doomsday)] Heist should've been finished. Method used: Old ツ")
                     end
                 },
 
@@ -1579,6 +1934,7 @@ eFeature = {
                     desc = "Skips the hacking process of The Data Breaches heist.",
                     func = function()
                         eLocal.Heist.Doomsday.Bypass.DataHack:Set(2)
+                        SilentLogger.LogInfo("[Bypass Data Breaches Hack (Doomsday)] Hacking process should've been skipped ツ")
                     end
                 },
 
@@ -1589,6 +1945,7 @@ eFeature = {
                     desc = "Skips the hacking process of The Doomsday Scenario heist.",
                     func = function()
                         eLocal.Heist.Doomsday.Bypass.DoomsdayHack:Set(3)
+                        SilentLogger.LogInfo("[Bypass Doomsday Scenario Hack (Doomsday)] Hacking process should've been skipped ツ")
                     end
                 }
             },
@@ -1599,7 +1956,12 @@ eFeature = {
                     name = "Team",
                     type = eFeatureType.Combo,
                     desc = "Select your number of players.",
-                    list = eTable.Heist.Generic.Team
+                    list = eTable.Heist.Generic.Team,
+                    func = function(ftr)
+                        local list = eTable.Heist.Generic.Team
+                        local team = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Team (Doomsday)] Selected team size: %s ツ", list:GetName(team)))
+                    end
                 },
 
                 Presets = {
@@ -1621,7 +1983,10 @@ eFeature = {
                     desc = "Select the cut for Player 1.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 1 (Doomsday)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player2 = {
@@ -1631,7 +1996,10 @@ eFeature = {
                     desc = "Select the cut for Player 2.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 2 (Doomsday)] Player 2 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player3 = {
@@ -1641,7 +2009,10 @@ eFeature = {
                     desc = "Select the cut for Player 3.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 3 (Doomsday)] Player 3 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Player4 = {
@@ -1651,7 +2022,10 @@ eFeature = {
                     desc = "Select the cut for Player 4.",
                     defv = 0,
                     lims = { 0, 999 },
-                    step = 1
+                    step = 1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Player 4 (Doomsday)] Player 4 cut should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Apply = {
@@ -1663,6 +2037,7 @@ eFeature = {
                         for i = 1, 4 do
                             eGlobal.Heist.Doomsday.Cut[F("Player%d", i)]:Set(cuts[i])
                         end
+                        SilentLogger.LogInfo("[Apply Cuts (Doomsday)] Cuts should've been applied ツ")
                     end
                 }
             }
@@ -1675,7 +2050,12 @@ eFeature = {
                     name = "Robbery",
                     type = eFeatureType.Combo,
                     desc = "Select the desired robbery type for slot 1.",
-                    list = eTable.Heist.SalvageYard.Robberies
+                    list = eTable.Heist.SalvageYard.Robberies,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Robberies
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Robbery (Salvage Yard)] Selected slot 1 robbery: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Vehicle = {
@@ -1683,7 +2063,12 @@ eFeature = {
                     name = "Vehicle",
                     type = eFeatureType.Combo,
                     desc = "Select the desired vehicle type for slot 1.",
-                    list = eTable.Heist.SalvageYard.Vehicles
+                    list = eTable.Heist.SalvageYard.Vehicles,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Vehicles
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Vehicle (Salvage Yard)] Selected slot 1 vehicle: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Modification = {
@@ -1691,7 +2076,12 @@ eFeature = {
                     name = "Modification",
                     type = eFeatureType.Combo,
                     desc = "Select the desired vehicle modification for slot 1.",
-                    list = eTable.Heist.SalvageYard.Modifications
+                    list = eTable.Heist.SalvageYard.Modifications,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Modifications
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Modification (Salvage Yard)] Selected slot 1 modification: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Keep = {
@@ -1699,7 +2089,12 @@ eFeature = {
                     name = "Status",
                     type = eFeatureType.Combo,
                     desc = "Select whether you can keep the vehicle for slot 1.",
-                    list = eTable.Heist.SalvageYard.Keeps
+                    list = eTable.Heist.SalvageYard.Keeps,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Keeps
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Status (Salvage Yard)] Selected slot 1 keep status: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Apply = {
@@ -1712,6 +2107,7 @@ eFeature = {
                         eGlobal.Heist.SalvageYard.Vehicle.Slot1.Type:Set(vehicle + modification * 100)
                         eGlobal.Heist.SalvageYard.Vehicle.Slot1.CanKeep:Set(keep)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Apply Changes (Salvage Yard)] Slot 1 changes should've been applied ツ")
                     end
                 }
             },
@@ -1722,7 +2118,12 @@ eFeature = {
                     name = "Robbery",
                     type = eFeatureType.Combo,
                     desc = "Select the desired robbery type for slot 2.",
-                    list = eTable.Heist.SalvageYard.Robberies
+                    list = eTable.Heist.SalvageYard.Robberies,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Robberies
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Robbery (Salvage Yard)] Selected slot 2 robbery: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Vehicle = {
@@ -1730,7 +2131,12 @@ eFeature = {
                     name = "Vehicle",
                     type = eFeatureType.Combo,
                     desc = "Select the desired vehicle type for slot 2.",
-                    list = eTable.Heist.SalvageYard.Vehicles
+                    list = eTable.Heist.SalvageYard.Vehicles,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Vehicles
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Vehicle (Salvage Yard)] Selected slot 2 vehicle: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Modification = {
@@ -1738,7 +2144,12 @@ eFeature = {
                     name = "Modification",
                     type = eFeatureType.Combo,
                     desc = "Select the desired vehicle modification for slot 2.",
-                    list = eTable.Heist.SalvageYard.Modifications
+                    list = eTable.Heist.SalvageYard.Modifications,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Modifications
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Modification (Salvage Yard)] Selected slot 2 modification: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Keep = {
@@ -1746,7 +2157,12 @@ eFeature = {
                     name = "Status",
                     type = eFeatureType.Combo,
                     desc = "Select whether you can keep the vehicle for slot 2.",
-                    list = eTable.Heist.SalvageYard.Keeps
+                    list = eTable.Heist.SalvageYard.Keeps,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Keeps
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Status (Salvage Yard)] Selected slot 2 keep status: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Apply = {
@@ -1759,6 +2175,7 @@ eFeature = {
                         eGlobal.Heist.SalvageYard.Vehicle.Slot2.Type:Set(vehicle + modification * 100)
                         eGlobal.Heist.SalvageYard.Vehicle.Slot2.CanKeep:Set(keep)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Apply Changes (Salvage Yard)] Slot 2 changes should've been applied ツ")
                     end
                 }
             },
@@ -1769,7 +2186,12 @@ eFeature = {
                     name = "Robbery",
                     type = eFeatureType.Combo,
                     desc = "Select the desired robbery type for slot 3.",
-                    list = eTable.Heist.SalvageYard.Robberies
+                    list = eTable.Heist.SalvageYard.Robberies,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Robberies
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Robbery (Salvage Yard)] Selected slot 3 robbery: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Vehicle = {
@@ -1777,7 +2199,12 @@ eFeature = {
                     name = "Vehicle",
                     type = eFeatureType.Combo,
                     desc = "Select the desired vehicle type for slot 3.",
-                    list = eTable.Heist.SalvageYard.Vehicles
+                    list = eTable.Heist.SalvageYard.Vehicles,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Vehicles
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Vehicle (Salvage Yard)] Selected slot 3 vehicle: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Modification = {
@@ -1785,7 +2212,12 @@ eFeature = {
                     name = "Modification",
                     type = eFeatureType.Combo,
                     desc = "Select the desired vehicle modification for slot 3.",
-                    list = eTable.Heist.SalvageYard.Modifications
+                    list = eTable.Heist.SalvageYard.Modifications,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Modifications
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Modification (Salvage Yard)] Selected slot 3 modification: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Keep = {
@@ -1793,7 +2225,12 @@ eFeature = {
                     name = "Status",
                     type = eFeatureType.Combo,
                     desc = "Select whether you can keep the vehicle for slot 3.",
-                    list = eTable.Heist.SalvageYard.Keeps
+                    list = eTable.Heist.SalvageYard.Keeps,
+                    func = function(ftr)
+                        local list  = eTable.Heist.SalvageYard.Keeps
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Status (Salvage Yard)] Selected slot 3 keep status: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Apply = {
@@ -1806,6 +2243,7 @@ eFeature = {
                         eGlobal.Heist.SalvageYard.Vehicle.Slot3.Type:Set(vehicle + modification * 100)
                         eGlobal.Heist.SalvageYard.Vehicle.Slot3.CanKeep:Set(keep)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Apply Changes (Salvage Yard)] Slot 3 changes should've been applied ツ")
                     end
                 }
             },
@@ -1827,6 +2265,7 @@ eFeature = {
                         eGlobal.Heist.SalvageYard.Vehicle.Slot3.Type:Set(vehicle3 + mod3 * 100)
                         eGlobal.Heist.SalvageYard.Vehicle.Slot3.CanKeep:Set(keep3)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Apply All Changes (Salvage Yard)] Changes should've been applied ツ")
                     end
                 },
 
@@ -1841,6 +2280,7 @@ eFeature = {
                         eStat.MPX_SALV23_FM_PROG:Set(-1)
                         eStat.MPX_SALV23_INST_PROG:Set(-1)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Complete Preps (Salvage Yard)] Preps should've been completed ツ")
                     end
                 },
 
@@ -1855,6 +2295,7 @@ eFeature = {
                         eStat.MPX_SALV23_FM_PROG:Set(0)
                         eStat.MPX_SALV23_INST_PROG:Set(0)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Reset Preps (Salvage Yard)] Preps should've been reset ツ")
                     end
                 },
 
@@ -1865,6 +2306,7 @@ eFeature = {
                     desc = "Reloads the planning screen.",
                     func = function()
                         eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Reload Screen (Salvage Yard)] Screen should've been reloaded ツ")
                     end
                 }
             },
@@ -1879,6 +2321,7 @@ eFeature = {
                         func = function()
                             eTunable.Heist.SalvageYard.Cooldown.Robbery:Set(0)
                             eTunable.Heist.SalvageYard.Cooldown.Cfr:Set(0)
+                            SilentLogger.LogInfo("[Kill Cooldowns (Salvage Yard)] Cooldowns should've been killed ツ")
                         end
                     },
 
@@ -1890,6 +2333,7 @@ eFeature = {
                         func = function()
                             eTunable.Heist.SalvageYard.Cooldown.Weekly:Set(eStat.MPX_SALV23_WEEK_SYNC:Get() + 1)
                             eLocal.Heist.SalvageYard.Reload:Set(2)
+                            SilentLogger.LogInfo("[Skip Weekly Cooldown (Salvage Yard)] Cooldown should've been skipped ツ")
                         end
                     }
                 },
@@ -1903,6 +2347,7 @@ eFeature = {
                         func = function()
                             eStat.MPX_SALV23_VEHROB_STATUS0:Set(0)
                             eLocal.Heist.SalvageYard.Reload:Set(2)
+                            SilentLogger.LogInfo("[Make Slot 1 Available (Salvage Yard)] Slot 1 should've been made «Available» ツ")
                         end
                     },
 
@@ -1914,6 +2359,7 @@ eFeature = {
                         func = function()
                             eStat.MPX_SALV23_VEHROB_STATUS1:Set(0)
                             eLocal.Heist.SalvageYard.Reload:Set(2)
+                            SilentLogger.LogInfo("[Make Slot 2 Available (Salvage Yard)] Slot 2 should've been made «Available» ツ")
                         end
                     },
 
@@ -1925,6 +2371,7 @@ eFeature = {
                         func = function()
                             eStat.MPX_SALV23_VEHROB_STATUS2:Set(0)
                             eLocal.Heist.SalvageYard.Reload:Set(2)
+                            SilentLogger.LogInfo("[Make Slot 3 Available (Salvage Yard)] Slot 3 should've been made «Available» ツ")
                         end
                     }
                 },
@@ -1936,8 +2383,17 @@ eFeature = {
                         type = eFeatureType.Toggle,
                         desc = "Allows setuping the heist for free.",
                         func = function(ftr)
-                            local bool = ftr:IsToggled()
-                            eTunable.Heist.SalvageYard.Robbery.SetupPrice:Set((bool) and 0 or 20000)
+                            eTunable.Heist.SalvageYard.Robbery.SetupPrice:Set((ftr:IsToggled()) and 0 or 20000)
+
+                            if ftr:IsToggled() then
+                                if not loggedSalvageSetup then
+                                    SilentLogger.LogInfo("[Free Setup (Salvage Yard)] Setup price should've been made free ツ")
+                                    loggedSalvageSetup = true
+                                end
+                            else
+                                SilentLogger.LogInfo("[Free Setup (Salvage Yard)] Setup price should've been made paid ツ")
+                                loggedSalvageSetup = false
+                            end
                         end
                     },
 
@@ -1947,9 +2403,18 @@ eFeature = {
                         type = eFeatureType.Toggle,
                         desc = "Allows claiming the vehicles for free.",
                         func = function(ftr)
-                            local bool = ftr:IsToggled()
-                            eTunable.Heist.SalvageYard.Vehicle.ClaimPrice.Standard:Set((bool) and 0 or 20000)
-                            eTunable.Heist.SalvageYard.Vehicle.ClaimPrice.Discounted:Set((bool) and 0 or 10000)
+                            eTunable.Heist.SalvageYard.Vehicle.ClaimPrice.Standard:Set((ftr:IsToggled()) and 0 or 20000)
+                            eTunable.Heist.SalvageYard.Vehicle.ClaimPrice.Discounted:Set((ftr:IsToggled()) and 0 or 10000)
+
+                            if ftr:IsToggled() then
+                                if not loggedSalvageClaim then
+                                    SilentLogger.LogInfo("[Free Claim (Salvage Yard)] Claim price should've been made free ツ")
+                                    loggedSalvageClaim = true
+                                end
+                            else
+                                SilentLogger.LogInfo("[Free Claim (Salvage Yard)] Claim price should've been made paid ツ")
+                                loggedSalvageClaim = false
+                            end
                         end
                     }
                 }
@@ -1963,7 +2428,10 @@ eFeature = {
                     desc = "Select the desired salvage value multiplier.",
                     defv = eGlobal.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Get(),
                     lims = { 0.0, 5.0 },
-                    step = 0.1
+                    step = 0.1,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Salvage Value Multiplier (Salvage Yard)] Multiplier should've been changed ツ")
+                    end
                 },
 
                 Slot1 = {
@@ -1973,7 +2441,10 @@ eFeature = {
                     desc = "Select the desired sell value for the vehicle in slot 1.",
                     defv = eGlobal.Heist.SalvageYard.Vehicle.Slot1.Value:Get(),
                     lims = { 0, 2100000 },
-                    step = 100000
+                    step = 100000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Value Slot 1 (Salvage Yard)] Slot 1 sell value should've been changed ツ")
+                    end
                 },
 
                 Slot2 = {
@@ -1983,7 +2454,10 @@ eFeature = {
                     desc = "Select the desired sell value for the vehicle in slot 2.",
                     defv = eGlobal.Heist.SalvageYard.Vehicle.Slot2.Value:Get(),
                     lims = { 0, 2100000 },
-                    step = 100000
+                    step = 100000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Value Slot 2 (Salvage Yard)] Slot 2 sell value should've been changed ツ")
+                    end
                 },
 
                 Slot3 = {
@@ -1993,7 +2467,10 @@ eFeature = {
                     desc = "Select the desired sell value for the vehicle in slot 3.",
                     defv = eGlobal.Heist.SalvageYard.Vehicle.Slot3.Value:Get(),
                     lims = { 0, 2100000 },
-                    step = 100000
+                    step = 100000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Value Slot 3 (Salvage Yard)] Slot 3 sell value should've been changed ツ")
+                    end
                 },
 
                 Apply = {
@@ -2007,6 +2484,7 @@ eFeature = {
                         eGlobal.Heist.SalvageYard.Vehicle.Slot2.Value:Set(sellValue2)
                         eGlobal.Heist.SalvageYard.Vehicle.Slot3.Value:Set(sellValue3)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Apply Sell Values (Salvage Yard)] Sell values should've been applied ツ")
                     end
                 }
             }
@@ -2037,11 +2515,17 @@ eFeature = {
                             eTunable.Business.Bunker.Product.Value:Set(math.floor((2500000 / 1.5) / eStat.MPX_PRODTOTALFORFACTORY5:Get()))
                             eTunable.Business.Bunker.Product.StaffUpgraded:Set(0)
                             eTunable.Business.Bunker.Product.EquipmentUpgraded:Set(0)
-                            Script.Yield()
+
+                            if not loggedBunkerPrice then
+                                SilentLogger.LogInfo("[Maximize Price (Bunker)] Price should've been maximized ツ")
+                                loggedBunkerPrice = true
+                            end
                         else
                             eTunable.Business.Bunker.Product.Value:Reset()
                             eTunable.Business.Bunker.Product.StaffUpgraded:Reset()
                             eTunable.Business.Bunker.Product.EquipmentUpgraded:Reset()
+                            SilentLogger.LogInfo("[Maximize Price (Bunker)] Price should've been reset ツ")
+                            loggedBunkerPrice = false
                         end
                     end
                 },
@@ -2050,7 +2534,10 @@ eFeature = {
                     hash = J("SN_Bunker_NoXp"),
                     name = "No XP Gain",
                     type = eFeatureType.Toggle,
-                    desc = "Disables the xp gain for sell missions."
+                    desc = "Disables the xp gain for sell missions.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[No XP Gain (Bunker)] XP gain should've been %s ツ", (ftr:IsToggled()) and "disabled" or "enabled"))
+                    end
                 },
 
                 Sell = {
@@ -2061,6 +2548,7 @@ eFeature = {
                     func = function(bool)
                         eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
                         eLocal.Business.Bunker.Sell.Finish:Set(0)
+                        SilentLogger.LogInfo("[Instant Sell (Bunker)] Sell mission should've been finished ツ")
                     end
                 }
             },
@@ -2073,6 +2561,7 @@ eFeature = {
                     desc = "Opens the Bunker's laptop screen.",
                     func = function()
                         GTA.StartScript(eScript.Business.Bunker.Laptop)
+                        SilentLogger.LogInfo("[Open Laptop (Bunker)] Laptop screen should've been opened ツ")
                     end
                 },
 
@@ -2083,6 +2572,7 @@ eFeature = {
                     desc = "Gets supplies for your Bunker.",
                     func = function()
                         eGlobal.Business.Supplies.Bunker:Set(1)
+                        SilentLogger.LogInfo("[Get Supplies (Bunker)] Supplies should've been received ツ")
                     end
                 },
 
@@ -2095,6 +2585,7 @@ eFeature = {
                         if not GTA.IsScriptRunning(eScript.Business.Bunker.Laptop) then
                             eGlobal.Business.Bunker.Production.Trigger1:Set(0)
                             eGlobal.Business.Bunker.Production.Trigger2:Set(true)
+                            SilentLogger.LogInfo("[Trigger Production (Bunker)] Production should've been triggered ツ")
                         end
                     end
                 },
@@ -2104,12 +2595,24 @@ eFeature = {
                     name = "Turkish Supplier",
                     type = eFeatureType.Toggle,
                     desc = "Fills your Bunker stock. Also, gets supplies for your Bunker repeatedly.",
-                    func = function()
+                    func = function(ftr)
                         if not GTA.IsScriptRunning(eScript.Business.Bunker.Laptop) then
-                            eGlobal.Business.Supplies.Bunker:Set(1)
-                            eGlobal.Business.Bunker.Production.Trigger1:Set(0)
-                            eGlobal.Business.Bunker.Production.Trigger2:Set(true)
-                            Script.Yield(1000)
+                            if ftr:IsToggled() then
+                                eGlobal.Business.Supplies.Bunker:Set(1)
+                                eGlobal.Business.Bunker.Production.Trigger1:Set(0)
+                                eGlobal.Business.Bunker.Production.Trigger2:Set(true)
+
+                                if not loggedBunkerSupplier then
+                                    SilentLogger.LogInfo("[Turkish Supplier (Bunker)] Supplier should've been enabled ツ")
+                                    loggedBunkerSupplier = true
+                                end
+
+                                Script.Yield(1000)
+                            else
+                                eGlobal.Business.Supplies.Bunker:Set(0)
+                                SilentLogger.LogInfo("[Turkish Supplier (Bunker)] Supplier should've been disabled ツ")
+                            end
+
                         end
                     end
                 }
@@ -2117,13 +2620,16 @@ eFeature = {
 
             Stats = {
                 SellMade = {
-                    hash = J("SN_Bunker_Sell Made"),
+                    hash = J("SN_Bunker_SellMade"),
                     name = "Sell Made",
                     type = eFeatureType.InputInt,
                     desc = "Select the desired sales made.",
                     defv = eStat.MPX_LIFETIME_BKR_SEL_COMPLETBC5:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Made (Bunker)] Sales made should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 SellUndertaken = {
@@ -2133,7 +2639,10 @@ eFeature = {
                     desc = "Select the desired sales undertaken.",
                     defv = eStat.MPX_LIFETIME_BKR_SEL_UNDERTABC5:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Undertaken (Bunker)] Sales undertaken should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Earnings = {
@@ -2143,21 +2652,30 @@ eFeature = {
                     desc = "Select the desired earnings.",
                     defv = eStat.MPX_LIFETIME_BKR_SELL_EARNINGS5:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 1000000
+                    step = 1000000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Earnings (Bunker)] Earnings should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 NoSell = {
                     hash = J("SN_Bunker_NoSell"),
                     name = "Don't Apply Sell",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new sell missions or not."
+                    desc = "Decides whether you want to apply new sell missions or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Sell (Bunker)] Selected sell: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 NoEarnings = {
                     hash = J("SN_Bunker_NoEarnings"),
                     name = "Don't Apply Earnings",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new earnings or not."
+                    desc = "Decides whether you want to apply new earnings or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Earnings (Bunker)] Selected earnings: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 Apply = {
@@ -2174,6 +2692,7 @@ eFeature = {
                         if not bool2 then
                             eStat.MPX_LIFETIME_BKR_SELL_EARNINGS5:Set(earnings)
                         end
+                        SilentLogger.LogInfo("[Apply All Changes (Bunker)] Changes should've been applied ツ")
                     end
                 }
             }
@@ -2200,10 +2719,16 @@ eFeature = {
 
                                 eTunable.Business.Hangar.Price:Set(math.floor(4000000 / eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()))
                                 eTunable.Business.Hangar.RonsCut:Set(0.0)
-                                Script.Yield()
+
+                                if not loggedHangarPrice then
+                                    SilentLogger.LogInfo("[Maximize Price (Hangar)] Price should've been maximized ツ")
+                                    loggedHangarPrice = true
+                                end
                             else
                                 eTunable.Business.Hangar.Price:Reset()
                                 eTunable.Business.Hangar.RonsCut:Reset()
+                                SilentLogger.LogInfo("[Maximize Price (Hangar)] Price should've been reset ツ")
+                                loggedHangarPrice = false
                             end
                         end
                     end
@@ -2213,7 +2738,10 @@ eFeature = {
                     hash = J("SN_Hangar_NoXp"),
                     name = "No XP Gain",
                     type = eFeatureType.Toggle,
-                    desc = "Disables the xp gain for sell missions."
+                    desc = "Disables the xp gain for sell missions.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[No XP Gain (Hangar)] XP gain should've been %s ツ", (ftr:IsToggled()) and "disabled" or "enabled"))
+                    end
                 },
 
                 Sell = {
@@ -2224,6 +2752,7 @@ eFeature = {
                     func = function(bool)
                         eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
                         eLocal.Business.Hangar.Sell.Finish:Set(eLocal.Business.Hangar.Sell.Delivered:Get())
+                        SilentLogger.LogInfo("[Instant Air Cargo Sell (Hangar)] Sell mission should've been finished ツ")
                     end
                 }
             },
@@ -2236,6 +2765,7 @@ eFeature = {
                     desc = "Opens the Hangar's laptop screen.",
                     func = function()
                         GTA.StartScript(eScript.Business.Hangar.Laptop)
+                        SilentLogger.LogInfo("[Open Laptop (Hangar)] Laptop screen should've been opened ツ")
                     end
                 },
 
@@ -2247,6 +2777,7 @@ eFeature = {
                     func = function()
                         if not GTA.IsScriptRunning(eScript.Business.Hangar.Laptop) then
                             ePackedBool.Business.Hangar.Cargo:Set(true)
+                            SilentLogger.LogInfo("[Get Cargo (Hangar)] Cargo should've been received ツ")
                         end
                     end
                 },
@@ -2256,10 +2787,22 @@ eFeature = {
                     name = "Turkish Supplier",
                     type = eFeatureType.Toggle,
                     desc = "Fills your Hangar stock repeatedly.",
-                    func = function()
+                    func = function(ftr)
                         if not GTA.IsScriptRunning(eScript.Business.Hangar.Laptop) then
-                            ePackedBool.Business.Hangar.Cargo:Set(true)
-                            Script.Yield(1000)
+                            if ftr:IsToggled() then
+                                ePackedBool.Business.Hangar.Cargo:Set(true)
+
+                                if not loggedHangarSupplier then
+                                    SilentLogger.LogInfo("[Turkish Supplier (Hangar)] Supplier should've been enabled ツ")
+                                    loggedHangarSupplier = true
+                                end
+
+                                Script.Yield(1000)
+                            else
+                                ePackedBool.Business.Hangar.Cargo:Set(false)
+                                SilentLogger.LogInfo("[Turkish Supplier (Hangar)] Supplier should've been disabled ツ")
+                                loggedHangarSupplier = false
+                            end
                         end
                     end
                 },
@@ -2276,12 +2819,19 @@ eFeature = {
                             eTunable.Business.Hangar.Cooldown.Steal.Hard:Set(0)
                             eTunable.Business.Hangar.Cooldown.Steal.Additional:Set(0)
                             eTunable.Business.Hangar.Cooldown.Sell:Set(0)
+
+                            if not loggedHangarCooldown then
+                                SilentLogger.LogInfo("[Kill Cooldowns (Hangar)] Cooldowns should've been killed ツ")
+                                loggedHangarCooldown = true
+                            end
                         else
                             eTunable.Business.Hangar.Cooldown.Steal.Easy:Reset()
                             eTunable.Business.Hangar.Cooldown.Steal.Medium:Reset()
                             eTunable.Business.Hangar.Cooldown.Steal.Hard:Reset()
                             eTunable.Business.Hangar.Cooldown.Steal.Additional:Reset()
                             eTunable.Business.Hangar.Cooldown.Sell:Reset()
+                            SilentLogger.LogInfo("[Kill Cooldowns (Hangar)] Cooldowns should've been reset ツ")
+                            loggedHangarCooldown = false
                         end
                     end
                 }
@@ -2295,7 +2845,10 @@ eFeature = {
                     desc = "Select the desired buy made.",
                     defv = eStat.MPX_LFETIME_HANGAR_BUY_COMPLET:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Buy Made (Hangar)] Buy made should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 BuyUndertaken = {
@@ -2305,7 +2858,10 @@ eFeature = {
                     desc = "Select the desired buy undertaken.",
                     defv = eStat.MPX_LFETIME_HANGAR_BUY_UNDETAK:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Buy Undertaken (Hangar)] Buy undertaken should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 SellMade = {
@@ -2315,7 +2871,10 @@ eFeature = {
                     desc = "Select the desired sales made.",
                     defv = eStat.MPX_LFETIME_HANGAR_SEL_COMPLET:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Made (Hangar)] Sales made should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 SellUndertaken = {
@@ -2325,7 +2884,10 @@ eFeature = {
                     desc = "Select the desired sales undertaken.",
                     defv = eStat.MPX_LFETIME_HANGAR_SEL_UNDETAK:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Undertaken (Hangar)] Sales undertaken should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Earnings = {
@@ -2335,28 +2897,40 @@ eFeature = {
                     desc = "Select the desired earnings.",
                     defv = eStat.MPX_LFETIME_HANGAR_EARNINGS:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 1000000
+                    step = 1000000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Earnings (Hangar)] Earnings should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 NoBuy = {
                     hash = J("SN_Hangar_NoBuy"),
                     name = "Don't Apply Buy",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new buy missions or not."
+                    desc = "Decides whether you want to apply new buy missions or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Buy (Hangar)] Selected buy: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 NoSell = {
                     hash = J("SN_Hangar_NoSell"),
                     name = "Don't Apply Sell",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new sell missions or not."
+                    desc = "Decides whether you want to apply new sell missions or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Sell (Hangar)] Selected sell: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 NoEarnings = {
                     hash = J("SN_Hangar_NoEarnings"),
                     name = "Don't Apply Earnings",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new earnings or not."
+                    desc = "Decides whether you want to apply new earnings or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Earnings (Hangar)] Selected earnings: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 Apply = {
@@ -2376,6 +2950,7 @@ eFeature = {
                         if not bool3 then
                             eStat.MPX_LFETIME_HANGAR_EARNINGS:Set(earnings)
                         end
+                        SilentLogger.LogInfo("[Apply All Changes (Hangar)] Changes should've been applied ツ")
                     end
                 }
             }
@@ -2403,7 +2978,11 @@ eFeature = {
                             eTunable.Business.Nightclub.Price.Documents:Set(math.floor(price / eStat.MPX_HUB_PROD_TOTAL_5:Get()))
                             eTunable.Business.Nightclub.Price.Cash:Set(math.floor(price / eStat.MPX_HUB_PROD_TOTAL_6:Get()))
                             eTunable.Business.Nightclub.Price.Cargo:Set(math.floor(price / eStat.MPX_HUB_PROD_TOTAL_0:Get()))
-                            Script.Yield()
+
+                            if not loggedNightclubPrice then
+                                SilentLogger.LogInfo("[Maximize Price (Nightclub)] Price should've been maximized ツ")
+                                loggedNightclubPrice = true
+                            end
                         else
                             eTunable.Business.Nightclub.Price.Weapons:Reset()
                             eTunable.Business.Nightclub.Price.Coke:Reset()
@@ -2412,6 +2991,8 @@ eFeature = {
                             eTunable.Business.Nightclub.Price.Documents:Reset()
                             eTunable.Business.Nightclub.Price.Cash:Reset()
                             eTunable.Business.Nightclub.Price.Cargo:Reset()
+                            SilentLogger.LogInfo("[Maximize Price (Nightclub)] Price should've been reset ツ")
+                            loggedNightclubPrice = false
                         end
                     end
                 }
@@ -2425,6 +3006,7 @@ eFeature = {
                     desc = "Opens the Nightclub's computer screen.",
                     func = function()
                         GTA.StartScript(eScript.Business.Nightclub)
+                        SilentLogger.LogInfo("[Open Computer (Nightclub)] Computer screen should've been opened ツ")
                     end
                 },
 
@@ -2438,10 +3020,17 @@ eFeature = {
                             eTunable.Business.Nightclub.Cooldown.ClubManagement:Set(0)
                             eTunable.Business.Nightclub.Cooldown.Sell:Set(0)
                             eTunable.Business.Nightclub.Cooldown.SellDelivery:Set(0)
+
+                            if not loggedNightclubCooldown then
+                                SilentLogger.LogInfo("[Kill Cooldowns (Nightclub)] Cooldowns should've been killed ツ")
+                                loggedNightclubCooldown = true
+                            end
                         else
                             eTunable.Business.Nightclub.Cooldown.ClubManagement:Reset()
                             eTunable.Business.Nightclub.Cooldown.Sell:Reset()
                             eTunable.Business.Nightclub.Cooldown.SellDelivery:Reset()
+                            SilentLogger.LogInfo("[Kill Cooldowns (Nightclub)] Cooldowns should've been reset ツ")
+                            loggedNightclubCooldown = false
                         end
                     end
                 },
@@ -2455,6 +3044,7 @@ eFeature = {
                         ePackedBool.Business.Nightclub.Setup.Staff:Set(true)
                         ePackedBool.Business.Nightclub.Setup.Equipment:Set(true)
                         ePackedBool.Business.Nightclub.Setup.DJ:Set(true)
+                        SilentLogger.LogInfo("[Skip Setup (Nightclub)] Setups should've been skipped. Don't forget to change the session ツ")
                     end
                 }
             },
@@ -2467,7 +3057,10 @@ eFeature = {
                     desc = "Select the desired sales made.",
                     defv = eStat.MPX_HUB_SALES_COMPLETED:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Made (Nightclub)] Sales made should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Earnings = {
@@ -2477,21 +3070,30 @@ eFeature = {
                     desc = "Select the desired earnings.",
                     defv = eStat.MPX_HUB_EARNINGS:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 1000000
+                    step = 1000000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Earnings (Nightclub)] Earnings should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 NoSell = {
                     hash = J("SN_Nightclub_NoSell"),
                     name = "Don't Apply Sell",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new sell missions or not."
+                    desc = "Decides whether you want to apply new sell missions or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Sell (Nightclub)] Selected sell: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 NoEarnings = {
                     hash = J("SN_Nightclub_NoEarnings"),
                     name = "Don't Apply Earnings",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new earnings or not."
+                    desc = "Decides whether you want to apply new earnings or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Earnings (Nightclub)] Selected earnings: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 Apply = {
@@ -2506,6 +3108,7 @@ eFeature = {
                         if not bool2 then
                             eStat.MPX_HUB_EARNINGS:Set(earnings)
                         end
+                        SilentLogger.LogInfo("[Apply All Changes (Nightclub)] Changes should've been applied ツ")
                     end
                 }
             },
@@ -2528,6 +3131,7 @@ eFeature = {
                         end
 
                         eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
+                        SilentLogger.LogInfo("[Fill Safe (Nightclub)] Safe should've been filled ツ")
                     end
                 },
 
@@ -2540,6 +3144,7 @@ eFeature = {
                         if eGlobal.Business.Nightclub.Safe.Value:Get() > 0 then
                             eLocal.Business.Nightclub.Safe.Type:Set(3)
                             eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                            SilentLogger.LogInfo("[Collect Safe (Nightclub)] Safe should've been collected ツ")
                         end
                     end
                 },
@@ -2561,6 +3166,7 @@ eFeature = {
                         Script.Yield(3000)
                         eLocal.Business.Nightclub.Safe.Type:Set(3)
                         eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                        SilentLogger.LogInfo("[Unbrick Safe (Nightclub)] Safe should've been unbricked ツ")
                     end
                 }
             },
@@ -2573,6 +3179,7 @@ eFeature = {
                     desc = "Makes your Nightclub popular.",
                     func = function()
                         eStat.MPX_CLUB_POPULARITY:Set(1000)
+                        SilentLogger.LogInfo("[Max Popularity (Nightclub)] Popularity should've been maximized ツ")
                     end
                 },
 
@@ -2583,6 +3190,7 @@ eFeature = {
                     desc = "Makes your Nightclub unpopular.",
                     func = function()
                         eStat.MPX_CLUB_POPULARITY:Set(0)
+                        SilentLogger.LogInfo("[Min Popularity (Nightclub)] Popularity should've been minimized ツ")
                     end
                 },
 
@@ -2596,10 +3204,19 @@ eFeature = {
                             if NPOPULARITY == "TEMP" then
                                 NPOPULARITY = eStat.MPX_CLUB_POPULARITY:Get()
                             end
+
                             eStat.MPX_CLUB_POPULARITY:Set(NPOPULARITY)
+
+                            if not loggedNightclubLock then
+                                SilentLogger.LogInfo(F("[Lock Popularity (Nightclub)] Popularity should've been locked at %d%%ツ", (NPOPULARITY ~= 0) and NPOPULARITY / 10 or 0))
+                                loggedNightclubLock = true
+                            end
+
                             Script.Yield(1000)
                         else
                             NPOPULARITY = "TEMP"
+                            SilentLogger.LogInfo("[Lock Popularity (Nightclub)] Popularity should've been unlocked ツ")
+                            loggedNightclubLock = false
                         end
                     end
                 }
@@ -2642,11 +3259,17 @@ eFeature = {
                             eTunable.Business.CrateWarehouse.Price.Threshold19:Set(math.floor(price / 99))
                             eTunable.Business.CrateWarehouse.Price.Threshold20:Set(math.floor(price / 110))
                             eTunable.Business.CrateWarehouse.Price.Threshold21:Set(math.floor(price / 111))
-                            Script.Yield()
+
+                            if not loggedSpecialPrice then
+                                SilentLogger.LogInfo("[Maximize Price (Crate Warehouse)] Price should've been maximized ツ")
+                                loggedSpecialPrice = true
+                            end
                         else
                             for i = 1, 21 do
                                 eTunable.Business.CrateWarehouse.Price[F("Threshold%d", i)]:Reset()
                             end
+                            SilentLogger.LogInfo("[Maximize Price (Crate Warehouse)] Price should've been reset ツ")
+                            loggedSpecialPrice = false
                         end
                     end
                 },
@@ -2655,14 +3278,20 @@ eFeature = {
                     hash = J("SN_CrateWarehouse_NoXp"),
                     name = "No XP Gain",
                     type = eFeatureType.Toggle,
-                    desc = "Disables the xp gain for sell missions."
+                    desc = "Disables the xp gain for sell missions.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[No XP Gain (Crate Warehouse)] XP gain should've been %s ツ", (ftr:IsToggled()) and "disabled" or "enabled"))
+                    end
                 },
 
                 NoCrateback = {
                     hash = J("SN_CrateWarehouse_NoCrateback"),
                     name = "No CrateBack",
                     type = eFeatureType.Toggle,
-                    desc = "Disables auto refill of the crates after «Instant Sell»."
+                    desc = "Disables auto refill of the crates after «Instant Sell».",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[No CrateBack (Crate Warehouse)] Crate refill should've been %s ツ", (ftr:IsToggled()) and "disabled" or "enabled"))
+                    end
                 },
 
                 Sell = {
@@ -2681,6 +3310,7 @@ eFeature = {
                         eLocal.Business.CrateWarehouse.Sell.Finish:Set(99999)
                         Script.Yield(2000)
                         eLocal.Business.CrateWarehouse.Sell.Finish:Set(99999)
+                        SilentLogger.LogInfo("[Instant Sell (Crate Warehouse)] Sell mission should've been finished ツ")
                     end
                 }
             },
@@ -2693,6 +3323,7 @@ eFeature = {
                     desc = "Gets crates for your Crate Warehouse.",
                     func = function()
                         ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
+                        SilentLogger.LogInfo("[Get Crates (Crate Warehouse)] Crates should've been received ツ")
                     end
                 },
 
@@ -2703,14 +3334,20 @@ eFeature = {
                     desc = "Select the desired crates amount to buy.",
                     defv = 0,
                     lims = { 0, 111 },
-                    step = 1
+                    step = 1,
+                    func = function()
+                        SilentLogger.LogInfo("[Crates Amount (Crate Warehouse)] Crates amount should've been changed ツ")
+                    end
                 },
 
                 Max = {
                     hash = J("SN_CrateWarehouse_Max"),
                     name = "Max",
                     type = eFeatureType.Button,
-                    desc = "Maximizes the crates amount, but not buying them."
+                    desc = "Maximizes the crates amount, but not buying them.",
+                    func = function()
+                        SilentLogger.LogInfo("[Max (Crate Warehouse)] Crates amount should've been maximized. Don't forget to apply ツ")
+                    end
                 },
 
                 Buy = {
@@ -2723,6 +3360,7 @@ eFeature = {
                         eLocal.Business.CrateWarehouse.Buy.Finish1:Set(1)
                         eLocal.Business.CrateWarehouse.Buy.Finish2:Set(6)
                         eLocal.Business.CrateWarehouse.Buy.Finish3:Set(4)
+                        SilentLogger.LogInfo("[Instant Buy (Crate Warehouse)] Buy mission should've been finished ツ")
                     end
                 },
 
@@ -2731,9 +3369,20 @@ eFeature = {
                     name = "Turkish Supplier",
                     type = eFeatureType.Toggle,
                     desc = "Fills your Crate Warehouse stock repeatedly.",
-                    func = function()
-                        ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
-                        Script.Yield(1000)
+                    func = function(ftr)
+                        if ftr:IsToggled() then
+                            ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
+
+                            if not loggedSpecialSupplier then
+                                SilentLogger.LogInfo("[Turkish Supplier (Crate Warehouse)] Supplier should've been enabled ツ")
+                                loggedCrateSupplier = true
+                            end
+
+                            Script.Yield(1000)
+                        else
+                            SilentLogger.LogInfo("[Turkish Supplier (Crate Warehouse)] Supplier should've been disabled ツ")
+                            loggedSpecialSupplier = false
+                        end
                     end
                 },
 
@@ -2746,9 +3395,16 @@ eFeature = {
                         if ftr:IsToggled() then
                             eTunable.Business.CrateWarehouse.Cooldown.Buy:Set(0)
                             eTunable.Business.CrateWarehouse.Cooldown.Sell:Set(0)
+
+                            if not loggedSpecialCooldown then
+                                SilentLogger.LogInfo("[Kill Cooldowns (Crate Warehouse)] Cooldowns should've been killed ツ")
+                                loggedSpecialCooldown = true
+                            end
                         else
                             eTunable.Business.CrateWarehouse.Cooldown.Buy:Reset()
                             eTunable.Business.CrateWarehouse.Cooldown.Sell:Reset()
+                            SilentLogger.LogInfo("[Kill Cooldowns (Crate Warehouse)] Cooldowns should've been reset ツ")
+                            loggedSpecialCooldown = false
                         end
                     end
                 }
@@ -2762,7 +3418,10 @@ eFeature = {
                     desc = "Select the desired buy made.",
                     defv = eStat.MPX_LIFETIME_BUY_COMPLETE:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Buy Made (Crate Warehouse)] Buy made should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 BuyUndertaken = {
@@ -2772,7 +3431,10 @@ eFeature = {
                     desc = "Select the desired buy undertaken.",
                     defv = eStat.MPX_LIFETIME_BUY_UNDERTAKEN:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Buy Undertaken (Crate Warehouse)] Buy undertaken should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 SellMade = {
@@ -2782,7 +3444,10 @@ eFeature = {
                     desc = "Select the desired sales made.",
                     defv = eStat.MPX_LIFETIME_SELL_COMPLETE:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Made (Crate Warehouse)] Sales made should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 SellUndertaken = {
@@ -2792,7 +3457,10 @@ eFeature = {
                     desc = "Select the desired sales undertaken.",
                     defv = eStat.MPX_LIFETIME_SELL_UNDERTAKEN:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 10
+                    step = 10,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sell Undertaken (Crate Warehouse)] Sales undertaken should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Earnings = {
@@ -2802,28 +3470,40 @@ eFeature = {
                     desc = "Select the desired earnings.",
                     defv = eStat.MPX_LIFETIME_CONTRA_EARNINGS:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 1000000
+                    step = 1000000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Earnings (Crate Warehouse)] Earnings should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 NoBuy = {
                     hash = J("SN_CrateWarehouse_NoBuy"),
                     name = "Don't Apply Buy",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new buy missions or not."
+                    desc = "Decides whether you want to apply new buy missions or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Buy (Crate Warehouse)] Selected buy: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 NoSell = {
                     hash = J("SN_CrateWarehouse_NoSell"),
                     name = "Don't Apply Sell",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new sell missions or not."
+                    desc = "Decides whether you want to apply new sell missions or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Sell (Crate Warehouse)] Selected sell: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 NoEarnings = {
                     hash = J("SN_CrateWarehouse_NoEarnings"),
                     name = "Don't Apply Earnings",
                     type = eFeatureType.Toggle,
-                    desc = "Decides whether you want to apply new earnings or not."
+                    desc = "Decides whether you want to apply new earnings or not.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Apply Earnings (Crate Warehouse)] Selected earnings: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                    end
                 },
 
                 Apply = {
@@ -2832,7 +3512,6 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Applies all changes.",
                     func = function(bool1, bool2, bool3, buyMade, buyUndertaken, sellMade, sellUndertaken, earnings)
-                        print("Called func with values:", bool1, bool2, bool3, buyMade, buyUndertaken, sellMade, sellUndertaken, earnings)
                         if not bool1 then
                             eStat.MPX_LIFETIME_BUY_COMPLETE:Set(buyMade)
                             eStat.MPX_LIFETIME_BUY_UNDERTAKEN:Set(buyUndertaken)
@@ -2844,6 +3523,7 @@ eFeature = {
                         if not bool3 then
                             eStat.MPX_LIFETIME_CONTRA_EARNINGS:Set(earnings)
                         end
+                        SilentLogger.LogInfo("[Apply All Changes (Crate Warehouse)] Changes should've been applied ツ")
                     end
                 }
             }
@@ -2856,7 +3536,12 @@ eFeature = {
                     name = "Business",
                     type = eFeatureType.Combo,
                     desc = "Select the desired business. If you don't see all the businesses, change the session.",
-                    list = eTable.Business.Supplies
+                    list = eTable.Business.Supplies,
+                    func = function(ftr)
+                        local list  = eTable.Business.Supplies
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Business (Misc)] Selected business: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Resupply = {
@@ -2865,7 +3550,10 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Resupplies the selected business.",
                     func = function(business)
-                        if business == -1 then return end
+                        if business == -1 then
+                            SilentLogger.LogError("[Resupply (Misc)] You must get a business first ツ")
+                            return
+                        end
 
                         local businesses = {
                             [0] = eGlobal.Business.Supplies.Slot0,
@@ -2884,10 +3572,12 @@ eFeature = {
                                 end
                             end
 
+                            SilentLogger.LogInfo("[Resupply (Misc)] All businesses should've been resupplied ツ")
                             return
                         end
 
                         businesses[business]:Set(1)
+                        SilentLogger.LogInfo("[Resupply (Misc)] Business should've been resupplied ツ")
                     end
                 }
             }
@@ -2902,7 +3592,12 @@ eFeature = {
                     name = "Prize",
                     type = eFeatureType.Combo,
                     desc = "Select the desired prize.",
-                    list = eTable.World.Casino.Prizes
+                    list = eTable.World.Casino.Prizes,
+                    func = function(ftr)
+                        local list  = eTable.World.Casino.Prizes
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Prize (Casino)] Selected prize: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Give = {
@@ -2913,6 +3608,7 @@ eFeature = {
                     func = function(prize)
                         eLocal.World.Casino.LuckyWheel.WinState:Set(prize)
                         eLocal.World.Casino.LuckyWheel.PrizeState:Set(11)
+                        SilentLogger.LogInfo("[Prize (Casino)] Prize should've been given ツ")
                     end
                 }
             },
@@ -2925,11 +3621,14 @@ eFeature = {
                     desc = "UNSAFE. Forces the slots to give you the jackpot.",
                     func = function()
                         local randomResultTable = eLocal.World.Casino.Slots.RandomResultTable.vLocal
+
                         for i = 3, 196 do
                             if i ~= 67 and i ~= 132 then
                                 ScriptLocal.SetInt(eScript.World.Casino.Slots.hash, randomResultTable + i, 6)
                             end
                         end
+
+                        SilentLogger.LogInfo("[Rig Slots (Casino)] Slots should've been rigged ツ")
                     end
                 },
 
@@ -2940,11 +3639,14 @@ eFeature = {
                     desc = "Forces the slots to always lose.",
                     func = function()
                         local randomResultTable = eLocal.World.Casino.Slots.RandomResultTable.vLocal
+
                         for i = 3, 196 do
                             if i ~= 67 and i ~= 132 then
                                 ScriptLocal.SetInt(eScript.World.Casino.Slots.hash, randomResultTable + i, 0)
                             end
                         end
+
+                        SilentLogger.LogInfo("[Lose Slots (Casino)] Slots should've been rigged ツ")
                     end
                 }
             },
@@ -2960,9 +3662,12 @@ eFeature = {
                         local masterTable   = eLocal.World.Casino.Roulette.MasterTable.vLocal
                         local outcomesTable = eLocal.World.Casino.Roulette.OutcomesTable.vLocal
                         local ballTable     = eLocal.World.Casino.Roulette.BallTable.vLocal
+
                         for i = 0, 5 do
                             ScriptLocal.SetInt(eScript.World.Casino.Roulette.hash, masterTable + outcomesTable + ballTable + i, 13)
                         end
+
+                        SilentLogger.LogInfo("[Land On Black 13 (Casino)] Ball should've landed on Black 13 ツ")
                     end
                 },
 
@@ -2972,12 +3677,16 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Forces the ball to land on Red 16. Use after there is no time for betting.",
                     func = function()
+                        GTA.ForceScriptHost(eScript.World.Casino.Roulette)
                         local masterTable   = eLocal.World.Casino.Roulette.MasterTable.vLocal
                         local outcomesTable = eLocal.World.Casino.Roulette.OutcomesTable.vLocal
                         local ballTable     = eLocal.World.Casino.Roulette.BallTable.vLocal
+
                         for i = 0, 5 do
                             ScriptLocal.SetInt(eScript.World.Casino.Roulette.hash, masterTable + outcomesTable + ballTable + i, 16)
                         end
+
+                        SilentLogger.LogInfo("[Land On Red 16 (Casino)] Ball should've landed on Red 16 ツ")
                     end
                 }
             },
@@ -2995,6 +3704,9 @@ eFeature = {
                     name = "Reveal Card",
                     type = eFeatureType.Button,
                     desc = "Reveals the dealer's face down card. Works better in solo session.",
+                    func = function()
+                        SilentLogger.LogInfo("[Reveal Card (Casino)] Card should've been revealed ツ")
+                    end
                 },
 
                 Trick = {
@@ -3010,6 +3722,7 @@ eFeature = {
                             eLocal.World.Casino.Blackjack.Dealer.ThirdCard:Set(13)
                             eLocal.World.Casino.Blackjack.VisibleCards:Set(3)
                         end
+                        SilentLogger.LogInfo("[Trick The Dealer (Casino)] Dealer's hand should've been tricked ツ")
                     end
                 }
             },
@@ -3034,6 +3747,9 @@ eFeature = {
                     name = "Reveal Cards",
                     type = eFeatureType.Button,
                     desc = "Reveals your and the dealer's cards. Works better in solo session.",
+                    func = function()
+                        SilentLogger.LogInfo("[Reveal Cards (Casino)] Cards should've been revealed ツ")
+                    end
                 },
 
                 Give = {
@@ -3043,8 +3759,8 @@ eFeature = {
                     desc = "Forces your hand to win. Also, reveals your and the dealer's cards. Use during the animation of your character getting at a table. Works better in solo session.",
                     func = function()
                         GTA.ForceScriptHost(eScript.World.Casino.Poker)
-                        local id = 0
-                        Helper.SetPokerCards(id, 50, 51, 52)
+                        Helper.SetPokerCards(0, 50, 51, 52)
+                        SilentLogger.LogInfo("[Give Straight Flush (Casino)] Your hand should've been given a straight flush ツ")
                     end
                 },
 
@@ -3059,6 +3775,7 @@ eFeature = {
                             local id = Helper.GetPokerPlayersCount() + 1
                             Helper.SetPokerCards(id, 2, 17, 32)
                         end
+                        SilentLogger.LogInfo("[Trick The Dealer (Casino)] Dealer's hand should've been tricked ツ")
                     end
                 }
             },
@@ -3069,13 +3786,26 @@ eFeature = {
                     name = "Bypass Casino Limits",
                     type = eFeatureType.Toggle,
                     desc = "Bypasses the casino limits. Might be unsafe if used to earn more chips.",
-                    func = function()
-                        eStat.MPPLY_CASINO_CHIPS_WON_GD:Set(0)
-                        eStat.MPPLY_CASINO_CHIPS_WONTIM:Set(0)
-                        eStat.MPPLY_CASINO_GMBLNG_GD:Set(0)
-                        eStat.MPPLY_CASINO_BAN_TIME:Set(0)
-                        eStat.MPPLY_CASINO_CHIPS_PURTIM:Set(0)
-                        eStat.MPPLY_CASINO_CHIPS_PUR_GD:Set(0)
+                    func = function(ftr)
+                        if ftr:IsToggled() then
+                            eStat.MPPLY_CASINO_CHIPS_WON_GD:Set(0)
+                            eStat.MPPLY_CASINO_CHIPS_WONTIM:Set(0)
+                            eStat.MPPLY_CASINO_GMBLNG_GD:Set(0)
+                            eStat.MPPLY_CASINO_BAN_TIME:Set(0)
+                            eStat.MPPLY_CASINO_CHIPS_PURTIM:Set(0)
+                            eStat.MPPLY_CASINO_CHIPS_PUR_GD:Set(0)
+
+                            if not loggedCasinoLimits then
+                                SilentLogger.LogInfo("[Bypass Casino Limits (Casino)] Casino limits should've been bypassed ツ")
+                                loggedCasinoLimits = true
+                            end
+                        else
+                            eTunable.World.Casino.Chips.Limit.Acquire:Reset()
+                            eTunable.World.Casino.Chips.Limit.AcquirePenthouse:Reset()
+                            eTunable.World.Casino.Chips.Limit.Sell:Reset()
+                            SilentLogger.LogInfo("[Bypass Casino Limits (Casino)] Casino limits should've been reset ツ")
+                            loggedCasinoLimits = false
+                        end
                     end
                 },
 
@@ -3087,7 +3817,10 @@ eFeature = {
                         desc = "Select the desired chips limit.",
                         defv = 0,
                         lims = { 0, INT32_MAX },
-                        step = 1000000
+                        step = 1000000,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Chips Limit (Casino)] Chips limit should've been changed. Don't forget to apply ツ")
+                        end
                     },
 
                     Acquire = {
@@ -3098,6 +3831,7 @@ eFeature = {
                         func = function(limit)
                             eTunable.World.Casino.Chips.Limit.Acquire:Set(limit)
                             eTunable.World.Casino.Chips.Limit.AcquirePenthouse:Set(limit)
+                            SilentLogger.LogInfo("[Apply Acquire Limit (Casino)] Acquire chips limit should've been applied ツ")
                         end
                     },
 
@@ -3105,9 +3839,10 @@ eFeature = {
                         hash = J("SN_Casino_Sell"),
                         name = "Apply Trade In Limit",
                         type = eFeatureType.Button,
-                        desc = "MIGHT BE UNSAFE. Applies the selected sell chips limit.",
+                        desc = "MIGHT BE UNSAFE. Applies the selected trade in chips limit.",
                         func = function(limit)
                             eTunable.World.Casino.Chips.Limit.Sell:Set(limit)
+                            SilentLogger.LogInfo("[Apply Trade In Limit (Casino)] Trade in chips limit should've been applied ツ")
                         end
                     }
                 }
@@ -3133,6 +3868,7 @@ eFeature = {
                         GTA.TriggerTransaction(0x921FCF3C)
                         Script.Yield(3000)
                         GTA.TriggerTransaction(0x314FB8B0)
+                        SilentLogger.LogInfo("[Give 30mil (Easy Money)] 30mil dollars should've been given ツ")
                     end
                 }
             },
@@ -3143,9 +3879,20 @@ eFeature = {
                     name = "5k Loop",
                     type = eFeatureType.Toggle,
                     desc = "MIGHT BE UNSAFE. Toggles the 5k chips loop.",
-                    func = function(delay)
-                        eGlobal.World.Casino.Chips.Bonus:Set(1)
-                        Script.Yield(math.floor(delay * 1000))
+                    func = function(ftr, delay)
+                        if ftr:IsToggled() then
+                            eGlobal.World.Casino.Chips.Bonus:Set(1)
+
+                            if not logged5kLoop then
+                                SilentLogger.LogInfo("[5k Loop (Easy Money)] 5k chips loop should've been enabled ツ")
+                                logged5kLoop = true
+                            end
+
+                            Script.Yield(math.floor(delay * 1000))
+                        else
+                            SilentLogger.LogInfo("[5k Loop (Easy Money)] 5k chips loop should've been disabled ツ")
+                            logged5kLoop = false
+                        end
                     end
                 },
 
@@ -3154,9 +3901,20 @@ eFeature = {
                     name = "50k Loop",
                     type = eFeatureType.Toggle,
                     desc = "MIGHT BE UNSAFE. Toggles the 50k dollars loop.",
-                    func = function(delay)
-                        GTA.TriggerTransaction(0x610F9AB4)
-                        Script.Yield(math.floor(delay * 1000))
+                    func = function(ftr, delay)
+                        if ftr:IsToggled() then
+                            GTA.TriggerTransaction(0x610F9AB4)
+
+                            if not logged50kLoop then
+                                SilentLogger.LogInfo("[50k Loop (Easy Money)] 50k dollars loop should've been enabled ツ")
+                                logged50kLoop = true
+                            end
+
+                            Script.Yield(math.floor(delay * 1000))
+                        else
+                            SilentLogger.LogInfo("[50k Loop (Easy Money)] 50k dollars loop should've been disabled ツ")
+                            logged50kLoop = false
+                        end
                     end
                 },
 
@@ -3165,9 +3923,20 @@ eFeature = {
                     name = "100k Loop",
                     type = eFeatureType.Toggle,
                     desc = "MIGHT BE UNSAFE. Toggles the 100k dollars loop.",
-                    func = function(delay)
-                        GTA.TriggerTransaction(J("SERVICE_EARN_AMBIENT_JOB_AMMUNATION_DELIVERY"))
-                        Script.Yield(math.floor(delay * 1000))
+                    func = function(ftr, delay)
+                        if ftr:IsToggled() then
+                            GTA.TriggerTransaction(J("SERVICE_EARN_AMBIENT_JOB_AMMUNATION_DELIVERY"))
+
+                            if not logged100kLoop then
+                                SilentLogger.LogInfo("[100k Loop (Easy Money)] 100k dollars loop should've been enabled ツ")
+                                logged100kLoop = true
+                            end
+
+                            Script.Yield(math.floor(delay * 1000))
+                        else
+                            SilentLogger.LogInfo("[100k Loop (Easy Money)] 100k dollars loop should've been disabled ツ")
+                            logged100kLoop = false
+                        end
                     end
                 },
 
@@ -3176,9 +3945,20 @@ eFeature = {
                     name = "180k Loop",
                     type = eFeatureType.Toggle,
                     desc = "MIGHT BE UNSAFE. Toggles the 180k dollars loop. Has a cooldown after gaining a certain amount of money.",
-                    func = function(delay)
-                        GTA.TriggerTransaction(0x615762F1)
-                        Script.Yield(math.floor(delay * 1000))
+                    func = function(ftr, delay)
+                        if ftr:IsToggled() then
+                            GTA.TriggerTransaction(0x615762F1)
+
+                            if not logged180kLoop then
+                                SilentLogger.LogInfo("[180k Loop (Easy Money)] 180k dollars loop should've been enabled ツ")
+                                logged180kLoop = true
+                            end
+
+                            Script.Yield(math.floor(delay * 1000))
+                        else
+                            SilentLogger.LogInfo("[180k Loop (Easy Money)] 180k dollars loop should've been disabled ツ")
+                            logged180kLoop = false
+                        end
                     end
                 }
             },
@@ -3189,26 +3969,36 @@ eFeature = {
                     name = "300k Loop",
                     type = eFeatureType.Toggle,
                     desc = "MIGHT BE UNSAFE. Toggles the 300k dollars loop. Use inside your Nightclub. Has a cooldown after gaining a certain amount of money.",
-                    func = function(delay)
-                        local top5      = eGlobal.Business.Nightclub.Safe.Income.Top5.global
-                        local top100    = eGlobal.Business.Nightclub.Safe.Income.Top100.global
-                        local safeValue = eGlobal.Business.Nightclub.Safe.Value:Get()
-                        local maxValue  = 300000
+                    func = function(ftr, delay)
+                        if ftr:IsToggled() then
+                            local top5      = eGlobal.Business.Nightclub.Safe.Income.Top5.global
+                            local top100    = eGlobal.Business.Nightclub.Safe.Income.Top100.global
+                            local safeValue = eGlobal.Business.Nightclub.Safe.Value:Get()
+                            local maxValue  = 300000
 
-                        eTunable.Business.Nightclub.Safe.MaxCapacity:Set(maxValue)
+                            eTunable.Business.Nightclub.Safe.MaxCapacity:Set(maxValue)
 
-                        for i = top5, top100 do
-                            ScriptGlobal.SetInt(i, maxValue)
+                            for i = top5, top100 do
+                                ScriptGlobal.SetInt(i, maxValue)
+                            end
+
+                            if safeValue <= maxValue and safeValue ~= 0 then
+                                eLocal.Business.Nightclub.Safe.Type:Set(3)
+                                eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                            elseif safeValue == 0 then
+                                eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
+                            end
+
+                            if not logged300kLoop then
+                                SilentLogger.LogInfo("[300k Loop (Easy Money)] 300k dollars loop should've been enabled ツ")
+                                logged300kLoop = true
+                            end
+
+                            Script.Yield(math.floor(delay * 1000))
+                        else
+                            SilentLogger.LogInfo("[300k Loop (Easy Money)] 300k dollars loop should've been disabled ツ")
+                            logged300kLoop = false
                         end
-
-                        if safeValue <= maxValue and safeValue ~= 0 then
-                            eLocal.Business.Nightclub.Safe.Type:Set(3)
-                            eLocal.Business.Nightclub.Safe.Collect:Set(1)
-                        elseif safeValue == 0 then
-                            eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
-                        end
-
-                        Script.Yield(math.floor(delay * 1000))
                     end
                 }
             }
@@ -3223,7 +4013,10 @@ eFeature = {
                     desc = "Select the desired money amount.",
                     defv = 0,
                     lims = { 0, INT32_MAX },
-                    step = 1000000
+                    step = 1000000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Money Amount (Misc)] Money amount should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Deposit = {
@@ -3232,10 +4025,16 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Deposits the selected money amount to your bank.",
                     func = function(amount)
+                        if amount == 0 then
+                            SilentLogger.LogError("[Deposit (Misc)] You must select a money amount first ツ")
+                            return
+                        end
+
                         local charSlot    = eStat.MPPLY_LAST_MP_CHAR:Get()
                         local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
                         local amount      = (amount > walletMoney) and walletMoney or amount
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, amount)
+                        SilentLogger.LogInfo("[Deposit (Misc)] Money amount should've been deposited ツ")
                     end
                 },
 
@@ -3245,10 +4044,16 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Withdraws the selected money amount from your bank.",
                     func = function(amount)
+                        if amount == 0 then
+                            SilentLogger.LogError("[Withdraw (Misc)] You must select a money amount first ツ")
+                            return
+                        end
+
                         local charSlot  = eStat.MPPLY_LAST_MP_CHAR:Get()
                         local bankMoney = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
                         local amount    = (amount > bankMoney) and bankMoney or amount
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, amount)
+                        SilentLogger.LogInfo("[Withdraw (Misc)] Money amount should've been withdrawn ツ")
                     end
                 },
 
@@ -3258,11 +4063,17 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Removes the selected money amount from your character.",
                     func = function(amount)
+                        if amount == 0 then
+                            SilentLogger.LogError("[Remove (Misc)] You must select a money amount first ツ")
+                            return
+                        end
+
                         local charSlot    = eStat.MPPLY_LAST_MP_CHAR:Get()
                         local bankMoney   = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
                         local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
                         local amount      = (amount > bankMoney + walletMoney) and bankMoney + walletMoney or amount
                         eGlobal.Player.Cash.Remove:Set(amount)
+                        SilentLogger.LogInfo("[Remove (Misc)] Money amount should've been removed ツ")
                     end
                 },
 
@@ -3275,6 +4086,7 @@ eFeature = {
                         local charSlot    = eStat.MPPLY_LAST_MP_CHAR:Get()
                         local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, walletMoney)
+                        SilentLogger.LogInfo("[Deposit All (Misc)] Money should've been deposited ツ")
                     end
                 },
 
@@ -3287,19 +4099,12 @@ eFeature = {
                         local charSlot  = eStat.MPPLY_LAST_MP_CHAR:Get()
                         local bankMoney = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, bankMoney)
+                        SilentLogger.LogInfo("[Withdraw All (Misc)] Money should've been withdrawn ツ")
                     end
                 }
             },
 
             Story = {
-                Character = {
-                    hash = J("SN_Misc_StoryCharacter"),
-                    name = "Character",
-                    type = eFeatureType.Combo,
-                    desc = "Select the desired story character.",
-                    list = eTable.Story.Characters
-                },
-
                 Select = {
                     hash = J("SN_Misc_StorySelect"),
                     name = "Money Amount",
@@ -3307,7 +4112,23 @@ eFeature = {
                     desc = "Select the desired money amount.",
                     defv = eStat.SP0_TOTAL_CASH:Get(),
                     lims = { 0, INT32_MAX },
-                    step = 1000000
+                    step = 1000000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Money Amount (Misc)] Money amount should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Character = {
+                    hash = J("SN_Misc_StoryCharacter"),
+                    name = "Character",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired story character.",
+                    list = eTable.Story.Characters,
+                    func = function(ftr)
+                        local list  = eTable.Story.Characters
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Character (Misc)] Selected character: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Apply = {
@@ -3317,27 +4138,12 @@ eFeature = {
                     desc = "Applies the selected money amount to the selected story character.",
                     func = function(charIndex, amount)
                         eStat[F("SP%d_TOTAL_CASH", charIndex)]:Set(amount)
+                        SilentLogger.LogInfo(F("[Apply Money Amount (Misc)] Money amount should've been applied ツ"))
                     end
                 }
             },
 
             Stats = {
-                Earned = {
-                    hash = J("SN_Misc_StatsEarned"),
-                    name = "Earned",
-                    type = eFeatureType.Combo,
-                    desc = "Select the desired «Earned» stat.",
-                    list = eTable.Cash.Stats.Earneds
-                },
-
-                Spent = {
-                    hash = J("SN_Misc_StatsSpent"),
-                    name = "Spent",
-                    type = eFeatureType.Combo,
-                    desc = "Select the desired «Spent» stat.",
-                    list = eTable.Cash.Stats.Spents
-                },
-
                 Select = {
                     hash = J("SN_Misc_StatsSelect"),
                     name = "Money Amount",
@@ -3345,7 +4151,36 @@ eFeature = {
                     desc = "Select the desired money amount.",
                     defv = 0,
                     lims = { 0, INT32_MAX },
-                    step = 1000000
+                    step = 1000000,
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Money Amount (Misc)] Money amount should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Earned = {
+                    hash = J("SN_Misc_StatsEarned"),
+                    name = "Earned",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired «Earned» stat.",
+                    list = eTable.Cash.Stats.Earneds,
+                    func = function(ftr)
+                        local list  = eTable.Cash.Stats.Earneds
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Earned (Misc)] Selected stat: %s ツ", list:GetName(index)))
+                    end
+                },
+
+                Spent = {
+                    hash = J("SN_Misc_StatsSpent"),
+                    name = "Spent",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired «Spent» stat.",
+                    list = eTable.Cash.Stats.Spents,
+                    func = function(ftr)
+                        local list  = eTable.Cash.Stats.Spents
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Spent (Misc)] Selected stat: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Apply = {
@@ -3356,10 +4191,15 @@ eFeature = {
                     func = function(earnedStat, spentStat, amount)
                         if earnedStat ~= 0 then
                             earnedStat:Set(amount)
+                            SilentLogger.LogInfo("[Apply Money Amount (Misc)] Earned stat should've been changed ツ")
+                            return
                         end
                         if spentStat ~= 0 then
                             spentStat:Set(amount)
+                            SilentLogger.LogInfo("[Apply Money Amount (Misc)] Spent stat should've been changed ツ")
+                            return
                         end
+                        SilentLogger.LogError("[Apply Money Amount (Misc)] You must select a stat first ツ")
                     end
                 }
             }
@@ -3374,7 +4214,12 @@ eFeature = {
                     name = "Type",
                     type = eFeatureType.Combo,
                     desc = "Select the desired global type.",
-                    list = eTable.Editor.Globals.Types
+                    list = eTable.Editor.Globals.Types,
+                    func = function(ftr)
+                        local list  = eTable.Editor.Globals.Types
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Type (Globals)] Selected global type: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Global = {
@@ -3395,7 +4240,10 @@ eFeature = {
                     hash = J("SN_Editor_GlobalsRead"),
                     name = "Read",
                     type = eFeatureType.Button,
-                    desc = "Reads the entered global value."
+                    desc = "Reads the entered global value.",
+                    func = function()
+                        SilentLogger.LogInfo("[Read (Dev Tool)] Value should've been read from global ツ")
+                    end
                 },
 
                 Write = {
@@ -3409,7 +4257,9 @@ eFeature = {
                             ["float"] = ScriptGlobal.SetFloat,
                             ["bool"]  = ScriptGlobal.SetBool
                         }
+
                         SetValue[type](global, value)
+                        SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to global ツ")
                     end
                 },
 
@@ -3429,6 +4279,8 @@ eFeature = {
                             SetValue[type](global, TEMP_GLOBAL)
                             TEMP_GLOBAL = "TEMP"
                         end
+
+                        SilentLogger.LogInfo("[Revert (Dev Tool)] Value should've been reverted to global ツ")
                     end
                 }
             },
@@ -3439,7 +4291,12 @@ eFeature = {
                     name = "Type",
                     type = eFeatureType.Combo,
                     desc = "Select the desired local type.",
-                    list = eTable.Editor.Locals.Types
+                    list = eTable.Editor.Locals.Types,
+                    func = function(ftr)
+                        local list  = eTable.Editor.Locals.Types
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Type (Locals)] Selected local type: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Script = {
@@ -3467,7 +4324,10 @@ eFeature = {
                     hash = J("SN_Editor_LocalsRead"),
                     name = "Read",
                     type = eFeatureType.Button,
-                    desc = "Reads the entered local value."
+                    desc = "Reads the entered local value.",
+                    func = function()
+                        SilentLogger.LogInfo("[Read (Dev Tool)] Value should've been read from local ツ")
+                    end
                 },
 
                 Write = {
@@ -3480,7 +4340,9 @@ eFeature = {
                             ["int"]   = ScriptLocal.SetInt,
                             ["float"] = ScriptLocal.SetFloat
                         }
+
                         SetValue[type](hash, vLocal, value)
+                        SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to local ツ")
                     end
                 },
 
@@ -3499,6 +4361,8 @@ eFeature = {
                             SetValue[type](hash, vLocal, TEMP_LOCAL)
                             TEMP_LOCAL = "TEMP"
                         end
+
+                        SilentLogger.LogInfo("[Revert (Dev Tool)] Value should've been reverted to local ツ")
                     end
                 }
             },
@@ -3508,7 +4372,10 @@ eFeature = {
                     hash = J("SN_Editor_StatsFrom"),
                     name = "From File",
                     type = eFeatureType.Toggle,
-                    desc = "Allows to write the stats from the file."
+                    desc = "Allows to write the stats from the file.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[From File (Dev Tool)] Stats from file should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
                 },
 
                 Type = {
@@ -3516,7 +4383,12 @@ eFeature = {
                     name = "Type",
                     type = eFeatureType.Combo,
                     desc = "Select the desired stat type.",
-                    list = eTable.Editor.Stats.Types
+                    list = eTable.Editor.Stats.Types,
+                    func = function(ftr)
+                        local list  = eTable.Editor.Stats.Types
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Type (Stats)] Selected stat type: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 Stat = {
@@ -3537,7 +4409,10 @@ eFeature = {
                     hash = J("SN_Editor_StatsRead"),
                     name = "Read",
                     type = eFeatureType.Button,
-                    desc = "Reads the entered stat value."
+                    desc = "Reads the entered stat value.",
+                    func = function()
+                        SilentLogger.LogInfo("[Read (Dev Tool)] Value should've been read from stat ツ")
+                    end
                 },
 
                 Write = {
@@ -3551,7 +4426,9 @@ eFeature = {
                             ["float"] = Stats.SetFloat,
                             ["bool"]  = Stats.SetBool
                         }
+
                         SetValue[type](hash, value)
+                        SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to stat ツ")
                     end
                 },
 
@@ -3571,6 +4448,8 @@ eFeature = {
                             SetValue[type](hash, TEMP_STAT)
                             TEMP_STAT = "TEMP"
                         end
+
+                        SilentLogger.LogInfo("[Revert (Dev Tool)] Value should've been reverted to stat ツ")
                     end
                 },
 
@@ -3579,7 +4458,12 @@ eFeature = {
                     name = "File",
                     type = eFeatureType.Combo,
                     desc = "Select the desired stat file.",
-                    list = eTable.Editor.Stats.Files
+                    list = eTable.Editor.Stats.Files,
+                    func = function(ftr)
+                        local list  = eTable.Editor.Stats.Files
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[File (Dev Tool)] Selected stats file: %s ツ", (list:GetName(index) == "") and "Empty" or list:GetName(index)))
+                    end
                 },
 
                 WriteAll = {
@@ -3608,7 +4492,12 @@ eFeature = {
                                     Stats.SetBool(J(stat), value)
                                 end
                             end
+
+                            SilentLogger.LogInfo(F("[Write All (Dev Tool)] Stats from «%s» file should've been written ツ", file))
+                            return
                         end
+
+                        SilentLogger.LogError(F("[Write All (Dev Tool)] Stats file «%s» doesn't exist ツ", (file == "") and "Empty" or file))
                     end
                 },
 
@@ -3619,10 +4508,15 @@ eFeature = {
                     desc = "Removes the selected stats file.",
                     func = function(file)
                         local path = F("%s\\%s.json", STATS_DIR, file)
+
                         if FileMgr.DoesFileExist(path) then
                             FileMgr.DeleteFile(path)
                             Helper.RefreshPresetsFiles()
+                            SilentLogger.LogInfo(F("[Remove (Dev Tool)] Stats file «%s» should've been removed ツ", file))
+                            return
                         end
+
+                        SilentLogger.LogError(F("[Remove (Dev Tool)] Stats file «%s» doesn't exist ツ", (file == "") and "Empty" or file))
                     end
                 },
 
@@ -3633,6 +4527,7 @@ eFeature = {
                     desc = "Refreshes the list of stats files.",
                     func = function()
                         Helper.RefreshPresetsFiles()
+                        SilentLogger.LogInfo("[Refresh (Dev Tool)] Stats files list should've been refreshed ツ")
                     end
                 },
 
@@ -3645,6 +4540,7 @@ eFeature = {
                         FileMgr.CreateStatsDir()
                         Helper.RefreshPresetsFiles()
                         ImGui.SetClipboardText(STATS_DIR)
+                        SilentLogger.LogInfo("[Copy (Dev Tool)] Stats folder path should've been copied ツ")
                     end
                 },
 
@@ -3656,8 +4552,7 @@ eFeature = {
                     func = function()
                         FileMgr.CreateStatsDir(true)
                         Helper.RefreshPresetsFiles()
-                        Logger.LogInfo("Generated example stats file.")
-                        GUI.AddToast("Generated example stats file.")
+                        SilentLogger.LogInfo("[Generate (Dev Tool)] Example stats file should've been generated ツ")
                     end
                 }
             },
@@ -3667,7 +4562,10 @@ eFeature = {
                     hash = J("SN_Editor_PackedStatsRange"),
                     name = "Range",
                     type = eFeatureType.Toggle,
-                    desc = "Allows to set a range of packed stats."
+                    desc = "Allows to set a range of packed stats.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Range (Packed Stats)] Range should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
                 },
 
                 Type = {
@@ -3675,7 +4573,12 @@ eFeature = {
                     name = "Type",
                     type = eFeatureType.Combo,
                     desc = "Select the desired packed stat type.",
-                    list = eTable.Editor.PackedStats.Types
+                    list = eTable.Editor.PackedStats.Types,
+                    func = function(ftr)
+                        local list  = eTable.Editor.PackedStats.Types
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Type (Packed Stats)] Selected packed stat type: %s ツ", list:GetName(index)))
+                    end
                 },
 
                 PackedStat = {
@@ -3696,7 +4599,10 @@ eFeature = {
                     hash = J("SN_Editor_PackedStatsRead"),
                     name = "Read",
                     type = eFeatureType.Button,
-                    desc = "Reads the entered packed stat value."
+                    desc = "Reads the entered packed stat value.",
+                    func = function()
+                        SilentLogger.LogInfo("[Read (Dev Tool)] Value should've been read from packed stat ツ")
+                    end
                 },
 
                 Write = {
@@ -3712,6 +4618,7 @@ eFeature = {
 
                         if lastPStat == nil then
                             SetValue[type](firstPStat, value, eStat.MPPLY_LAST_MP_CHAR:Get())
+                            SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to packed stat ツ")
                             return
                         end
 
@@ -3720,6 +4627,7 @@ eFeature = {
                         end
 
                         TEMP_PSTAT = "TEMP"
+                        SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to packed stats ツ")
                     end
                 },
 
@@ -3738,6 +4646,8 @@ eFeature = {
                             SetValue[type](packedStat, TEMP_PSTAT, eStat.MPPLY_LAST_MP_CHAR:Get())
                             TEMP_PSTAT = "TEMP"
                         end
+
+                        SilentLogger.LogInfo("[Revert (Dev Tool)] Value should've been reverted to packed stat ツ")
                     end
                 }
             }
@@ -3745,27 +4655,36 @@ eFeature = {
     },
 
     Settings = {
-        Discord = {
-            Copy = {
-                hash = J("SN_Settings_CopyLink"),
-                name = "Copy Server Invite Link",
-                type = eFeatureType.Button,
-                desc = "Copies Discord server invite link to your clipboard.",
-                func = function()
-                    ImGui.SetClipboardText(DISCORD)
-                end
-            }
-        },
-
         Config = {
+            Logging = {
+                hash = J("SN_Settings_Logging"),
+                name = "Logging",
+                type = eFeatureType.Combo,
+                desc = "Disabled: no logging.\nSilent: logs only.\nEnabled: logs & toasts.",
+                list = eTable.Settings.Logging,
+                func = function(ftr)
+                    CONFIG.logging = ftr:GetListIndex()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    local list = eTable.Settings.Logging
+                    SilentLogger.LogInfo(F("[Logging (Settings)] Selected logging level: %s ツ", list:GetName(CONFIG.logging)))
+                end
+            },
+
             Reset = {
                 hash = J("SN_Settings_Reset"),
                 name = "Reset",
                 type = eFeatureType.Button,
                 desc = "Resets the config to default.",
                 func = function()
+                    loggedJinxScript      = true
+                    loggedUCayoPerico     = true
+                    loggedUDiamondCasino  = true
+                    loggedDummyPrevention = true
                     FileMgr.ResetConfig()
-                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                    SilentLogger.LogInfo("[Reset (Settings)] Config should've been reset to default ツ")
                 end
             },
 
@@ -3776,86 +4695,196 @@ eFeature = {
                 desc = "Copies the config folder path to the clipboard.",
                 func = function()
                     ImGui.SetClipboardText(CONFIG_DIR)
+                    SilentLogger.LogInfo("[Copy (Settings)] Config folder path should've been copied ツ")
                 end
+            },
+
+            Discord = {
+                hash = J("SN_Settings_Discord"),
+                name = "Copy Discord Invite Link",
+                type = eFeatureType.Button,
+                desc = "Copies Discord server invite link to your clipboard.",
+                func = function()
+                    ImGui.SetClipboardText(DISCORD)
+                    SilentLogger.LogInfo("[Copy Link (Settings)] Discord server invite link should've been copied ツ")
+                end
+            }
+        },
+
+        Collab = {
+            JinxScript = {
+                Toggle = {
+                    hash = J("SN_Settings_Collab_JinxScript"),
+                    name = "JinxScript",
+                    type = eFeatureType.Toggle,
+                    desc = "If enabled, JinxScript will help speed up some processes.",
+                    func = function(ftr)
+                        CONFIG.collab.jinxscript = ftr:IsToggled()
+                        FileMgr.SaveConfig(CONFIG)
+                        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                        if loggedJinxScript then
+                            loggedJinxScript = false
+                            return
+                        end
+
+                        SilentLogger.LogInfo(F("[JinxScript (Settings)] JinxScript collab should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
+                Discord = {
+                    hash = J("SN_Settings_Collab_JinxScript_Discord"),
+                    name = "Discord",
+                    type = eFeatureType.Button,
+                    desc = "Copies JinxScript Discord server invite link to your clipboard.",
+                    func = function()
+                        ImGui.SetClipboardText("https://discord.gg/hjs5S93kQv")
+                        SilentLogger.LogInfo("[Discord (Settings)] JinxScript Discord server invite link should've been copied ツ")
+                    end
+                }
             }
         },
 
         InstantFinish = {
             Agency = {
-                hash = J("SN_Settings_Agency"),
+                hash = J("SN_Settings_IAgency"),
                 name = "Agency",
                 type = eFeatureType.Combo,
                 desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
-                list = eTable.Settings.Methods,
+                list = eTable.Settings.InstantFinishes,
                 func = function(ftr)
                     CONFIG.instant_finish.agency = ftr:GetListIndex()
                     FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    local list  = eTable.Settings.InstantFinishes
+                    local index = list[ftr:GetListIndex() + 1].index
+                    SilentLogger.LogInfo(F("[Agency (Settings)] Selected instant finish method: %s ツ", list:GetName(ftr:GetListIndex())))
                 end
             },
 
             Apartment = {
-                hash = J("SN_Settings_Apartment"),
+                hash = J("SN_Settings_IApartment"),
                 name = "Apartment",
                 type = eFeatureType.Combo,
-                desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
-                list = eTable.Settings.Methods,
+                desc = "Old: slower, works for all players, saves the preps, doesn't work for preps.\nNew: faster, works for most players, resets the preps, works for preps.",
+                list = eTable.Settings.InstantFinishes,
                 func = function(ftr)
                     CONFIG.instant_finish.apartment = ftr:GetListIndex()
                     FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    local list = eTable.Settings.InstantFinishes
+                    local index = list[ftr:GetListIndex() + 1].index
+                    SilentLogger.LogInfo(F("[Apartment (Settings)] Selected instant finish method: %s ツ", list:GetName(index)))
                 end
             },
 
             AutoShop = {
-                hash = J("SN_Settings_AutoShop"),
+                hash = J("SN_Settings_IAutoShop"),
                 name = "Auto Shop",
                 type = eFeatureType.Combo,
                 desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
-                list = eTable.Settings.Methods,
+                list = eTable.Settings.InstantFinishes,
                 func = function(ftr)
                     CONFIG.instant_finish.auto_shop = ftr:GetListIndex()
                     FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    local list  = eTable.Settings.InstantFinishes
+                    local index = list[ftr:GetListIndex() + 1].index
+                    SilentLogger.LogInfo(F("[Auto Shop (Settings)] Selected instant finish method: %s ツ", list:GetName(index)))
                 end
             },
 
             CayoPerico = {
-                hash = J("SN_Settings_CayoPerico"),
+                hash = J("SN_Settings_ICayoPerico"),
                 name = "Cayo Perico",
                 type = eFeatureType.Combo,
                 desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
-                list = eTable.Settings.Methods,
+                list = eTable.Settings.InstantFinishes,
                 func = function(ftr)
                     CONFIG.instant_finish.cayo_perico = ftr:GetListIndex()
                     FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    local list = eTable.Settings.InstantFinishes
+                    local index = list[ftr:GetListIndex() + 1].index
+                    SilentLogger.LogInfo(F("[Cayo Perico (Settings)] Selected instant finish method: %s ツ", list:GetName(index)))
                 end
             },
 
             DiamondCasino = {
-                hash = J("SN_Settings_DiamondCasino"),
+                hash = J("SN_Settings_IDiamondCasino"),
                 name = "Diam. Casino",
                 type = eFeatureType.Combo,
                 desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
-                list = eTable.Settings.Methods,
+                list = eTable.Settings.InstantFinishes,
                 func = function(ftr)
                     CONFIG.instant_finish.diamond_casino = ftr:GetListIndex()
                     FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    local list = eTable.Settings.InstantFinishes
+                    local index = list[ftr:GetListIndex() + 1].index
+                    SilentLogger.LogInfo(F("[Diamond Casino (Settings)] Selected instant finish method: %s ツ", list:GetName(index)))
                 end
             },
 
             Doomsday = {
-                hash = J("SN_Settings_Doomsday"),
+                hash = J("SN_Settings_IDoomsday"),
                 name = "Doomsday",
                 type = eFeatureType.Combo,
-                desc = "Old: slower, works for all players, saves the preps.\nNew: faster, works for most players, resets the preps.",
-                list = eTable.Settings.Methods,
+                desc = "Old: slower, works for all players, saves the preps, doesn't work for Act III.\nNew: faster, works for most players, resets the preps, does work for Act III.",
+                list = eTable.Settings.InstantFinishes,
                 func = function(ftr)
                     CONFIG.instant_finish.doomsday = ftr:GetListIndex()
                     FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    local list  = eTable.Settings.InstantFinishes
+                    local index = list[ftr:GetListIndex() + 1].index
+                    SilentLogger.LogInfo(F("[Doomsday (Settings)] Selected instant finish method: %s ツ", list:GetName(index)))
+                end
+            }
+        },
+
+        UnlockAllPoi = {
+            CayoPerico = {
+                hash = J("SN_Settings_UCayoPerico"),
+                name = "Cayo Perico",
+                type = eFeatureType.Toggle,
+                desc = "If enabled, «Apply & Complete Preps» will automatically unlock all points of interest.",
+                func = function(ftr)
+                    CONFIG.unlock_all_poi.cayo_perico = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedUCayoPerico then
+                        loggedUCayoPerico = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Cayo Perico (Settings)] Unlock All POI should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            },
+
+            DiamondCasino = {
+                hash = J("SN_Settings_UDiamondCasino"),
+                name = "Diamond Casino",
+                type = eFeatureType.Toggle,
+                desc = "If enabled, «Apply & Complete Preps» will automatically unlock all points of interest.",
+                func = function(ftr)
+                    CONFIG.unlock_all_poi.diamond_casino = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedUDiamondCasino then
+                        loggedUDiamondCasino = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Diamond Casino (Settings)] Unlock All POI should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                 end
             }
         },
@@ -3869,7 +4898,14 @@ eFeature = {
                 func = function(ftr)
                     CONFIG.easy_money.dummy_prevention = ftr:IsToggled()
                     FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedDummyPrevention then
+                        loggedDummyPrevention = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Dummy Prevention (Settings)] Prevention should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                 end
             },
 
@@ -3883,7 +4919,8 @@ eFeature = {
                     func = function(ftr)
                         CONFIG.easy_money.delay._5k = ftr:GetFloatValue()
                         FileMgr.SaveConfig(CONFIG)
-                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                        SilentLogger.LogInfo("[5k Loop (Settings)] Delay should've been changed ツ")
                     end
                 },
 
@@ -3896,7 +4933,8 @@ eFeature = {
                     func = function(ftr)
                        CONFIG.easy_money.delay._50k = ftr:GetFloatValue()
                         FileMgr.SaveConfig(CONFIG)
-                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                        SilentLogger.LogInfo("[50k Loop (Settings)] Delay should've been changed ツ")
                     end
                 },
 
@@ -3909,7 +4947,8 @@ eFeature = {
                     func = function(ftr)
                         CONFIG.easy_money.delay._100k = ftr:GetFloatValue()
                         FileMgr.SaveConfig(CONFIG)
-                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                        SilentLogger.LogInfo("[100k Loop (Settings)] Delay should've been changed ツ")
                     end
                 },
 
@@ -3922,7 +4961,8 @@ eFeature = {
                     func = function(ftr)
                         CONFIG.easy_money.delay._180k = ftr:GetFloatValue()
                         FileMgr.SaveConfig(CONFIG)
-                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                        SilentLogger.LogInfo("[180k Loop (Settings)] Delay should've been changed ツ")
                     end
                 },
 
@@ -3935,7 +4975,8 @@ eFeature = {
                     func = function(ftr)
                         CONFIG.easy_money.delay._300k = ftr:GetFloatValue()
                         FileMgr.SaveConfig(CONFIG)
-                        CONFIG = Json.DecodeFromFile(F("%s\\config.json", CONFIG_DIR))
+                        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                        SilentLogger.LogInfo("[300k Loop (Settings)] Delay should've been changed ツ")
                     end
                 }
             }

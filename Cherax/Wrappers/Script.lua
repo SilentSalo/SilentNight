@@ -161,6 +161,7 @@ Script.RegisterLooped(function()
     end
 
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(true)
+    Script.Yield()
 end)
 
 Script.RegisterLooped(function()
@@ -172,6 +173,7 @@ Script.RegisterLooped(function()
 
     local ftr = eFeature.Heist.Apartment.Cuts.Double
     eFeature.Heist.Apartment.Cuts.Presets.func(FeatureMgr.GetFeature(ftr):IsToggled())
+    Script.Yield()
 end)
 
 Script.RegisterLooped(function()
@@ -183,6 +185,7 @@ Script.RegisterLooped(function()
 
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false)
     eFeature.Heist.CayoPerico.Cuts.Presets.func()
+    Script.Yield()
 end)
 
 Script.RegisterLooped(function()
@@ -194,6 +197,7 @@ Script.RegisterLooped(function()
 
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(true)
     eFeature.Heist.DiamondCasino.Cuts.Presets.func()
+    Script.Yield()
 end)
 
 Script.RegisterLooped(function()
@@ -204,9 +208,10 @@ Script.RegisterLooped(function()
     end
 
     eFeature.Heist.Doomsday.Cuts.Presets.func()
+    Script.Yield()
 end)
 
-local lastStates = { false, false, false, false, false }
+lastStates = { false, false, false, false, false }
 
 Script.RegisterLooped(function()
     if ShouldUnload() or not CONFIG.easy_money.dummy_prevention then return end
@@ -228,4 +233,6 @@ Script.RegisterLooped(function()
             FeatureMgr.GetFeature(ftr):Toggle(i == toggledNow)
         end
     end
+    
+    Script.Yield()
 end)

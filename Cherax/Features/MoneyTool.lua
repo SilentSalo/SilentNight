@@ -31,6 +31,7 @@ FeatureMgr.AddFeature(eFeature.Money.Casino.Blackjack.Reveal, function(f)
     else
         FeatureMgr.GetFeature(eFeature.Money.Casino.Blackjack.Card):SetStringValue("Not in Casino!")
     end
+    eFeature.Money.Casino.Blackjack.Reveal.func()
 end)
 
 FeatureMgr.AddFeature(eFeature.Money.Casino.Blackjack.Trick, function(f)
@@ -57,6 +58,7 @@ FeatureMgr.AddFeature(eFeature.Money.Casino.Poker.Reveal, function(f)
         FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.MyCards):SetStringValue("Not in Casino!")
         FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.Cards):SetStringValue("Not in Casino!")
     end
+    eFeature.Money.Casino.Poker.Reveal.func()
 end)
 
 FeatureMgr.AddFeature(eFeature.Money.Casino.Poker.Give, function(f)
@@ -69,7 +71,9 @@ FeatureMgr.AddFeature(eFeature.Money.Casino.Poker.Trick, function(f)
     FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.Reveal):OnClick()
 end)
 
-FeatureMgr.AddLoop(eFeature.Money.Casino.Misc.Bypass)
+FeatureMgr.AddLoop(eFeature.Money.Casino.Misc.Bypass, nil, function(f)
+    eFeature.Money.Casino.Misc.Bypass.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Money.Casino.Misc.Limit.Select)
 
@@ -92,7 +96,10 @@ FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Instant.Give30m)
 for i = 1, #easyLoops do
     FeatureMgr.AddLoop(easyLoops[i], function(f)
         local delay = FeatureMgr.GetFeature(settingsEasyDelays[i]):GetFloatValue()
-        easyLoops[i].func(delay)
+        easyLoops[i].func(f, delay)
+    end, function(f)
+        local delay = FeatureMgr.GetFeature(settingsEasyDelays[i]):GetFloatValue()
+        easyLoops[i].func(f, delay)
     end)
 end
 
@@ -126,6 +133,7 @@ FeatureMgr.AddFeature(eFeature.Money.Misc.Story.Select)
 FeatureMgr.AddFeature(eFeature.Money.Misc.Story.Character, function(f)
     local charIndex = eFeature.Money.Misc.Story.Character.list[f:GetListIndex() + 1].index
     FeatureMgr.GetFeature(eFeature.Money.Misc.Story.Select):SetIntValue(eStat[F("SP%d_TOTAL_CASH", charIndex)]:Get())
+    eFeature.Money.Misc.Story.Character.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Money.Misc.Story.Apply, function(f)
@@ -146,6 +154,8 @@ FeatureMgr.AddFeature(eFeature.Money.Misc.Stats.Earned, function(f)
     if f:GetListIndex() > 0 then
         FeatureMgr.GetFeature(eFeature.Money.Misc.Stats.Spent):SetListIndex(0)
     end
+
+    eFeature.Money.Misc.Stats.Earned.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Money.Misc.Stats.Spent, function(f)
@@ -157,6 +167,8 @@ FeatureMgr.AddFeature(eFeature.Money.Misc.Stats.Spent, function(f)
     if f:GetListIndex() > 0 then
         FeatureMgr.GetFeature(eFeature.Money.Misc.Stats.Earned):SetListIndex(0)
     end
+
+    eFeature.Money.Misc.Stats.Spent.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Money.Misc.Stats.Apply, function(f)

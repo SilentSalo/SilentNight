@@ -11,6 +11,7 @@ CONFIG_DIR  = F("%s\\Lua\\SilentNight\\Data\\Config", MENU_PATH)
 CAYO_DIR    = F("%s\\Lua\\SilentNight\\Data\\CayoPerico", MENU_PATH)
 DIAMOND_DIR = F("%s\\Lua\\SilentNight\\Data\\DiamondCasino", MENU_PATH)
 STATS_DIR   = F("%s\\Lua\\SilentNight\\Data\\Stats", MENU_PATH)
+CONFIG_PATH = F("%s\\config.json", CONFIG_DIR)
 NPOPULARITY = "TEMP"
 TEMP_GLOBAL = "TEMP"
 TEMP_LOCAL  = "TEMP"

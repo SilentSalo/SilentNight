@@ -195,4 +195,32 @@ settingsEasyDelays = {
     eFeature.Settings.EasyMoney.Delay._300k
 }
 
+loggedSoloLaunch        = false
+loggedApartmentBonus    = false
+loggedCayoBag           = false
+loggedCayoCrew          = false
+loggedDiamondAuto       = false
+loggedDiamondCrew       = false
+loggedSalvageSetup      = false
+loggedSalvageClaim      = false
+loggedBunkerPrice       = false
+loggedHangarPrice       = false
+loggedHangarSupplier    = false
+loggedHangarCooldown    = false
+loggedNightclubPrice    = false
+loggedNightclubCooldown = false
+loggedSpecialPrice      = false
+loggedSpecialSupplier   = false
+loggedSpecialCooldown   = false
+loggedCasinoLimits      = false
+logged5kLoop            = false
+logged50kLoop           = false
+logged100kLoop          = false
+logged180kLoop          = false
+logged300kLoop          = false
+loggedJinxScript        = true
+loggedUCayoPerico       = true
+loggedUDiamondCasino    = true
+loggedDummyPrevention   = true
+
 --#endregion
