@@ -14,6 +14,8 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Type, function(f)
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value)
         :SetName(examples[f:GetListIndex()].value)
         :SetStringValue("")
+
+    eFeature.Dev.Editor.Globals.Type.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Global)
@@ -25,18 +27,21 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Read, function(f)
 
     if globalString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read global. Global is empty ツ")
         return
     end
 
-    if not globalString:match("^[%d%s%+%-*/%%%(%)]+$") then
+    if not globalString:match("^[%d%s%+%-*/%%%(%)]+$") or globalString:match("%d+%s+%d+") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read global. Global is invalid ツ")
         return
     end
 
-    local global = N(load(F("return %s", globalString))())
+    local global = load(F("return %s", globalString))()
 
     if not global then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read global. Global is invalid ツ")
         return
     end
 
@@ -51,14 +56,33 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Read, function(f)
     local value = GetValue[type](global)
 
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue(S(value))
+    eFeature.Dev.Editor.Globals.Read.func()
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Write, function(f)
-    local ftr  = eFeature.Dev.Editor.Globals.Type
-    local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+    local globalString = FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Global):GetStringValue()
 
-    local global = load(F("return %s", FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Global):GetStringValue()))()
-    local value  = FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):GetStringValue()
+    if globalString == "" then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("")
+        SilentLogger.LogError("[Write (Dev Tool)] Failed to write global. Global is empty ツ")
+        return
+    end
+
+    if not globalString:match("^[%d%s%+%-*/%%%(%)]+$") or globalString:match("%d+%s+%d+") then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Write (Dev Tool)] Failed to write global. Global is invalid ツ")
+        return
+    end
+
+    local global = N(load(F("return %s", globalString))())
+
+    if not global then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Write (Dev Tool)] Failed to write global. Global is invalid ツ")
+        return
+    end
+
+    local value = FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):GetStringValue()
 
     if type == "bool" then
         if value == "true" or value == "1" then
@@ -76,18 +100,42 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Write, function(f)
         ["bool"]  = ScriptGlobal.GetBool
     }
 
+    local ftr  = eFeature.Dev.Editor.Globals.Type
+    local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+
     TEMP_GLOBAL = GetValue[type](global)
     eFeature.Dev.Editor.Globals.Write.func(type, global, value)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Revert, function(f)
-    local ftr    = eFeature.Dev.Editor.Globals.Type
-    local type   = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
-    local global = load(F("return %s", FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Global):GetStringValue()))()
+    local globalString = FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Global):GetStringValue()
+
+    if globalString == "" then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert global. Global is empty ツ")
+        return
+    end
+
+    if not globalString:match("^[%d%s%+%-*/%%%(%)]+$") or globalString:match("%d+%s+%d+") then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert global. Global is invalid ツ")
+        return
+    end
+
+    local global = N(load(F("return %s", globalString))())
+
+    if not global then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert global. Global is invalid ツ")
+        return
+    end
 
     if TEMP_GLOBAL ~= "TEMP" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue(S(TEMP_GLOBAL))
     end
+
+    local ftr  = eFeature.Dev.Editor.Globals.Type
+    local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
 
     eFeature.Dev.Editor.Globals.Revert.func(type, global)
 end)
@@ -109,6 +157,8 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Type, function(f)
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value)
         :SetName(examples[f:GetListIndex()].value)
         :SetStringValue("")
+
+    eFeature.Dev.Editor.Locals.Type.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Script)
@@ -123,11 +173,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Read, function(f)
 
     if scriptString == "" or localString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read local. Script or local is empty ツ")
         return
     end
 
-    if scriptString:match("^[%w%-]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
+    if not scriptString:match("^[A-Za-z_]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") or localString:match("%d+%s+%d+") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read local. Script or local is invalid ツ")
         return
     end
 
@@ -135,6 +187,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Read, function(f)
 
     if not vLocal then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read local. Local is invalid ツ")
         return
     end
 
@@ -146,41 +199,87 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Read, function(f)
     local ftr  = eFeature.Dev.Editor.Locals.Type
     local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
 
-    local script = FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Script):GetStringValue()
-    local value  = GetValue[type](J(script), vLocal)
+    local value = GetValue[type](J(scriptString), vLocal)
 
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue(S(value))
+    eFeature.Dev.Editor.Locals.Read.func()
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Write, function(f)
-    local ftr    = eFeature.Dev.Editor.Locals.Type
-    local type   = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+    local scriptString = FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Script):GetStringValue()
+    local localString  = FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Local):GetStringValue()
 
-    local script = FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Script):GetStringValue()
-    local vLocal = load(F("return %s", FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Local):GetStringValue()))()
-    local value  = N(FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):GetStringValue())
+    if scriptString == "" or localString == "" then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("")
+        SilentLogger.LogError("[Write (Dev Tool)] Failed to write local. Script or local is empty ツ")
+        return
+    end
+
+    if not scriptString:match("^[%w%-]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Write (Dev Tool)] Failed to write local. Script or local is invalid ツ")
+        return
+    end
+
+    local vLocal = N(load(F("return %s", localString))())
+
+    if not vLocal then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Write (Dev Tool)] Failed to write local. Local is invalid ツ")
+        return
+    end
 
     local GetValue = {
         ["int"]   = ScriptLocal.GetInt,
         ["float"] = ScriptLocal.GetFloat
     }
 
+    local ftr  = eFeature.Dev.Editor.Locals.Type
+    local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+
+    local value = N(FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):GetStringValue())
+
     TEMP_LOCAL = GetValue[type](J(script), vLocal)
-    eFeature.Dev.Editor.Locals.Write.func(type, J(script), vLocal, value)
+    eFeature.Dev.Editor.Locals.Write.func(type, J(scriptString), vLocal, value)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Revert, function(f)
-    local ftr    = eFeature.Dev.Editor.Locals.Type
-    local type   = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+    local scriptString = FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Script):GetStringValue()
+    local localString  = FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Local):GetStringValue()
 
-    local script = FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Script):GetStringValue()
-    local vLocal = load(F("return %s", FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Local):GetStringValue()))()
+    if scriptString == "" or localString == "" then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert local. Script or local is empty ツ")
+        return
+    end
+
+    if not scriptString:match("^[%w%-]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert local. Script or local is invalid ツ")
+        return
+    end
+
+    local vLocal = N(load(F("return %s", localString))())
+
+    if not vLocal then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert local. Local is invalid ツ")
+        return
+    end
+
+    local GetValue = {
+        ["int"]   = ScriptLocal.GetInt,
+        ["float"] = ScriptLocal.GetFloat
+    }
 
     if TEMP_LOCAL ~= "TEMP" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue(S(TEMP_LOCAL))
     end
 
-    eFeature.Dev.Editor.Locals.Revert.func(type, J(script), vLocal)
+    local ftr  = eFeature.Dev.Editor.Locals.Type
+    local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+
+    eFeature.Dev.Editor.Locals.Revert.func(type, J(scriptString), vLocal)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.From, function(f)
@@ -190,6 +289,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.From, function(f)
     for i = 1, #devStatsFromFile do
         FeatureMgr.GetFeature(devStatsFromFile[i]):SetVisible((f:IsToggled()) and true or false)
     end
+    eFeature.Dev.Editor.Stats.From.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Type, function(f)
@@ -206,6 +306,8 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Type, function(f)
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value)
         :SetName(examples[f:GetListIndex()].value)
         :SetStringValue("")
+
+    eFeature.Dev.Editor.Stats.Type.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Stat)
@@ -217,6 +319,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Read, function(f)
 
     if statString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read stat. Stat is empty ツ")
         return
     end
 
@@ -229,9 +332,9 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Read, function(f)
     if statString:sub(1, 3) == "MPX" then
         statString = statString:gsub("MPX", F("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
         hash       = J(statString)
-    end
-
-    if statString:find("MPPLY") or IsStoryStat() then
+    elseif statString:find("MPPLY") or IsStoryStat() then
+        hash = J(statString)
+    else
         hash = J(statString)
     end
 
@@ -248,18 +351,48 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Read, function(f)
 
     if not success then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read stat. Stat isn't found ツ")
         return
     end
 
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue(S(value))
+    eFeature.Dev.Editor.Stats.Read.func()
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Write, function(f)
+    local statString = FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Stat):GetStringValue()
+
+    if statString == "" then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("")
+        SilentLogger.LogError("[Write (Dev Tool)] Failed to write stat. Stat is empty ツ")
+        return
+    end
+
+    local function IsStoryStat()
+        return statString:find("SP0") or statString:find("SP1") or statString:find("SP2")
+    end
+
+    local hash = 0
+
+    if statString:sub(1, 3) == "MPX" then
+        statString = statString:gsub("MPX", F("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
+        hash       = J(statString)
+    elseif statString:find("MPPLY") or IsStoryStat() then
+        hash = J(statString)
+    else
+        hash = J(statString)
+    end
+
+    local GetValue = {
+        ["int"]   = Stats.GetInt,
+        ["float"] = Stats.GetFloat,
+        ["bool"]  = Stats.GetBool
+    }
+
     local ftr  = eFeature.Dev.Editor.Stats.Type
     local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
 
-    local statString = FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Stat):GetStringValue()
-    local value      = FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):GetStringValue()
+    local value = FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):GetStringValue()
 
     if type == "bool" then
         if value == "true" or value == "1" then
@@ -271,6 +404,27 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Write, function(f)
 
     value = N(value)
 
+    local success, tempValue = GetValue[type](hash)
+
+    if not success then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Write (Dev Tool)] Failed to write stat. Stat isn't found ツ")
+        return
+    end
+
+    TEMP_STAT = tempValue
+    eFeature.Dev.Editor.Stats.Write.func(type, hash, value)
+end)
+
+FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Revert, function(f)
+    local statString = FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Stat):GetStringValue()
+
+    if statString == "" then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert stat. Stat is empty ツ")
+        return
+    end
+
     local function IsStoryStat()
         return statString:find("SP0") or statString:find("SP1") or statString:find("SP2")
     end
@@ -280,9 +434,9 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Write, function(f)
     if statString:sub(1, 3) == "MPX" then
         statString = statString:gsub("MPX", F("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
         hash       = J(statString)
-    end
-
-    if statString:find("MPPLY") or IsStoryStat() then
+    elseif statString:find("MPPLY") or IsStoryStat() then
+        hash = J(statString)
+    else
         hash = J(statString)
     end
 
@@ -292,31 +446,15 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Write, function(f)
         ["bool"]  = Stats.GetBool
     }
 
-    local success, tempValue = GetValue[type](hash)
-    TEMP_STAT = tempValue
-
-    eFeature.Dev.Editor.Stats.Write.func(type, hash, value)
-end)
-
-FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Revert, function(f)
     local ftr  = eFeature.Dev.Editor.Stats.Type
     local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
 
-    local statString = FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Stat):GetStringValue()
+    local success, value = GetValue[type](hash)
 
-    local function IsStoryStat()
-        return statString:find("SP0") or statString:find("SP1") or statString:find("SP2")
-    end
-
-    local hash = 0
-
-    if statString:sub(1, 3) == "MPX" then
-        statString = statString:gsub("MPX", F("MP%d", eStat.MPPLY_LAST_MP_CHAR:Get()))
-        hash       = J(statString)
-    end
-
-    if statString:find("MPPLY") or IsStoryStat() then
-        hash = J(statString)
+    if not success then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert stat. Stat isn't found ツ")
+        return
     end
 
     if TEMP_STAT ~= "TEMP" then
@@ -387,6 +525,8 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Range, function(f)
             :SetName(examples[FeatureMgr.GetFeatureListIndex(eFeature.Dev.Editor.PackedStats.Type)].value)
             :SetStringValue("")
     end
+
+    eFeature.Dev.Editor.PackedStats.Range.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Type, function(f)
@@ -412,6 +552,8 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Type, function(f)
             :SetName(examples[f:GetListIndex()].value)
             :SetStringValue("")
     end
+
+    eFeature.Dev.Editor.PackedStats.Type.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.PackedStat)
@@ -423,11 +565,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Read, function(f)
 
     if packedStatString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read packed stat. Packed stat is empty ツ")
         return
     end
 
     if not packedStatString:match("^%d+$") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Read (Dev Tool)] Failed to read packed stat. Packed stat is invalid ツ")
         return
     end
 
@@ -444,6 +588,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Read, function(f)
     local value = GetValue[type](packedStat, eStat.MPPLY_LAST_MP_CHAR:Get())
 
     FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue(S(value))
+    eFeature.Dev.Editor.PackedStats.Read.func()
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Write, function(f)
@@ -451,24 +596,33 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Write, function(f)
     local lastPStat  = nil
 
     if not FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Range):IsToggled() then
+        local packedStatString = FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.PackedStat):GetStringValue()
+
+        if packedStatString == "" then
+            FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("")
+            SilentLogger.LogError("[Write (Dev Tool)] Failed to write packed stat. Packed stat is empty ツ")
+            return
+        end
+
+        if not packedStatString:match("^%d+$") then
+            FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("invalid")
+            SilentLogger.LogError("[Write (Dev Tool)] Failed to write packed stat. Packed stat is invalid ツ")
+            return
+        end
+
         firstPStat = N(FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.PackedStat):GetStringValue())
-    end
-
-    local ftr  = eFeature.Dev.Editor.PackedStats.Type
-    local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
-
-    local value = FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):GetStringValue()
-
-    if FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Range):IsToggled() then
+    else
         local packedStats = FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.PackedStat):GetStringValue()
 
         if packedStats == "" then
             FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("")
+            SilentLogger.LogError("[Write (Dev Tool)] Failed to write packed stats. Packed stats range is empty ツ")
             return
         end
 
         if not packedStats:match("^%d+%-%d+$") then
             FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("invalid")
+            SilentLogger.LogError("[Write (Dev Tool)] Failed to write packed stats. Packed stats range is invalid ツ")
             return
         end
 
@@ -476,6 +630,16 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Write, function(f)
         firstPStat = N(firstPStat)
         lastPStat  = N(lastPStat)
     end
+
+    local GetValue = {
+        ["int"]  = eNative.STATS.GET_PACKED_STAT_INT_CODE,
+        ["bool"] = eNative.STATS.GET_PACKED_STAT_BOOL_CODE
+    }
+
+    local ftr  = eFeature.Dev.Editor.PackedStats.Type
+    local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+
+    local value = FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):GetStringValue()
 
     if type == "bool" then
         if value == "true" or value == "1" then
@@ -487,16 +651,25 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Write, function(f)
 
     value = N(value)
 
-    local GetValue = {
-        ["int"]  = eNative.STATS.GET_PACKED_STAT_INT_CODE,
-        ["bool"] = eNative.STATS.GET_PACKED_STAT_BOOL_CODE
-    }
-
     TEMP_PSTAT = GetValue[type](firstPStat, eStat.MPPLY_LAST_MP_CHAR:Get())
     eFeature.Dev.Editor.PackedStats.Write.func(type, firstPStat, lastPStat, value)
 end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Revert, function(f)
+    local packedStatString = FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.PackedStat):GetStringValue()
+
+    if packedStatString == "" then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert packed stat. Packed stat is empty ツ")
+        return
+    end
+
+    if not packedStatString:match("^%d+$") then
+        FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("invalid")
+        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert packed stat. Packed stat is invalid ツ")
+        return
+    end
+
     local ftr  = eFeature.Dev.Editor.PackedStats.Type
     local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
 

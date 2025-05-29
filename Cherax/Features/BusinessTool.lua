@@ -19,7 +19,9 @@ FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Supply)
 
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Trigger)
 
-FeatureMgr.AddLoop(eFeature.Business.Bunker.Misc.Supplier)
+FeatureMgr.AddLoop(eFeature.Business.Bunker.Misc.Supplier, nil, function(f)
+    eFeature.Business.Bunker.Misc.Supplier.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Stats.SellMade)
 
@@ -64,7 +66,9 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Open)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Supply)
 
-FeatureMgr.AddLoop(eFeature.Business.Hangar.Misc.Supplier)
+FeatureMgr.AddLoop(eFeature.Business.Hangar.Misc.Supplier, nil, function(f)
+    eFeature.Business.Hangar.Misc.Supplier.func(f)
+end)
 
 FeatureMgr.AddLoop(eFeature.Business.Hangar.Misc.Cooldown, nil, function(f)
     eFeature.Business.Hangar.Misc.Cooldown.func(f)
@@ -174,12 +178,15 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Supply)
 
-FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Misc.Supplier)
+FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Misc.Supplier, nil, function(f)
+    eFeature.Business.CrateWarehouse.Misc.Supplier.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Select)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Max, function(f)
     FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Select):SetIntValue(111)
+    eFeature.Business.CrateWarehouse.Misc.Max.func()
 end)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Buy, function(f)

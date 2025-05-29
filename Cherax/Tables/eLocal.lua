@@ -76,6 +76,13 @@ if GTA_EDITION == "EE" then
                 }
             },
 
+            Agency = {
+                Finish = {
+                    Step1 = { type = "int", vLocal = 52581 + 1,        script = "fm_mission_controller_2020" },
+                    Step2 = { type = "int", vLocal = 52581 + 1776 + 1, script = "fm_mission_controller_2020" }
+                }
+            },
+
             Apartment = {
                 Bypass = {
                     Fleeca = {
@@ -109,7 +116,12 @@ if GTA_EDITION == "EE" then
                     DrainagePipeCut = { type = "int",   vLocal = 30212,     script = "fm_mission_controller_2020" },
                 },
 
-                Reload = { type = "int", vLocal = 1566, script = "heist_island_planning" }
+                Reload = { type = "int", vLocal = 1566, script = "heist_island_planning" },
+
+                Finish = {
+                    Step1 = { type = "int", vLocal = 52581,            script = "fm_mission_controller_2020" },
+                    Step2 = { type = "int", vLocal = 52581 + 1776 + 1, script = "fm_mission_controller_2020" }
+                }
             },
 
             DiamondCasino = {
@@ -143,7 +155,15 @@ if GTA_EDITION == "EE" then
                     DoomsdayHack = { type = "int", vLocal = 1294 + 135, script = "fm_mission_controller" }
                 },
 
-                Reload = { type = "int", vLocal = 207, script = "gb_gang_ops_planning" }
+                Reload = { type = "int", vLocal = 207, script = "gb_gang_ops_planning" },
+
+                Finish = {
+                    Step1 = { type = "int", vLocal = 20387,            script = "fm_mission_controller" },
+                    Step2 = { type = "int", vLocal = 20387 + 1740 + 1, script = "fm_mission_controller" },
+                    Step3 = { type = "int", vLocal = 29006 + 1,        script = "fm_mission_controller" },
+                    Step4 = { type = "int", vLocal = 32462 + 1 + 68,   script = "fm_mission_controller" },
+                    Step5 = { type = "int", vLocal = 32462 + 97,       script = "fm_mission_controller" }
+                }
             },
 
             SalvageYard = {
@@ -274,6 +294,13 @@ else
                 }
             },
 
+            Agency = {
+                Finish = {
+                    Step1 = { type = "int", vLocal = 52171 + 1,        script = "fm_mission_controller_2020" },
+                    Step2 = { type = "int", vLocal = 52171 + 1776 + 1, script = "fm_mission_controller_2020" }
+                }
+            },
+
             Apartment = {
                 Bypass = {
                     Fleeca = {
@@ -297,7 +324,12 @@ else
             },
 
             AutoShop = {
-                Reload  = { type = "int", vLocal = 401, script = "tuner_planning" }
+                Reload  = { type = "int", vLocal = 401, script = "tuner_planning" },
+
+                Finish = {
+                    Step1 = { type = "int", vLocal = 52171 + 1,        script = "fm_mission_controller_2020" },
+                    Step2 = { type = "int", vLocal = 52171 + 1776 + 1, script = "fm_mission_controller_2020" }
+                }
             },
 
             CayoPerico = {
@@ -307,7 +339,12 @@ else
                     DrainagePipeCut = { type = "int",   vLocal = 29810,     script = "fm_mission_controller_2020" },
                 },
 
-                Reload = { type = "int", vLocal = 1564, script = "heist_island_planning" }
+                Reload = { type = "int", vLocal = 1564, script = "heist_island_planning" },
+
+                Finish = {
+                    Step1 = { type = "int", vLocal = 52171,            script = "fm_mission_controller_2020" },
+                    Step2 = { type = "int", vLocal = 52171 + 1776 + 1, script = "fm_mission_controller_2020" }
+                }
             },
 
             DiamondCasino = {
@@ -341,7 +378,15 @@ else
                     DoomsdayHack = { type = "int", vLocal = 1292 + 135, script = "fm_mission_controller" }
                 },
 
-                Reload = { type = "int", vLocal = 205, script = "gb_gang_ops_planning" }
+                Reload = { type = "int", vLocal = 205, script = "gb_gang_ops_planning" },
+
+                Finish = {
+                    Step1 = { type = "int", vLocal = 19783,            script = "fm_mission_controller" },
+                    Step2 = { type = "int", vLocal = 19783 + 1740 + 1, script = "fm_mission_controller" },
+                    Step3 = { type = "int", vLocal = 28402 + 1,        script = "fm_mission_controller" },
+                    Step4 = { type = "int", vLocal = 31658 + 1 + 68,   script = "fm_mission_controller" },
+                    Step5 = { type = "int", vLocal = 31658 + 97,       script = "fm_mission_controller" }
+                }
             },
 
             SalvageYard = {

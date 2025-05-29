@@ -59,9 +59,12 @@ function FeatureMgr.AddLoop(feature, onEnable, onDisable)
 
                     if onEnable then
                         onEnable(f)
+                        Script.Yield()
                     elseif feature.func then
                         feature.func(f)
                     end
+                    
+                    Script.Yield()
                 end)
             end
         elseif onDisable and state then

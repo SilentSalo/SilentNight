@@ -44,21 +44,28 @@ eTable = {
 
         Agency = {
             Contracts = {
-                { name = "Nightclub",       index = 3    },
-                { name = "Marina",          index = 4    },
-                { name = "Nightclub Leak",  index = 12   },
-                { name = "Country Club",    index = 28   },
-                { name = "Guest List",      index = 60   },
-                { name = "High Soc. Leak",  index = 124  },
-                { name = "Davis",           index = 252  },
-                { name = "The Ballas",      index = 508  },
-                { name = "Sou. Cen. Leak",  index = 2044 },
-                { name = "Studio Time",     index = 4095 },
-                { name = "Don't # W. Dre",  index = -1   }
+                { name = "None",           index = 3    },
+                { name = "Nightclub",      index = 4    },
+                { name = "Marina",         index = 12   },
+                { name = "Nightlife Leak", index = 28   },
+                { name = "Country Club",   index = 60   },
+                { name = "Guest List",     index = 123  },
+                { name = "High Soc. Leak", index = 254  },
+                { name = "Davis",          index = 508  },
+                { name = "Ballas",         index = 1020 },
+                { name = "Sou. Cen. Leak", index = 2044 },
+                { name = "Studio Time",    index = 2045 },
+                { name = "Don't # W. Dre", index = 4095 }
             }
         },
 
         Apartment = {
+            Team = {
+                { name = "Solo",  index = 1 },
+                { name = "Duo",   index = 2 },
+                { name = "Squad", index = 4 }
+            },
+
             Receivers = {
                 { name = "All",       index = 0 },
                 { name = "Only Crew", index = 1 },
@@ -83,14 +90,15 @@ eTable = {
 
         AutoShop = {
             Contracts = {
-                { name = "Union Deposit.",  index = 0 },
-                { name = "Superdol. Deal",  index = 1 },
-                { name = "Bank Contract",   index = 2 },
-                { name = "ECU Job",         index = 3 },
-                { name = "Prison Contrac.", index = 4 },
-                { name = "Agency Deal",     index = 5 },
-                { name = "Lost Contract",   index = 6 },
-                { name = "Data Contract",   index = 7 }
+                { name = "None",            index = -1 },
+                { name = "Union Deposit.",  index = 0  },
+                { name = "Superdol. Deal",  index = 1  },
+                { name = "Bank Contract",   index = 2  },
+                { name = "ECU Job",         index = 3  },
+                { name = "Prison Contrac.", index = 4  },
+                { name = "Agency Deal",     index = 5  },
+                { name = "Lost Contract",   index = 6  },
+                { name = "Data Contract",   index = 7  }
             }
         },
 
@@ -203,9 +211,9 @@ eTable = {
             },
 
             Approaches = {
-                { name = "Silent n Snea.",  index = 1 },
-                { name = "Big Con",         index = 2 },
-                { name = "Aggressive",      index = 3 }
+                { name = "Silent n Snea.", index = 1 },
+                { name = "Big Con",        index = 2 },
+                { name = "Aggressive",     index = 3 }
             },
 
             Gunmans = {
@@ -258,26 +266,26 @@ eTable = {
             },
 
             Vehicles = {
-                { name = "Issi Classic",     index = 1 },
-                { name = "Asbo",             index = 1 },
-                { name = "Blista Kanjo",     index = 1 },
-                { name = "Sentinel Class.",  index = 1 },
-                { name = "Manchez",          index = 4 },
-                { name = "Stryder",          index = 4 },
-                { name = "Defiler",          index = 4 },
-                { name = "Lectro",           index = 4 },
-                { name = "Retinue Mk II",    index = 2 },
-                { name = "Drift Yosemite",   index = 2 },
-                { name = "Sugoi",            index = 2 },
-                { name = "Jugular",          index = 2 },
-                { name = "Sultan Classic",   index = 3 },
-                { name = "Gauntl. Classic",  index = 3 },
-                { name = "Ellie",            index = 3 },
-                { name = "Komoda",           index = 3 },
-                { name = "Zhaba",            index = 5 },
-                { name = "Vagrant",          index = 5 },
-                { name = "Outlaw",           index = 5 },
-                { name = "Everon",           index = 5 }
+                { name = "Issi Classic",    index = 1 },
+                { name = "Asbo",            index = 1 },
+                { name = "Blista Kanjo",    index = 1 },
+                { name = "Sentinel Class.", index = 1 },
+                { name = "Manchez",         index = 4 },
+                { name = "Stryder",         index = 4 },
+                { name = "Defiler",         index = 4 },
+                { name = "Lectro",          index = 4 },
+                { name = "Retinue Mk II",   index = 2 },
+                { name = "Drift Yosemite",  index = 2 },
+                { name = "Sugoi",           index = 2 },
+                { name = "Jugular",         index = 2 },
+                { name = "Sultan Classic",  index = 3 },
+                { name = "Gauntl. Classic", index = 3 },
+                { name = "Ellie",           index = 3 },
+                { name = "Komoda",          index = 3 },
+                { name = "Zhaba",           index = 5 },
+                { name = "Vagrant",         index = 5 },
+                { name = "Outlaw",          index = 5 },
+                { name = "Everon",          index = 5 }
             },
 
             Hackers = {
@@ -365,106 +373,106 @@ eTable = {
             },
 
             Vehicles = {
-                { name = "LM87",              index = 1   },
-                { name = "Cinquemila",        index = 2   },
-                { name = "Autarch",           index = 3   },
-                { name = "Tigon",             index = 4   },
-                { name = "Champion",          index = 5   },
-                { name = "10F",               index = 6   },
-                { name = "SM722",             index = 7   },
-                { name = "Omnis e-GT",        index = 8   },
-                { name = "Growler",           index = 9   },
-                { name = "Deity",             index = 10  },
-                { name = "Itali RSX",         index = 11  },
-                { name = "Coquette D10",      index = 12  },
-                { name = "Jubilee",           index = 13  },
-                { name = "Astron",            index = 14  },
-                { name = "Comet S2 Cabr.",    index = 15  },
-                { name = "Torero",            index = 16  },
-                { name = "Cheetah Classic",   index = 17  },
-                { name = "Turismo Classic",   index = 18  },
-                { name = "Infernus Classic",  index = 19  },
-                { name = "Stafford",          index = 20  },
-                { name = "GT500",             index = 21  },
-                { name = "Viseris",           index = 22  },
-                { name = "Mamba",             index = 23  },
-                { name = "Coquette Black.",   index = 24  },
-                { name = "Stinger GT",        index = 25  },
-                { name = "Z-Type",            index = 26  },
-                { name = "Broadway",          index = 27  },
-                { name = "Vigero ZX",         index = 28  },
-                { name = "Buffalo STX",       index = 29  },
-                { name = "Ruston",            index = 30  },
-                { name = "Gauntl. Hellfire",  index = 31  },
-                { name = "Dominator GTT",     index = 32  },
-                { name = "Roosevelt Valor",   index = 33  },
-                { name = "Swinger",           index = 34  },
-                { name = "Stirling GT",       index = 35  },
-                { name = "Omnis",             index = 36  },
-                { name = "Tropos Rallye",     index = 37  },
-                { name = "Jugular",           index = 38  },
-                { name = "Patriot Mil-Spec",  index = 39  },
-                { name = "Toros",             index = 40  },
-                { name = "Caracara 4x4",      index = 41  },
-                { name = "Sentinel Classic",  index = 42  },
-                { name = "Weevil",            index = 43  },
-                { name = "Blista Kanjo",      index = 44  },
-                { name = "Eudora",            index = 45  },
-                { name = "Kamacho",           index = 46  },
-                { name = "Hellion",           index = 47  },
-                { name = "Ellie",             index = 48  },
-                { name = "Hermes",            index = 49  },
-                { name = "Hustler",           index = 50  },
-                { name = "Turismo Om.",       index = 51  },
-                { name = "Buffalo EVX",       index = 52  },
-                { name = "Itali GTO St.",     index = 53  },
-                { name = "Virtue",            index = 54  },
-                { name = "Ignus",             index = 55  },
-                { name = "Zentorno",          index = 56  },
-                { name = "Neon",              index = 57  },
-                { name = "Furia",             index = 58  },
-                { name = "Zorrusso",          index = 59  },
-                { name = "Thrax",             index = 60  },
-                { name = "Vagner",            index = 61  },
-                { name = "Panthere",          index = 62  },
-                { name = "Itali GTO",         index = 63  },
-                { name = "S80RR",             index = 64  },
-                { name = "Tyrant",            index = 65  },
-                { name = "Entity MT",         index = 66  },
-                { name = "Torero XO",         index = 67  },
-                { name = "Neo",               index = 68  },
-                { name = "Corsita",           index = 69  },
-                { name = "Paragon R",         index = 70  },
-                { name = "Franken Stange",    index = 71  },
-                { name = "Comet Safari",      index = 72  },
-                { name = "FR36",              index = 73  },
-                { name = "Hotring Everon",    index = 74  },
-                { name = "Komoda",            index = 75  },
-                { name = "Tailgater S",       index = 76  },
-                { name = "Jester Classic",    index = 77  },
-                { name = "Jester RR",         index = 78  },
-                { name = "Euros",             index = 79  },
-                { name = "ZR350",             index = 80  },
-                { name = "Cypher",            index = 81  },
-                { name = "Dominator ASP",     index = 82  },
-                { name = "Baller ST-D",       index = 83  },
-                { name = "Casco",             index = 84  },
-                { name = "Drift Yosemite",    index = 85  },
-                { name = "Everon",            index = 86  },
-                { name = "Penumbra FF",       index = 87  },
-                { name = "V-STR",             index = 88  },
-                { name = "Dominator GT",      index = 89  },
-                { name = "Schlagen GT",       index = 90  },
-                { name = "Cavalcade XL",      index = 91  },
-                { name = "Clique",            index = 92  },
-                { name = "Boor",              index = 93  },
-                { name = "Sugoi",             index = 94  },
-                { name = "Greenwood",         index = 95  },
-                { name = "Brigham",           index = 96  },
-                { name = "Issi Rally",        index = 97  },
-                { name = "Seminole Fr.",      index = 98  },
-                { name = "Kanjo SJ",          index = 99  },
-                { name = "Previon",           index = 100 }
+                { name = "LM87",             index = 1   },
+                { name = "Cinquemila",       index = 2   },
+                { name = "Autarch",          index = 3   },
+                { name = "Tigon",            index = 4   },
+                { name = "Champion",         index = 5   },
+                { name = "10F",              index = 6   },
+                { name = "SM722",            index = 7   },
+                { name = "Omnis e-GT",       index = 8   },
+                { name = "Growler",          index = 9   },
+                { name = "Deity",            index = 10  },
+                { name = "Itali RSX",        index = 11  },
+                { name = "Coquette D10",     index = 12  },
+                { name = "Jubilee",          index = 13  },
+                { name = "Astron",           index = 14  },
+                { name = "Comet S2 Cabr.",   index = 15  },
+                { name = "Torero",           index = 16  },
+                { name = "Cheetah Classic",  index = 17  },
+                { name = "Turismo Classic",  index = 18  },
+                { name = "Infernus Classic", index = 19  },
+                { name = "Stafford",         index = 20  },
+                { name = "GT500",            index = 21  },
+                { name = "Viseris",          index = 22  },
+                { name = "Mamba",            index = 23  },
+                { name = "Coquette Black.",  index = 24  },
+                { name = "Stinger GT",       index = 25  },
+                { name = "Z-Type",           index = 26  },
+                { name = "Broadway",         index = 27  },
+                { name = "Vigero ZX",        index = 28  },
+                { name = "Buffalo STX",      index = 29  },
+                { name = "Ruston",           index = 30  },
+                { name = "Gauntl. Hellfire", index = 31  },
+                { name = "Dominator GTT",    index = 32  },
+                { name = "Roosevelt Valor",  index = 33  },
+                { name = "Swinger",          index = 34  },
+                { name = "Stirling GT",      index = 35  },
+                { name = "Omnis",            index = 36  },
+                { name = "Tropos Rallye",    index = 37  },
+                { name = "Jugular",          index = 38  },
+                { name = "Patriot Mil-Spec", index = 39  },
+                { name = "Toros",            index = 40  },
+                { name = "Caracara 4x4",     index = 41  },
+                { name = "Sentinel Classic", index = 42  },
+                { name = "Weevil",           index = 43  },
+                { name = "Blista Kanjo",     index = 44  },
+                { name = "Eudora",           index = 45  },
+                { name = "Kamacho",          index = 46  },
+                { name = "Hellion",          index = 47  },
+                { name = "Ellie",            index = 48  },
+                { name = "Hermes",           index = 49  },
+                { name = "Hustler",          index = 50  },
+                { name = "Turismo Om.",      index = 51  },
+                { name = "Buffalo EVX",      index = 52  },
+                { name = "Itali GTO St.",    index = 53  },
+                { name = "Virtue",           index = 54  },
+                { name = "Ignus",            index = 55  },
+                { name = "Zentorno",         index = 56  },
+                { name = "Neon",             index = 57  },
+                { name = "Furia",            index = 58  },
+                { name = "Zorrusso",         index = 59  },
+                { name = "Thrax",            index = 60  },
+                { name = "Vagner",           index = 61  },
+                { name = "Panthere",         index = 62  },
+                { name = "Itali GTO",        index = 63  },
+                { name = "S80RR",            index = 64  },
+                { name = "Tyrant",           index = 65  },
+                { name = "Entity MT",        index = 66  },
+                { name = "Torero XO",        index = 67  },
+                { name = "Neo",              index = 68  },
+                { name = "Corsita",          index = 69  },
+                { name = "Paragon R",        index = 70  },
+                { name = "Franken Stange",   index = 71  },
+                { name = "Comet Safari",     index = 72  },
+                { name = "FR36",             index = 73  },
+                { name = "Hotring Everon",   index = 74  },
+                { name = "Komoda",           index = 75  },
+                { name = "Tailgater S",      index = 76  },
+                { name = "Jester Classic",   index = 77  },
+                { name = "Jester RR",        index = 78  },
+                { name = "Euros",            index = 79  },
+                { name = "ZR350",            index = 80  },
+                { name = "Cypher",           index = 81  },
+                { name = "Dominator ASP",    index = 82  },
+                { name = "Baller ST-D",      index = 83  },
+                { name = "Casco",            index = 84  },
+                { name = "Drift Yosemite",   index = 85  },
+                { name = "Everon",           index = 86  },
+                { name = "Penumbra FF",      index = 87  },
+                { name = "V-STR",            index = 88  },
+                { name = "Dominator GT",     index = 89  },
+                { name = "Schlagen GT",      index = 90  },
+                { name = "Cavalcade XL",     index = 91  },
+                { name = "Clique",           index = 92  },
+                { name = "Boor",             index = 93  },
+                { name = "Sugoi",            index = 94  },
+                { name = "Greenwood",        index = 95  },
+                { name = "Brigham",          index = 96  },
+                { name = "Issi Rally",       index = 97  },
+                { name = "Seminole Fr.",     index = 98  },
+                { name = "Kanjo SJ",         index = 99  },
+                { name = "Previon",          index = 100 }
             },
 
             Modifications = {
@@ -494,17 +502,17 @@ eTable = {
                 { name = "Picked Up",        index = eStat.MPX_MONEY_EARN_PICKED_UP   }
             },
             Spents = {
-                { name = "Unselected",           index = 0                                     },
-                { name = "Total",                index = eStat.MPPLY_TOTAL_SVC                 },
-                { name = "Weapons n Armor",      index = eStat.MPX_MONEY_SPENT_WEAPON_ARMOR    },
-                { name = "Vehicles n Maint.",    index = eStat.MPX_MONEY_SPENT_VEH_MAINTENANCE },
-                { name = "Style n Entert.",      index = eStat.MPX_MONEY_SPENT_STYLE_ENT       },
-                { name = "Property n Utils",     index = eStat.MPX_MONEY_SPENT_PROPERTY_UTIL   },
-                { name = "Job n Ac. Ent. Fees",  index = eStat.MPX_MONEY_SPENT_JOB_ACTIVITY    },
-                { name = "Betting",              index = eStat.MPX_MONEY_SPENT_BETTING         },
-                { name = "Contact Services",     index = eStat.MPX_MONEY_SPENT_CONTACT_SERVICE },
-                { name = "Healthcare n Bail",    index = eStat.MPX_MONEY_SPENT_HEALTHCARE      },
-                { name = "Dropped or Stolen",    index = eStat.MPX_MONEY_SPENT_DROPPED_STOLEN  }
+                { name = "Unselected",          index = 0                                     },
+                { name = "Total",               index = eStat.MPPLY_TOTAL_SVC                 },
+                { name = "Weapons n Armor",     index = eStat.MPX_MONEY_SPENT_WEAPON_ARMOR    },
+                { name = "Vehicles n Maint.",   index = eStat.MPX_MONEY_SPENT_VEH_MAINTENANCE },
+                { name = "Style n Entert.",     index = eStat.MPX_MONEY_SPENT_STYLE_ENT       },
+                { name = "Property n Utils",    index = eStat.MPX_MONEY_SPENT_PROPERTY_UTIL   },
+                { name = "Job n Ac. Ent. Fees", index = eStat.MPX_MONEY_SPENT_JOB_ACTIVITY    },
+                { name = "Betting",             index = eStat.MPX_MONEY_SPENT_BETTING         },
+                { name = "Contact Services",    index = eStat.MPX_MONEY_SPENT_CONTACT_SERVICE },
+                { name = "Healthcare n Bail",   index = eStat.MPX_MONEY_SPENT_HEALTHCARE      },
+                { name = "Dropped or Stolen",   index = eStat.MPX_MONEY_SPENT_DROPPED_STOLEN  }
             }
         }
     },
@@ -561,24 +569,24 @@ eTable = {
     Editor = {
         Globals = {
             Types = {
-                { name = "int",    index = 0 },
-                { name = "float",  index = 1 },
-                { name = "bool",   index = 2 }
+                { name = "int",   index = 0 },
+                { name = "float", index = 1 },
+                { name = "bool",  index = 2 }
             }
         },
 
         Locals = {
             Types = {
-                { name = "int",    index = 0 },
-                { name = "float",  index = 1 }
+                { name = "int",   index = 0 },
+                { name = "float", index = 1 }
             }
         },
 
         Stats = {
             Types = {
-                { name = "int",    index = 0 },
-                { name = "float",  index = 1 },
-                { name = "bool",   index = 3 }
+                { name = "int",   index = 0 },
+                { name = "float", index = 1 },
+                { name = "bool",  index = 3 }
             },
 
             Files = {}
@@ -586,9 +594,22 @@ eTable = {
 
         PackedStats = {
             Types = {
-                { name = "int",    index = 0 },
-                { name = "bool",   index = 1 }
+                { name = "int",  index = 0 },
+                { name = "bool", index = 1 }
             }
+        }
+    },
+
+    Settings = {
+        Logging = {
+            { name = "Disabled", index = 0 },
+            { name = "Silent",   index = 1 },
+            { name = "Enabled",  index = 2 }
+        },
+
+        InstantFinishes = {
+            { name = "Old", index = 0 },
+            { name = "New", index = 1 }
         }
     }
 }

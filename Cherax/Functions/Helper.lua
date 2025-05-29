@@ -6,6 +6,34 @@ function Helper.SetBit(value, position)
     return value | (1 << position)
 end
 
+function Helper.NewInstantFinishHeist()
+    if GTA.IsScriptRunning(eScript.Heist.Old) then
+        GTA.ForceScriptHost(eScript.Heist.Old)
+        Script.Yield(1000)
+
+        eLocal.Heist.Generic.Finish.Old.Step1:Set(5)
+        eLocal.Heist.Generic.Finish.Old.Step2:Set(999999)
+
+        local value = eLocal.Heist.Generic.Finish.Old.Step3:Get()
+        value = Helper.SetBit(value, 9)
+        value = Helper.SetBit(value, 16)
+
+        eLocal.Heist.Generic.Finish.Old.Step3:Set(value)
+    elseif GTA.IsScriptRunning(eScript.Heist.New) then
+        GTA.ForceScriptHost(eScript.Heist.New)
+        Script.Yield(1000)
+
+        eLocal.Heist.Generic.Finish.New.Step1:Set(5)
+        eLocal.Heist.Generic.Finish.New.Step2:Set(999999)
+
+        local value = eLocal.Heist.Generic.Finish.New.Step3:Get()
+        value = Helper.SetBit(value, 9)
+        value = Helper.SetBit(value, 16)
+
+        eLocal.Heist.Generic.Finish.New.Step3:Set(value)
+    end
+end
+
 function Helper.SetApartmentMaxPayout(bool)
     local ftr  = eFeature.Heist.Apartment.Cuts.Team
     local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index

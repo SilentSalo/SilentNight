@@ -12,14 +12,14 @@ function Parser.ParseTunables(tbl)
             elseif type(v.tunable) == "number" and v.tunable == math.floor(v.tunable) then
                 hash = v.tunable
             else
-                Logger.LogError(F("Bad tunable! %s", S(v.tunable)))
+                SilentLogger.LogError(F("Bad tunable! %s", S(v.tunable)))
                 break
             end
 
             local ptr = ScriptGlobal.GetTunableByHash(hash)
 
             if ptr == 0 then
-                Logger.LogError(F("Bad tunable ptr! %s %s", S(v.tunable), S(ptr)))
+                SilentLogger.LogError(F("Bad tunable ptr! %s %s", S(v.tunable), S(ptr)))
                 break
             end
 
@@ -32,7 +32,7 @@ function Parser.ParseTunables(tbl)
                     return Memory.ReadFloat(self.ptr)
                 end
 
-                Logger.LogError(F("No type for tunable! %s", S(self.tunable)))
+                SilentLogger.LogError(F("No type for tunable! %s", S(self.tunable)))
                 return nil
             end
 
@@ -42,7 +42,7 @@ function Parser.ParseTunables(tbl)
                 elseif self.type == "float" then
                     Memory.WriteFloat(self.ptr, value)
                 else
-                    Logger.LogError(F("No type for tunable! %s", S(self.tunable)))
+                    SilentLogger.LogError(F("No type for tunable! %s", S(self.tunable)))
                 end
             end
 
@@ -52,7 +52,7 @@ function Parser.ParseTunables(tbl)
                 elseif self.type == "float" then
                     Memory.WriteFloat(self.ptr, self.defaultValue)
                 else
-                    Logger.LogError(F("No type for tunable! %s", S(self.tunable)))
+                    SilentLogger.LogError(F("No type for tunable! %s", S(self.tunable)))
                 end
             end
         elseif type(v) == "table" then
@@ -74,7 +74,7 @@ function Parser.ParseGlobals(tbl)
                 elseif self.type == "bool" then
                     return ScriptGlobal.GetBool(self.global)
                 end
-                Logger.LogError(F("No type for global! %s", S(self.global)))
+                SilentLogger.LogError(F("No type for global! %s", S(self.global)))
                 return nil
             end
 
@@ -86,7 +86,7 @@ function Parser.ParseGlobals(tbl)
                 elseif self.type == "bool" then
                     ScriptGlobal.SetBool(self.global, value)
                 else
-                    Logger.LogError(F("No type for global! %s", S(self.global)))
+                    SilentLogger.LogError(F("No type for global! %s", S(self.global)))
                 end
             end
         elseif type(v) == "table" then
@@ -109,7 +109,7 @@ function Parser.ParseLocals(tbl)
                     return ScriptLocal.GetFloat(hash, self.vLocal)
                 end
 
-                Logger.LogError(F("No type for local! %s", S(self.vLocal)))
+                SilentLogger.LogError(F("No type for local! %s", S(self.vLocal)))
                 return nil
             end
 
@@ -121,7 +121,7 @@ function Parser.ParseLocals(tbl)
                 elseif self.type == "float" then
                     ScriptLocal.SetFloat(hash, self.vLocal, value)
                 else
-                    Logger.LogError(F("No type for local! %s", S(self.vLocal)))
+                    SilentLogger.LogError(F("No type for local! %s", S(self.vLocal)))
                 end
             end
         elseif type(v) == "table" then
@@ -147,7 +147,7 @@ function Parser.ParseStats(tbl)
             elseif v.stat:find("MPPLY") or IsStoryStat() then
                 hash = J(v.stat)
             else
-                Logger.LogError(F("Bad stat! %s", S(v.stat)))
+                SilentLogger.LogError(F("Bad stat! %s", S(v.stat)))
                 break
             end
 
@@ -165,7 +165,7 @@ function Parser.ParseStats(tbl)
                     return value
                 end
 
-                Logger.LogError(F("No type for stat! %s", S(self.stat)))
+                SilentLogger.LogError(F("No type for stat! %s", S(self.stat)))
                 return nil
             end
 
@@ -177,7 +177,7 @@ function Parser.ParseStats(tbl)
                 elseif self.type == "bool" then
                     Stats.SetBool(self.hash, value)
                 else
-                    Logger.LogError(F("No type for stat! %s", S(self.stat)))
+                    SilentLogger.LogError(F("No type for stat! %s", S(self.stat)))
                 end
             end
         elseif type(v) == "table" then
@@ -213,11 +213,19 @@ end
 function Parser.ParseTables(tbl)
     for _, v in pairs(tbl) do
         if type(v) == "table" and #v > 0 and type(v[1]) == "table" then
+            v.GetName = function(self, index)
+                for _, item in ipairs(v) do
+                    if item.index == index then
+                        return item.name
+                    end
+                end
+            end
+
             v.GetNames = function(self)
                 local names = {}
 
                 for _, item in ipairs(v) do
-                    table.insert(names, item.name)
+                    I(names, item.name)
                 end
 
                 return names
@@ -228,7 +236,7 @@ function Parser.ParseTables(tbl)
 
                 for i = start, finish do
                     if v[i] then
-                        table.insert(names, v[i].name)
+                        I(names, v[i].name)
                     end
                 end
 
@@ -239,7 +247,7 @@ function Parser.ParseTables(tbl)
                 local indexes = {}
 
                 for _, item in ipairs(v) do
-                    table.insert(indexes, item.index)
+                    I(indexes, item.index)
                 end
 
                 return indexes
@@ -265,8 +273,7 @@ Script.QueueJob(function()
         Script.Yield()
     end
 
-    Logger.LogInfo(F("%s has started.", SCRIPT_NAME))
-    GUI.AddToast(F("%s has started.", SCRIPT_NAME))
+    SilentLogger.LogInfo(F("%s has started ツ", SCRIPT_NAME))
 end)
 
 --#endregion
