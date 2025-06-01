@@ -8,9 +8,15 @@ function FeatureMgr.GetFeature(feature)
     return _GetFeature(feature.hash)
 end
 
+function FeatureMgr.GetFeatureByHash(hash)
+    return _GetFeature(hash)
+end
+
 function FeatureMgr.GetFeatureListIndex(feature)
     return _GetFeatureListIndex(feature.hash)
 end
+
+featureHashes = {}
 
 function FeatureMgr.AddFeature(feature, callback)
     _AddFeature(feature.hash, feature.name, feature.type, feature.desc, function(f)
@@ -40,6 +46,8 @@ function FeatureMgr.AddFeature(feature, callback)
     if feature.defv or feature.lims or feature.step then
         FeatureMgr.GetFeature(feature):Reset()
     end
+
+    I(featureHashes, feature.hash)
 
     return FeatureMgr.GetFeature(feature)
 end

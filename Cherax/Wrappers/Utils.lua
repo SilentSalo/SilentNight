@@ -50,6 +50,7 @@ function Utils.FillDynamicTables()
             I(eTable.Editor.Stats.Files, { name = fileName, index = i })
         end
     end
+
     if #eTable.Editor.Stats.Files == 0 then
         I(eTable.Editor.Stats.Files, { name = "", index = -1 })
     end
@@ -92,6 +93,26 @@ function Utils.FillDynamicTables()
         I(eTable.Business.Supplies, { name = "None", index = -1 })
     else
         I(eTable.Business.Supplies, 1, { name = "All", index = 7 })
+    end
+
+    -- eTable.Settings.Languages
+    Utils.ClearTable(eTable.Settings.Languages)
+
+    I(eTable.Settings.Languages, { name = "EN", index = 0 })
+
+    local langIndex = 1
+
+    if FileMgr.DoesFileExist(TRANS_DIR) then
+        local files = FileMgr.FindFiles(TRANS_DIR, ".json", true)
+
+        for _, file in ipairs(files) do
+            local fileName = string.match(file, "[^\\]+$"):gsub(".json", "")
+
+            if fileName ~= "EN" then
+                I(eTable.Settings.Languages, { name = fileName, index = langIndex })
+                langIndex = langIndex + 1
+            end
+        end
     end
 end
 

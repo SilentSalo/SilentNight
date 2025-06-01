@@ -31,12 +31,12 @@ function GTA.IsInSessionAlone()
 end
 
 function GTA.EmptySession()
-    FeatureMgr.GetFeatureByName("Bail From Session"):OnClick()
+    FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.BailFromSession):OnClick()
 end
 
 function GTA.StartSession(sessionType)
-    FeatureMgr.GetFeatureByName("Session Type"):SetListIndex(sessionType)
-    FeatureMgr.GetFeatureByName("Start Session"):OnClick()
+    FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.SessionType):SetListIndex(sessionType)
+    FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.StartSession):OnClick()
 end
 
 function GTA.IsScriptRunning(script)
@@ -66,7 +66,7 @@ end
 
 function GTA.ForceScriptHost(script)
     _ForceScriptHost(script)
-    FeatureMgr.GetFeatureByName("Force Script Host"):OnClick()
+    FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.ForceScriptHost):OnClick()
 end
 
 function GTA.TriggerTransaction(hash)

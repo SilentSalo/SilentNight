@@ -26,8 +26,6 @@ cayoPlayers = {
     eFeature.Heist.CayoPerico.Cuts.Player4
 }
 
-cayoFile = eFeature.Heist.CayoPerico.Presets.File
-
 diamondPreps = {
     eFeature.Heist.DiamondCasino.Preps.Difficulty,
     eFeature.Heist.DiamondCasino.Preps.Approach,
@@ -46,8 +44,6 @@ diamondPlayers = {
     eFeature.Heist.DiamondCasino.Cuts.Player3,
     eFeature.Heist.DiamondCasino.Cuts.Player4
 }
-
-diamondFile = eFeature.Heist.DiamondCasino.Presets.File
 
 doomsdayPlayers = {
     eFeature.Heist.Doomsday.Cuts.Player1,

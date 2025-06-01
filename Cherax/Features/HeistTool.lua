@@ -167,7 +167,6 @@ FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Select)
 
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Max, function(f)
     FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Payout.Select):SetIntValue(2000000)
-    eFeature.Heist.AutoShop.Payout.Max.func()
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Apply, function(f)
@@ -308,7 +307,7 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Refresh)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Name)
-    :SetStringValue(cayoFile.list[FeatureMgr.GetFeatureListIndex(cayoFile) + 1].name)
+    :SetStringValue(eFeature.Heist.CayoPerico.Presets.File.list[FeatureMgr.GetFeatureListIndex(eFeature.Heist.CayoPerico.Presets.File) + 1].name)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Save, function(f)
     local file = FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.Name):GetStringValue()
@@ -540,7 +539,7 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Refresh)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Name)
-    :SetStringValue(diamondFile.list[FeatureMgr.GetFeatureListIndex(diamondFile) + 1].name)
+    :SetStringValue(eFeature.Heist.DiamondCasino.Presets.File.list[FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Presets.File) + 1].name)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Save, function(f)
     local file = FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Presets.Name):GetStringValue()

@@ -5,11 +5,10 @@ function FileMgr.CreateConfig()
         FileMgr.CreateDir(CONFIG_DIR)
     end
 
-    local path = CONFIG_PATH
-
-    if not FileMgr.DoesFileExist(path) then
+    if not FileMgr.DoesFileExist(CONFIG_PATH) then
         local config = {
-            logging = 2,
+            logging  = 2,
+            language = "EN",
 
             collab = {
                 jinxscript = true
@@ -42,8 +41,7 @@ function FileMgr.CreateConfig()
             }
         }
 
-        Json.EncodeToFile(path, config)
-        return
+        Json.EncodeToFile(CONFIG_PATH, config)
     end
 end
 
@@ -52,10 +50,8 @@ function FileMgr.SaveConfig(config)
 end
 
 function FileMgr.ResetConfig()
-    local path = CONFIG_PATH
-
-    if FileMgr.DoesFileExist(path) then
-        FileMgr.DeleteFile(path)
+    if FileMgr.DoesFileExist(CONFIG_PATH) then
+        FileMgr.DeleteFile(CONFIG_PATH)
     end
 
     FileMgr.CreateConfig()
@@ -69,7 +65,7 @@ function FileMgr.EnsureConfigKeys()
         return
     end
 
-    local required         = { "logging", "collab", "instant_finish", "unlock_all_poi", "easy_money" }
+    local required         = { "logging", "language", "collab", "instant_finish", "unlock_all_poi", "easy_money" }
     local required_collab  = { "jinxscript" }
     local required_instant = { "agency", "apartment", "auto_shop", "cayo_perico", "diamond_casino", "doomsday" }
     local required_unlock  = { "cayo_perico", "diamond_casino" }
@@ -93,7 +89,7 @@ function FileMgr.EnsureConfigKeys()
     if not HasKeys(CONFIG.collab, required_collab) then
         missing = true
     end
-    
+
     if not HasKeys(CONFIG.instant_finish, required_instant) then
         missing = true
     end
@@ -114,7 +110,50 @@ function FileMgr.EnsureConfigKeys()
         FileMgr.ResetConfig()
         CONFIG = Json.DecodeFromFile(CONFIG_PATH)
         SilentLogger.LogError("Config is missing something. Config reset ツ")
-    end 
+    end
+end
+
+function FileMgr.ExportTranslation(file)
+    if not FileMgr.DoesFileExist(TRANS_DIR) then
+        FileMgr.CreateDir(TRANS_DIR)
+    end
+
+    local path = F("%s\\%s.json", TRANS_DIR, file)
+
+    if FileMgr.DoesFileExist(path) then
+        FileMgr.DeleteFile(path)
+    end
+
+    local features = {}
+
+    for _, hash in pairs(featureHashes) do
+        local feature = FeatureMgr.GetFeatureByHash(hash)
+
+        if feature then
+            local name = feature:GetName(false)
+            local desc = feature:GetDesc(false)
+
+            if name and desc then
+                local entry = {
+                    name = name,
+                    desc = desc
+                }
+
+                if feature:GetType() == eFeatureType.Combo then
+                    local list = feature:GetList()
+                    entry.list = {}
+
+                    for _, item in ipairs(list) do
+                        I(entry.list, item)
+                    end
+                end
+
+                features[S(hash)] = entry
+            end
+        end
+    end
+
+    Json.EncodeToFile(path, features)
 end
 
 function FileMgr.CreateHeistPresetsDirs()
@@ -143,7 +182,7 @@ function FileMgr.CreateStatsDir(generateExample)
             }
         }
 
-        local path = F("%s\\%s", STATS_DIR, "example.json")
+        local path = F("%s\\example.json", STATS_DIR)
 
         Json.EncodeToFile(path, stats)
     end

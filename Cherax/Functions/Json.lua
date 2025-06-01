@@ -35,7 +35,7 @@ local function EncodeTable(val, stack)
     stack = stack or {}
 
     -- Circular reference?
-    if stack[val] then Logger.LogError("circular reference") end
+    if stack[val] then SilentLogger.LogError("circular reference") end
 
     stack[val] = true
 
@@ -44,12 +44,12 @@ local function EncodeTable(val, stack)
         local n = 0
         for k in pairs(val) do
             if type(k) ~= "number" then
-                Logger.LogError("invalid table: mixed or invalid key types")
+                SilentLogger.LogError("invalid table: mixed or invalid key types")
             end
             n = n + 1
         end
         if n ~= #val then
-            Logger.LogError("invalid table: sparse array")
+            SilentLogger.LogError("invalid table: sparse array")
         end
         -- Encode
         for i, v in ipairs(val) do
@@ -61,7 +61,7 @@ local function EncodeTable(val, stack)
         -- Treat as an object
         for k, v in pairs(val) do
             if type(k) ~= "string" then
-                Logger.LogError("invalid table: mixed or invalid key types")
+                SilentLogger.LogError("invalid table: mixed or invalid key types")
             end
             I(res, Encode(k, stack) .. ":" .. Encode(v, stack))
         end
@@ -77,7 +77,7 @@ end
 local function EncodeNumber(val)
     -- Check for NaN, -inf and inf
     if val ~= val or val <= -math.huge or val >= math.huge then
-        Logger.LogError("unexpected number value '" .. S(val) .. "'")
+        SilentLogger.LogError("unexpected number value '" .. S(val) .. "'")
     end
     return F("%.14g", val)
 end
@@ -96,7 +96,7 @@ Encode = function(val, stack)
     if f then
         return f(val, stack)
     end
-    Logger.LogError("unexpected type '" .. t .. "'")
+    SilentLogger.LogError("unexpected type '" .. t .. "'")
 end
 
 function Json.Encode(val, indent)
@@ -107,7 +107,7 @@ function Json.Encode(val, indent)
         currentIndent = currentIndent or ""
 
         if t == "table" then
-            if stack[value] then Logger.LogError("circular reference") end
+            if stack[value] then SilentLogger.LogError("circular reference") end
             stack[value] = true
 
             local res = {}
@@ -176,7 +176,7 @@ local function DecodeError(str, idx, msg)
             colCount = 1
         end
     end
-    Logger.LogError(F("%s at line %d col %d", msg, lineCount, colCount))
+    SilentLogger.LogError(F("%s at line %d col %d", msg, lineCount, colCount))
 end
 
 local function CodepointToUtf8(n)
@@ -190,7 +190,7 @@ local function CodepointToUtf8(n)
     elseif n <= 0x10ffff then
         return string.char(f(n / 262144) + 240, f(n % 262144 / 4096) + 128, f(n % 4096 / 64) + 128, n % 64 + 128)
     end
-    Logger.LogError(F("invalid unicode codepoint '%x'", n))
+    SilentLogger.LogError(F("invalid unicode codepoint '%x'", n))
 end
 
 local function ParseUnicodeEscape(s)
@@ -354,7 +354,7 @@ end
 
 function Json.Decode(str)
     if type(str) ~= "string" or str == "" then
-        Logger.LogError("expected non-empty string, got " .. S(str))
+        SilentLogger.LogError("expected non-empty string, got " .. S(str))
     end
     local res, idx = Parse(str, NextChar(str, 1, spaceChars, true))
     idx = NextChar(str, idx, spaceChars, true)
@@ -374,7 +374,7 @@ end
 
 function Json.DecodeFromFile(path)
     if not FileMgr.DoesFileExist(path) then
-       Logger.LogError(F("File not found: %s", path))
+       SilentLogger.LogError(F("File not found: %s", path))
     end
 
     return Json.Decode(FileMgr.ReadFileContent(path))

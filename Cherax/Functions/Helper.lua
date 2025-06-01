@@ -233,14 +233,15 @@ function Helper.ApplyDiamondPreset(preps)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Target):SetListIndex(preps.target)
 end
 
-function Helper.RefreshPresetsFiles()
+function Helper.RefreshFiles()
     Utils.FillDynamicTables()
     Parser.ParseTables(eTable)
-    FeatureMgr.GetFeature(cayoFile):SetList(cayoFile.list:GetNames()):SetListIndex(0)
-    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.Name):SetStringValue(cayoFile.list[1].name)
-    FeatureMgr.GetFeature(diamondFile):SetList(diamondFile.list:GetNames()):SetListIndex(0)
-    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Presets.Name):SetStringValue(diamondFile.list[1].name)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.File):SetList(eFeature.Heist.CayoPerico.Presets.File.list:GetNames()):SetListIndex(0)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.Name):SetStringValue(eFeature.Heist.CayoPerico.Presets.File.list[1].name)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Presets.File):SetList(eFeature.Heist.DiamondCasino.Presets.File.list:GetNames()):SetListIndex(0)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Presets.Name):SetStringValue(eFeature.Heist.DiamondCasino.Presets.File.list[1].name)
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.File):SetList(eFeature.Dev.Editor.Stats.File.list:GetNames()):SetListIndex(0)
+    FeatureMgr.GetFeature(eFeature.Settings.Translation.File):SetList(eFeature.Settings.Translation.File.list:GetNames()):SetListIndex(0)
 end
 
 function Helper.GetCardName(index)

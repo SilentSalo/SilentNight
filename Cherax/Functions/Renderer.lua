@@ -799,7 +799,7 @@ end
 function Renderer.RenderSettings()
     if ImGui.BeginTabItem("Settings") then
         if ImGui.BeginTabBar("Settings Tabs") then
-            if ImGui.BeginTabItem("General") then
+            if ImGui.BeginTabItem("Configuration") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Config & Discord") then
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Logging)
@@ -812,16 +812,25 @@ function Renderer.RenderSettings()
                         ClickGUI.EndCustomChildWindow()
                     end
 
+                    if ClickGUI.BeginCustomChildWindow("Translation") then
+                        ClickGUI.RenderFeature(eFeature.Settings.Translation.File)
+                        ClickGUI.RenderFeature(eFeature.Settings.Translation.Load)
+                        ImGui.SameLine()
+                        ImGui.RedButtonStyle()
+                        ClickGUI.RenderFeature(eFeature.Settings.Translation.Remove)
+                        ImGui.ResetButtonStyle()
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Settings.Translation.Refresh)
+                        ClickGUI.RenderFeature(eFeature.Settings.Translation.Export)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Settings.Translation.Copy)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     if ClickGUI.BeginCustomChildWindow("Collabs") then
                         ClickGUI.RenderFeature(eFeature.Settings.Collab.JinxScript.Toggle)
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Settings.Collab.JinxScript.Discord)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
-                    if ClickGUI.BeginCustomChildWindow("Unlock All POI") then
-                        ClickGUI.RenderFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
-                        ClickGUI.RenderFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -834,6 +843,12 @@ function Renderer.RenderSettings()
                         ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.CayoPerico)
                         ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.DiamondCasino)
                         ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.Doomsday)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    if ClickGUI.BeginCustomChildWindow("Unlock All POI") then
+                        ClickGUI.RenderFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
+                        ClickGUI.RenderFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -1369,6 +1384,14 @@ function Renderer.RenderListGUI()
         SettingsTab:AddFeature(eFeature.Settings.Config.Reset)
         SettingsTab:AddFeature(eFeature.Settings.Config.Copy)
         SettingsTab:AddFeature(eFeature.Settings.Config.Discord)
+
+        SettingsTab:AddSeperator("Translation")
+        SettingsTab:AddFeature(eFeature.Settings.Translation.File)
+        SettingsTab:AddFeature(eFeature.Settings.Translation.Load)
+        SettingsTab:AddFeature(eFeature.Settings.Translation.Remove)
+        SettingsTab:AddFeature(eFeature.Settings.Translation.Refresh)
+        SettingsTab:AddFeature(eFeature.Settings.Translation.Export)
+        SettingsTab:AddFeature(eFeature.Settings.Translation.Copy)
 
         SettingsTab:AddSeperator("Collabs")
         SettingsTab:AddFeature(eFeature.Settings.Collab.JinxScript.Toggle)

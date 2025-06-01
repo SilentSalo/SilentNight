@@ -71,12 +71,6 @@ local function RunScript()
 
         GUI.AddToast("Silent Night", "Couldn't start Silent Night. Some files are missing.", 5000, eToastPos.TOP_RIGHT)
 
-        if FileMgr.DoesFileExist(string.format("%s\\sha.txt", root)) then
-            FileMgr.DeleteFile(string.format("%s\\sha.txt", root))
-            Logger.Log(eLogColor.LIGHTGREEN, "Silent Night (Info)", "Restart Silent Night to start redownloading process.")
-            GUI.AddToast("Silent Night", "Restart Silent Night to start redownloading process.", 5000, eToastPos.TOP_RIGHT)
-        end
-
         SetShouldUnload()
         return
     end
