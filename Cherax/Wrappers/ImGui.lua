@@ -16,7 +16,7 @@ function ImGui.EndColumns()
 end
 
 function ImGui.RedButtonStyle()
-    ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 130, 0, 0, 255)
+    ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 255, 0, 0, 255)
 end
 
 function ImGui.ResetButtonStyle()

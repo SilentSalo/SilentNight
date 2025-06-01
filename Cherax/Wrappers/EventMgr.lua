@@ -4,8 +4,8 @@ logTransactions = false
 
 function EventMgr.OnPresent()
     EventMgr.RegisterHandler(eLuaEvent.ON_PRESENT, function()
-        if FeatureMgr.GetFeatureByName("Log Transactions") then
-            if FeatureMgr.GetFeatureByName("Log Transactions"):IsToggled() then
+        if FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.LogTransactions) then
+            if FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.LogTransactions):IsToggled() then
                 logTransactions = true
                 SetShouldUnload()
             end

@@ -1,5 +1,84 @@
 --#region Script
 
+function Script.LoadDefaultTranslation()
+    local path = F("%s\\EN.json", TRANS_DIR)
+
+    if FileMgr.DoesFileExist(path) then
+        Script.Translate(path)
+        SilentLogger.LogInfo(F("[Load (Settings)] Default translation should've been loaded ツ", file))
+        return
+    end
+
+    SilentLogger.LogError("[Load (Settings)] Default translation doesn't exist ツ")
+    SilentLogger.LogInfo("[Load (Settings)] Restart Silent Night to create default translation ツ")
+end
+
+function Script.LoadTranslation()
+    local path = F("%s\\%s.json", TRANS_DIR, CONFIG.language)
+
+    Helper.RefreshFiles()
+
+    if FileMgr.DoesFileExist(path) then
+        Script.Translate(path)
+
+        local ftr = eFeature.Settings.Translation.File
+        FeatureMgr.GetFeature(ftr):SetListIndex(ftr.list:GetIndex(CONFIG.language))
+    else
+        SilentLogger.LogError(F("[Load (Settings)] Translation «%s» doesn't exist ツ", CONFIG.language))
+        Script.LoadDefaultTranslation()
+
+        CONFIG.language = "EN"
+        FeatureMgr.GetFeature(eFeature.Settings.Translation.File):SetListIndex(0)
+        Json.EncodeToFile(CONFIG_PATH, CONFIG)
+        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+    end
+end
+
+function Script.LoadSubscribedScript(scriptName)
+    local ftr   = FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.SubscribedScripts)
+    local list  = ftr:GetList()
+    local found = false
+
+    for i, name in ipairs(list) do
+        if name == scriptName then
+            ftr:SetListIndex(i - 1)
+            Script.Yield(1000)
+            FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.RunScript):OnClick()
+            found = true
+            break
+        end
+    end
+
+    if not found then
+        SilentLogger.LogError(F("[%s (Settings)] Failed to start %s. Not subscribed ツ", scriptName, scriptName))
+    end
+end
+
+function Script.Translate(path)
+    local translations = Json.DecodeFromFile(path)
+
+    for hashStr, data in pairs(translations) do
+        local hash    = N(hashStr)
+        local feature = FeatureMgr.GetFeatureByHash(hash)
+
+        if feature then
+            if data.name then
+                feature:SetName(data.name)
+            end
+
+            if data.desc then
+                feature:SetDesc(data.desc)
+            end
+
+            if data.list and type(data.list) == "table" and feature.SetList then
+                if feature:GetHash() ~= eTable.SilentNight.Features.Language then
+                    feature:SetList(data.list)
+                end
+            end
+        end
+    end
+end
+
 function Script.ReAssign()
     PLAYER_ID = GTA.GetLocalPlayerId()
     if GTA_EDITION == "EE" then
@@ -233,6 +312,12 @@ Script.RegisterLooped(function()
             FeatureMgr.GetFeature(ftr):Toggle(i == toggledNow)
         end
     end
-    
+
     Script.Yield()
 end)
+
+FileMgr.ExportTranslation("EN")
+
+Script.LoadTranslation()
+
+--#endregion Script

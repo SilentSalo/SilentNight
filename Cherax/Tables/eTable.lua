@@ -607,9 +607,36 @@ eTable = {
             { name = "Enabled",  index = 2 }
         },
 
+        Languages = {},
+
         InstantFinishes = {
             { name = "Old", index = 0 },
             { name = "New", index = 1 }
+        }
+    },
+
+    SilentNight = {
+        Features = {
+            Language = 1984344559
+        }
+    },
+
+    Cherax = {
+        Features = {
+            ForceScriptHost   = 3768410355,
+            SessionType       = 603923874,
+            StartSession      = 3364415752,
+            BailFromSession   = 3772056260,
+            LogTransactions   = 925637617,
+            SubscribedScripts = 3331055146,
+            RunScript         = 2423908032,
+            StopScript        = 2425713991
+        }
+    },
+
+    JinxScript = {
+        Features = {
+            RestartFreemode = 3731619689
         }
     }
 }

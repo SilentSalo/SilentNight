@@ -204,12 +204,14 @@ eFeature = {
                         eStat.MPX_HEIST_PLANNING_STAGE:Set(-1)
 
                         if CONFIG.collab.jinxscript then
-                            if FeatureMgr.GetFeatureByName("Restart Freemode") then
-                                SilentLogger.LogInfo("[JinxScript (Settings)] Restarting freemode using JinxScript. ツ")
-                                FeatureMgr.GetFeatureByName("Restart Freemode"):OnClick()
-                                SilentLogger.LogInfo("[JinxScript (Settings)] Freemode should've been restarted using JinxScript ツ")
+                            Script.LoadSubscribedScript("JinxScript EE & LE")
+
+                            if FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode) then
+                                SilentLogger.LogInfo("[JinxScript EE & LE (Settings)] Restarting freemode using JinxScript ツ")
+                                FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode):OnClick()
+                                SilentLogger.LogInfo("[JinxScript EE & LE (Settings)] Freemode should've been restarted using JinxScript ツ")
                             else
-                                SilentLogger.LogError("[JinxScript (Settings)] JinxScript collab is enabled, but the script isn't running.")
+                                SilentLogger.LogError("[JinxScript EE & LE (Settings)] JinxScript collab is enabled, but the script isn't running ツ")
                             end
                         end
 
@@ -319,7 +321,7 @@ eFeature = {
                     hash = J("SN_Apartment_Cooldown"),
                     name = "Kill Cooldown",
                     type = eFeatureType.Button,
-                    desc = "Skips the heist's cooldown.",
+                    desc = "Skips the heist's cooldown. Doesn't skip the cooldown between transactions (20 min).",
                     func = function()
                         eGlobal.Heist.Apartment.Cooldown:Set(-1)
                         SilentLogger.LogInfo("[Kill Cooldown (Apartment)] Cooldown should've been killed ツ")
@@ -1162,7 +1164,7 @@ eFeature = {
 
                         if FileMgr.DoesFileExist(path) then
                             FileMgr.DeleteFile(path)
-                            Helper.RefreshPresetsFiles()
+                            Helper.RefreshFiles()
                             SilentLogger.LogInfo(F("[Remove (Cayo Perico)] Preset «%s» should've been removed ツ", file))
                             return
                         end
@@ -1177,7 +1179,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Refreshes the list of presets.",
                     func = function()
-                        Helper.RefreshPresetsFiles()
+                        Helper.RefreshFiles()
                         SilentLogger.LogInfo("[Refresh (Cayo Perico)] Heist presets should've been refreshed ツ")
                     end
                 },
@@ -1198,7 +1200,7 @@ eFeature = {
                         local path = F("%s\\%s.json", CAYO_DIR, file)
                         FileMgr.CreateHeistPresetsDirs()
                         Json.EncodeToFile(path, preps)
-                        Helper.RefreshPresetsFiles()
+                        Helper.RefreshFiles()
                         SilentLogger.LogInfo(F("[Save (Cayo Perico)] Preset «%s» should've been saved ツ", file))
                     end
                 },
@@ -1769,7 +1771,7 @@ eFeature = {
 
                         if FileMgr.DoesFileExist(path) then
                             FileMgr.DeleteFile(path)
-                            Helper.RefreshPresetsFiles()
+                            Helper.RefreshFiles()
                             SilentLogger.LogInfo(F("[Remove (Diamond Casino)] Preset «%s» should've been removed ツ", file))
                             return
                         end
@@ -1784,7 +1786,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Refreshes the list of presets.",
                     func = function()
-                        Helper.RefreshPresetsFiles()
+                        Helper.RefreshFiles()
                         SilentLogger.LogInfo("[Refresh (Diamond Casino)] Heist presets should've been refreshed ツ")
                     end
                 },
@@ -1805,7 +1807,7 @@ eFeature = {
                         local path = F("%s\\%s.json", DIAMOND_DIR, file)
                         FileMgr.CreateHeistPresetsDirs()
                         Json.EncodeToFile(path, preps)
-                        Helper.RefreshPresetsFiles()
+                        Helper.RefreshFiles()
                         SilentLogger.LogInfo(F("[Save (Diamond Casino)] Preset «%s» should've been saved ツ", file))
                     end
                 },
@@ -4511,7 +4513,7 @@ eFeature = {
 
                         if FileMgr.DoesFileExist(path) then
                             FileMgr.DeleteFile(path)
-                            Helper.RefreshPresetsFiles()
+                            Helper.RefreshFiles()
                             SilentLogger.LogInfo(F("[Remove (Dev Tool)] Stats file «%s» should've been removed ツ", file))
                             return
                         end
@@ -4526,7 +4528,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Refreshes the list of stats files.",
                     func = function()
-                        Helper.RefreshPresetsFiles()
+                        Helper.RefreshFiles()
                         SilentLogger.LogInfo("[Refresh (Dev Tool)] Stats files list should've been refreshed ツ")
                     end
                 },
@@ -4538,7 +4540,7 @@ eFeature = {
                     desc = "Copies the stats folder path to the clipboard.",
                     func = function()
                         FileMgr.CreateStatsDir()
-                        Helper.RefreshPresetsFiles()
+                        Helper.RefreshFiles()
                         ImGui.SetClipboardText(STATS_DIR)
                         SilentLogger.LogInfo("[Copy (Dev Tool)] Stats folder path should've been copied ツ")
                     end
@@ -4551,7 +4553,7 @@ eFeature = {
                     desc = "Generates the example stats file.",
                     func = function()
                         FileMgr.CreateStatsDir(true)
-                        Helper.RefreshPresetsFiles()
+                        Helper.RefreshFiles()
                         SilentLogger.LogInfo("[Generate (Dev Tool)] Example stats file should've been generated ツ")
                     end
                 }
@@ -4657,7 +4659,7 @@ eFeature = {
     Settings = {
         Config = {
             Logging = {
-                hash = J("SN_Settings_Logging"),
+                hash = J("SN_Settings_CLogging"),
                 name = "Logging",
                 type = eFeatureType.Combo,
                 desc = "Disabled: no logging.\nSilent: logs only.\nEnabled: logs & toasts.",
@@ -4673,7 +4675,7 @@ eFeature = {
             },
 
             Reset = {
-                hash = J("SN_Settings_Reset"),
+                hash = J("SN_Settings_CReset"),
                 name = "Reset",
                 type = eFeatureType.Button,
                 desc = "Resets the config to default.",
@@ -4689,24 +4691,129 @@ eFeature = {
             },
 
             Copy = {
-                hash = J("SN_Settings_Copy"),
+                hash = J("SN_Settings_CCopy"),
                 name = "Copy Folder Path",
                 type = eFeatureType.Button,
                 desc = "Copies the config folder path to the clipboard.",
                 func = function()
                     ImGui.SetClipboardText(CONFIG_DIR)
-                    SilentLogger.LogInfo("[Copy (Settings)] Config folder path should've been copied ツ")
+                    SilentLogger.LogInfo("[Copy Folder Path (Settings)] Config folder path should've been copied ツ")
                 end
             },
 
             Discord = {
-                hash = J("SN_Settings_Discord"),
+                hash = J("SN_Settings_CDiscord"),
                 name = "Copy Discord Invite Link",
                 type = eFeatureType.Button,
                 desc = "Copies Discord server invite link to your clipboard.",
                 func = function()
                     ImGui.SetClipboardText(DISCORD)
-                    SilentLogger.LogInfo("[Copy Link (Settings)] Discord server invite link should've been copied ツ")
+                    SilentLogger.LogInfo("[Copy Discord Invite Link (Settings)] Discord server invite link should've been copied ツ")
+                end
+            }
+        },
+
+        Translation = {
+            File = {
+                hash = J("SN_Settings_TFile"),
+                name = "Language",
+                type = eFeatureType.Combo,
+                desc = "Select the desired translation.",
+                list = eTable.Settings.Languages,
+                func = function(ftr)
+                    local list      = eTable.Settings.Languages
+                    local index     = list[ftr:GetListIndex() + 1].index
+                    CONFIG.language = list:GetName(index)
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                    SilentLogger.LogInfo(F("[Language (Settings)] Selected language: %s ツ", list:GetName(index)))
+                end
+            },
+
+            Load = {
+                hash = J("SN_Settings_TLoad"),
+                name = "Load",
+                type = eFeatureType.Button,
+                desc = "Loads the selected translation.",
+                func = function(file)
+                    local path = F("%s\\%s.json", TRANS_DIR, file)
+
+                    if FileMgr.DoesFileExist(path) then
+                        Script.Translate(path)
+                        SilentLogger.LogInfo(F("[Load (Settings)] Translation «%s» should've been loaded ツ", file))
+                        return
+                    else
+                        SilentLogger.LogError(F("[Load (Settings)] Translation «%s» doesn't exist ツ", file))
+                    end
+
+                    CONFIG.language = "EN"
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    Helper.RefreshFiles()
+                    Script.LoadDefaultTranslation()
+                end
+            },
+
+            Remove = {
+                hash = J("SN_Settings_TRemove"),
+                name = "Remove",
+                type = eFeatureType.Button,
+                desc = "Removes the selected translation.",
+                func = function(file)
+                    local path = F("%s\\%s.json", TRANS_DIR, file)
+
+                    if file == "EN" then
+                        SilentLogger.LogError("[Remove (Settings)] You cannot remove default translation ツ")
+                        return
+                    end
+
+                    if FileMgr.DoesFileExist(path) then
+                        FileMgr.DeleteFile(path)
+                        SilentLogger.LogInfo(F("[Remove (Settings)] Translation «%s» should've been removed ツ", file))
+                    else
+                        SilentLogger.LogError(F("[Remove (Settings)] Translation «%s» doesn't exist ツ", file))
+                    end
+
+                    CONFIG.language = "EN"
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    Helper.RefreshFiles()
+                    Script.LoadDefaultTranslation()
+                end
+            },
+
+            Refresh = {
+                hash = J("SN_Settings_TRefresh"),
+                name = "Refresh",
+                type = eFeatureType.Button,
+                desc = "Refreshes the list of translations.",
+                func = function()
+                    Helper.RefreshFiles()
+                    SilentLogger.LogInfo("[Refresh (Settings)] Translations list should've been refreshed ツ")
+                end
+            },
+
+            Export = {
+                hash = J("SN_Settings_TExport"),
+                name = "Export",
+                type = eFeatureType.Button,
+                desc = "Exports the current translation to the file.",
+                func = function(file)
+                    FileMgr.ExportTranslation(file)
+                    SilentLogger.LogInfo(F("[Export (Settings)] Translation «%s» should've been exported ツ", file))
+                end
+            },
+
+            Copy = {
+                hash = J("SN_Settings_TCopy"),
+                name = "Copy Folder Path",
+                type = eFeatureType.Button,
+                desc = "Copies the translations folder path to the clipboard.",
+                func = function()
+                    ImGui.SetClipboardText(TRANS_DIR)
+                    SilentLogger.LogInfo("[Copy Folder Path (Settings)] Translations folder path should've been copied ツ")
                 end
             }
         },
@@ -4714,7 +4821,7 @@ eFeature = {
         Collab = {
             JinxScript = {
                 Toggle = {
-                    hash = J("SN_Settings_Collab_JinxScript"),
+                    hash = J("SN_Settings_CJinxScriptToggle"),
                     name = "JinxScript",
                     type = eFeatureType.Toggle,
                     desc = "If enabled, JinxScript will help speed up some processes.",
@@ -4733,7 +4840,7 @@ eFeature = {
                 },
 
                 Discord = {
-                    hash = J("SN_Settings_Collab_JinxScript_Discord"),
+                    hash = J("SN_Settings_CJinxScriptDiscord"),
                     name = "Discord",
                     type = eFeatureType.Button,
                     desc = "Copies JinxScript Discord server invite link to your clipboard.",

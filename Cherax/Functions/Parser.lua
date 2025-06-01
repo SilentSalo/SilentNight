@@ -243,6 +243,14 @@ function Parser.ParseTables(tbl)
                 return names
             end
 
+            v.GetIndex = function(self, name)
+                for _, item in ipairs(v) do
+                    if item.name:lower() == name:lower() then
+                        return item.index
+                    end
+                end
+            end
+
             v.GetIndexes = function(self)
                 local indexes = {}
 
