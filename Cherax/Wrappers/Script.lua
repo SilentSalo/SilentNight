@@ -34,7 +34,7 @@ function Script.LoadTranslation()
     end
 end
 
-function Script.LoadSubscribedScript(scriptName)
+function Script.LoadSubscribedScript(scriptName, stop)
     local ftr   = FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.SubscribedScripts)
     local list  = ftr:GetList()
     local found = false
@@ -42,16 +42,22 @@ function Script.LoadSubscribedScript(scriptName)
     for i, name in ipairs(list) do
         if name == scriptName then
             ftr:SetListIndex(i - 1)
-            Script.Yield(1000)
-            FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.RunScript):OnClick()
             found = true
             break
         end
     end
 
     if not found then
-        SilentLogger.LogError(F("[%s (Settings)] Failed to start %s. Not subscribed ツ", scriptName, scriptName))
+        SilentLogger.LogError(F("[%s (Settings)] Failed to find %s in subscribed scripts ツ", scriptName, scriptName))
+        return
     end
+
+    if not stop then
+        FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.RunScript):OnClick()
+        return
+    end
+
+    FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.StopScript):OnClick()
 end
 
 function Script.Translate(path)
@@ -231,7 +237,6 @@ Script.RegisterLooped(function()
 end)
 
 Script.RegisterLooped(function()
-    local ftr   = eFeature.Heist.Apartment.Cuts.Bonus
     local heist = eGlobal.Heist.Apartment.Heist.Type:Get()
 
     if ShouldUnload() or heist ~= eTable.Heist.Apartment.Heists.PacificJob then

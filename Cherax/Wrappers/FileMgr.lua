@@ -11,7 +11,10 @@ function FileMgr.CreateConfig()
             language = "EN",
 
             collab = {
-                jinxscript = true
+                jinxscript = {
+                    enabled  = true,
+                    autostop = false
+                }
             },
 
             instant_finish = {
@@ -67,12 +70,15 @@ function FileMgr.EnsureConfigKeys()
 
     local required         = { "logging", "language", "collab", "instant_finish", "unlock_all_poi", "easy_money" }
     local required_collab  = { "jinxscript" }
+    local required_jinx    = { "enabled", "autostop" }
     local required_instant = { "agency", "apartment", "auto_shop", "cayo_perico", "diamond_casino", "doomsday" }
     local required_unlock  = { "cayo_perico", "diamond_casino" }
     local required_easy    = { "dummy_prevention", "delay" }
     local required_delay   = { "_5k", "_50k", "_100k", "_180k", "_300k" }
 
     local function HasKeys(tbl, keys)
+        if type(tbl) ~= "table" then return false end
+
         for _, k in ipairs(keys) do
             if not tbl or tbl[k] == nil then return false end
         end
@@ -87,6 +93,10 @@ function FileMgr.EnsureConfigKeys()
     end
 
     if not HasKeys(CONFIG.collab, required_collab) then
+        missing = true
+    end
+
+    if not HasKeys(CONFIG.collab.jinxscript, required_jinx) then
         missing = true
     end
 

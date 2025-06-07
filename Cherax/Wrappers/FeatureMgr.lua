@@ -2,6 +2,7 @@
 
 _GetFeature          = FeatureMgr.GetFeature
 _GetFeatureListIndex = FeatureMgr.GetFeatureListIndex
+_GetFeatureInt       = FeatureMgr.GetFeatureInt
 _AddFeature          = FeatureMgr.AddFeature
 
 function FeatureMgr.GetFeature(feature)
@@ -14,6 +15,14 @@ end
 
 function FeatureMgr.GetFeatureListIndex(feature)
     return _GetFeatureListIndex(feature.hash)
+end
+
+function FeatureMgr.GetFeatureInt(feature)
+    return _GetFeatureInt(feature.hash)
+end
+
+function FeatureMgr.GetFeatureBool(feature)
+    return _GetFeature(feature.hash):IsToggled()
 end
 
 featureHashes = {}
@@ -71,7 +80,7 @@ function FeatureMgr.AddLoop(feature, onEnable, onDisable)
                     elseif feature.func then
                         feature.func(f)
                     end
-                    
+
                     Script.Yield()
                 end)
             end

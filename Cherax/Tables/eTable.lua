@@ -201,6 +201,14 @@ eTable = {
                 { name = "2.55mil Payout", index = -1  }
             },
 
+            Values = {
+                Cash = 83250,
+                Weed = 135000,
+                Coke = 202500,
+                Gold = 333333,
+                Arts = 180000
+            },
+
             Files = {}
         },
 

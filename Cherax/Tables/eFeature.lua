@@ -163,7 +163,7 @@ eFeature = {
                     type = eFeatureType.InputInt,
                     desc = "Select the desired payout.",
                     defv = 0,
-                    lims = { 0, 3000000 },
+                    lims = { 0, 2500000 },
                     step = 100000,
                     func = function(ftr)
                         SilentLogger.LogInfo("[Payout (Agency)] Payout should've been changed. Don't forget to apply ツ")
@@ -203,15 +203,19 @@ eFeature = {
                     func = function()
                         eStat.MPX_HEIST_PLANNING_STAGE:Set(-1)
 
-                        if CONFIG.collab.jinxscript then
+                        if CONFIG.collab.jinxscript.enabled then
                             Script.LoadSubscribedScript("JinxScript EE & LE")
 
                             if FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode) then
                                 SilentLogger.LogInfo("[JinxScript EE & LE (Settings)] Restarting freemode using JinxScript ツ")
                                 FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode):OnClick()
-                                SilentLogger.LogInfo("[JinxScript EE & LE (Settings)] Freemode should've been restarted using JinxScript ツ")
+                                SilentLogger.LogInfo("[JinxScript EE & LE (Settings)] Freemode should've been restarted by JinxScript ツ")
                             else
                                 SilentLogger.LogError("[JinxScript EE & LE (Settings)] JinxScript collab is enabled, but the script isn't running ツ")
+                            end
+
+                            if CONFIG.collab.jinxscript.autostop then
+                                Script.LoadSubscribedScript("JinxScript EE & LE", true)
                             end
                         end
 
@@ -227,6 +231,17 @@ eFeature = {
                     func = function()
                         eGlobal.Heist.Apartment.Reload:Set(22)
                         SilentLogger.LogInfo("[Redraw Board (Apartment)] Board should've been redrawn ツ")
+                    end
+                },
+
+                Change = {
+                    hash = J("SN_Apartment_Change"),
+                    name = "Change Session",
+                    type = eFeatureType.Button,
+                    desc = "Changes your session to the new one.",
+                    func = function()
+                        GTA.StartSession(eTable.Session.Types.NewPublic)
+                        SilentLogger.LogInfo("[Change Session (Apartment)] Online session should've been changed ツ")
                     end
                 }
             },
@@ -771,7 +786,94 @@ eFeature = {
                                 SilentLogger.LogInfo(F("[Arts Amount (Cayo Perico)] Selected arts amount: %s ツ", list:GetName(index)))
                             end
                         }
+                    },
+
+                    Value = {
+                        Default = {
+                            hash = J("SN_CayoPerico_DefaultValue"),
+                            name = "Default",
+                            type = eFeatureType.Button,
+                            desc = "Resets the values to default.",
+                            func = function()
+                                SilentLogger.LogInfo("[Default (Cayo Perico)] Values should've been reset to default ツ")
+                            end
+                        },
+
+                        Cash = {
+                            hash = J("SN_CayoPerico_CashValue"),
+                            name = "Cash Value",
+                            type = eFeatureType.InputInt,
+                            desc = "Select the desired cash value.",
+                            defv = eTable.Heist.CayoPerico.Values.Cash,
+                            lims = { 0, 2550000 },
+                            step = 50000,
+                            func = function()
+                                SilentLogger.LogInfo("[Cash Value (Cayo Perico)] Cash value should've been changed. Don't forget to apply ツ")
+                            end
+                        },
+
+                        Weed = {
+                            hash = J("SN_CayoPerico_WeedValue"),
+                            name = "Weed Value",
+                            type = eFeatureType.InputInt,
+                            desc = "Select the desired weed value.",
+                            defv = eTable.Heist.CayoPerico.Values.Weed,
+                            lims = { 0, 2550000 },
+                            step = 50000,
+                            func = function()
+                                SilentLogger.LogInfo("[Weed Value (Cayo Perico)] Weed value should've been changed. Don't forget to apply ツ")
+                            end
+                        },
+
+                        Coke = {
+                            hash = J("SN_CayoPerico_CokeValue"),
+                            name = "Coke Value",
+                            type = eFeatureType.InputInt,
+                            desc = "Select the desired coke value.",
+                            defv = eTable.Heist.CayoPerico.Values.Coke,
+                            lims = { 0, 2550000 },
+                            step = 50000,
+                            func = function()
+                                SilentLogger.LogInfo("[Coke Value (Cayo Perico)] Coke value should've been changed. Don't forget to apply ツ")
+                            end
+                        },
+
+                        Gold = {
+                            hash = J("SN_CayoPerico_GoldValue"),
+                            name = "Gold Value",
+                            type = eFeatureType.InputInt,
+                            desc = "Select the desired gold value.",
+                            defv = eTable.Heist.CayoPerico.Values.Gold,
+                            lims = { 0, 2550000 },
+                            step = 50000,
+                            func = function()
+                                SilentLogger.LogInfo("[Gold Value (Cayo Perico)] Gold value should've been changed. Don't forget to apply ツ")
+                            end
+                        },
+
+                        Arts = {
+                            hash = J("SN_CayoPerico_ArtsValue"),
+                            name = "Arts Value",
+                            type = eFeatureType.InputInt,
+                            desc = "Select the desired arts value.",
+                            defv = eTable.Heist.CayoPerico.Values.Arts,
+                            lims = { 0, 2550000 },
+                            step = 50000,
+                            func = function()
+                                SilentLogger.LogInfo("[Arts Value (Cayo Perico)] Arts value should've been changed. Don't forget to apply ツ")
+                            end
+                        }
                     }
+                },
+
+                Advanced = {
+                    hash = J("SN_CayoPerico_Advanced"),
+                    name = "Advanced",
+                    type = eFeatureType.Toggle,
+                    desc = "Allows you to change the value of secondary targets. Use with caution.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Advanced (Cayo Perico)] Advanced mode should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
                 },
 
                 Complete = {
@@ -779,7 +881,7 @@ eFeature = {
                     name = "Apply & Complete Preps",
                     type = eFeatureType.Button,
                     desc = "Applies all changes and completes all preparations. Also, reloads the planning screen.",
-                    func = function(difficulty, approach, loadout, primaryTarget, compoundTarget, compoundAmount, artsAmount, islandTarget, islandAmount)
+                    func = function(difficulty, approach, loadout, primaryTarget, compoundTarget, compoundAmount, artsAmount, islandTarget, islandAmount, cashValue, weedValue, cokeValue, goldValue, artsValue)
                         eStat.MPX_H4_PROGRESS:Set(difficulty)
                         eStat.MPX_H4_MISSIONS:Set(approach)
                         eStat.MPX_H4CNF_WEAPONS:Set(loadout)
@@ -802,11 +904,11 @@ eFeature = {
                         eStat.MPX_H4LOOT_COKE_I_SCOPED:Set((eStat.MPX_H4LOOT_COKE_I.stat:find(islandTarget)) and islandAmount or 0)
                         eStat.MPX_H4LOOT_GOLD_I:Set((eStat.MPX_H4LOOT_GOLD_I.stat:find(islandTarget)) and islandAmount or 0)
                         eStat.MPX_H4LOOT_GOLD_I_SCOPED:Set((eStat.MPX_H4LOOT_GOLD_I.stat:find(islandTarget)) and islandAmount or 0)
-                        eStat.MPX_H4LOOT_CASH_V:Set((compoundTarget ~= 0 or islandTarget ~= 0) and 83250 or 0)
-                        eStat.MPX_H4LOOT_WEED_V:Set((compoundTarget ~= 0 or islandTarget ~= 0) and 135000 or 0)
-                        eStat.MPX_H4LOOT_COKE_V:Set((compoundTarget ~= 0 or islandTarget ~= 0) and 202500 or 0)
-                        eStat.MPX_H4LOOT_GOLD_V:Set((compoundTarget ~= 0 or islandTarget ~= 0) and 333333 or 0)
-                        eStat.MPX_H4LOOT_PAINT_V:Set((artsAmount ~= 0) and 180000 or 0)
+                        eStat.MPX_H4LOOT_CASH_V:Set((compoundTarget ~= 0 or islandTarget ~= 0) and cashValue or 0)
+                        eStat.MPX_H4LOOT_WEED_V:Set((compoundTarget ~= 0 or islandTarget ~= 0) and weedValue or 0)
+                        eStat.MPX_H4LOOT_COKE_V:Set((compoundTarget ~= 0 or islandTarget ~= 0) and cokeValue or 0)
+                        eStat.MPX_H4LOOT_GOLD_V:Set((compoundTarget ~= 0 or islandTarget ~= 0) and goldValue or 0)
+                        eStat.MPX_H4LOOT_PAINT_V:Set((artsAmount ~= 0) and artsValue or 0)
                         eStat.MPX_H4CNF_UNIFORM:Set(-1)
                         eStat.MPX_H4CNF_GRAPPEL:Set(-1)
                         eStat.MPX_H4CNF_TROJAN:Set(5)
@@ -4826,7 +4928,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "If enabled, JinxScript will help speed up some processes.",
                     func = function(ftr)
-                        CONFIG.collab.jinxscript = ftr:IsToggled()
+                        CONFIG.collab.jinxscript.enabled = ftr:IsToggled()
                         FileMgr.SaveConfig(CONFIG)
                         CONFIG = Json.DecodeFromFile(CONFIG_PATH)
 
@@ -4847,6 +4949,25 @@ eFeature = {
                     func = function()
                         ImGui.SetClipboardText("https://discord.gg/hjs5S93kQv")
                         SilentLogger.LogInfo("[Discord (Settings)] JinxScript Discord server invite link should've been copied ツ")
+                    end
+                },
+
+                Stop = {
+                    hash = J("SN_Settings_CJinxScriptStop"),
+                    name = "Auto-Stop JinxScript",
+                    type = eFeatureType.Toggle,
+                    desc = "Automatically stops JinxScript after using it in collab's features.",
+                    func = function(ftr)
+                        CONFIG.collab.jinxscript.autostop = ftr:IsToggled()
+                        FileMgr.SaveConfig(CONFIG)
+                        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                        if loggedJinxScriptStop then
+                            loggedJinxScriptStop = false
+                            return
+                        end
+
+                        SilentLogger.LogInfo(F("[Auto-Stop JinxScript (Settings)] Auto-Stop JinxScript should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                     end
                 }
             }

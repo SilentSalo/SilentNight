@@ -24,7 +24,8 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
 
     FeatureMgr.GetFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logging)
     FeatureMgr.GetFeature(eFeature.Settings.Translation.File):SetListIndex(0)
-    FeatureMgr.GetFeature(eFeature.Settings.Collab.JinxScript.Toggle):Toggle(CONFIG.collab.jinxscript)
+    FeatureMgr.GetFeature(eFeature.Settings.Collab.JinxScript.Toggle):Toggle(CONFIG.collab.jinxscript.enabled)
+    FeatureMgr.GetFeature(eFeature.Settings.Collab.JinxScript.Stop):Toggle(CONFIG.collab.jinxscript.autostop)
     FeatureMgr.GetFeature(eFeature.Settings.UnlockAllPoi.CayoPerico):Toggle(CONFIG.unlock_all_poi.cayo_perico)
     FeatureMgr.GetFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino):Toggle(CONFIG.unlock_all_poi.diamond_casino)
     FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy_money.dummy_prevention)
@@ -68,9 +69,11 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Settings.Translation.Copy)
 
-FeatureMgr.AddFeature(eFeature.Settings.Collab.JinxScript.Toggle):Toggle(CONFIG.collab.jinxscript)
+FeatureMgr.AddFeature(eFeature.Settings.Collab.JinxScript.Toggle):Toggle(CONFIG.collab.jinxscript.enabled)
 
 FeatureMgr.AddFeature(eFeature.Settings.Collab.JinxScript.Discord)
+
+FeatureMgr.AddFeature(eFeature.Settings.Collab.JinxScript.Stop):Toggle(CONFIG.collab.jinxscript.autostop)
 
 for i = 1, #settingsInstantFinishes do
     FeatureMgr.AddFeature(settingsInstantFinishes[i]):SetListIndex(CONFIG.instant_finish[methodKeys[i]])

@@ -16,7 +16,12 @@ cayoPreps = {
     eFeature.Heist.CayoPerico.Preps.Target.Amount.Compound,
     eFeature.Heist.CayoPerico.Preps.Target.Amount.Arts,
     eFeature.Heist.CayoPerico.Preps.Target.Secondary.Island,
-    eFeature.Heist.CayoPerico.Preps.Target.Amount.Island
+    eFeature.Heist.CayoPerico.Preps.Target.Amount.Island,
+    eFeature.Heist.CayoPerico.Preps.Target.Value.Cash,
+    eFeature.Heist.CayoPerico.Preps.Target.Value.Weed,
+    eFeature.Heist.CayoPerico.Preps.Target.Value.Coke,
+    eFeature.Heist.CayoPerico.Preps.Target.Value.Gold,
+    eFeature.Heist.CayoPerico.Preps.Target.Value.Arts
 }
 
 cayoPlayers = {
@@ -215,6 +220,7 @@ logged100kLoop          = false
 logged180kLoop          = false
 logged300kLoop          = false
 loggedJinxScript        = true
+loggedJinxScriptStop    = true
 loggedUCayoPerico       = true
 loggedUDiamondCasino    = true
 loggedDummyPrevention   = true

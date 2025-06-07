@@ -36,7 +36,7 @@ FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
 FeatureMgr.AddFeature(eFeature.Heist.Agency.Payout.Select)
 
 FeatureMgr.AddFeature(eFeature.Heist.Agency.Payout.Max, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.Agency.Payout.Select):SetIntValue(3000000)
+    FeatureMgr.GetFeature(eFeature.Heist.Agency.Payout.Select):SetIntValue(2500000)
     eFeature.Heist.Agency.Payout.Max.func()
 end)
 
@@ -52,6 +52,8 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Complete)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Reload)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Change)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Force)
 
@@ -196,11 +198,49 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Target.Secondary.Island)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Target.Amount.Island)
 
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Advanced, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Default):SetVisible((f:IsToggled()) and true or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Cash):SetVisible((f:IsToggled()) and true or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Weed):SetVisible((f:IsToggled()) and true or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Coke):SetVisible((f:IsToggled()) and true or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Gold):SetVisible((f:IsToggled()) and true or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Arts):SetVisible((f:IsToggled()) and true or false)
+    eFeature.Heist.CayoPerico.Preps.Advanced.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Default, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Cash):SetIntValue(eTable.Heist.CayoPerico.Values.Cash)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Weed):SetIntValue(eTable.Heist.CayoPerico.Values.Weed)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Coke):SetIntValue(eTable.Heist.CayoPerico.Values.Coke)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Gold):SetIntValue(eTable.Heist.CayoPerico.Values.Gold)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Arts):SetIntValue(eTable.Heist.CayoPerico.Values.Arts)
+    eFeature.Heist.CayoPerico.Preps.Target.Value.Default.func()
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Cash):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Weed):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Coke):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Gold):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Arts):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Complete, function(f)
     local preps = {}
 
     for _, ftr in ipairs(cayoPreps) do
-        I(preps, ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index)
+        local feature = FeatureMgr.GetFeature(ftr)
+
+        if feature:GetType() == eFeatureType.Combo then
+            I(preps, ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index)
+        elseif feature:GetType() == eFeatureType.Toggle then
+            I(preps, feature:IsToggled())
+        elseif feature:GetType() == eFeatureType.InputInt then
+            I(preps, feature:GetIntValue())
+        end
     end
 
     eFeature.Heist.CayoPerico.Preps.Complete.func(U(preps))
@@ -326,7 +366,13 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Save, function(f)
         compound_amount = FeatureMgr.GetFeatureListIndex(cayoPreps[6]),
         arts_amount     = FeatureMgr.GetFeatureListIndex(cayoPreps[7]),
         island_target   = FeatureMgr.GetFeatureListIndex(cayoPreps[8]),
-        island_amount   = FeatureMgr.GetFeatureListIndex(cayoPreps[9])
+        island_amount   = FeatureMgr.GetFeatureListIndex(cayoPreps[9]),
+        cash_value      = FeatureMgr.GetFeatureInt(cayoPreps[10]),
+        weed_value      = FeatureMgr.GetFeatureInt(cayoPreps[11]),
+        coke_value      = FeatureMgr.GetFeatureInt(cayoPreps[12]),
+        gold_value      = FeatureMgr.GetFeatureInt(cayoPreps[13]),
+        arts_value      = FeatureMgr.GetFeatureInt(cayoPreps[14]),
+        advanced        = FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Preps.Advanced)
     }
 
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.Name):SetStringValue("")
@@ -421,9 +467,9 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Hacker)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Masks)
 
-FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Keycards)
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Keycards):SetListIndex(2)
 
-FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Guards)
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Guards):SetListIndex(3)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Target)
 
