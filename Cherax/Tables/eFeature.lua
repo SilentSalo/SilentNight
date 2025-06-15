@@ -3220,7 +3220,7 @@ eFeature = {
             Safe = {
                 Fill = {
                     hash = J("SN_Nightclub_Fill"),
-                    name = "Fill Safe",
+                    name = "Fill",
                     type = eFeatureType.Button,
                     desc = "Fills your Nightclub safe with money.",
                     func = function()
@@ -3241,7 +3241,7 @@ eFeature = {
 
                 Collect = {
                     hash = J("SN_Nightclub_Collect"),
-                    name = "Collect Safe",
+                    name = "Collect",
                     type = eFeatureType.Button,
                     desc = "Collects money from your safe. Use inside your Nightclub.",
                     func = function()
@@ -3255,7 +3255,7 @@ eFeature = {
 
                 Unbrick = {
                     hash = J("SN_Nightclub_Unbrick"),
-                    name = "Unbrick Safe",
+                    name = "Unbrick",
                     type = eFeatureType.Button,
                     desc = "Unbricks your safe if it shows a dollar sign with $0 inside. Use inside your Nightclub.",
                     func = function()
@@ -3276,31 +3276,9 @@ eFeature = {
             },
 
             Popularity = {
-                Max = {
-                    hash = J("SN_Nightclub_Max"),
-                    name = "Max Popularity",
-                    type = eFeatureType.Button,
-                    desc = "Makes your Nightclub popular.",
-                    func = function()
-                        eStat.MPX_CLUB_POPULARITY:Set(1000)
-                        SilentLogger.LogInfo("[Max Popularity (Nightclub)] Popularity should've been maximized ツ")
-                    end
-                },
-
-                Min = {
-                    hash = J("SN_Nightclub_Min"),
-                    name = "Min Populatiry",
-                    type = eFeatureType.Button,
-                    desc = "Makes your Nightclub unpopular.",
-                    func = function()
-                        eStat.MPX_CLUB_POPULARITY:Set(0)
-                        SilentLogger.LogInfo("[Min Popularity (Nightclub)] Popularity should've been minimized ツ")
-                    end
-                },
-
                 Lock = {
                     hash = J("SN_Nightclub_Lock"),
-                    name = "Lock Popularity",
+                    name = "Lock",
                     type = eFeatureType.Toggle,
                     desc = "Locks the popularity of your Nightclub on the current level.",
                     func = function(ftr)
@@ -3322,6 +3300,28 @@ eFeature = {
                             SilentLogger.LogInfo("[Lock Popularity (Nightclub)] Popularity should've been unlocked ツ")
                             loggedNightclubLock = false
                         end
+                    end
+                },
+
+                Max = {
+                    hash = J("SN_Nightclub_Max"),
+                    name = "Max",
+                    type = eFeatureType.Button,
+                    desc = "Makes your Nightclub popular.",
+                    func = function()
+                        eStat.MPX_CLUB_POPULARITY:Set(1000)
+                        SilentLogger.LogInfo("[Max Popularity (Nightclub)] Popularity should've been maximized ツ")
+                    end
+                },
+
+                Min = {
+                    hash = J("SN_Nightclub_Min"),
+                    name = "Min",
+                    type = eFeatureType.Button,
+                    desc = "Makes your Nightclub unpopular.",
+                    func = function()
+                        eStat.MPX_CLUB_POPULARITY:Set(0)
+                        SilentLogger.LogInfo("[Min Popularity (Nightclub)] Popularity should've been minimized ツ")
                     end
                 }
             }
@@ -4531,7 +4531,25 @@ eFeature = {
                             ["bool"]  = Stats.SetBool
                         }
 
-                        SetValue[type](hash, value)
+                        if type == "int" then
+                            if math.abs(value) <= INT32_MAX then
+                                SetValue[type](hash, value)
+                                return
+                            end
+
+                            local loops     = math.floor(math.abs(value) / INT32_MAX)
+                            local remainder = math.abs(value) - (loops * INT32_MAX)
+                            local sign      = (value < 0) and -1 or 1
+
+                            for i = 1, loops do
+                                eNative.STATS.STAT_INCREMENT(hash, sign * INT32_MAX + .0)
+                            end
+
+                            eNative.STATS.STAT_INCREMENT(hash, sign * remainder + .0)
+                        else
+                            SetValue[type](hash, value)
+                        end
+
                         SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to stat ツ")
                     end
                 },
@@ -4588,7 +4606,20 @@ eFeature = {
 
                                 if type(value) == "number" then
                                     if math.type(value) == "integer" then
-                                        Stats.SetInt(J(stat), value)
+                                        if math.abs(value) <= INT32_MAX then
+                                            Stats.SetInt(J(stat), value)
+                                            return
+                                        end
+
+                                        local loops     = math.floor(math.abs(value) / INT32_MAX)
+                                        local remainder = math.abs(value) - (loops * INT32_MAX)
+                                        local sign      = (value < 0) and -1 or 1
+
+                                        for i = 1, loops do
+                                            eNative.STATS.STAT_INCREMENT(J(stat), sign * INT32_MAX + .0)
+                                        end
+
+                                        eNative.STATS.STAT_INCREMENT(J(stat), sign * remainder + .0)
                                     else
                                         Stats.SetFloat(J(stat), value)
                                     end

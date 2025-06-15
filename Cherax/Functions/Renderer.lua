@@ -484,7 +484,9 @@ function Renderer.RenderBusinessTool()
 
                     if ClickGUI.BeginCustomChildWindow("Safe") then
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Safe.Fill)
+                        ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Safe.Collect)
+                        ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Safe.Unbrick)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -499,9 +501,11 @@ function Renderer.RenderBusinessTool()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Popularity") then
-                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Max)
-                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Min)
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Lock)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Max)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Min)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -1239,9 +1243,9 @@ function Renderer.RenderListGUI()
             MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Setup)
 
             local PopularitySubTab = NightclubTab:AddSubTab("Popularity", "Popularity")
+            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Lock)
             PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Max)
             PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Min)
-            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Lock)
 
             local StatsSubTab = NightclubTab:AddSubTab("Stats", "Stats")
             StatsSubTab:AddFeature(eFeature.Business.Nightclub.Stats.SellMade)

@@ -100,8 +100,8 @@ salvageSlotsValue = {
 }
 
 bunkerStats = {
-    eFeature.Business.Bunker.Stats.Made,
-    eFeature.Business.Bunker.Stats.Undertaken,
+    eFeature.Business.Bunker.Stats.SellMade,
+    eFeature.Business.Bunker.Stats.SellUndertaken,
     eFeature.Business.Bunker.Stats.Earnings
 }
 

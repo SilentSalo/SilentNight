@@ -52,12 +52,13 @@ function Script.LoadSubscribedScript(scriptName, stop)
         return
     end
 
+    Script.Yield(1000)
+
     if not stop then
         FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.RunScript):OnClick()
-        return
+    else
+        FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.StopScript):OnClick()
     end
-
-    FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.StopScript):OnClick()
 end
 
 function Script.Translate(path)
@@ -228,30 +229,33 @@ function Script.ReParse()
 end
 
 Script.RegisterLooped(function()
-    if ShouldUnload() then
-        return
-    end
+    if ShouldUnload() then return end
 
     Script.ReParse()
     Script.Yield()
 end)
 
 Script.RegisterLooped(function()
+    if ShouldUnload() then return end
+
     local heist = eGlobal.Heist.Apartment.Heist.Type:Get()
 
-    if ShouldUnload() or heist ~= eTable.Heist.Apartment.Heists.PacificJob then
+    if heist ~= eTable.Heist.Apartment.Heists.PacificJob then
         FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(false)
-        return
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(true)
     end
 
-    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(true)
     Script.Yield()
 end)
 
 Script.RegisterLooped(function()
+    if ShouldUnload() then return end
+
     local ftr = eFeature.Heist.Apartment.Cuts.Presets
 
-    if ShouldUnload() or FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
+    if FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
+        Script.Yield()
         return
     end
 
@@ -261,9 +265,12 @@ Script.RegisterLooped(function()
 end)
 
 Script.RegisterLooped(function()
+    if ShouldUnload() then return end
+
     local ftr = eFeature.Heist.CayoPerico.Cuts.Presets
 
-    if ShouldUnload() or FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
+    if FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
+        Script.Yield()
         return
     end
 
@@ -273,9 +280,12 @@ Script.RegisterLooped(function()
 end)
 
 Script.RegisterLooped(function()
+    if ShouldUnload() then return end
+
     local ftr = eFeature.Heist.DiamondCasino.Cuts.Presets
 
-    if ShouldUnload() or FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
+    if FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
+        Script.Yield()
         return
     end
 
@@ -285,9 +295,12 @@ Script.RegisterLooped(function()
 end)
 
 Script.RegisterLooped(function()
+    if ShouldUnload() then return end
+
     local ftr = eFeature.Heist.Doomsday.Cuts.Presets
 
-    if ShouldUnload() or FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
+    if FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
+        Script.Yield()
         return
     end
 
@@ -298,23 +311,28 @@ end)
 lastStates = { false, false, false, false, false }
 
 Script.RegisterLooped(function()
-    if ShouldUnload() or not CONFIG.easy_money.dummy_prevention then return end
+    if ShouldUnload() then return end
 
-    local toggledNow = nil
+    if not CONFIG.easy_money.dummy_prevention then
+        Script.Yield()
+        return
+    end
+
+    local toggled = nil
 
     for i, ftr in ipairs(easyLoops) do
         local isOn = FeatureMgr.GetFeature(ftr):IsToggled()
 
         if isOn and not lastStates[i] then
-            toggledNow = i
+            toggled = i
         end
 
         lastStates[i] = isOn
     end
 
-    if toggledNow then
+    if toggled then
         for i, ftr in ipairs(easyLoops) do
-            FeatureMgr.GetFeature(ftr):Toggle(i == toggledNow)
+            FeatureMgr.GetFeature(ftr):Toggle(i == toggled)
         end
     end
 

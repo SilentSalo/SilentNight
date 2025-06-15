@@ -46,7 +46,8 @@ eNative = {
         GET_PACKED_STAT_INT_CODE  = Natives.Invoke("Int", 0x0BC900A6FE73770C),
         GET_PACKED_STAT_BOOL_CODE = Natives.Invoke("Bool", 0xDA7EBFC49AE3F1B0),
         SET_PACKED_STAT_INT_CODE  = Natives.Invoke("Void", 0x1581503AE529CD2E),
-        SET_PACKED_STAT_BOOL_CODE = Natives.Invoke("Void", 0xDB8A58AEAA67CD07)
+        SET_PACKED_STAT_BOOL_CODE = Natives.Invoke("Void", 0xDB8A58AEAA67CD07),
+        STAT_INCREMENT            = Natives.Invoke("Void", 0x9B5A68C6489E9909)
     },
 
     SYSTEM = {

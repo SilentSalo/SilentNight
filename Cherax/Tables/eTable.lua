@@ -550,7 +550,7 @@ eTable = {
                 { name = "5,000 RP",     index =  5 },
                 { name = "7,500 RP",     index =  9 },
                 { name = "10,000 RP",    index = 13 },
-                { name = "10,000 RP",    index = 17 },
+                { name = "15,000 RP",    index = 17 },
                 { name = "$20,000",      index =  2 },
                 { name = "$30,000",      index =  6 },
                 { name = "$40,000",      index = 14 },
