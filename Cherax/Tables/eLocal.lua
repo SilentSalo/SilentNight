@@ -203,7 +203,7 @@ if GTA_EDITION == "EE" then
                 },
 
                 Slots = {
-                    RandomResultTable = { type = "int", vLocal = 1370, script = "casino_slots" }
+                    RandomResultTable = { type = "int", vLocal = 1372, script = "casino_slots" }
                 }
             }
         }
@@ -411,7 +411,7 @@ else
                 },
 
                 Slots = {
-                    RandomResultTable = { type = "int", vLocal = 1368, script = "casino_slots" }
+                    RandomResultTable = { type = "int", vLocal = 1370, script = "casino_slots" }
                 }
             }
         }

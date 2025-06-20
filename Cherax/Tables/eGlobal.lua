@@ -249,10 +249,10 @@ else
                 },
 
                 Ready = {
-                    Player1 = { type = "int", global = 2657991 + 1 + (0 * 467) + 269 },
-                    Player2 = { type = "int", global = 2657991 + 1 + (1 * 467) + 269 },
-                    Player3 = { type = "int", global = 2657991 + 1 + (2 * 467) + 269 },
-                    Player4 = { type = "int", global = 2657991 + 1 + (3 * 467) + 269 }
+                    Player1 = { type = "int", global = 2658016 + 1 + (0 * 467) + 269 },
+                    Player2 = { type = "int", global = 2658016 + 1 + (1 * 467) + 269 },
+                    Player3 = { type = "int", global = 2658016 + 1 + (2 * 467) + 269 },
+                    Player4 = { type = "int", global = 2658016 + 1 + (3 * 467) + 269 }
                 },
 
                 Reload   = { type = "int", global = 1931358                             },
