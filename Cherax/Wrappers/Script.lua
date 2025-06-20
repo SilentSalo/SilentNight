@@ -61,6 +61,12 @@ function Script.LoadSubscribedScript(scriptName, stop)
     end
 end
 
+function Script.OpenLuaTab()
+    if CONFIG.autoopen then
+        ClickGUI.SetActiveMenuTab(ClickTab.LuaTab)
+    end
+end
+
 function Script.Translate(path)
     local translations = Json.DecodeFromFile(path)
 
@@ -88,13 +94,26 @@ end
 
 function Script.ReAssign()
     PLAYER_ID = GTA.GetLocalPlayerId()
+
     if GTA_EDITION == "EE" then
-        eGlobal.Business.CrateWarehouse.Slot   = { type = "int", global = 1845270 + 1 + (PLAYER_ID * 892) + 268 + 120 + 1 + (0 * 3)  }
-        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845270 + 1 + (PLAYER_ID * 892) + 268 + 360 + 5            }
-        eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77 + 1) + 76                    }
-        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877562 + 1 + (PLAYER_ID * 77) + 76                        }
-        eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1877562 + (PLAYER_ID * 77) + 24 + 2                        }
-        eGlobal.Player.Property                = { type = "int", global = 2657994 + 1 + (PLAYER_ID * 465) + 322 + 8                  }
+        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845274 + 1 + (PLAYER_ID * 892) + 268 + 360 + 5            }
+        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76                        }
+        eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1877086 + (PLAYER_ID * 77) + 24 + 2                        }
+        eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 771 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
+        eLocal.World.Casino.Blackjack          = {
+            Dealer = {
+                FirstCard  = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
+                SecondCard = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
+                ThirdCard  = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
+            },
+
+            CurrentTable = { type = "int", vLocal = 1798 + 1 + (PLAYER_ID * 8) + 4,                                                                 script = "blackjack" },
+            VisibleCards = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
+        }
+    else
+        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845225 + 1 + (PLAYER_ID * 889) + 268 + 360 + 5            }
+        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1876941 + 1 + (PLAYER_ID * 77) + 76                        }
+        eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1876941 + (PLAYER_ID * 77) + 24 + 2                        }
         eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 769 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
         eLocal.World.Casino.Blackjack          = {
             Dealer = {
@@ -102,25 +121,9 @@ function Script.ReAssign()
                 SecondCard = { type = "int", vLocal = 136 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1796 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
                 ThirdCard  = { type = "int", vLocal = 136 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1796 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
             },
+
             CurrentTable = { type = "int", vLocal = 1796 + 1 + (PLAYER_ID * 8) + 4,                                                                 script = "blackjack" },
             VisibleCards = { type = "int", vLocal = 136 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1796 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
-        }
-    else
-        eGlobal.Business.CrateWarehouse.Slot   = { type = "int", global = 1845221 + 1 + (PLAYER_ID * 889) + 268 + 120 + 1 + (0 * 3)  }
-        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845221 + 1 + (PLAYER_ID * 889) + 268 + 360 + 5            }
-        eGlobal.Heist.Apartment.Jobs           = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77 + 1) + 76                    }
-        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877417 + 1 + (PLAYER_ID * 77) + 76                        }
-        eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1877417 + (PLAYER_ID * 77) + 24 + 2                        }
-        eGlobal.Player.Property                = { type = "int", global = 2657971 + 1 + (PLAYER_ID * 465) + 322 + 8                  }
-        eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 767 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
-        eLocal.World.Casino.Blackjack          = {
-            Dealer = {
-                FirstCard  = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
-                SecondCard = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
-                ThirdCard  = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
-            },
-            CurrentTable = { type = "int", vLocal = 1794 + 1 + (PLAYER_ID * 8) + 4,                                                                 script = "blackjack" },
-            VisibleCards = { type = "int", vLocal = 134 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1794 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
         }
     end
 end
@@ -308,7 +311,7 @@ Script.RegisterLooped(function()
     Script.Yield()
 end)
 
-lastStates = { false, false, false, false, false }
+STATES = { false, false, false, false, false }
 
 Script.RegisterLooped(function()
     if ShouldUnload() then return end
@@ -323,11 +326,11 @@ Script.RegisterLooped(function()
     for i, ftr in ipairs(easyLoops) do
         local isOn = FeatureMgr.GetFeature(ftr):IsToggled()
 
-        if isOn and not lastStates[i] then
+        if isOn and not STATES[i] then
             toggled = i
         end
 
-        lastStates[i] = isOn
+        STATES[i] = isOn
     end
 
     if toggled then
@@ -342,5 +345,7 @@ end)
 FileMgr.ExportTranslation("EN")
 
 Script.LoadTranslation()
+
+Script.OpenLuaTab()
 
 --#endregion Script

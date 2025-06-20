@@ -21,7 +21,8 @@ eNative = {
     NETWORK = {
         NETWORK_GET_HOST_OF_SCRIPT = Natives.Invoke("Int", 0x1D6A14F1F9A736FC),
         NETWORK_IS_SESSION_STARTED = Natives.Invoke("Bool", 0x9DE624D2FC4B603F),
-        NETWORK_IS_SESSION_ACTIVE  = Natives.Invoke("Bool", 0xD83C2B94E7508980)
+        NETWORK_IS_SESSION_ACTIVE  = Natives.Invoke("Bool", 0xD83C2B94E7508980),
+        GET_ONLINE_VERSION         = Natives.Invoke("String", 0xFCA9373EF340AC0A)
     },
 
     PAD = {

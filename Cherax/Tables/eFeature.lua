@@ -12,7 +12,7 @@ eFeature = {
                     if GTA.IsInSession() then
                         if ftr:IsToggled() then
                             eLocal.Heist.Generic.Launch.Step1:Set(1)
-                            ScriptGlobal.SetInt(794744 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 89) + 69, 1)
+                            ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 1)
                             eGlobal.Heist.Generic.Launch.Step1:Set(1)
                             eGlobal.Heist.Generic.Launch.Step2:Set(1)
                             eGlobal.Heist.Generic.Launch.Step3:Set(1)
@@ -4791,6 +4791,25 @@ eFeature = {
 
     Settings = {
         Config = {
+            Open = {
+                hash = J("SN_Settings_CAutoOpen"),
+                name = "Auto-Open Lua Tab",
+                type = eFeatureType.Toggle,
+                desc = "Automatically opens Lua Tab upon running the script.",
+                func = function(ftr)
+                    CONFIG.autoopen = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedAutoOpen then
+                        loggedAutoOpen = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Auto-Open Lua Tab (Settings)] Auto-open should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            },
+
             Logging = {
                 hash = J("SN_Settings_CLogging"),
                 name = "Logging",
@@ -4813,10 +4832,12 @@ eFeature = {
                 type = eFeatureType.Button,
                 desc = "Resets the config to default.",
                 func = function()
-                    loggedJinxScript      = true
-                    loggedUCayoPerico     = true
-                    loggedUDiamondCasino  = true
-                    loggedDummyPrevention = true
+                    loggedAutoOpen          = true
+                    loggedJinxScript        = true
+                    loggedJinxScriptStop    = true
+                    loggedUCayoPerico       = true
+                    loggedUDiamondCasino    = true
+                    loggedDummyPrevention   = true
                     FileMgr.ResetConfig()
                     CONFIG = Json.DecodeFromFile(CONFIG_PATH)
                     SilentLogger.LogInfo("[Reset (Settings)] Config should've been reset to default ツ")

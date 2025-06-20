@@ -7,6 +7,7 @@ function FileMgr.CreateConfig()
 
     if not FileMgr.DoesFileExist(CONFIG_PATH) then
         local config = {
+            autoopen = false,
             logging  = 2,
             language = "EN",
 
@@ -68,7 +69,7 @@ function FileMgr.EnsureConfigKeys()
         return
     end
 
-    local required         = { "logging", "language", "collab", "instant_finish", "unlock_all_poi", "easy_money" }
+    local required         = { "autoopen", "logging", "language", "collab", "instant_finish", "unlock_all_poi", "easy_money" }
     local required_collab  = { "jinxscript" }
     local required_jinx    = { "enabled", "autostop" }
     local required_instant = { "agency", "apartment", "auto_shop", "cayo_perico", "diamond_casino", "doomsday" }

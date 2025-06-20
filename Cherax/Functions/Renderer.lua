@@ -819,6 +819,7 @@ function Renderer.RenderSettings()
             if ImGui.BeginTabItem("Configuration") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Config & Discord") then
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Open)
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Logging)
                         ImGui.RedButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Reset)
@@ -902,20 +903,20 @@ function Renderer.RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab(F("%s %s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), Renderer.RenderClickGUI)
+ClickGUI.AddTab(F("%s v%s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), Renderer.RenderClickGUI)
 
 function Renderer.RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab(F("%s %s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), SCRIPT_NAME)
+    local SilentNightTab = root:AddSubTab(F("%s v%s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), SCRIPT_NAME)
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
         local AgencyTab = HeistToolTab:AddSubTab("Agency", "Agency")
         if AgencyTab then
             local prepsTab = AgencyTab:AddSubTab("Preps", "Preps")
-             
+
             prepsTab:AddFeature(eFeature.Heist.Agency.Preps.Contract)
             prepsTab:AddFeature(eFeature.Heist.Agency.Preps.Complete)
 
@@ -1407,6 +1408,7 @@ function Renderer.RenderListGUI()
     local SettingsTab = SilentNightTab:AddSubTab("Settings", "Settings")
     if SettingsTab then
         local ConfigSubTab = SettingsTab:AddSubTab("Config & Discord", "Config & Discord")
+        ConfigSubTab:AddFeature(eFeature.Settings.Config.Open)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Logging)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Reset)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Copy)
@@ -1445,7 +1447,7 @@ function Renderer.RenderListGUI()
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._180k)
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._300k)
     end
-end 
+end
 
 Renderer.RenderListGUI()
 

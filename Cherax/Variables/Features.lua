@@ -219,6 +219,7 @@ logged50kLoop           = false
 logged100kLoop          = false
 logged180kLoop          = false
 logged300kLoop          = false
+loggedAutoOpen          = true
 loggedJinxScript        = true
 loggedJinxScriptStop    = true
 loggedUCayoPerico       = true

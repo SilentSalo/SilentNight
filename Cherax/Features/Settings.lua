@@ -17,11 +17,14 @@ delayKeys = {
     "_300k"
 }
 
+FeatureMgr.AddFeature(eFeature.Settings.Config.Open):Toggle(CONFIG.autoopen)
+
 FeatureMgr.AddFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logging)
 
 FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
     eFeature.Settings.Config.Reset.func()
 
+    FeatureMgr.GetFeature(eFeature.Settings.Config.Open):Toggle(CONFIG.autoopen)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logging)
     FeatureMgr.GetFeature(eFeature.Settings.Translation.File):SetListIndex(0)
     FeatureMgr.GetFeature(eFeature.Settings.Collab.JinxScript.Toggle):Toggle(CONFIG.collab.jinxscript.enabled)
