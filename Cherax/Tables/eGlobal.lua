@@ -165,7 +165,7 @@ if GTA_EDITION == "EE" then
                         Top100 = { type = "int", global = 262145 + 23680 }
                     },
 
-                    Value = { type = "int", global = 1845274 + 1 + (PLAYER_ID * 892) + 268 + 360 + 5 }
+                    Value = { type = "int", global = 1845274 + 1 + (PLAYER_ID * 877) + 260 + 358 + 5 }
                 }
             },
 
@@ -375,7 +375,7 @@ else
                         Top100 = { type = "int", global = 262145 + 23676 }
                     },
 
-                    Value = { type = "int", global = 1845225 + 1 + (PLAYER_ID * 889) + 268 + 360 + 5 }
+                    Value = { type = "int", global = 1845225 + 1 + (PLAYER_ID * 874) + 260 + 358 + 5 }
                 }
             },
 

@@ -27,15 +27,15 @@ if GTA_EDITION == "EE" then
 
             Hangar = {
                 Sell = {
-                    Delivered = { type = "int", vLocal = 1987 + 1078, script = "gb_smuggler" },
-                    Finish    = { type = "int", vLocal = 1987 + 1035, script = "gb_smuggler" }
+                    Delivered = { type = "int", vLocal = 1989 + 1078, script = "gb_smuggler" },
+                    Finish    = { type = "int", vLocal = 1989 + 1035, script = "gb_smuggler" }
                 }
             },
 
             Nightclub = {
                 Safe = {
-                    Type    = { type = "int", vLocal = 204 + 32 + 2,      script = "am_mp_nightclub" },
-                    Collect = { type = "int", vLocal = 204 + 32 + 19 + 1, script = "am_mp_nightclub" }
+                    Type    = { type = "int", vLocal = 206 + 32 + 2,      script = "am_mp_nightclub" },
+                    Collect = { type = "int", vLocal = 206 + 32 + 19 + 1, script = "am_mp_nightclub" }
                 }
             }
         },
@@ -235,15 +235,15 @@ else
 
             Hangar = {
                 Sell = {
-                    Delivered = { type = "int", vLocal = 1985 + 1078, script = "gb_smuggler" },
-                    Finish    = { type = "int", vLocal = 1985 + 1035, script = "gb_smuggler" }
+                    Delivered = { type = "int", vLocal = 1987 + 1078, script = "gb_smuggler" },
+                    Finish    = { type = "int", vLocal = 1987 + 1035, script = "gb_smuggler" }
                 }
             },
 
             Nightclub = {
                 Safe = {
-                    Type    = { type = "int", vLocal = 202 + 32 + 4, script = "am_mp_nightclub" },
-                    Collect = { type = "int", vLocal = 202 + 32 + 1, script = "am_mp_nightclub" }
+                    Type    = { type = "int", vLocal = 204 + 32 + 2,      script = "am_mp_nightclub" },
+                    Collect = { type = "int", vLocal = 204 + 32 + 19 + 1, script = "am_mp_nightclub" }
                 }
             }
         },

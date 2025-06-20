@@ -5251,7 +5251,7 @@ eFeature = {
                     name = "300k Loop",
                     type = eFeatureType.SliderFloat,
                     desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
-                    lims = { 1.0, 5.0 },
+                    lims = { 1.5, 5.0 },
                     func = function(ftr)
                         CONFIG.easy_money.delay._300k = ftr:GetFloatValue()
                         FileMgr.SaveConfig(CONFIG)

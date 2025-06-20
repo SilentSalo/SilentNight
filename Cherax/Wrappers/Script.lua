@@ -96,7 +96,7 @@ function Script.ReAssign()
     PLAYER_ID = GTA.GetLocalPlayerId()
 
     if GTA_EDITION == "EE" then
-        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845274 + 1 + (PLAYER_ID * 892) + 268 + 360 + 5            }
+        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845274 + 1 + (PLAYER_ID * 877) + 260 + 358 + 5            }
         eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76                        }
         eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1877086 + (PLAYER_ID * 77) + 24 + 2                        }
         eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 771 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
@@ -111,7 +111,7 @@ function Script.ReAssign()
             VisibleCards = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
         }
     else
-        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845225 + 1 + (PLAYER_ID * 889) + 268 + 360 + 5            }
+        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845225 + 1 + (PLAYER_ID * 874) + 260 + 358 + 5            }
         eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1876941 + 1 + (PLAYER_ID * 77) + 76                        }
         eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1876941 + (PLAYER_ID * 77) + 24 + 2                        }
         eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 769 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }

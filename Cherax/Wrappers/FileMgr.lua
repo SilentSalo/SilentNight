@@ -40,7 +40,7 @@ function FileMgr.CreateConfig()
                     _50k  = 0.333,
                     _100k = 0.333,
                     _180k = 0.333,
-                    _300k = 1.0
+                    _300k = 1.5
                 }
             }
         }
