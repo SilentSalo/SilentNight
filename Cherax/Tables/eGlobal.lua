@@ -260,9 +260,8 @@ else
 
                 Heist = {
                     Type       = { type = "int", global = 1876941 + (PLAYER_ID * 77) + 24 + 2 },
-                    Difficulty = { type = "int", global = 4718592 + 3525                      }
+                    Difficulty = { type = "int", global = 4718592 + 3538                      }
                 }
-
             },
 
             CayoPerico = {

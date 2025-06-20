@@ -882,6 +882,14 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Applies all changes and completes all preparations. Also, reloads the planning screen.",
                     func = function(difficulty, approach, loadout, primaryTarget, compoundTarget, compoundAmount, artsAmount, islandTarget, islandAmount, cashValue, weedValue, cokeValue, goldValue, artsValue)
+                        if CONFIG.unlock_all_poi.cayo_perico then
+                            eStat.MPX_H4CNF_BS_GEN:Set(-1)
+                            eStat.MPX_H4CNF_BS_ENTR:Set(63)
+                            eStat.MPX_H4CNF_BS_ABIL:Set(63)
+                            eStat.MPX_H4CNF_APPROACH:Set(-1)
+                            eStat.MPX_H4_PLAYTHROUGH_STATUS:Set(10)
+                        end
+
                         eStat.MPX_H4_PROGRESS:Set(difficulty)
                         eStat.MPX_H4_MISSIONS:Set(approach)
                         eStat.MPX_H4CNF_WEAPONS:Set(loadout)
@@ -915,14 +923,6 @@ eFeature = {
                         eStat.MPX_H4CNF_WEP_DISRP:Set(3)
                         eStat.MPX_H4CNF_ARM_DISRP:Set(3)
                         eStat.MPX_H4CNF_HEL_DISRP:Set(3)
-                        eStat.MPX_H4_PLAYTHROUGH_STATUS:Set(10)
-
-                        if CONFIG.unlock_all_poi.cayo_perico then
-                            eStat.MPX_H4CNF_BS_GEN:Set(-1)
-                            eStat.MPX_H4CNF_BS_ENTR:Set(63)
-                            eStat.MPX_H4CNF_BS_ABIL:Set(63)
-                            eStat.MPX_H4CNF_APPROACH:Set(-1)
-                        end
 
                         eLocal.Heist.CayoPerico.Reload:Set(2)
                         SilentLogger.LogInfo("[Apply & Complete Preps (Cayo Perico)] Preps should've been completed ツ")
@@ -1472,6 +1472,13 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Applies all changes and completes all preparations. Also, redraws the planning board.",
                     func = function(difficulty, approach, gunman, driver, hacker, masks, guards, keycards, target, loadout, vehicles, unlock)
+                        if CONFIG.unlock_all_poi.diamond_casino then
+                            eStat.MPX_H3OPT_POI:Set(-1)
+                            eStat.MPX_H3OPT_ACCESSPOINTS:Set(-1)
+                            eStat.MPX_CAS_HEIST_NOTS:Set(-1)
+                            eStat.MPX_CAS_HEIST_FLOW:Set(-1)
+                        end
+
                         local function SetApproach(lastApproach, hardApproach, normalApproach)
                             eStat.MPX_H3_LAST_APPROACH:Set(lastApproach)
                             eStat.MPX_H3_HARD_APPROACH:Set(hardApproach)
@@ -1510,13 +1517,6 @@ eFeature = {
                         eStat.MPX_H3OPT_BITSET0:Set(-1)
                         eStat.MPX_H3OPT_BITSET1:Set(-1)
                         eStat.MPX_H3OPT_COMPLETEDPOSIX:Set(-1)
-
-                        if CONFIG.unlock_all_poi.diamond_casino then
-                            eStat.MPX_H3OPT_POI:Set(-1)
-                            eStat.MPX_H3OPT_ACCESSPOINTS:Set(-1)
-                            eStat.MPX_CAS_HEIST_NOTS:Set(-1)
-                            eStat.MPX_CAS_HEIST_FLOW:Set(-1)
-                        end
 
                         eLocal.Heist.DiamondCasino.Reload:Set(2)
                         SilentLogger.LogInfo("[Apply & Complete Preps (Diamond Casino)] Preps should've been completed ツ")

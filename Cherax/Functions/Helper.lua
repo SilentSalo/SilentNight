@@ -42,7 +42,7 @@ function Helper.SetApartmentMaxPayout(bool)
     local difficulty = eGlobal.Heist.Apartment.Heist.Difficulty:Get() + 1
 
     local payouts = {
-        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 100625, 201250,  251562  },
+        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 100625, 201250,  251563  },
         [eTable.Heist.Apartment.Heists.PrisonBreak] = { 350000, 700000,  875000  },
         [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 472500, 945000,  1181250 },
         [eTable.Heist.Apartment.Heists.SeriesA]     = { 353500, 707000,  883750  },
