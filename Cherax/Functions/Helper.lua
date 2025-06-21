@@ -38,8 +38,8 @@ function Helper.SetApartmentMaxPayout(bool)
     local ftr  = eFeature.Heist.Apartment.Cuts.Team
     local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
 
-    local heist      = eGlobal.Heist.Apartment.Heist.Type:Get()
-    local difficulty = eGlobal.Heist.Apartment.Heist.Difficulty:Get() + 1
+    local heist      = eGlobal.Heist.Apartment.Type:Get()
+    local difficulty = eGlobal.Heist.Generic.Difficulty:Get() + 1
 
     local payouts = {
         [eTable.Heist.Apartment.Heists.FleecaJob]   = { 100625, 201250,  251563  },
@@ -187,7 +187,7 @@ function Helper.SetDoomsdayMaxPayout(bool)
     local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
 
     local heist      = eStat.MPX_GANGOPS_FLOW_MISSION_PROG:Get()
-    local difficulty = eGlobal.Heist.Apartment.Heist.Difficulty:Get()
+    local difficulty = eGlobal.Heist.Generic.Difficulty:Get()
 
     local payouts = {
         [eTable.Heist.Doomsday.Heists.Data]     = { 975000,  1218750 },

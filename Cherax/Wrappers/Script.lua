@@ -98,7 +98,7 @@ function Script.ReAssign()
     if GTA_EDITION == "EE" then
         eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845274 + 1 + (PLAYER_ID * 877) + 260 + 358 + 5            }
         eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76                        }
-        eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1877086 + (PLAYER_ID * 77) + 24 + 2                        }
+        eGlobal.Heist.Apartment.Type           = { type = "int", global = 1877086 + (PLAYER_ID * 77) + 24 + 2                        }
         eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 771 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
         eLocal.World.Casino.Blackjack          = {
             Dealer = {
@@ -113,7 +113,7 @@ function Script.ReAssign()
     else
         eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845225 + 1 + (PLAYER_ID * 874) + 260 + 358 + 5            }
         eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1876941 + 1 + (PLAYER_ID * 77) + 76                        }
-        eGlobal.Heist.Apartment.Heist.Type     = { type = "int", global = 1876941 + (PLAYER_ID * 77) + 24 + 2                        }
+        eGlobal.Heist.Apartment.Type           = { type = "int", global = 1876941 + (PLAYER_ID * 77) + 24 + 2                        }
         eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 769 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
         eLocal.World.Casino.Blackjack          = {
             Dealer = {
@@ -241,7 +241,7 @@ end)
 Script.RegisterLooped(function()
     if ShouldUnload() then return end
 
-    local heist = eGlobal.Heist.Apartment.Heist.Type:Get()
+    local heist = eGlobal.Heist.Apartment.Type:Get()
 
     if heist ~= eTable.Heist.Apartment.Heists.PacificJob then
         FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(false)

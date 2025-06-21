@@ -12,7 +12,10 @@ eScript = {
             Sell   = { name = "gb_smuggler", stack = 0,    hash = J("gb_smuggler") }
         },
 
-        Nightclub = { name = "appbusinesshub", stack = 4592, hash = J("appbusinesshub") },
+        Nightclub = {
+            Laptop   = { name = "appbusinesshub",  stack = 4592, hash = J("appbusinesshub")  },
+            Interior = { name = "am_mp_nightclub", stack = 0,    hash = J("am_mp_nightclub") }
+        },
 
         CrateWarehouse = {
             Laptop = { name = "appsecuroserv",      stack = 8344, hash = J("appsecuroserv")      },
@@ -28,7 +31,15 @@ eScript = {
         AutoShop      = { name = "fm_mission_controller_2020", stack = 0, hash = J("fm_mission_controller_2020") },
         CayoPerico    = { name = "fm_mission_controller_2020", stack = 0, hash = J("fm_mission_controller_2020") },
         DiamondCasino = { name = "fm_mission_controller",      stack = 0, hash = J("fm_mission_controller")      },
-        Doomsday      = { name = "fm_mission_controller",      stack = 0, hash = J("fm_mission_controller")      }
+        Doomsday      = { name = "fm_mission_controller",      stack = 0, hash = J("fm_mission_controller")      },
+
+        SalvageYard = {
+            CargoShip  = { name = "fm_content_vehrob_cargo_ship",   stack = 0, hash = J("fm_content_vehrob_cargo_ship")   },
+            Gangbanger = { name = "fm_content_vehrob_police",       stack = 0, hash = J("fm_content_vehrob_police")       },
+            Duggan     = { name = "fm_content_vehrob_arena",        stack = 0, hash = J("fm_content_vehrob_arena")        },
+            Podium     = { name = "fm_content_vehrob_casino_prize", stack = 0, hash = J("fm_content_vehrob_casino_prize") },
+            McTony     = { name = "fm_content_vehrob_submarine",    stack = 0, hash = J("fm_content_vehrob_submarine")    }
+        }
     },
 
     World = {

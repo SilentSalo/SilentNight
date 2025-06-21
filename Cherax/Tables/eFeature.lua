@@ -280,7 +280,7 @@ eFeature = {
                         GTA.ForceScriptHost(eScript.Heist.Apartment)
                         Script.Yield(1000)
 
-                        local heist = eGlobal.Heist.Apartment.Heist.Type:Get()
+                        local heist = eGlobal.Heist.Apartment.Type:Get()
 
                         if heist == eTable.Heist.Apartment.Heists.PacificJob then
                             eLocal.Heist.Apartment.Finish.Step2:Set(5)
@@ -2412,72 +2412,6 @@ eFeature = {
                         eLocal.Heist.SalvageYard.Reload:Set(2)
                         SilentLogger.LogInfo("[Reload Screen (Salvage Yard)] Screen should've been reloaded ツ")
                     end
-                }
-            },
-
-            Misc = {
-                Cooldown = {
-                    Kill = {
-                        hash = J("SN_SalvageYard_Cooldown"),
-                        name = "Kill Cooldowns",
-                        type = eFeatureType.Button,
-                        desc = "Skips the heist's cooldowns. Use outside of your salvage yard.",
-                        func = function()
-                            eTunable.Heist.SalvageYard.Cooldown.Robbery:Set(0)
-                            eTunable.Heist.SalvageYard.Cooldown.Cfr:Set(0)
-                            SilentLogger.LogInfo("[Kill Cooldowns (Salvage Yard)] Cooldowns should've been killed ツ")
-                        end
-                    },
-
-                    Skip = {
-                        hash = J("SN_SalvageYard_Weekly"),
-                        name = "Skip Weekly Cooldown",
-                        type = eFeatureType.Button,
-                        desc = "Skips the heist's weekly cooldown. Also, reloads the planning screen.",
-                        func = function()
-                            eTunable.Heist.SalvageYard.Cooldown.Weekly:Set(eStat.MPX_SALV23_WEEK_SYNC:Get() + 1)
-                            eLocal.Heist.SalvageYard.Reload:Set(2)
-                            SilentLogger.LogInfo("[Skip Weekly Cooldown (Salvage Yard)] Cooldown should've been skipped ツ")
-                        end
-                    }
-                },
-
-                Availability = {
-                    Slot1 = {
-                        hash = J("SN_SalvageYard_AvailableSlot1"),
-                        name = "Make Slot 1 Available",
-                        type = eFeatureType.Button,
-                        desc = "Makes the slot 1 «Available». Also, reloads the planning screen.",
-                        func = function()
-                            eStat.MPX_SALV23_VEHROB_STATUS0:Set(0)
-                            eLocal.Heist.SalvageYard.Reload:Set(2)
-                            SilentLogger.LogInfo("[Make Slot 1 Available (Salvage Yard)] Slot 1 should've been made «Available» ツ")
-                        end
-                    },
-
-                    Slot2 = {
-                        hash = J("SN_SalvageYard_AvailableSlot2"),
-                        name = "Make Slot 2 Available",
-                        type = eFeatureType.Button,
-                        desc = "Makes the slot 2 «Available». Also, reloads the planning screen.",
-                        func = function()
-                            eStat.MPX_SALV23_VEHROB_STATUS1:Set(0)
-                            eLocal.Heist.SalvageYard.Reload:Set(2)
-                            SilentLogger.LogInfo("[Make Slot 2 Available (Salvage Yard)] Slot 2 should've been made «Available» ツ")
-                        end
-                    },
-
-                    Slot3 = {
-                        hash = J("SN_SalvageYard_AvailableSlot3"),
-                        name = "Make Slot 3 Available",
-                        type = eFeatureType.Button,
-                        desc = "Makes the slot 3 «Available». Also, reloads the planning screen.",
-                        func = function()
-                            eStat.MPX_SALV23_VEHROB_STATUS2:Set(0)
-                            eLocal.Heist.SalvageYard.Reload:Set(2)
-                            SilentLogger.LogInfo("[Make Slot 3 Available (Salvage Yard)] Slot 3 should've been made «Available» ツ")
-                        end
-                    }
                 },
 
                 Free = {
@@ -2521,6 +2455,98 @@ eFeature = {
                             end
                         end
                     }
+                }
+            },
+
+            Misc = {
+                Finish = {
+                    hash = J("SN_SalvageYard_Finish"),
+                    name = "Instant Finish",
+                    type = eFeatureType.Button,
+                    desc = "Finishes the heist instantly. Use after you can see the minimap.",
+                    func = function()
+                        for heist, script in pairs(eScript.Heist.SalvageYard) do
+                            if GTA.IsScriptRunning(script) then
+                                local value = eLocal.Heist.SalvageYard.Finish[heist].Step1:Get()
+                                eLocal.Heist.SalvageYard.Finish[heist].Step1:Set(value | (1 << 11))
+                                eLocal.Heist.SalvageYard.Finish[heist].Step2:Set(2)
+                                break
+                            end
+                        end
+                        SilentLogger.LogInfo("[Instant Finish (Salvage Yard)] Heist should've been finished ツ")
+                    end
+                },
+
+                Sell = {
+                    hash = J("SN_SalvageYard_Sell"),
+                    name = "Instant Sell",
+                    type = eFeatureType.Button,
+                    desc = "Finishes the sell mission instantly. Use after you can see the minimap.",
+                    func = function()
+                        GTA.TeleportXYZ(1169.0, -2976.0, 6.0)
+                        SilentLogger.LogInfo("[Instant Sell (Salvage Yard)] Sell mission should've been finished ツ")
+                    end
+                },
+
+                Availability = {
+                    Slot1 = {
+                        hash = J("SN_SalvageYard_AvailableSlot1"),
+                        name = "Make Slot 1 Available",
+                        type = eFeatureType.Button,
+                        desc = "Makes the slot 1 «Available». Also, reloads the planning screen.",
+                        func = function()
+                            eStat.MPX_SALV23_VEHROB_STATUS0:Set(0)
+                            eLocal.Heist.SalvageYard.Reload:Set(2)
+                            SilentLogger.LogInfo("[Make Slot 1 Available (Salvage Yard)] Slot 1 should've been made «Available» ツ")
+                        end
+                    },
+
+                    Slot2 = {
+                        hash = J("SN_SalvageYard_AvailableSlot2"),
+                        name = "Make Slot 2 Available",
+                        type = eFeatureType.Button,
+                        desc = "Makes the slot 2 «Available». Also, reloads the planning screen.",
+                        func = function()
+                            eStat.MPX_SALV23_VEHROB_STATUS1:Set(0)
+                            eLocal.Heist.SalvageYard.Reload:Set(2)
+                            SilentLogger.LogInfo("[Make Slot 2 Available (Salvage Yard)] Slot 2 should've been made «Available» ツ")
+                        end
+                    },
+
+                    Slot3 = {
+                        hash = J("SN_SalvageYard_AvailableSlot3"),
+                        name = "Make Slot 3 Available",
+                        type = eFeatureType.Button,
+                        desc = "Makes the slot 3 «Available». Also, reloads the planning screen.",
+                        func = function()
+                            eStat.MPX_SALV23_VEHROB_STATUS2:Set(0)
+                            eLocal.Heist.SalvageYard.Reload:Set(2)
+                            SilentLogger.LogInfo("[Make Slot 3 Available (Salvage Yard)] Slot 3 should've been made «Available» ツ")
+                        end
+                    }
+                },
+
+                Force = {
+                    hash = J("SN_SalvageYard_Force"),
+                    name = "Force Through Error",
+                    type = eFeatureType.Button,
+                    desc = "Forces the heist to become active through the error.",
+                    func = function()
+                        eLocal.Heist.SalvageYard.Force:Set(1)
+                        SilentLogger.LogInfo("[Force Through Error (Salvage Yard)] Error should've been forced through ツ")
+                    end
+                },
+
+                Cooldown = {
+                    hash = J("SN_SalvageYard_Cooldown"),
+                    name = "Skip Weekly Cooldown",
+                    type = eFeatureType.Button,
+                    desc = "Skips the heist's weekly cooldown. Also, reloads the planning screen.",
+                    func = function()
+                        eTunable.Heist.SalvageYard.Cooldown.Weekly:Set(eStat.MPX_SALV23_WEEK_SYNC:Get() + 1)
+                        eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Skip Weekly Cooldown (Salvage Yard)] Cooldown should've been skipped ツ")
+                    end
                 }
             },
 
@@ -2652,7 +2678,7 @@ eFeature = {
                     func = function(bool)
                         eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
                         eLocal.Business.Bunker.Sell.Finish:Set(0)
-                        SilentLogger.LogInfo("[Instant Sell (Bunker)] Sell mission should've been finished ツ")
+                        SilentLogger.LogInfo("[Instant Sell (Bunker)] Sell mission should've been finished ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 }
             },
@@ -2856,7 +2882,7 @@ eFeature = {
                     func = function(bool)
                         eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
                         eLocal.Business.Hangar.Sell.Finish:Set(eLocal.Business.Hangar.Sell.Delivered:Get())
-                        SilentLogger.LogInfo("[Instant Air Cargo Sell (Hangar)] Sell mission should've been finished ツ")
+                        SilentLogger.LogInfo("[Instant Air Cargo Sell (Hangar)] Sell mission should've been finished ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 }
             },
@@ -3109,7 +3135,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Opens the Nightclub's computer screen.",
                     func = function()
-                        GTA.StartScript(eScript.Business.Nightclub)
+                        GTA.StartScript(eScript.Business.Nightclub.Laptop)
                         SilentLogger.LogInfo("[Open Computer (Nightclub)] Computer screen should've been opened ツ")
                     end
                 },
@@ -3243,12 +3269,16 @@ eFeature = {
                     hash = J("SN_Nightclub_Collect"),
                     name = "Collect",
                     type = eFeatureType.Button,
-                    desc = "Collects money from your safe. Use inside your Nightclub.",
+                    desc = F("Collects money from your safe.%s", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
                     func = function()
                         if eGlobal.Business.Nightclub.Safe.Value:Get() > 0 then
-                            eLocal.Business.Nightclub.Safe.Type:Set(3)
-                            eLocal.Business.Nightclub.Safe.Collect:Set(1)
-                            SilentLogger.LogInfo("[Collect Safe (Nightclub)] Safe should've been collected ツ")
+                            if GTA_EDITION == "EE" then
+                                eGlobal.Business.Nightclub.Safe.Collect:Set(true)
+                            else
+                                eLocal.Business.Nightclub.Safe.Type:Set(3)
+                                eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                            end
+                            SilentLogger.LogInfo("[Collect Safe (Nightclub)] Safe should've been collected ツ", eToastPos.BOTTOM_RIGHT)
                         end
                     end
                 },
@@ -3257,7 +3287,7 @@ eFeature = {
                     hash = J("SN_Nightclub_Unbrick"),
                     name = "Unbrick",
                     type = eFeatureType.Button,
-                    desc = "Unbricks your safe if it shows a dollar sign with $0 inside. Use inside your Nightclub.",
+                    desc = F("Unbricks your safe if it shows a dollar sign with $0 inside.%s", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
                     func = function()
                         local top5   = eGlobal.Business.Nightclub.Safe.Income.Top5.global
                         local top100 = eGlobal.Business.Nightclub.Safe.Income.Top100.global
@@ -3268,8 +3298,14 @@ eFeature = {
 
                         eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
                         Script.Yield(3000)
-                        eLocal.Business.Nightclub.Safe.Type:Set(3)
-                        eLocal.Business.Nightclub.Safe.Collect:Set(1)
+
+                        if GTA_EDITION == "EE" then
+                            eGlobal.Business.Nightclub.Safe.Collect:Set(true)
+                        else
+                            eLocal.Business.Nightclub.Safe.Type:Set(3)
+                            eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                        end
+
                         SilentLogger.LogInfo("[Unbrick Safe (Nightclub)] Safe should've been unbricked ツ")
                     end
                 }
@@ -3414,7 +3450,7 @@ eFeature = {
                         eLocal.Business.CrateWarehouse.Sell.Finish:Set(99999)
                         Script.Yield(2000)
                         eLocal.Business.CrateWarehouse.Sell.Finish:Set(99999)
-                        SilentLogger.LogInfo("[Instant Sell (Crate Warehouse)] Sell mission should've been finished ツ")
+                        SilentLogger.LogInfo("[Instant Sell (Crate Warehouse)] Sell mission should've been finished ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 }
             },
@@ -3988,13 +4024,13 @@ eFeature = {
                             eGlobal.World.Casino.Chips.Bonus:Set(1)
 
                             if not logged5kLoop then
-                                SilentLogger.LogInfo("[5k Loop (Easy Money)] 5k chips loop should've been enabled ツ")
+                                SilentLogger.LogInfo("[5k Loop (Easy Money)] 5k chips loop should've been enabled ツ", eToastPos.BOTTOM_RIGHT)
                                 logged5kLoop = true
                             end
 
                             Script.Yield(math.floor(delay * 1000))
                         else
-                            SilentLogger.LogInfo("[5k Loop (Easy Money)] 5k chips loop should've been disabled ツ")
+                            SilentLogger.LogInfo("[5k Loop (Easy Money)] 5k chips loop should've been disabled ツ", eToastPos.BOTTOM_RIGHT)
                             logged5kLoop = false
                         end
                     end
@@ -4010,13 +4046,13 @@ eFeature = {
                             GTA.TriggerTransaction(0x610F9AB4)
 
                             if not logged50kLoop then
-                                SilentLogger.LogInfo("[50k Loop (Easy Money)] 50k dollars loop should've been enabled ツ")
+                                SilentLogger.LogInfo("[50k Loop (Easy Money)] 50k dollars loop should've been enabled ツ", eToastPos.BOTTOM_RIGHT)
                                 logged50kLoop = true
                             end
 
                             Script.Yield(math.floor(delay * 1000))
                         else
-                            SilentLogger.LogInfo("[50k Loop (Easy Money)] 50k dollars loop should've been disabled ツ")
+                            SilentLogger.LogInfo("[50k Loop (Easy Money)] 50k dollars loop should've been disabled ツ", eToastPos.BOTTOM_RIGHT)
                             logged50kLoop = false
                         end
                     end
@@ -4032,13 +4068,13 @@ eFeature = {
                             GTA.TriggerTransaction(J("SERVICE_EARN_AMBIENT_JOB_AMMUNATION_DELIVERY"))
 
                             if not logged100kLoop then
-                                SilentLogger.LogInfo("[100k Loop (Easy Money)] 100k dollars loop should've been enabled ツ")
+                                SilentLogger.LogInfo("[100k Loop (Easy Money)] 100k dollars loop should've been enabled ツ", eToastPos.BOTTOM_RIGHT)
                                 logged100kLoop = true
                             end
 
                             Script.Yield(math.floor(delay * 1000))
                         else
-                            SilentLogger.LogInfo("[100k Loop (Easy Money)] 100k dollars loop should've been disabled ツ")
+                            SilentLogger.LogInfo("[100k Loop (Easy Money)] 100k dollars loop should've been disabled ツ", eToastPos.BOTTOM_RIGHT)
                             logged100kLoop = false
                         end
                     end
@@ -4054,13 +4090,13 @@ eFeature = {
                             GTA.TriggerTransaction(0x615762F1)
 
                             if not logged180kLoop then
-                                SilentLogger.LogInfo("[180k Loop (Easy Money)] 180k dollars loop should've been enabled ツ")
+                                SilentLogger.LogInfo("[180k Loop (Easy Money)] 180k dollars loop should've been enabled ツ", eToastPos.BOTTOM_RIGHT)
                                 logged180kLoop = true
                             end
 
                             Script.Yield(math.floor(delay * 1000))
                         else
-                            SilentLogger.LogInfo("[180k Loop (Easy Money)] 180k dollars loop should've been disabled ツ")
+                            SilentLogger.LogInfo("[180k Loop (Easy Money)] 180k dollars loop should've been disabled ツ", eToastPos.BOTTOM_RIGHT)
                             logged180kLoop = false
                         end
                     end
@@ -4072,7 +4108,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_300k"),
                     name = "300k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Toggles the 300k dollars loop. Use inside your Nightclub. Has a cooldown after gaining a certain amount of money.",
+                    desc = F("MIGHT BE UNSAFE. Toggles the 300k dollars loop.%s Has a cooldown after gaining a certain amount of money.", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
                     func = function(ftr, delay)
                         if ftr:IsToggled() then
                             local top5      = eGlobal.Business.Nightclub.Safe.Income.Top5.global
@@ -4087,20 +4123,24 @@ eFeature = {
                             end
 
                             if safeValue <= maxValue and safeValue ~= 0 then
-                                eLocal.Business.Nightclub.Safe.Type:Set(3)
-                                eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                                if CONFIG.easy_money.allow_300k_loop and GTA_EDITION == "EE" then
+                                    eGlobal.Business.Nightclub.Safe.Collect:Set(true)
+                                else
+                                    eLocal.Business.Nightclub.Safe.Type:Set(3)
+                                    eLocal.Business.Nightclub.Safe.Collect:Set(1)
+                                end
                             elseif safeValue == 0 then
                                 eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
                             end
 
                             if not logged300kLoop then
-                                SilentLogger.LogInfo("[300k Loop (Easy Money)] 300k dollars loop should've been enabled ツ")
+                                SilentLogger.LogInfo("[300k Loop (Easy Money)] 300k dollars loop should've been enabled ツ", eToastPos.BOTTOM_RIGHT)
                                 logged300kLoop = true
                             end
 
                             Script.Yield(math.floor(delay * 1000))
                         else
-                            SilentLogger.LogInfo("[300k Loop (Easy Money)] 300k dollars loop should've been disabled ツ")
+                            SilentLogger.LogInfo("[300k Loop (Easy Money)] 300k dollars loop should've been disabled ツ", eToastPos.BOTTOM_RIGHT)
                             logged300kLoop = false
                         end
                     end
@@ -4138,7 +4178,7 @@ eFeature = {
                         local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
                         local amount      = (amount > walletMoney) and walletMoney or amount
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, amount)
-                        SilentLogger.LogInfo("[Deposit (Misc)] Money amount should've been deposited ツ")
+                        SilentLogger.LogInfo("[Deposit (Misc)] Money amount should've been deposited ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 },
 
@@ -4157,7 +4197,7 @@ eFeature = {
                         local bankMoney = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
                         local amount    = (amount > bankMoney) and bankMoney or amount
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, amount)
-                        SilentLogger.LogInfo("[Withdraw (Misc)] Money amount should've been withdrawn ツ")
+                        SilentLogger.LogInfo("[Withdraw (Misc)] Money amount should've been withdrawn ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 },
 
@@ -4177,7 +4217,7 @@ eFeature = {
                         local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
                         local amount      = (amount > bankMoney + walletMoney) and bankMoney + walletMoney or amount
                         eGlobal.Player.Cash.Remove:Set(amount)
-                        SilentLogger.LogInfo("[Remove (Misc)] Money amount should've been removed ツ")
+                        SilentLogger.LogInfo("[Remove (Misc)] Money amount should've been removed ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 },
 
@@ -4190,7 +4230,7 @@ eFeature = {
                         local charSlot    = eStat.MPPLY_LAST_MP_CHAR:Get()
                         local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, walletMoney)
-                        SilentLogger.LogInfo("[Deposit All (Misc)] Money should've been deposited ツ")
+                        SilentLogger.LogInfo("[Deposit All (Misc)] Money should've been deposited ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 },
 
@@ -4203,7 +4243,7 @@ eFeature = {
                         local charSlot  = eStat.MPPLY_LAST_MP_CHAR:Get()
                         local bankMoney = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
                         eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, bankMoney)
-                        SilentLogger.LogInfo("[Withdraw All (Misc)] Money should've been withdrawn ツ")
+                        SilentLogger.LogInfo("[Withdraw All (Misc)] Money should've been withdrawn ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 }
             },
@@ -4242,7 +4282,7 @@ eFeature = {
                     desc = "Applies the selected money amount to the selected story character.",
                     func = function(charIndex, amount)
                         eStat[F("SP%d_TOTAL_CASH", charIndex)]:Set(amount)
-                        SilentLogger.LogInfo(F("[Apply Money Amount (Misc)] Money amount should've been applied ツ"))
+                        SilentLogger.LogInfo(F("[Apply Money Amount (Misc)] Money amount should've been applied ツ"), eToastPos.BOTTOM_RIGHT)
                     end
                 }
             },
@@ -4838,6 +4878,7 @@ eFeature = {
                     loggedUCayoPerico       = true
                     loggedUDiamondCasino    = true
                     loggedDummyPrevention   = true
+                    loggedAllow300kLoop     = true
                     FileMgr.ResetConfig()
                     CONFIG = Json.DecodeFromFile(CONFIG_PATH)
                     SilentLogger.LogInfo("[Reset (Settings)] Config should've been reset to default ツ")
@@ -5189,6 +5230,25 @@ eFeature = {
                 end
             },
 
+            Allow300k = {
+                hash = J("SN_Settings_Allow300k"),
+                name = "Allow 300k Loop Outside",
+                type = eFeatureType.Toggle,
+                desc = "Allows using 300k Loop outside of the Nightclub, but the loop will be a bit slower.",
+                func = function(ftr)
+                    CONFIG.easy_money.allow_300k_loop = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedAllow300kLoop then
+                        loggedAllow300kLoop = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Allow 300k Loop Outside (Settings)] Allow 300k Loop Outside should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            },
+
             Delay = {
                 _5k = {
                     hash = J("SN_Settings_5k"),
@@ -5251,7 +5311,7 @@ eFeature = {
                     name = "300k Loop",
                     type = eFeatureType.SliderFloat,
                     desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
-                    lims = { 1.5, 5.0 },
+                    lims = { (GTA_EDITION == "EE") and 1.0 or 1.5, 5.0 },
                     func = function(ftr)
                         CONFIG.easy_money.delay._300k = ftr:GetFloatValue()
                         FileMgr.SaveConfig(CONFIG)

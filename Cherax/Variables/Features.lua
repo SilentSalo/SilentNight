@@ -225,5 +225,6 @@ loggedJinxScriptStop    = true
 loggedUCayoPerico       = true
 loggedUDiamondCasino    = true
 loggedDummyPrevention   = true
+loggedAllow300kLoop     = true
 
 --#endregion

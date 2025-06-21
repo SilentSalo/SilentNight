@@ -3,9 +3,9 @@
 _ForceScriptHost = GTA.ForceScriptHost
 
 function GTA.TeleportXYZ(x, y, z)
-    local playerPed     = GTA.GetLocalPed()
-    local playerVehicle = GTA.GetLocalVehicle()
-    eNative.ENTITY.SET_ENTITY_COORDS_NO_OFFSET((playerVehicle ~= nil) and playerVehicle or playerPed, x, y, z, false, false, false)
+    local ped = GTA.GetLocalPed()
+    local veh = GTA.GetLocalVehicle()
+    eNative.ENTITY.SET_ENTITY_COORDS_NO_OFFSET(GTA.PointerToHandle(veh or ped), x, y, z, false, false, false)
 end
 
 function GTA.SimulatePlayerControl(action)

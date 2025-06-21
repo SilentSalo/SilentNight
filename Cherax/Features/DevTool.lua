@@ -84,6 +84,9 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Write, function(f)
 
     local value = FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):GetStringValue()
 
+    local ftr  = eFeature.Dev.Editor.Globals.Type
+    local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+
     if type == "bool" then
         if value == "true" or value == "1" then
             value = 1
@@ -99,9 +102,6 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Write, function(f)
         ["float"] = ScriptGlobal.GetFloat,
         ["bool"]  = ScriptGlobal.GetBool
     }
-
-    local ftr  = eFeature.Dev.Editor.Globals.Type
-    local type = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
 
     TEMP_GLOBAL = GetValue[type](global)
     eFeature.Dev.Editor.Globals.Write.func(type, global, value)
@@ -215,7 +215,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Write, function(f)
         return
     end
 
-    if not scriptString:match("^[%w%-]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
+    if not scriptString:match("^[A-Za-z_]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
         SilentLogger.LogError("[Write (Dev Tool)] Failed to write local. Script or local is invalid ツ")
         return
@@ -253,7 +253,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Revert, function(f)
         return
     end
 
-    if not scriptString:match("^[%w%-]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
+    if not scriptString:match("^[A-Za-z_]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
         SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert local. Script or local is invalid ツ")
         return

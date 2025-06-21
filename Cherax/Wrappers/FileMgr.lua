@@ -34,13 +34,14 @@ function FileMgr.CreateConfig()
 
             easy_money = {
                 dummy_prevention = true,
+                allow_300k_loop  = GTA_EDITION == "EE",
 
                 delay = {
                     _5k   = 1.5,
                     _50k  = 0.333,
                     _100k = 0.333,
                     _180k = 0.333,
-                    _300k = 1.5
+                    _300k = (GTA_EDITION == "EE") and 1.0 or 1.5
                 }
             }
         }
@@ -74,7 +75,7 @@ function FileMgr.EnsureConfigKeys()
     local required_jinx    = { "enabled", "autostop" }
     local required_instant = { "agency", "apartment", "auto_shop", "cayo_perico", "diamond_casino", "doomsday" }
     local required_unlock  = { "cayo_perico", "diamond_casino" }
-    local required_easy    = { "dummy_prevention", "delay" }
+    local required_easy    = { "dummy_prevention", "allow_300k_loop", "delay" }
     local required_delay   = { "_5k", "_50k", "_100k", "_180k", "_300k" }
 
     local function HasKeys(tbl, keys)

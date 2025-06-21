@@ -163,6 +163,34 @@ if GTA_EDITION == "EE" then
             },
 
             SalvageYard = {
+                Finish = {
+                    CargoShip = {
+                        Step1 = { type = "int", vLocal = 7163 + 1,    script = "fm_content_vehrob_cargo_ship" },
+                        Step2 = { type = "int", vLocal = 7308 + 1249, script = "fm_content_vehrob_cargo_ship" }
+                    },
+
+                    Gangbanger = {
+                        Step1 = { type = "int", vLocal = 8989 + 1,    script = "fm_content_vehrob_police" },
+                        Step2 = { type = "int", vLocal = 9122 + 1305, script = "fm_content_vehrob_police" }
+                    },
+
+                    Duggan = {
+                        Step1 = { type = "int", vLocal = 7894 + 1,    script = "fm_content_vehrob_arena" },
+                        Step2 = { type = "int", vLocal = 8014 + 1314, script = "fm_content_vehrob_arena" }
+                    },
+
+                    Podium = {
+                        Step1 = { type = "int", vLocal = 9163 + 1,    script = "fm_content_vehrob_casino_prize" },
+                        Step2 = { type = "int", vLocal = 9300 + 1258, script = "fm_content_vehrob_casino_prize" }
+                    },
+
+                    McTony = {
+                        Step1 = { type = "int", vLocal = 6198 + 1,    script = "fm_content_vehrob_submarine" },
+                        Step2 = { type = "int", vLocal = 6336 + 1159, script = "fm_content_vehrob_submarine" }
+                    }
+                },
+
+                Force  = { type = "int", vLocal = 416, script = "vehrob_planning" },
                 Reload = { type = "int", vLocal = 535, script = "vehrob_planning" }
             }
         },
@@ -371,6 +399,34 @@ else
             },
 
             SalvageYard = {
+                Finish = {
+                    CargoShip = {
+                        Step1 = { type = "int", vLocal = 7161 + 1,    script = "fm_content_vehrob_cargo_ship" },
+                        Step2 = { type = "int", vLocal = 7306 + 1249, script = "fm_content_vehrob_cargo_ship" }
+                    },
+
+                    Gangbanger = {
+                        Step1 = { type = "int", vLocal = 8987 + 1,    script = "fm_content_vehrob_police" },
+                        Step2 = { type = "int", vLocal = 9120 + 1305, script = "fm_content_vehrob_police" }
+                    },
+
+                    Duggan = {
+                        Step1 = { type = "int", vLocal = 7892 + 1,    script = "fm_content_vehrob_arena" },
+                        Step2 = { type = "int", vLocal = 8012 + 1314, script = "fm_content_vehrob_arena" }
+                    },
+
+                    Podium = {
+                        Step1 = { type = "int", vLocal = 9161 + 1,    script = "fm_content_vehrob_casino_prize" },
+                        Step2 = { type = "int", vLocal = 9298 + 1258, script = "fm_content_vehrob_casino_prize" }
+                    },
+
+                    McTony = {
+                        Step1 = { type = "int", vLocal = 6196 + 1,    script = "fm_content_vehrob_submarine" },
+                        Step2 = { type = "int", vLocal = 6334 + 1159, script = "fm_content_vehrob_submarine" }
+                    }
+                },
+
+                Force  = { type = "int", vLocal = 414, script = "vehrob_planning" },
                 Reload = { type = "int", vLocal = 533, script = "vehrob_planning" }
             }
         },

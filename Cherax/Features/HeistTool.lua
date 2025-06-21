@@ -730,21 +730,25 @@ FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Preps.Reload)
 
-FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Cooldown.Kill)
+FeatureMgr.AddLoop(eFeature.Heist.SalvageYard.Preps.Free.Setup, nil, function(f)
+    eFeature.Heist.SalvageYard.Preps.Free.Setup.func(f)
+end)
 
-FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Cooldown.Skip)
+FeatureMgr.AddLoop(eFeature.Heist.SalvageYard.Preps.Free.Claim, nil, function(f)
+    eFeature.Heist.SalvageYard.Preps.Free.Claim.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Finish)
+
+FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Sell)
 
 for i = 1, #salvageSlotsAvailable do
     FeatureMgr.AddFeature(salvageSlotsAvailable[i])
 end
 
-FeatureMgr.AddLoop(eFeature.Heist.SalvageYard.Misc.Free.Setup, nil, function(f)
-    eFeature.Heist.SalvageYard.Misc.Free.Setup.func(f)
-end)
+FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Force)
 
-FeatureMgr.AddLoop(eFeature.Heist.SalvageYard.Misc.Free.Claim, nil, function(f)
-    eFeature.Heist.SalvageYard.Misc.Free.Claim.func(f)
-end)
+FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Cooldown)
 
 FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Payout.Salvage)
 

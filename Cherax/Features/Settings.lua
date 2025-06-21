@@ -32,6 +32,7 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
     FeatureMgr.GetFeature(eFeature.Settings.UnlockAllPoi.CayoPerico):Toggle(CONFIG.unlock_all_poi.cayo_perico)
     FeatureMgr.GetFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino):Toggle(CONFIG.unlock_all_poi.diamond_casino)
     FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy_money.dummy_prevention)
+    FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.Allow300k):Toggle(CONFIG.easy_money.allow_300k_loop)
 
     for i = 1, #settingsInstantFinishes do
         FeatureMgr.GetFeature(settingsInstantFinishes[i]):SetListIndex(CONFIG.instant_finish[methodKeys[i]])
@@ -82,20 +83,15 @@ for i = 1, #settingsInstantFinishes do
     FeatureMgr.AddFeature(settingsInstantFinishes[i]):SetListIndex(CONFIG.instant_finish[methodKeys[i]])
 end
 
-FeatureMgr.AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico, nil, function(f)
-    eFeature.Settings.UnlockAllPoi.CayoPerico.func(f)
-end)
-    :Toggle(CONFIG.unlock_all_poi.cayo_perico)
+FeatureMgr.AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico):Toggle(CONFIG.unlock_all_poi.cayo_perico)
 
-FeatureMgr.AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino, nil, function(f)
-    eFeature.Settings.UnlockAllPoi.DiamondCasino.func(f)
-end)
-    :Toggle(CONFIG.unlock_all_poi.diamond_casino)
+FeatureMgr.AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino):Toggle(CONFIG.unlock_all_poi.diamond_casino)
 
-FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.Prevention, nil, function(f)
-    eFeature.Settings.EasyMoney.Prevention.func(f)
-end)
-    :Toggle(CONFIG.easy_money.dummy_prevention)
+FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy_money.dummy_prevention)
+
+FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.Allow300k)
+    :Toggle(CONFIG.easy_money.allow_300k_loop)
+    :SetVisible(GTA_EDITION == "EE")
 
 for i = 1, #settingsEasyDelays do
     FeatureMgr.AddFeature(settingsEasyDelays[i]):SetFloatValue((CONFIG.easy_money.delay[delayKeys[i]]))
