@@ -47,9 +47,9 @@ if GTA_EDITION == "EE" then
                     Player4 = { type = "int", global = 2658019 + 1 + (3 * 467) + 269 }
                 },
 
-                Reload   = { type = "int", global = 1931835                             },
-                Cooldown = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76 },
-                Type     = { type = "int", global = 1877086 + (PLAYER_ID * 77) + 24 + 2 },
+                Reload   = { type = "int", global = 1931835                               },
+                Cooldown = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76   },
+                Type     = { type = "int", global = 1877086 + 1 (PLAYER_ID * 77) + 24 + 1 },
             },
 
             CayoPerico = {
@@ -221,7 +221,8 @@ else
                     Step4 = { type = "int", global = 4718592 + 184007 + 1 }
                 },
 
-                Cut = { type = "int", global = 2685685 + 6742 }
+                Cut        = { type = "int", global = 2685685 + 6742 },
+                Difficulty = { type = "int", global = 4718592 + 3538 }
             },
 
             Apartment = {
@@ -254,13 +255,9 @@ else
                     Player4 = { type = "int", global = 2658016 + 1 + (3 * 467) + 269 }
                 },
 
-                Reload   = { type = "int", global = 1931358                             },
-                Cooldown = { type = "int", global = 1876941 + 1 + (PLAYER_ID * 77) + 76 },
-
-                Heist = {
-                    Type       = { type = "int", global = 1876941 + (PLAYER_ID * 77) + 24 + 2 },
-                    Difficulty = { type = "int", global = 4718592 + 3538                      }
-                }
+                Reload     = { type = "int", global = 1931358                                 },
+                Cooldown   = { type = "int", global = 1876941 + 1 + (PLAYER_ID * 77) + 76     },
+                Type       = { type = "int", global = 1876941 + 1 + (PLAYER_ID * 77) + 24 + 1 }
             },
 
             CayoPerico = {
