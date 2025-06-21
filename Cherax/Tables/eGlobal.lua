@@ -47,9 +47,9 @@ if GTA_EDITION == "EE" then
                     Player4 = { type = "int", global = 2658019 + 1 + (3 * 467) + 269 }
                 },
 
-                Reload   = { type = "int", global = 1931835                               },
-                Cooldown = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76   },
-                Type     = { type = "int", global = 1877086 + 1 (PLAYER_ID * 77) + 24 + 1 },
+                Reload   = { type = "int", global = 1931835                                 },
+                Cooldown = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76     },
+                Type     = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 24 + 1 }
             },
 
             CayoPerico = {
