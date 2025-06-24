@@ -5342,6 +5342,7 @@ eFeature = {
                     end
                 },
 
+                _680k = {
                     hash = J("SN_Settings_680k"),
                     name = "680k Loop",
                     type = eFeatureType.SliderFloat,
