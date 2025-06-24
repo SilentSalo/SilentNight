@@ -207,11 +207,11 @@ eFeature = {
                             Script.LoadSubscribedScript("JinxScript EE & LE")
 
                             if FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode) then
-                                SilentLogger.LogInfo("[JinxScript EE & LE (Settings)] Restarting freemode using JinxScript ツ")
+                                SilentLogger.LogInfo("[JinxScript (Settings)] Restarting freemode using JinxScript ツ")
                                 FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode):OnClick()
-                                SilentLogger.LogInfo("[JinxScript EE & LE (Settings)] Freemode should've been restarted by JinxScript ツ")
+                                SilentLogger.LogInfo("[JinxScript (Settings)] Freemode should've been restarted by JinxScript ツ")
                             else
-                                SilentLogger.LogError("[JinxScript EE & LE (Settings)] JinxScript collab is enabled, but the script isn't running ツ")
+                                SilentLogger.LogError("[JinxScript (Settings)] JinxScript collab is enabled, but the script isn't running ツ")
                             end
 
                             if CONFIG.collab.jinxscript.autostop then
@@ -418,7 +418,7 @@ eFeature = {
                     hash = J("SN_Apartment_Bonus"),
                     name = "12mil Bonus",
                     type = eFeatureType.Toggle,
-                    desc = "Allows only you to get 12 millions bonus for The Pacific Standard Job on hard difficulty, even if you're not the host. Enable before starting the heist. Has a cooldown of about 1 hour.",
+                    desc = "ATTENTION: works only for you, even if not the host.\nAllows you to get 12 millions bonus for The Pacific Standard Job on hard difficulty. Enable before starting the heist. Has a cooldown.",
                     func = function(ftr)
                         eStat.MPPLY_HEISTFLOWORDERPROGRESS:Set((ftr:IsToggled()) and 268435455 or 134217727)
                         eStat.MPPLY_AWD_HST_ORDER:Set((ftr:IsToggled()) and true or false)
@@ -505,7 +505,7 @@ eFeature = {
                     hash = J("SN_Apartment_Apply"),
                     name = "Apply Cuts",
                     type = eFeatureType.Button,
-                    desc = "Applies the selected cuts for players. Works only if your «Aspect Ratio» is «16:9».",
+                    desc = "ATTENTION: screen «Aspect Ratio» must be «16:9».\nApplies the selected cuts for players.",
                     func = function(team, receivers, cuts)
                         GUI.Toggle()
                         Script.Yield(1000)
@@ -870,7 +870,7 @@ eFeature = {
                     hash = J("SN_CayoPerico_Advanced"),
                     name = "Advanced",
                     type = eFeatureType.Toggle,
-                    desc = "Allows you to change the value of secondary targets. Use with caution.",
+                    desc = "ATTENTION: for advanced users.\nAllows you to change the value of secondary targets.",
                     func = function(ftr)
                         SilentLogger.LogInfo(F("[Advanced (Cayo Perico)] Advanced mode should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                     end
@@ -1036,7 +1036,7 @@ eFeature = {
                     hash = J("SN_CayoPerico_Bag"),
                     name = "Woman's Bag",
                     type = eFeatureType.Toggle,
-                    desc = "Increases the size of the bag. Use with caution.",
+                    desc = "ATTENTION: the transaction limit is 2.55mil.\nIncreases the size of the bag.",
                     func = function(ftr)
                         if GTA.IsInSession() then
                             if ftr:IsToggled() then
@@ -1126,7 +1126,7 @@ eFeature = {
                     hash = J("SN_CayoPerico_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets. 2.55mil Payout only works if you've set the Difficulty through the script and you don't have any Secondary Targets.",
+                    desc = "ATTENTION: «2.55mil Payout» works only if you've set the «Difficulty» through the script and you don't have any «Secondary Targets».\nSelect one of the ready-made presets.",
                     list = eTable.Heist.CayoPerico.Presets,
                     func = function()
                         Helper.SetCayoMaxPayout()
@@ -1138,7 +1138,7 @@ eFeature = {
                     hash = J("SN_CayoPerico_Crew"),
                     name = "Remove Crew Cuts",
                     type = eFeatureType.Toggle,
-                    desc = "Removes fencing fee and Pavel's cut. Can't be used with «2.55mil Payout».",
+                    desc = "ATTENTION: cannot be used with «2.55mil Payout».\nRemoves fencing fee and Pavel's cut.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             eTunable.Heist.CayoPerico.Cut.Pavel:Set(0)
@@ -1260,7 +1260,7 @@ eFeature = {
                     hash = J("SN_CayoPerico_Remove"),
                     name = "Remove",
                     type = eFeatureType.Button,
-                    desc = "Removes the selected preset.",
+                    desc = "ATTENTION: cannot be undone.\nRemoves the selected preset.",
                     func = function(file)
                         local path = F("%s\\%s.json", CAYO_DIR, file)
 
@@ -1660,7 +1660,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Autograbber"),
                     name = "Autograbber",
                     type = eFeatureType.Toggle,
-                    desc = "Grabs cash/gold/diamonds automatically. Might be slower than manually.",
+                    desc = "ATTENTION: might be slower than manually.\nGrabs cash/gold/diamonds automatically.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if eLocal.Heist.DiamondCasino.Autograbber.Grab:Get() == 3 then
@@ -1734,7 +1734,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Crew"),
                     name = "Remove Crew Cuts",
                     type = eFeatureType.Toggle,
-                    desc = "Removes crew cuts and Lester's cut. Should be used with «Instant Finish».",
+                    desc = "ATTENTION: should be used with «Instant Finish».\nRemoves crew cuts and Lester's cut.",
                     func = function(ftr)
                         local function SetOrResetCuts(tbl, bool)
                             for _, v in pairs(tbl) do
@@ -1820,7 +1820,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Apply"),
                     name = "Apply Cuts",
                     type = eFeatureType.Button,
-                    desc = "Applies the selected cuts for players. If solo, apply near the planning board.",
+                    desc = "ATTENTION: if solo, apply near the planning board.\nApplies the selected cuts for players.",
                     func = function(cuts)
                         for i = 1, 4 do
                             eGlobal.Heist.DiamondCasino.Cut[F("Player%d", i)]:Set(cuts[i])
@@ -1867,7 +1867,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Remove"),
                     name = "Remove",
                     type = eFeatureType.Button,
-                    desc = "Removes the selected preset.",
+                    desc = "ATTENTION: cannot be undone.\nRemoves the selected preset.",
                     func = function(file)
                         local path = F("%s\\%s.json", DIAMOND_DIR, file)
 
@@ -2072,7 +2072,7 @@ eFeature = {
                     hash = J("SN_Doomsday_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets. 2.55mil Payout only works if you've set the Act through the script.",
+                    desc = "ATTENTION: «2.55mil Payout» works only if you've set the «Act» through the script.\nSelect one of the ready-made presets.",
                     list = eTable.Heist.Doomsday.Presets,
                     func = function()
                         Helper.SetDoomsdayMaxPayout()
@@ -2555,7 +2555,7 @@ eFeature = {
                     hash = J("SN_SalvageYard_Salvage"),
                     name = "Salvage Value Multiplier",
                     type = eFeatureType.InputFloat,
-                    desc = "Select the desired salvage value multiplier.",
+                    desc = "ATTENTION: the transaction limit is 2.1mil.\nSelect the desired salvage value multiplier.",
                     defv = eGlobal.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Get(),
                     lims = { 0.0, 5.0 },
                     step = 0.1,
@@ -2628,7 +2628,7 @@ eFeature = {
                     hash = J("SN_Bunker_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Applies the maximum price for your stock.",
+                    desc = "CAUTION: might be unsafe, no bans reported.\nApplies the maximum price for your stock.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if not GTA.IsInSessionAlone() then
@@ -2834,7 +2834,7 @@ eFeature = {
                     hash = J("SN_Hangar_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Applies the maximum price for your cargo.",
+                    desc = "CAUTION: might be unsafe, no bans reported.\nApplies the maximum price for your cargo.",
                     func = function(ftr)
                         if not GTA.IsScriptRunning(eScript.Business.Hangar.Sell) then
                             if ftr:IsToggled() then
@@ -3092,7 +3092,7 @@ eFeature = {
                     hash = J("SN_Nightclub_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Applies the maximum price for goods. Don't sell «All Goods».",
+                    desc = "CAUTION: might be unsafe, no bans reported.\nApplies the maximum price for goods. Don't sell «All Goods».",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if not GTA.IsInSessionAlone() then
@@ -3248,7 +3248,7 @@ eFeature = {
                     hash = J("SN_Nightclub_Fill"),
                     name = "Fill",
                     type = eFeatureType.Button,
-                    desc = "Fills your Nightclub safe with money. Might be unsafe if used repeatedly.",
+                    desc = "ATTENTION: might be unsafe, if overused.\nFills your Nightclub safe with money.",
                     func = function()
                         local top5     = eGlobal.Business.Nightclub.Safe.Income.Top5.global
                         local top100   = eGlobal.Business.Nightclub.Safe.Income.Top100.global
@@ -3269,7 +3269,7 @@ eFeature = {
                     hash = J("SN_Nightclub_Collect"),
                     name = "Collect",
                     type = eFeatureType.Button,
-                    desc = F("Collects money from your safe.%s Might be unsafe if used repeatedly.", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
+                    desc = F("ATTENTION: might be unsafe, if overused.\nCollects money from your Nightclub safe.%s", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
                     func = function()
                         if eGlobal.Business.Nightclub.Safe.Value:Get() > 0 then
                             if GTA_EDITION == "EE" then
@@ -3369,7 +3369,7 @@ eFeature = {
                     hash = J("SN_CrateWarehouse_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "UNSAFE. Applies the maximum price for your crates.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nApplies the maximum price for your crates.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if not GTA.IsInSessionAlone() then
@@ -3744,7 +3744,7 @@ eFeature = {
                     hash = J("SN_Casino_LuckyWheelGive"),
                     name = "Give Prize",
                     type = eFeatureType.Button,
-                    desc = "Gives the selected prize instantly. Use once per day.",
+                    desc = "ATTENTION: use once per day.\nGives the selected prize instantly.",
                     func = function(prize)
                         eLocal.World.Casino.LuckyWheel.WinState:Set(prize)
                         eLocal.World.Casino.LuckyWheel.PrizeState:Set(11)
@@ -3758,7 +3758,7 @@ eFeature = {
                     hash = J("SN_Casino_SlotsWin"),
                     name = "Rig Slots",
                     type = eFeatureType.Button,
-                    desc = "UNSAFE. Forces the slots to give you the jackpot.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nForces the slots to give you the jackpot.",
                     func = function()
                         local randomResultTable = eLocal.World.Casino.Slots.RandomResultTable.vLocal
 
@@ -3796,7 +3796,7 @@ eFeature = {
                     hash = J("SN_Casino_RouletteLand13"),
                     name = "Land On Black 13",
                     type = eFeatureType.Button,
-                    desc = "Forces the ball to land on Black 13. Use after there is no time for betting.",
+                    desc = "ATTENTION: might be unsafe, if overused.\nForces the ball to land on Black 13. Use after there is no time for betting.",
                     func = function()
                         GTA.ForceScriptHost(eScript.World.Casino.Roulette)
                         local masterTable   = eLocal.World.Casino.Roulette.MasterTable.vLocal
@@ -3815,7 +3815,7 @@ eFeature = {
                     hash = J("SN_Casino_RouletteLand16"),
                     name = "Land On Red 16",
                     type = eFeatureType.Button,
-                    desc = "Forces the ball to land on Red 16. Use after there is no time for betting.",
+                    desc = "ATTENTION: might be unsafe, if overused.\nForces the ball to land on Red 16. Use after there is no time for betting.",
                     func = function()
                         GTA.ForceScriptHost(eScript.World.Casino.Roulette)
                         local masterTable   = eLocal.World.Casino.Roulette.MasterTable.vLocal
@@ -3853,7 +3853,7 @@ eFeature = {
                     hash = J("SN_Casino_BlackjackTrick"),
                     name = "Trick The Dealer",
                     type = eFeatureType.Button,
-                    desc = "Forces the dealer's hand to lose. Also, reveals the dealer's cards. Works better in solo session.",
+                    desc = "ATTENTION: might be unsafe, if overused.\nForces the dealer's hand to lose. Also, reveals the dealer's cards. Works better in solo session.",
                     func = function()
                         GTA.ForceScriptHost(eScript.World.Casino.Blackjack)
                         if eLocal.World.Casino.Blackjack.CurrentTable:Get() ~= -1 then
@@ -3896,7 +3896,7 @@ eFeature = {
                     hash = J("SN_Casino_PokerGive"),
                     name = "Give Straight Flush",
                     type = eFeatureType.Button,
-                    desc = "Forces your hand to win. Also, reveals your and the dealer's cards. Use during the animation of your character getting at a table. Works better in solo session.",
+                    desc = "ATTENTION: might be unsafe, if overused.\nForces your hand to win. Also, reveals your and the dealer's cards. Use during the animation of your character getting at a table. Works better in solo session.",
                     func = function()
                         GTA.ForceScriptHost(eScript.World.Casino.Poker)
                         Helper.SetPokerCards(0, 50, 51, 52)
@@ -3908,7 +3908,7 @@ eFeature = {
                     hash = J("SN_Casino_PokerTrick"),
                     name = "Trick The Dealer",
                     type = eFeatureType.Button,
-                    desc = "Forces the dealer's hand to lose. Also, reveals your and the dealer's cards. Use during the animation of your character getting at a table. Works better in solo session.",
+                    desc = "ATTENTION: might be unsafe, if overused.\nForces the dealer's hand to lose. Also, reveals your and the dealer's cards. Use during the animation of your character getting at a table. Works better in solo session.",
                     func = function()
                         GTA.ForceScriptHost(eScript.World.Casino.Poker)
                         if eLocal.World.Casino.Poker.CurrentTable:Get() ~= -1 then
@@ -3925,7 +3925,7 @@ eFeature = {
                     hash = J("SN_Casino_Bypass"),
                     name = "Bypass Casino Limits",
                     type = eFeatureType.Toggle,
-                    desc = "Bypasses the casino limits. Might be unsafe if used to earn more chips.",
+                    desc = "ATTENTION: might be unsafe, if used for more chips.\nBypasses the casino limits.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             eStat.MPPLY_CASINO_CHIPS_WON_GD:Set(0)
@@ -3979,7 +3979,7 @@ eFeature = {
                         hash = J("SN_Casino_Trade"),
                         name = "Apply Trade In Limit",
                         type = eFeatureType.Button,
-                        desc = "MIGHT BE UNSAFE. Applies the selected trade in chips limit.",
+                        desc = "ATTENTION: might be unsafe, no bans reported.\nApplies the selected trade in chips limit.",
                         func = function(limit)
                             eTunable.World.Casino.Chips.Limit.Trade:Set(limit)
                             SilentLogger.LogInfo("[Apply Trade In Limit (Casino)] Trade in chips limit should've been applied ツ")
@@ -3995,7 +3995,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_30m"),
                     name = "Give 30mil",
                     type = eFeatureType.Button,
-                    desc = "MIGHT BE UNSAFE. Gives 30mil dollars in a few seconds. Has a cooldown of about 1 hour.",
+                    desc = "ATTENTION: might be unsafe, don't use more than once.\nGives 30mil dollars in a few seconds. Has a cooldown.",
                     func = function()
                         GTA.TriggerTransaction(0xA174F633)
                         Script.Yield(3000)
@@ -4008,7 +4008,7 @@ eFeature = {
                         GTA.TriggerTransaction(0x921FCF3C)
                         Script.Yield(3000)
                         GTA.TriggerTransaction(0x314FB8B0)
-                        SilentLogger.LogInfo("[Give 30mil (Easy Money)] 30mil dollars should've been given ツ")
+                        SilentLogger.LogInfo("[Give 30mil (Easy Money)] 30mil dollars should've been given ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 }
             },
@@ -4018,7 +4018,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_5k"),
                     name = "5k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Toggles the 5k chips loop.",
+                    desc = "ATTENTION: might be unsafe, no bans reported.\nToggles the 5k chips loop.",
                     func = function(ftr, delay)
                         if ftr:IsToggled() then
                             eGlobal.World.Casino.Chips.Bonus:Set(1)
@@ -4040,7 +4040,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_50k"),
                     name = "50k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Toggles the 50k dollars loop.",
+                    desc = "CAUTION: might be unsafe, if overused.\nToggles the 50k dollars loop.",
                     func = function(ftr, delay)
                         if ftr:IsToggled() then
                             GTA.TriggerTransaction(0x610F9AB4)
@@ -4062,7 +4062,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_100k"),
                     name = "100k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Toggles the 100k dollars loop.",
+                    desc = "CAUTION: might be unsafe, if overused.\nToggles the 100k dollars loop.",
                     func = function(ftr, delay)
                         if ftr:IsToggled() then
                             GTA.TriggerTransaction(J("SERVICE_EARN_AMBIENT_JOB_AMMUNATION_DELIVERY"))
@@ -4084,7 +4084,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_180k"),
                     name = "180k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Toggles the 180k dollars loop. Has a cooldown after gaining a certain amount of money.",
+                    desc = "CAUTION: might be unsafe, if overused.\nToggles the 180k dollars loop. Has a cooldown.",
                     func = function(ftr, delay)
                         if ftr:IsToggled() then
                             GTA.TriggerTransaction(0x615762F1)
@@ -4106,7 +4106,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_680k"),
                     name = "680k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "MIGHT BE UNSAFE. Toggles the 680k dollars loop. Has a cooldown after gaining a certain amount of money.",
+                    desc = "CAUTION: might be unsafe, if overused.\nToggles the 680k dollars loop. Has a cooldown.",
                     func = function(ftr, delay)
                         if ftr:IsToggled() then
                             GTA.TriggerTransaction(J("SERVICE_EARN_BETTING"))
@@ -4130,7 +4130,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_300k"),
                     name = "300k Loop",
                     type = eFeatureType.Toggle,
-                    desc = F("MIGHT BE UNSAFE. Toggles the 300k dollars loop.%s Has a cooldown after gaining a certain amount of money.", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
+                    desc = F("CAUTION: might be unsafe, if overused.\nToggles the 300k dollars loop.%s Has a cooldown.", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
                     func = function(ftr, delay)
                         if ftr:IsToggled() then
                             local top5      = eGlobal.Business.Nightclub.Safe.Income.Top5.global
@@ -4227,7 +4227,7 @@ eFeature = {
                     hash = J("SN_Misc_Remove"),
                     name = "Remove",
                     type = eFeatureType.Button,
-                    desc = "Removes the selected money amount from your character.",
+                    desc = "ATTENTION: cannot be undone.\nRemoves the selected money amount from your character.",
                     func = function(amount)
                         if amount == 0 then
                             SilentLogger.LogError("[Remove (Misc)] You must select a money amount first ツ")
@@ -4416,7 +4416,7 @@ eFeature = {
                     hash = J("SN_Editor_GlobalsWrite"),
                     name = "Write",
                     type = eFeatureType.Button,
-                    desc = "Writes the selected value to the entered global.",
+                    desc = "ATTENTION: for advanced users.\nWrites the selected value to the entered global.",
                     func = function(type, global, value)
                         local SetValue = {
                             ["int"]   = ScriptGlobal.SetInt,
@@ -4500,7 +4500,7 @@ eFeature = {
                     hash = J("SN_Editor_LocalsWrite"),
                     name = "Write",
                     type = eFeatureType.Button,
-                    desc = "Writes the selected value to the entered local.",
+                    desc = "ATTENTION: for advanced users.\nWrites the selected value to the entered local.",
                     func = function(type, hash, vLocal, value)
                         local SetValue = {
                             ["int"]   = ScriptLocal.SetInt,
@@ -4585,7 +4585,7 @@ eFeature = {
                     hash = J("SN_Editor_StatsWrite"),
                     name = "Write",
                     type = eFeatureType.Button,
-                    desc = "Writes the selected value to the entered stat.",
+                    desc = "ATTENTION: for advanced users.\nWrites the selected value to the entered stat.",
                     func = function(type, hash, value)
                         local SetValue = {
                             ["int"]   = Stats.SetInt,
@@ -4702,7 +4702,7 @@ eFeature = {
                     hash = J("SN_Editor_StatsRemove"),
                     name = "Remove",
                     type = eFeatureType.Button,
-                    desc = "Removes the selected stats file.",
+                    desc = "ATTENTION: cannot be undone.\nRemoves the selected stats file.",
                     func = function(file)
                         local path = F("%s\\%s.json", STATS_DIR, file)
 
@@ -4806,7 +4806,7 @@ eFeature = {
                     hash = J("SN_Editor_PackedStatsWrite"),
                     name = "Write",
                     type = eFeatureType.Button,
-                    desc = "Writes the selected value to the entered packed stat.",
+                    desc = "ATTENTION: for advanced users.\nWrites the selected value to the entered packed stat.",
                     func = function(type, firstPStat, lastPStat, value)
                         local SetValue = {
                             ["int"]  = eNative.STATS.SET_PACKED_STAT_INT_CODE,
@@ -4892,7 +4892,7 @@ eFeature = {
                 hash = J("SN_Settings_CReset"),
                 name = "Reset",
                 type = eFeatureType.Button,
-                desc = "Resets the config to default.",
+                desc = "ATTENTION: cannot be undone.\nResets the config to default.",
                 func = function()
                     loggedAutoOpen          = true
                     loggedJinxScript        = true
@@ -4976,7 +4976,7 @@ eFeature = {
                 hash = J("SN_Settings_TRemove"),
                 name = "Remove",
                 type = eFeatureType.Button,
-                desc = "Removes the selected translation.",
+                desc = "ATTENTION: cannot be undone.\nRemoves the selected translation.",
                 func = function(file)
                     local path = F("%s\\%s.json", TRANS_DIR, file)
 
@@ -5237,7 +5237,7 @@ eFeature = {
                 hash = J("SN_Settings_Prevention"),
                 name = "Dummy Prevention",
                 type = eFeatureType.Toggle,
-                desc = "Prevents enabling multiple «Easy Money» loops simultaneously.",
+                desc = "RECOMMENDED: don't disable.\nPrevents enabling multiple «Easy Money» loops simultaneously.",
                 func = function(ftr)
                     CONFIG.easy_money.dummy_prevention = ftr:IsToggled()
                     FileMgr.SaveConfig(CONFIG)

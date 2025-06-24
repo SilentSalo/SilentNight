@@ -169,6 +169,7 @@ FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Select)
 
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Max, function(f)
     FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Payout.Select):SetIntValue(2000000)
+    eFeature.Heist.AutoShop.Payout.Max.func()
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Apply, function(f)
