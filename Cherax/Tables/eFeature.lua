@@ -505,7 +505,7 @@ eFeature = {
                     hash = J("SN_Apartment_Apply"),
                     name = "Apply Cuts",
                     type = eFeatureType.Button,
-                    desc = "Applies the selected cuts for players.",
+                    desc = "Applies the selected cuts for players. Works only if your «Aspect Ratio» is «16:9».",
                     func = function(team, receivers, cuts)
                         GUI.Toggle()
                         Script.Yield(1000)
@@ -3248,7 +3248,7 @@ eFeature = {
                     hash = J("SN_Nightclub_Fill"),
                     name = "Fill",
                     type = eFeatureType.Button,
-                    desc = "Fills your Nightclub safe with money.",
+                    desc = "Fills your Nightclub safe with money. Might be unsafe if used repeatedly.",
                     func = function()
                         local top5     = eGlobal.Business.Nightclub.Safe.Income.Top5.global
                         local top100   = eGlobal.Business.Nightclub.Safe.Income.Top100.global
@@ -3269,7 +3269,7 @@ eFeature = {
                     hash = J("SN_Nightclub_Collect"),
                     name = "Collect",
                     type = eFeatureType.Button,
-                    desc = F("Collects money from your safe.%s", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
+                    desc = F("Collects money from your safe.%s Might be unsafe if used repeatedly.", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
                     func = function()
                         if eGlobal.Business.Nightclub.Safe.Value:Get() > 0 then
                             if GTA_EDITION == "EE" then
