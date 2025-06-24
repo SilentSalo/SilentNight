@@ -158,7 +158,8 @@ easyLoops = {
     eFeature.Money.EasyMoney.Freeroam._50k,
     eFeature.Money.EasyMoney.Freeroam._100k,
     eFeature.Money.EasyMoney.Freeroam._180k,
-    eFeature.Money.EasyMoney.Property._300k
+    eFeature.Money.EasyMoney.Property._300k,
+    eFeature.Money.EasyMoney.Freeroam._680k
 }
 
 devStatsDefault = {
@@ -193,7 +194,8 @@ settingsEasyDelays = {
     eFeature.Settings.EasyMoney.Delay._50k,
     eFeature.Settings.EasyMoney.Delay._100k,
     eFeature.Settings.EasyMoney.Delay._180k,
-    eFeature.Settings.EasyMoney.Delay._300k
+    eFeature.Settings.EasyMoney.Delay._300k,
+    eFeature.Settings.EasyMoney.Delay._680k,
 }
 
 loggedSoloLaunch        = false
@@ -219,6 +221,7 @@ logged50kLoop           = false
 logged100kLoop          = false
 logged180kLoop          = false
 logged300kLoop          = false
+logged680kLoop          = false
 loggedAutoOpen          = true
 loggedJinxScript        = true
 loggedJinxScriptStop    = true

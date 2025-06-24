@@ -41,7 +41,8 @@ function FileMgr.CreateConfig()
                     _50k  = 0.333,
                     _100k = 0.333,
                     _180k = 0.333,
-                    _300k = (GTA_EDITION == "EE") and 1.0 or 1.5
+                    _300k = (GTA_EDITION == "EE") and 1.0 or 1.5,
+                    _680k = 0.333,
                 }
             }
         }
@@ -66,63 +67,66 @@ function FileMgr.EnsureConfigKeys()
     if not CONFIG then
         FileMgr.ResetConfig()
         CONFIG = Json.DecodeFromFile(CONFIG_PATH)
-        SilentLogger.LogError("Config is missing something. Config reset ツ")
+        SilentLogger.LogError("Config is missing. Config created ツ")
         return
     end
 
-    local required         = { "autoopen", "logging", "language", "collab", "instant_finish", "unlock_all_poi", "easy_money" }
-    local required_collab  = { "jinxscript" }
-    local required_jinx    = { "enabled", "autostop" }
-    local required_instant = { "agency", "apartment", "auto_shop", "cayo_perico", "diamond_casino", "doomsday" }
-    local required_unlock  = { "cayo_perico", "diamond_casino" }
-    local required_easy    = { "dummy_prevention", "allow_300k_loop", "delay" }
-    local required_delay   = { "_5k", "_50k", "_100k", "_180k", "_300k" }
+    local function DeepMergeDefaults(tbl, defaults)
+        for k, v in pairs(defaults) do
+            if type(v) == "table" then
+                if type(tbl[k]) ~= "table" then
+                    tbl[k] = {}
+                end
 
-    local function HasKeys(tbl, keys)
-        if type(tbl) ~= "table" then return false end
-
-        for _, k in ipairs(keys) do
-            if not tbl or tbl[k] == nil then return false end
+                DeepMergeDefaults(tbl[k], v)
+            elseif tbl[k] == nil then
+                tbl[k] = v
+            end
         end
-
-        return true
     end
 
-    local missing = false
+    local defaultConfig = {
+        autoopen = false,
+        logging  = 2,
+        language = "EN",
 
-    if not HasKeys(CONFIG, required) then
-        missing = true
-    end
+        collab = {
+            jinxscript = {
+                enabled  = true,
+                autostop = false
+            }
+        },
 
-    if not HasKeys(CONFIG.collab, required_collab) then
-        missing = true
-    end
+        instant_finish = {
+            agency         = 1,
+            apartment      = 0,
+            auto_shop      = 1,
+            cayo_perico    = 1,
+            diamond_casino = 0,
+            doomsday       = 1
+        },
 
-    if not HasKeys(CONFIG.collab.jinxscript, required_jinx) then
-        missing = true
-    end
+        unlock_all_poi = {
+            cayo_perico    = true,
+            diamond_casino = true
+        },
 
-    if not HasKeys(CONFIG.instant_finish, required_instant) then
-        missing = true
-    end
+        easy_money = {
+            dummy_prevention = true,
+            allow_300k_loop  = GTA_EDITION == "EE",
+            delay = {
+                _5k   = 1.5,
+                _50k  = 0.333,
+                _100k = 0.333,
+                _180k = 0.333,
+                _300k = (GTA_EDITION == "EE") and 1.0 or 1.5,
+                _680k = 0.333,
+            }
+        }
+    }
 
-    if not HasKeys(CONFIG.unlock_all_poi, required_unlock) then
-        missing = true
-    end
-
-    if not HasKeys(CONFIG.easy_money, required_easy) then
-        missing = true
-    end
-
-    if not HasKeys(CONFIG.easy_money.delay, required_delay) then
-        missing = true
-    end
-
-    if missing then
-        FileMgr.ResetConfig()
-        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
-        SilentLogger.LogError("Config is missing something. Config reset ツ")
-    end
+    DeepMergeDefaults(CONFIG, defaultConfig)
+    FileMgr.SaveConfig(CONFIG)
 end
 
 function FileMgr.ExportTranslation(file)

@@ -3942,7 +3942,7 @@ eFeature = {
                         else
                             eTunable.World.Casino.Chips.Limit.Acquire:Reset()
                             eTunable.World.Casino.Chips.Limit.AcquirePenthouse:Reset()
-                            eTunable.World.Casino.Chips.Limit.Sell:Reset()
+                            eTunable.World.Casino.Chips.Limit.Trade:Reset()
                             SilentLogger.LogInfo("[Bypass Casino Limits (Casino)] Casino limits should've been reset ツ")
                             loggedCasinoLimits = false
                         end
@@ -3976,12 +3976,12 @@ eFeature = {
                     },
 
                     Trade = {
-                        hash = J("SN_Casino_Sell"),
+                        hash = J("SN_Casino_Trade"),
                         name = "Apply Trade In Limit",
                         type = eFeatureType.Button,
                         desc = "MIGHT BE UNSAFE. Applies the selected trade in chips limit.",
                         func = function(limit)
-                            eTunable.World.Casino.Chips.Limit.Sell:Set(limit)
+                            eTunable.World.Casino.Chips.Limit.Trade:Set(limit)
                             SilentLogger.LogInfo("[Apply Trade In Limit (Casino)] Trade in chips limit should've been applied ツ")
                         end
                     }
@@ -4098,6 +4098,28 @@ eFeature = {
                         else
                             SilentLogger.LogInfo("[180k Loop (Easy Money)] 180k dollars loop should've been disabled ツ", eToastPos.BOTTOM_RIGHT)
                             logged180kLoop = false
+                        end
+                    end
+                },
+
+                _680k = {
+                    hash = J("SN_EasyMoney_680k"),
+                    name = "680k Loop",
+                    type = eFeatureType.Toggle,
+                    desc = "MIGHT BE UNSAFE. Toggles the 680k dollars loop. Has a cooldown after gaining a certain amount of money.",
+                    func = function(ftr, delay)
+                        if ftr:IsToggled() then
+                            GTA.TriggerTransaction(J("SERVICE_EARN_BETTING"))
+
+                            if not logged680kLoop then
+                                SilentLogger.LogInfo("[680k Loop (Easy Money)] 680k dollars loop should've been enabled ツ", eToastPos.BOTTOM_RIGHT)
+                                logged680kLoop = true
+                            end
+
+                            Script.Yield(math.floor(delay * 1000))
+                        else
+                            SilentLogger.LogInfo("[680k Loop (Easy Money)] 680k dollars loop should've been disabled ツ", eToastPos.BOTTOM_RIGHT)
+                            logged680kLoop = false
                         end
                     end
                 }
@@ -5317,6 +5339,19 @@ eFeature = {
                         FileMgr.SaveConfig(CONFIG)
                         CONFIG = Json.DecodeFromFile(CONFIG_PATH)
                         SilentLogger.LogInfo("[300k Loop (Settings)] Delay should've been changed ツ")
+                    end
+                },
+
+                    hash = J("SN_Settings_680k"),
+                    name = "680k Loop",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Changes the delay between transactions. Try to increase if you get transaction errors.",
+                    lims = { 0.333, 5.0 },
+                    func = function(ftr)
+                        CONFIG.easy_money.delay._680k = ftr:GetFloatValue()
+                        FileMgr.SaveConfig(CONFIG)
+                        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                        SilentLogger.LogInfo("[680k Loop (Settings)] Delay should've been changed ツ")
                     end
                 }
             }

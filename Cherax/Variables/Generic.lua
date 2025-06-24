@@ -1,7 +1,7 @@
 --#region Generic
 
 SCRIPT_NAME = "Silent Night"
-SCRIPT_VER  = "1.1.0"
+SCRIPT_VER  = "1.2.0"
 DISCORD     = "https://discord.gg/AYpT8cBaVb"
 INT32_MAX   = 2147483647
 PLAYER_ID   = GTA.GetLocalPlayerId()

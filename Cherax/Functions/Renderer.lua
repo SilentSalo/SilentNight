@@ -408,7 +408,9 @@ function Renderer.RenderBusinessTool()
             if ImGui.BeginTabItem("Bunker") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
+                        ImGui.RedFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.Price)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.NoXp)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.Sell)
                         ClickGUI.EndCustomChildWindow()
@@ -443,7 +445,9 @@ function Renderer.RenderBusinessTool()
             if ImGui.BeginTabItem("Hangar Cargo") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
+                        ImGui.RedFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.Price)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.NoXp)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.Sell)
                         ClickGUI.EndCustomChildWindow()
@@ -481,7 +485,9 @@ function Renderer.RenderBusinessTool()
             if ImGui.BeginTabItem("Nightclub") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
+                        ImGui.RedFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Sale.Price)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -530,7 +536,9 @@ function Renderer.RenderBusinessTool()
             if ImGui.BeginTabItem("Special Cargo") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
+                        ImGui.RedFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.Price)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.NoXp)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.NoCrateback)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.Sell)
@@ -607,7 +615,9 @@ function Renderer.RenderMoneyTool()
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Slot Machines") then
+                        ImGui.RedButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Slots.Win)
+                        ImGui.ResetButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Slots.Lose)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -630,10 +640,14 @@ function Renderer.RenderMoneyTool()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ImGui.RedFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Bypass)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Limit.Select)
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Limit.Acquire)
+                        ImGui.RedButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Limit.Trade)
+                        ImGui.ResetButtonStyle()
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
@@ -644,24 +658,31 @@ function Renderer.RenderMoneyTool()
             if ImGui.BeginTabItem("Easy Money") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Instant") then
+                        ImGui.RedButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Instant.Give30m)
+                        ImGui.ResetButtonStyle()
                         ClickGUI.EndCustomChildWindow()
                     end
 
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Freeroam") then
+                        ImGui.RedFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._50k)
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._100k)
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._180k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._680k)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.EndCustomChildWindow()
                     end
 
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Property") then
+                        ImGui.RedFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Property._300k)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
@@ -829,7 +850,9 @@ function Renderer.RenderSettings()
                         ImGui.ResetButtonStyle()
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Copy)
+                        ImGui.DiscordButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Discord)
+                        ImGui.ResetButtonStyle()
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -851,7 +874,9 @@ function Renderer.RenderSettings()
                     if ClickGUI.BeginCustomChildWindow("Collabs") then
                         ClickGUI.RenderFeature(eFeature.Settings.Collab.JinxScript.Toggle)
                         ImGui.SameLine()
+                        ImGui.DiscordButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Settings.Collab.JinxScript.Discord)
+                        ImGui.ResetButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Settings.Collab.JinxScript.Stop)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -884,6 +909,7 @@ function Renderer.RenderSettings()
                         ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._100k)
                         ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._180k)
                         ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._300k)
+                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._680k)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
@@ -1341,6 +1367,7 @@ function Renderer.RenderListGUI()
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._50k)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._100k)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._180k)
+            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._680k)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Property._300k)
 
             local EditSubTab = MiscTab:AddSubTab("Edit", "Edit")
@@ -1452,6 +1479,7 @@ function Renderer.RenderListGUI()
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._50k)
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._100k)
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._180k)
+        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._680k)
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._300k)
     end
 end

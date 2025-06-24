@@ -219,7 +219,7 @@ eTunable = {
                 Limit = {
                     Acquire          = { type = "int", tunable = "VC_CASINO_CHIP_MAX_BUY",           defaultValue = 20000    },
                     AcquirePenthouse = { type = "int", tunable = "VC_CASINO_CHIP_MAX_BUY_PENTHOUSE", defaultValue = 50000    },
-                    Sell             = { type = "int", tunable = "VC_CASINO_CHIP_MAX_SELL",          defaultValue = 10000000 }
+                    Trade            = { type = "int", tunable = "VC_CASINO_CHIP_MAX_SELL",          defaultValue = 10000000 }
                 }
             }
         }

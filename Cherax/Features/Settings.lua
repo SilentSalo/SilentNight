@@ -14,7 +14,8 @@ delayKeys = {
     "_50k",
     "_100k",
     "_180k",
-    "_300k"
+    "_300k",
+    "_680k"
 }
 
 FeatureMgr.AddFeature(eFeature.Settings.Config.Open):Toggle(CONFIG.autoopen)
