@@ -311,7 +311,7 @@ Script.RegisterLooped(function()
     Script.Yield()
 end)
 
-STATES = { false, false, false, false, false }
+STATES = { false, false, false, false, false, false }
 
 Script.RegisterLooped(function()
     if ShouldUnload() then return end
@@ -324,7 +324,7 @@ Script.RegisterLooped(function()
     local toggled = nil
 
     for i, ftr in ipairs(easyLoops) do
-        local isOn = FeatureMgr.GetFeature(ftr):IsToggled()
+        local isOn = FeatureMgr.GetFeatureBool(ftr)
 
         if isOn and not STATES[i] then
             toggled = i
