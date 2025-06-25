@@ -4670,18 +4670,17 @@ eFeature = {
                                     if math.type(value) == "integer" then
                                         if math.abs(value) <= INT32_MAX then
                                             Stats.SetInt(J(stat), value)
-                                            return
+                                        else
+                                            local loops     = math.floor(math.abs(value) / INT32_MAX)
+                                            local remainder = math.abs(value) - (loops * INT32_MAX)
+                                            local sign      = (value < 0) and -1 or 1
+
+                                            for i = 1, loops do
+                                                eNative.STATS.STAT_INCREMENT(J(stat), sign * INT32_MAX + .0)
+                                            end
+
+                                            eNative.STATS.STAT_INCREMENT(J(stat), sign * remainder + .0)
                                         end
-
-                                        local loops     = math.floor(math.abs(value) / INT32_MAX)
-                                        local remainder = math.abs(value) - (loops * INT32_MAX)
-                                        local sign      = (value < 0) and -1 or 1
-
-                                        for i = 1, loops do
-                                            eNative.STATS.STAT_INCREMENT(J(stat), sign * INT32_MAX + .0)
-                                        end
-
-                                        eNative.STATS.STAT_INCREMENT(J(stat), sign * remainder + .0)
                                     else
                                         Stats.SetFloat(J(stat), value)
                                     end
