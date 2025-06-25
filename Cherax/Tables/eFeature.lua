@@ -4596,18 +4596,17 @@ eFeature = {
                         if type == "int" then
                             if math.abs(value) <= INT32_MAX then
                                 SetValue[type](hash, value)
-                                return
+                            else
+                                local loops     = math.floor(math.abs(value) / INT32_MAX)
+                                local remainder = math.abs(value) - (loops * INT32_MAX)
+                                local sign      = (value < 0) and -1 or 1
+
+                                for i = 1, loops do
+                                    eNative.STATS.STAT_INCREMENT(hash, sign * INT32_MAX + .0)
+                                end
+
+                                eNative.STATS.STAT_INCREMENT(hash, sign * remainder + .0)
                             end
-
-                            local loops     = math.floor(math.abs(value) / INT32_MAX)
-                            local remainder = math.abs(value) - (loops * INT32_MAX)
-                            local sign      = (value < 0) and -1 or 1
-
-                            for i = 1, loops do
-                                eNative.STATS.STAT_INCREMENT(hash, sign * INT32_MAX + .0)
-                            end
-
-                            eNative.STATS.STAT_INCREMENT(hash, sign * remainder + .0)
                         else
                             SetValue[type](hash, value)
                         end
