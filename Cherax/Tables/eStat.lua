@@ -165,6 +165,7 @@ eStat = {
     MPPLY_HEISTFLOWORDERPROGRESS    = { type = "int",    stat = "MPPLY_HEISTFLOWORDERPROGRESS"   },
     MPPLY_HEISTTEAMPROGRESSBITSET   = { type = "int",    stat = "MPPLY_HEISTTEAMPROGRESSBITSET"  },
     MPPLY_HEISTNODEATHPROGREITSET   = { type = "int",    stat = "MPPLY_HEISTNODEATHPROGREITSET"  },
+    MPX_PRODTOTALFORFACTORY5        = { type = "int",    stat = "PRODTOTALFORFACTORY5"           },
     MPX_FACTORYSLOT0                = { type = "int",    stat = "FACTORYSLOT0"                   },
     MPX_FACTORYSLOT1                = { type = "int",    stat = "FACTORYSLOT1"                   },
     MPX_FACTORYSLOT2                = { type = "int",    stat = "FACTORYSLOT2"                   },

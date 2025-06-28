@@ -48,7 +48,7 @@ function Script.LoadSubscribedScript(scriptName, stop)
     end
 
     if not found then
-        SilentLogger.LogError(F("[%s (Settings)] Failed to find %s in subscribed scripts ツ", scriptName, scriptName))
+        SilentLogger.LogError(F("[%s (Settings)] Failed to find «%s» in subscribed scripts ツ", scriptName, scriptName))
         return
     end
 
