@@ -294,9 +294,10 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Type, function(f)
     local examples = {
-        [0] = { stat = "MPX_KILLS",               value = "7777" },
-        [1] = { stat = "MPX_PLAYER_MENTAL_STATE", value = "99.9" },
-        [2] = { stat = "MPPLY_CHAR_IS_BADSPORT",  value = "1"    }
+        [0] = { stat = "MPX_KILLS",                    value = "7777" },
+        [1] = { stat = "MPX_PLAYER_MENTAL_STATE",      value = "99.9" },
+        [2] = { stat = "MPPLY_CHAR_IS_BADSPORT",       value = "1"    },
+        [3] = { stat = "MPX_HEIST_MISSION_RCONT_ID_1", value = "1"    }
     }
 
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Stat)
@@ -339,9 +340,10 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Read, function(f)
     end
 
     local GetValue = {
-        ["int"]   = Stats.GetInt,
-        ["float"] = Stats.GetFloat,
-        ["bool"]  = Stats.GetBool
+        ["int"]    = Stats.GetInt,
+        ["float"]  = Stats.GetFloat,
+        ["bool"]   = Stats.GetBool,
+        ["string"] = Stats.GetString
     }
 
     local ftr  = eFeature.Dev.Editor.Stats.Type
@@ -353,6 +355,10 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Read, function(f)
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("invalid")
         SilentLogger.LogError("[Read (Dev Tool)] Failed to read stat. Stat isn't found ツ")
         return
+    end
+
+    if type == "bool" then
+        value = (value == 1) and "true" or "false"
     end
 
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue(S(value))
@@ -441,9 +447,10 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Revert, function(f)
     end
 
     local GetValue = {
-        ["int"]   = Stats.GetInt,
-        ["float"] = Stats.GetFloat,
-        ["bool"]  = Stats.GetBool
+        ["int"]    = Stats.GetInt,
+        ["float"]  = Stats.GetFloat,
+        ["bool"]   = Stats.GetBool,
+        ["string"] = Stats.GetString
     }
 
     local ftr  = eFeature.Dev.Editor.Stats.Type

@@ -129,8 +129,8 @@ if GTA_EDITION == "EE" then
                 Bypass = {
                     FingerprintHack = { type = "int", vLocal = 54037,      script = "fm_mission_controller" },
                     KeypadHack      = { type = "int", vLocal = 55103,      script = "fm_mission_controller" },
-                    VaultDrill1     = { type = "int", vLocal = 10509 + 7,  script = "fm_mission_controller" },
-                    VaultDrill2     = { type = "int", vLocal = 10509 + 37, script = "fm_mission_controller" }
+                    VaultDrill1     = { type = "int", vLocal = 10549 + 7,  script = "fm_mission_controller" },
+                    VaultDrill2     = { type = "int", vLocal = 10549 + 37, script = "fm_mission_controller" }
                 },
 
                 Reload = { type = "int", vLocal = 210, script = "gb_casino_heist_planning" },
@@ -365,8 +365,8 @@ else
                 Bypass = {
                     FingerprintHack = { type = "int", vLocal = 53127,      script = "fm_mission_controller" },
                     KeypadHack      = { type = "int", vLocal = 54193,      script = "fm_mission_controller" },
-                    VaultDrill1     = { type = "int", vLocal = 10107 + 7,  script = "fm_mission_controller" },
-                    VaultDrill2     = { type = "int", vLocal = 10107 + 37, script = "fm_mission_controller" }
+                    VaultDrill1     = { type = "int", vLocal = 10147 + 7,  script = "fm_mission_controller" },
+                    VaultDrill2     = { type = "int", vLocal = 10147 + 37, script = "fm_mission_controller" }
                 },
 
                 Reload = { type = "int", vLocal = 208, script = "gb_casino_heist_planning" },

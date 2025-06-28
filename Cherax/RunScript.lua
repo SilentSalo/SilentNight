@@ -11,6 +11,7 @@ local files = {
     "GUI",
     "SilentLogger",
     "Natives",
+    "Stats",
     "eTunable",
     "eGlobal",
     "eLocal",

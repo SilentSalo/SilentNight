@@ -151,6 +151,7 @@ eFeature = {
                         eTunable.Heist.Agency.Cooldown.Story:Set(0)
                         eTunable.Heist.Agency.Cooldown.Security:Set(0)
                         eTunable.Heist.Agency.Cooldown.Payphone:Set(0)
+                        eStat.MPX_FIXER_STORY_COOLDOWN:Set(-1)
                         SilentLogger.LogInfo("[Kill Cooldowns (Agency)] Cooldowns should've been killed ツ")
                     end
                 }
@@ -280,7 +281,7 @@ eFeature = {
                         GTA.ForceScriptHost(eScript.Heist.Apartment)
                         Script.Yield(1000)
 
-                        local heist = eGlobal.Heist.Apartment.Type:Get()
+                        local heist = eStat.HEIST_MISSION_RCONT_ID_1:Get()
 
                         if heist == eTable.Heist.Apartment.Heists.PacificJob then
                             eLocal.Heist.Apartment.Finish.Step2:Set(5)
@@ -421,15 +422,15 @@ eFeature = {
                     desc = "ATTENTION: works only for you, even if not the host.\nAllows you to get 12 millions bonus for The Pacific Standard Job on hard difficulty. Enable before starting the heist. Has a cooldown.",
                     func = function(ftr)
                         eStat.MPPLY_HEISTFLOWORDERPROGRESS:Set((ftr:IsToggled()) and 268435455 or 134217727)
-                        eStat.MPPLY_AWD_HST_ORDER:Set((ftr:IsToggled()) and true or false)
+                        eStat.MPPLY_AWD_HST_ORDER:Set(not ftr:IsToggled())
                         eStat.MPPLY_HEISTTEAMPROGRESSBITSET:Set((ftr:IsToggled()) and 268435455 or 134217727)
-                        eStat.MPPLY_AWD_HST_SAME_TEAM:Set((ftr:IsToggled()) and true or false)
+                        eStat.MPPLY_AWD_HST_SAME_TEAM:Set(not ftr:IsToggled())
                         eStat.MPPLY_HEISTNODEATHPROGREITSET:Set((ftr:IsToggled()) and 268435455 or 134217727)
-                        eStat.MPPLY_AWD_HST_ULT_CHAL:Set((ftr:IsToggled()) and true or false)
+                        eStat.MPPLY_AWD_HST_ULT_CHAL:Set(not ftr:IsToggled())
 
                         if ftr:IsToggled() then
                             if not loggedApartmentBonus then
-                                SilentLogger.LogInfo("[12mil Bonus (Apartment)] Bonus should've been applied. Don't forget to put hard difficulty ツ")
+                                SilentLogger.LogInfo("[12mil Bonus (Apartment)] Bonus should've been applied. Don't forget about difficulty ツ")
                                 loggedApartmentBonus = true
                             end
                         else
@@ -941,7 +942,8 @@ eFeature = {
                         eStat.MPX_H4CNF_TARGET:Set(-1)
                         eStat.MPX_H4CNF_BS_GEN:Set(0)
                         eStat.MPX_H4CNF_BS_ENTR:Set(0)
-                        eStat.H4_PLAYTHROUGH_STATUS:Set(0)
+                        eStat.MPX_H4CNF_BS_ABIL:Set(0)
+                        eStat.MPX_H4_PLAYTHROUGH_STATUS:Set(0)
                         eLocal.Heist.CayoPerico.Reload:Set(2)
                         SilentLogger.LogInfo("[Reset Preps (Cayo Perico)] Preps should've been reset ツ")
                     end
@@ -4588,9 +4590,10 @@ eFeature = {
                     desc = "ATTENTION: for advanced users.\nWrites the selected value to the entered stat.",
                     func = function(type, hash, value)
                         local SetValue = {
-                            ["int"]   = Stats.SetInt,
-                            ["float"] = Stats.SetFloat,
-                            ["bool"]  = Stats.SetBool
+                            ["int"]    = Stats.SetInt,
+                            ["float"]  = Stats.SetFloat,
+                            ["bool"]   = Stats.SetBool,
+                            ["string"] = Stats.SetString
                         }
 
                         if type == "int" then
@@ -4622,9 +4625,10 @@ eFeature = {
                     desc = "Reverts the previous value you've written to the entered stat.",
                     func = function(type, hash)
                         local SetValue = {
-                            ["int"]   = Stats.SetInt,
-                            ["float"] = Stats.SetFloat,
-                            ["bool"]  = Stats.SetBool
+                            ["int"]    = Stats.SetInt,
+                            ["float"]  = Stats.SetFloat,
+                            ["bool"]   = Stats.SetBool,
+                            ["string"] = Stats.SetString
                         }
 
                         if TEMP_STAT ~= "TEMP" then
@@ -4685,6 +4689,8 @@ eFeature = {
                                     end
                                 elseif type(value) == "boolean" then
                                     Stats.SetBool(J(stat), value)
+                                else
+                                    Stats.SetString(J(stat), value)
                                 end
                             end
 

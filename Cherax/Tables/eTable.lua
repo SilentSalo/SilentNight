@@ -80,11 +80,11 @@ eTable = {
             },
 
             Heists = {
-                FleecaJob   = 1328892776,
-                PrisonBreak = 964111671,
-                HumaneLabs  = 1131632450,
-                SeriesA     = 1967927346,
-                PacificJob  = 1182286714
+                FleecaJob   = "hK5OgJk1BkinXGGXghhTMg",
+                PrisonBreak = "7-w96-PU4kSevhtG5YwUHQ",
+                HumaneLabs  = "BWsCWtmnvEWXBrprK9hDHA",
+                SeriesA     = "20Lu41Px20OJMPdZ6wXG3g",
+                PacificJob  = "zCxFg29teE2ReKGnr0L4Bg"
             }
         },
 
@@ -592,9 +592,10 @@ eTable = {
 
         Stats = {
             Types = {
-                { name = "int",   index = 0 },
-                { name = "float", index = 1 },
-                { name = "bool",  index = 3 }
+                { name = "int",    index = 0 },
+                { name = "float",  index = 1 },
+                { name = "bool",   index = 2 },
+                { name = "string", index = 3 }
             },
 
             Files = {}

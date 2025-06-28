@@ -38,7 +38,7 @@ function Helper.SetApartmentMaxPayout(bool)
     local ftr  = eFeature.Heist.Apartment.Cuts.Team
     local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
 
-    local heist      = eGlobal.Heist.Apartment.Type:Get()
+    local heist      = eStat.HEIST_MISSION_RCONT_ID_1:Get()
     local difficulty = eGlobal.Heist.Generic.Difficulty:Get() + 1
 
     local payouts = {

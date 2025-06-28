@@ -241,7 +241,7 @@ end)
 Script.RegisterLooped(function()
     if ShouldUnload() then return end
 
-    local heist = eGlobal.Heist.Apartment.Type:Get()
+    local heist = eStat.HEIST_MISSION_RCONT_ID_1:Get()
 
     if heist ~= eTable.Heist.Apartment.Heists.PacificJob then
         FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(false)

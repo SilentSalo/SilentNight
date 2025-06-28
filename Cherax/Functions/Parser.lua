@@ -162,6 +162,9 @@ function Parser.ParseStats(tbl)
                     return value
                 elseif self.type == "bool" then
                     local _, value = Stats.GetBool(self.hash)
+                    return value == 1
+                elseif self.type == "string" then
+                    local _, value = Stats.GetString(self.hash)
                     return value
                 end
 
@@ -175,7 +178,9 @@ function Parser.ParseStats(tbl)
                 elseif self.type == "float" then
                     Stats.SetFloat(self.hash, value)
                 elseif self.type == "bool" then
-                    Stats.SetBool(self.hash, value)
+                    Stats.SetBool(self.hash, (value) and 1 or 0)
+                elseif self.type == "string" then
+                    Stats.SetString(self.hash, value)
                 else
                     SilentLogger.LogError(F("No type for stat! %s", S(self.stat)))
                 end
