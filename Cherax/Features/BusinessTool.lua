@@ -238,6 +238,8 @@ FeatureMgr.AddFeature(eFeature.Business.Misc.Supplies.Resupply, function(f)
     eFeature.Business.Misc.Supplies.Resupply.func(business)
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.Misc.Garment.Unbrick)
+
 --#endregion
 
 --#endregion

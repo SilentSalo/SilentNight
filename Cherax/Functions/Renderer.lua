@@ -608,6 +608,14 @@ function Renderer.RenderBusinessTool()
                         ClickGUI.RenderFeature(eFeature.Business.Misc.Supplies.Resupply)
                         ClickGUI.EndCustomChildWindow()
                     end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("Garment Factory") then
+                        ClickGUI.RenderFeature(eFeature.Business.Misc.Garment.Unbrick)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     ImGui.EndColumns()
                 end
                 ImGui.EndTabItem()
@@ -1365,6 +1373,9 @@ function Renderer.RenderListGUI()
             local SuppliesSubTab = MiscTab:AddSubTab("Supplies", "Supplies")
             SuppliesSubTab:AddFeature(eFeature.Business.Misc.Supplies.Business)
             SuppliesSubTab:AddFeature(eFeature.Business.Misc.Supplies.Resupply)
+
+            local GarmentSubTab = MiscTab:AddSubTab("Garment Factory", "Garment Factory")
+            GarmentSubTab:AddFeature(eFeature.Business.Misc.Garment.Unbrick)
         end
     end
 

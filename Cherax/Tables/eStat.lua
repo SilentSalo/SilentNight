@@ -173,6 +173,7 @@ eStat = {
     MPX_FACTORYSLOT4                = { type = "int",    stat = "FACTORYSLOT4"                   },
     MPX_FACTORYSLOT5                = { type = "int",    stat = "FACTORYSLOT5"                   },
     MPX_XM22_LAB_OWNED              = { type = "int",    stat = "XM22_LAB_OWNED"                 },
+    MPX_HACKER24_GEN_BS             = { type = "int",    stat = "HACKER24_GEN_BS"                },
     MPPLY_AWD_HST_ORDER             = { type = "bool",   stat = "MPPLY_AWD_HST_ORDER"            },
     MPPLY_AWD_HST_SAME_TEAM         = { type = "bool",   stat = "MPPLY_AWD_HST_SAME_TEAM"        },
     MPPLY_AWD_HST_ULT_CHAL          = { type = "bool",   stat = "MPPLY_AWD_HST_ULT_CHAL"         },

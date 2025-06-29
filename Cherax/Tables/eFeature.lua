@@ -3722,6 +3722,19 @@ eFeature = {
                         SilentLogger.LogInfo("[Resupply (Misc)] Business should've been resupplied ツ")
                     end
                 }
+            },
+
+            Garment = {
+                Unbrick = {
+                    hash = J("SN_Misc_GarmentUnbrick"),
+                    name = "Unbrick Computer",
+                    type = eFeatureType.Button,
+                    desc = "Unbricks your Garment Factory computer after using features like «Unlock All Awards».",
+                    func = function()
+                        eStat.MPX_HACKER24_GEN_BS:Set(-24607)
+                        SilentLogger.LogInfo("[Unbrick Computer (Misc)] Garment Factory computer should've been unbricked ツ")
+                    end
+                }
             }
         }
     },

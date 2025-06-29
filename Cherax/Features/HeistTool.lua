@@ -326,12 +326,7 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.Apply, function(f)
     eFeature.Heist.CayoPerico.Cuts.Apply.func(cuts)
 end)
 
-FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.File, function(f)
-    local ftr  = eFeature.Heist.CayoPerico.Presets.File
-    local file = ftr.list[f:GetListIndex() + 1].name
-    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.Name):SetStringValue(file)
-    eFeature.Heist.CayoPerico.Presets.File.func(f)
-end)
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.File)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Load, function(f)
     local ftr  = eFeature.Heist.CayoPerico.Presets.File
@@ -348,7 +343,6 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Refresh)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Name)
-    :SetStringValue(eFeature.Heist.CayoPerico.Presets.File.list[FeatureMgr.GetFeatureListIndex(eFeature.Heist.CayoPerico.Presets.File) + 1].name)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Save, function(f)
     local file = FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.Name):GetStringValue()
@@ -564,12 +558,7 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.Apply, function(f)
     eFeature.Heist.DiamondCasino.Cuts.Apply.func(cuts)
 end)
 
-FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.File, function(f)
-    local ftr  = eFeature.Heist.CayoPerico.Presets.File
-    local file = ftr.list[f:GetListIndex() + 1].name
-    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Presets.Name):SetStringValue(file)
-    eFeature.Heist.DiamondCasino.Presets.File.func(f)
-end)
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.File)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Load, function(f)
     local ftr  = eFeature.Heist.DiamondCasino.Presets.File
@@ -586,7 +575,6 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Refresh)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Name)
-    :SetStringValue(eFeature.Heist.DiamondCasino.Presets.File.list[FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Presets.File) + 1].name)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Save, function(f)
     local file = FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Presets.Name):GetStringValue()
