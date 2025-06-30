@@ -29,6 +29,7 @@ local files = {
     "Tab",
     "EventMgr",
     "FeatureMgr",
+    "Bits",
     "Json",
     "FileMgr",
     "GTA",

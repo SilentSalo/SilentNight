@@ -5,6 +5,25 @@ eNative = {
         STOP_CUTSCENE_IMMEDIATELY = Natives.Invoke("Void", 0xD220BDD222AC4A1E)
     },
 
+    ENTITY = {
+        FREEZE_ENTITY_POSITION      = Natives.Invoke("Void", 0x428CA6DBD1094446),
+        SET_ENTITY_COORDS_NO_OFFSET = Natives.Invoke("Void", 0x239A3351AC1DA385),
+        GET_ENTITY_COORDS           = Natives.Invoke("V3", 0x3FEF770D40960D5A),
+        SET_ENTITY_HEADING          = Natives.Invoke("Void", 0x8E2530AA8ADA980E)
+    },
+
+    HUD = {
+        GET_CLOSEST_BLIP_INFO_ID = Natives.Invoke("Int", 0xD484BF71050CA1EE),
+        GET_BLIP_COORDS          = Natives.Invoke("V3", 0x586AFE3FF72D996E)
+    },
+
+    INTERIOR = {
+        GET_INTERIOR_FROM_ENTITY = Natives.Invoke("Int", 0x2107BA504071A6BB),
+        GET_INTERIOR_AT_COORDS   = Natives.Invoke("Int", 0xB0F7F8663821D9C3),
+        PIN_INTERIOR_IN_MEMORY   = Natives.Invoke("Void", 0x2CA429C029CCF247),
+        IS_INTERIOR_READY        = Natives.Invoke("Void", 0x6726BDCCC1932F0E)
+    },
+
     MONEY = {
         NETWORK_GET_VC_BANK_BALANCE   = Natives.Invoke("Int", 0x76EF28DA05EA395A),
         NETWORK_GET_VC_WALLET_BALANCE = Natives.Invoke("Int", 0xA40F9C2623F6A8B5)
@@ -55,12 +74,6 @@ eNative = {
 
     SYSTEM = {
         START_NEW_SCRIPT = Natives.Invoke("Int", 0xE81651AD79516E48)
-    },
-
-    ENTITY = {
-        FREEZE_ENTITY_POSITION      = Natives.Invoke("Void", 0xA2C8D0B4B3A1D4F4),
-        SET_ENTITY_COORDS_NO_OFFSET = Natives.Invoke("Void", 0x239A3351AC1DA385),
-        GET_ENTITY_COORDS           = Natives.Invoke("Bool", 0x3FEF770D40960D5A)
     }
 }
 

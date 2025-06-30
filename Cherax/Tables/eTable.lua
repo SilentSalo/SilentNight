@@ -621,6 +621,11 @@ eTable = {
         InstantFinishes = {
             { name = "Old", index = 0 },
             { name = "New", index = 1 }
+        },
+
+        OrgTypes = {
+            { name = "SecuroServ CEO", index = 0 },
+            { name = "Club President", index = 1 }
         }
     },
 
@@ -647,6 +652,55 @@ eTable = {
         Features = {
             RestartFreemode = 3731619689
         }
+    },
+
+    BlipSprites = {
+        Agency      = 826,
+        Apartment   = 40,
+        AutoShop    = 779,
+        Kosatka     = 760,
+        Arcade      = 740,
+        Facility    = 590,
+        SalvageYard = 867,
+        Bunker      = 557,
+        Hangar      = 569,
+        Nightclub   = 614,
+        Office      = 475,
+        Warehouse   = 473,
+        Garment     = 900,
+        Heist       = 428,
+        Franklin    = 88
+    },
+
+    Properties = {
+        Agency      = eStat.MPX_FIXER_HQ_OWNED,
+        Apartment   = eStat.MPX_PROPERTY_HOUSE,
+        AutoShop    = eStat.MPX_AUTO_SHOP_OWNED,
+        Kosatka     = eStat.MPX_IH_SUB_OWNED,
+        Arcade      = eStat.MPX_ARCADE_OWNED,
+        Facility    = eStat.MPX_DBASE_OWNED,
+        SalvageYard = eStat.MPX_SALVAGE_YARD_OWNED,
+        Bunker      = eStat.MPX_FACTORYSLOT5,
+        Hangar      = eStat.MPX_SALVAGE_YARD_OWNED,
+        Nightclub   = eStat.MPX_NIGHTCLUB_OWNED,
+        Office      = eStat.MPX_PROP_OFFICE,
+        Warehouse   = eStat.MPX_WAREHOUSE_OWNED,
+        Garment     = eStat.MPX_HACKER_DEN_OWNED
+    },
+
+    Teleports = {
+        Agency      = { -578.981,  -711.381,  116.805, 123.687 },
+        AutoShop    = { -1349.024, 138.381,   -95.121, 194.202 },
+        Kosatka     = { 1561.087,  386.610,   -49.685, 179.884 },
+        Arcade      = { 2712.995,  -371.115,  -54.780, 178.758 },
+        SalvageYard = { 1074.720,  -2275.502, -48.999, 84.481  },
+        Office      = { -81.345,   -802.471,  243.387, 278.402 },
+        Bunker      = { 907.515,   -3207.357, -97.187, 245.099 },
+        Hangar      = { -1239.059, -3001.454, -42.867, 146.258 },
+        Nightclub   = { -1618.249, -3013.507, -75.205, 257.431 },
+        Garment     = { 749.337,   -995.654,  -46.376, 50.750  },
+        MazeBank    = { -75.146,   -818.687,  326.175, 357.531 },
+        Terminal    = { 1169.749,  -2973.535, 5.902,   271.204 }
     }
 }
 

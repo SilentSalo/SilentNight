@@ -196,6 +196,16 @@ end
 function Parser.ParsePackedBools(tbl)
     for _, v in pairs(tbl) do
         if type(v) == "table" and v[1] then
+            v.Get = function(self)
+                local _, charSlot = Stats.GetInt(J("MPPLY_LAST_MP_CHAR"))
+
+                if v[2] then
+                    return false
+                else
+                    return eNative.STATS.GET_PACKED_STAT_BOOL_CODE(v[1], charSlot)
+                end
+            end
+
             v.Set = function(self, value)
                 local _, charSlot = Stats.GetInt(J("MPPLY_LAST_MP_CHAR"))
 

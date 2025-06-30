@@ -2,10 +2,41 @@
 
 _ForceScriptHost = GTA.ForceScriptHost
 
-function GTA.TeleportXYZ(x, y, z)
+function GTA.TeleportXYZ(x, y, z, heading)
     local ped = GTA.GetLocalPed()
     local veh = GTA.GetLocalVehicle()
+
     eNative.ENTITY.SET_ENTITY_COORDS_NO_OFFSET(GTA.PointerToHandle(veh or ped), x, y, z, false, false, false)
+
+    if heading then
+        eNative.ENTITY.SET_ENTITY_HEADING(GTA.PointerToHandle(veh or ped), heading)
+    end
+end
+
+function GTA.TeleportToBlip(blipSprite, heading, inside)
+    local inside = inside or false
+    local entity = GTA.PointerToHandle(GTA.GetLocalPed())
+
+    eNative.ENTITY.FREEZE_ENTITY_POSITION(entity, true)
+
+    if not inside and GTA.IsInInterior() then
+        local x, y, z = U(eTable.Teleports.MazeBank)
+        eNative.ENTITY.SET_ENTITY_COORDS_NO_OFFSET(entity, x, y, z, false, false, false)
+    end
+
+    while eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(blipSprite) == 0 do
+        Script.Yield()
+    end
+
+    local x, y, z = eNative.HUD.GET_BLIP_COORDS(eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(blipSprite))
+
+    eNative.ENTITY.SET_ENTITY_COORDS_NO_OFFSET(entity, x, y, z + 1.0, false, false, false)
+
+    if heading then
+        eNative.ENTITY.SET_ENTITY_HEADING(entity, heading)
+    end
+
+    eNative.ENTITY.FREEZE_ENTITY_POSITION(entity, false)
 end
 
 function GTA.SimulatePlayerControl(action)
@@ -39,6 +70,10 @@ function GTA.StartSession(sessionType)
     FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.StartSession):OnClick()
 end
 
+function GTA.IsInInterior()
+    return eNative.INTERIOR.GET_INTERIOR_FROM_ENTITY(GTA.PointerToHandle(GTA.GetLocalPed())) ~= 0
+end
+
 function GTA.IsScriptRunning(script)
     return eNative.SCRIPT.GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(script.hash) > 0
 end
@@ -65,7 +100,7 @@ function GTA.StartScript(script)
 end
 
 function GTA.ForceScriptHost(script)
-    _ForceScriptHost(script)
+    _ForceScriptHost(script.hash)
     FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.ForceScriptHost):OnClick()
 end
 

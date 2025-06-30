@@ -2,10 +2,6 @@
 
 Helper = {}
 
-function Helper.SetBit(value, position)
-    return value | (1 << position)
-end
-
 function Helper.NewInstantFinishHeist()
     if GTA.IsScriptRunning(eScript.Heist.Old) then
         GTA.ForceScriptHost(eScript.Heist.Old)
@@ -14,10 +10,7 @@ function Helper.NewInstantFinishHeist()
         eLocal.Heist.Generic.Finish.Old.Step1:Set(5)
         eLocal.Heist.Generic.Finish.Old.Step2:Set(999999)
 
-        local value = eLocal.Heist.Generic.Finish.Old.Step3:Get()
-        value = Helper.SetBit(value, 9)
-        value = Helper.SetBit(value, 16)
-
+        local value = Bits.SetBits(eLocal.Heist.Generic.Finish.Old.Step3:Get(), { 9, 16 })
         eLocal.Heist.Generic.Finish.Old.Step3:Set(value)
     elseif GTA.IsScriptRunning(eScript.Heist.New) then
         GTA.ForceScriptHost(eScript.Heist.New)
@@ -26,10 +19,7 @@ function Helper.NewInstantFinishHeist()
         eLocal.Heist.Generic.Finish.New.Step1:Set(5)
         eLocal.Heist.Generic.Finish.New.Step2:Set(999999)
 
-        local value = eLocal.Heist.Generic.Finish.New.Step3:Get()
-        value = Helper.SetBit(value, 9)
-        value = Helper.SetBit(value, 16)
-
+        local value = Bits.SetBits(eLocal.Heist.Generic.Finish.New.Step3:Get(), { 9, 16 })
         eLocal.Heist.Generic.Finish.New.Step3:Set(value)
     end
 end
@@ -325,6 +315,36 @@ function Helper.SetPokerCards(id, card1, card2, card3)
 	ScriptLocal.SetInt(eScript.World.Casino.Poker.hash, antiCheat + antiCheatDeck + 1 + 1 + (currentTable * deckSize) + 1 + (id * 3), card1)
 	ScriptLocal.SetInt(eScript.World.Casino.Poker.hash, antiCheat + antiCheatDeck + 1 + 1 + (currentTable * deckSize) + 2 + (id * 3), card2)
 	ScriptLocal.SetInt(eScript.World.Casino.Poker.hash, antiCheat + antiCheatDeck + 1 + 1 + (currentTable * deckSize) + 3 + (id * 3), card3)
+end
+
+function Helper.IsPropertyOwned(property)
+    if not GTA.IsInSession() then
+        return false
+    end
+
+    if property == eTable.Properties.Warehouse then
+        for i = 0, 4 do
+            if eStat[F("MPX_WARHOUSESLOT%d", i)]:Get() ~= 0 then
+                return true
+            end
+
+            return false
+        end
+    end
+
+    return property:Get() ~= 0
+end
+
+function Helper.RegisterAsBoss()
+    if not CONFIG.register_as_boss.autoregister then return end
+
+    if eGlobal.Player.Organization.CEO:Get() == -1 then
+        eGlobal.Player.Organization.CEO:Set(PLAYER_ID)
+    end
+
+    if eGlobal.Player.Organization.Type:Get() ~= CONFIG.register_as_boss.type then
+        eGlobal.Player.Organization.Type:Set(CONFIG.register_as_boss.type)
+    end
 end
 
 --#endregion

@@ -181,6 +181,11 @@ if GTA_EDITION == "EE" then
         Player = {
             Cash = {
                 Remove = { type = "int", global = 2708037 + 36 }
+            },
+
+            Organization = {
+                CEO  = { type = "int", global = 1888882 + 1 + (PLAYER_ID * 611) + 10       },
+                Type = { type = "int", global = 1888882 + 1 + (PLAYER_ID * 611) + 10 + 431 }
             }
         },
 
@@ -197,8 +202,9 @@ if GTA_EDITION == "EE" then
                 }
             },
 
-            GunVan = {
-                Location = { type = "int", global = 2652587 + 2706 + 1 }
+            Kosatka = {
+                Request = { type = "int", global = 2740191 + 992                             },
+                Status  = { type = "int", global = 2658019 + 1 + (PLAYER_ID * 467) + 324 + 4 }
             },
 
             Multiplier = {
@@ -386,6 +392,11 @@ else
         Player = {
             Cash = {
                 Remove = { type = "int", global = 2707922 + 36 }
+            },
+
+            Organization = {
+                CEO  = { type = "int", global = 1888737 + 1 + (PLAYER_ID * 611) + 10       },
+                Type = { type = "int", global = 1888737 + 1 + (PLAYER_ID * 611) + 10 + 431 }
             }
         },
 
@@ -402,8 +413,9 @@ else
                 }
             },
 
-            GunVan = {
-                Location = { type = "int", global = 2652584 + 2706 + 1 }
+            Kosatka = {
+                Request = { type = "int", global = 2740054 + 992                             },
+                Status  = { type = "int", global = 2658016 + 1 + (PLAYER_ID * 467) + 324 + 4 }
             },
 
             Multiplier = {

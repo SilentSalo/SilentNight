@@ -32,6 +32,8 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
     FeatureMgr.GetFeature(eFeature.Settings.Collab.JinxScript.Stop):Toggle(CONFIG.collab.jinxscript.autostop)
     FeatureMgr.GetFeature(eFeature.Settings.UnlockAllPoi.CayoPerico):Toggle(CONFIG.unlock_all_poi.cayo_perico)
     FeatureMgr.GetFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino):Toggle(CONFIG.unlock_all_poi.diamond_casino)
+    FeatureMgr.GetFeature(eFeature.Settings.RegisterAsBoss.AutoRegister):Toggle(CONFIG.register_as_boss.autoregister)
+    FeatureMgr.GetFeature(eFeature.Settings.RegisterAsBoss.Type):SetListIndex(CONFIG.register_as_boss.type)
     FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy_money.dummy_prevention)
     FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.Allow300k):Toggle(CONFIG.easy_money.allow_300k_loop)
 
@@ -49,6 +51,8 @@ end)
 FeatureMgr.AddFeature(eFeature.Settings.Config.Copy)
 
 FeatureMgr.AddFeature(eFeature.Settings.Config.Discord)
+
+FeatureMgr.AddFeature(eFeature.Settings.Config.Unload)
 
 FeatureMgr.AddFeature(eFeature.Settings.Translation.File)
 
@@ -87,6 +91,10 @@ end
 FeatureMgr.AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico):Toggle(CONFIG.unlock_all_poi.cayo_perico)
 
 FeatureMgr.AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino):Toggle(CONFIG.unlock_all_poi.diamond_casino)
+
+FeatureMgr.AddFeature(eFeature.Settings.RegisterAsBoss.AutoRegister):Toggle(CONFIG.register_as_boss.autoregister)
+
+FeatureMgr.AddFeature(eFeature.Settings.RegisterAsBoss.Type):SetListIndex(CONFIG.register_as_boss.type)
 
 FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy_money.dummy_prevention)
 

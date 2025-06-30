@@ -57,6 +57,12 @@ doomsdayPlayers = {
     eFeature.Heist.Doomsday.Cuts.Player4
 }
 
+salvageSlotsAvailable = {
+    eFeature.Heist.SalvageYard.Slot1.Available,
+    eFeature.Heist.SalvageYard.Slot2.Available,
+    eFeature.Heist.SalvageYard.Slot3.Available
+}
+
 salvageSlotsRobbery = {
     eFeature.Heist.SalvageYard.Slot1.Robbery,
     eFeature.Heist.SalvageYard.Slot2.Robbery,
@@ -85,12 +91,6 @@ salvageSlotsApply = {
     eFeature.Heist.SalvageYard.Slot1.Apply,
     eFeature.Heist.SalvageYard.Slot2.Apply,
     eFeature.Heist.SalvageYard.Slot3.Apply
-}
-
-salvageSlotsAvailable = {
-    eFeature.Heist.SalvageYard.Misc.Availability.Slot1,
-    eFeature.Heist.SalvageYard.Misc.Availability.Slot2,
-    eFeature.Heist.SalvageYard.Misc.Availability.Slot3
 }
 
 salvageSlotsValue = {
@@ -227,6 +227,7 @@ loggedJinxScript        = true
 loggedJinxScriptStop    = true
 loggedUCayoPerico       = true
 loggedUDiamondCasino    = true
+loggedAutoRegister      = true
 loggedDummyPrevention   = true
 loggedAllow300kLoop     = true
 

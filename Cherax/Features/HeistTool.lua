@@ -29,6 +29,12 @@ FeatureMgr.AddFeature(eFeature.Heist.Agency.Preps.Complete, function(f)
     eFeature.Heist.Agency.Preps.Complete.func(contract)
 end)
 
+FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Teleport.Computer):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Finish)
 
 FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
@@ -54,6 +60,10 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Complete)
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Reload)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Change)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Teleport.Board):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Force)
 
@@ -161,6 +171,10 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Preps.Reload)
 
+FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Teleport.Board):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Finish)
 
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Cooldown)
@@ -250,6 +264,8 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Reload)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Teleport):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Force)
 
@@ -485,6 +501,10 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Reload)
 
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Board):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Force)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Finish)
@@ -620,6 +640,10 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Reload)
 
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Teleport.Screen):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Force)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Finish)
@@ -679,6 +703,8 @@ end)
 --#region Salvage Yard
 
 for i = 1, 3 do
+    FeatureMgr.AddFeature(salvageSlotsAvailable[i])
+
     FeatureMgr.AddFeature(salvageSlotsRobbery[i])
 
     FeatureMgr.AddFeature(salvageSlotsVehicle[i])
@@ -727,13 +753,13 @@ FeatureMgr.AddLoop(eFeature.Heist.SalvageYard.Preps.Free.Claim, nil, function(f)
     eFeature.Heist.SalvageYard.Preps.Free.Claim.func(f)
 end)
 
+FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Teleport.Board):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Finish)
 
 FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Sell)
-
-for i = 1, #salvageSlotsAvailable do
-    FeatureMgr.AddFeature(salvageSlotsAvailable[i])
-end
 
 FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Force)
 

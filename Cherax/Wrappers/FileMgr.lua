@@ -1,53 +1,57 @@
 --#region FileMgr
 
+DEFAULT_CONFIG = {
+    autoopen = false,
+    logging  = 2,
+    language = "EN",
+
+    collab = {
+        jinxscript = {
+            enabled  = true,
+            autostop = false
+        }
+    },
+
+    instant_finish = {
+        agency         = 1,
+        apartment      = 0,
+        auto_shop      = 1,
+        cayo_perico    = 1,
+        diamond_casino = 0,
+        doomsday       = 1
+    },
+
+    unlock_all_poi = {
+        cayo_perico    = true,
+        diamond_casino = true
+    },
+
+    register_as_boss = {
+        autoregister = false,
+        type         = 0
+    },
+
+    easy_money = {
+        dummy_prevention = true,
+        allow_300k_loop  = GTA_EDITION == "EE",
+        delay = {
+            _5k   = 1.5,
+            _50k  = 0.333,
+            _100k = 0.333,
+            _180k = 0.333,
+            _300k = (GTA_EDITION == "EE") and 1.0 or 1.5,
+            _680k = 0.333,
+        }
+    }
+}
+
 function FileMgr.CreateConfig()
     if not FileMgr.DoesFileExist(CONFIG_DIR) then
         FileMgr.CreateDir(CONFIG_DIR)
     end
 
     if not FileMgr.DoesFileExist(CONFIG_PATH) then
-        local config = {
-            autoopen = false,
-            logging  = 2,
-            language = "EN",
-
-            collab = {
-                jinxscript = {
-                    enabled  = true,
-                    autostop = false
-                }
-            },
-
-            instant_finish = {
-                agency         = 1,
-                apartment      = 0,
-                auto_shop      = 1,
-                cayo_perico    = 1,
-                diamond_casino = 0,
-                doomsday       = 1
-            },
-
-            unlock_all_poi = {
-                cayo_perico    = true,
-                diamond_casino = true
-            },
-
-            easy_money = {
-                dummy_prevention = true,
-                allow_300k_loop  = GTA_EDITION == "EE",
-
-                delay = {
-                    _5k   = 1.5,
-                    _50k  = 0.333,
-                    _100k = 0.333,
-                    _180k = 0.333,
-                    _300k = (GTA_EDITION == "EE") and 1.0 or 1.5,
-                    _680k = 0.333,
-                }
-            }
-        }
-
-        Json.EncodeToFile(CONFIG_PATH, config)
+        Json.EncodeToFile(CONFIG_PATH, DEFAULT_CONFIG)
     end
 end
 
@@ -85,47 +89,7 @@ function FileMgr.EnsureConfigKeys()
         end
     end
 
-    local defaultConfig = {
-        autoopen = false,
-        logging  = 2,
-        language = "EN",
-
-        collab = {
-            jinxscript = {
-                enabled  = true,
-                autostop = false
-            }
-        },
-
-        instant_finish = {
-            agency         = 1,
-            apartment      = 0,
-            auto_shop      = 1,
-            cayo_perico    = 1,
-            diamond_casino = 0,
-            doomsday       = 1
-        },
-
-        unlock_all_poi = {
-            cayo_perico    = true,
-            diamond_casino = true
-        },
-
-        easy_money = {
-            dummy_prevention = true,
-            allow_300k_loop  = GTA_EDITION == "EE",
-            delay = {
-                _5k   = 1.5,
-                _50k  = 0.333,
-                _100k = 0.333,
-                _180k = 0.333,
-                _300k = (GTA_EDITION == "EE") and 1.0 or 1.5,
-                _680k = 0.333,
-            }
-        }
-    }
-
-    DeepMergeDefaults(CONFIG, defaultConfig)
+    DeepMergeDefaults(CONFIG, DEFAULT_CONFIG)
     FileMgr.SaveConfig(CONFIG)
 end
 

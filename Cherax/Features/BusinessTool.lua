@@ -13,6 +13,10 @@ FeatureMgr.AddFeature(eFeature.Business.Bunker.Sale.Sell, function(f)
     eFeature.Business.Bunker.Sale.Sell.func(bool)
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Teleport.Laptop):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Open)
 
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Supply)
@@ -62,6 +66,10 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Sale.Sell, function(f)
     eFeature.Business.Hangar.Sale.Sell.func(bool)
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Teleport.Laptop):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Open)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Supply)
@@ -109,6 +117,10 @@ end)
 FeatureMgr.AddLoop(eFeature.Business.Nightclub.Sale.Price, nil, function(f)
     eFeature.Business.Nightclub.Sale.Price.func(f)
 end)
+
+FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Teleport.Computer):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Open)
 
@@ -176,6 +188,12 @@ FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Sale.Sell, function(f)
     eFeature.Business.CrateWarehouse.Sale.Sell.func(U(bools))
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Office):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Warehouse):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Supply)
 
 FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Misc.Supplier, nil, function(f)
@@ -237,6 +255,10 @@ FeatureMgr.AddFeature(eFeature.Business.Misc.Supplies.Resupply, function(f)
     local business = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
     eFeature.Business.Misc.Supplies.Resupply.func(business)
 end)
+
+FeatureMgr.AddFeature(eFeature.Business.Misc.Garment.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Misc.Garment.Teleport.Computer):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Misc.Garment.Unbrick)
 

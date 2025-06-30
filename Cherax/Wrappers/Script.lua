@@ -98,9 +98,16 @@ function Script.ReAssign()
     if GTA_EDITION == "EE" then
         eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845274 + 1 + (PLAYER_ID * 877) + 260 + 358 + 5            }
         eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76                        }
-        eGlobal.Heist.Apartment.Type           = { type = "int", global = 1877086 + (PLAYER_ID * 77) + 24 + 2                        }
+        eGlobal.World.Kosatka.Status           = { type = "int", global = 2658019 + 1 + (PLAYER_ID * 467) + 324 + 4                  }
+
+        eGlobal.Player.Organization = {
+            CEO  = { type = "int", global = 1888882 + 1 + (PLAYER_ID * 611) + 10       },
+            Type = { type = "int", global = 1888882 + 1 + (PLAYER_ID * 611) + 10 + 431 }
+        }
+
         eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 771 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
-        eLocal.World.Casino.Blackjack          = {
+
+        eLocal.World.Casino.Blackjack = {
             Dealer = {
                 FirstCard  = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
                 SecondCard = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
@@ -113,9 +120,16 @@ function Script.ReAssign()
     else
         eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845225 + 1 + (PLAYER_ID * 874) + 260 + 358 + 5            }
         eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1876941 + 1 + (PLAYER_ID * 77) + 76                        }
-        eGlobal.Heist.Apartment.Type           = { type = "int", global = 1876941 + (PLAYER_ID * 77) + 24 + 2                        }
+        eGlobal.World.Kosatka.Status           = { type = "int", global = 2658019 + 1 + (PLAYER_ID * 467) + 324 + 4                  }
+
+        eGlobal.Player.Organization = {
+            CEO  = { type = "int", global = 1888737 + 1 + (PLAYER_ID * 611) + 10       },
+            Type = { type = "int", global = 1888737 + 1 + (PLAYER_ID * 611) + 10 + 431 }
+        }
+
         eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 769 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
-        eLocal.World.Casino.Blackjack          = {
+
+        eLocal.World.Casino.Blackjack = {
             Dealer = {
                 FirstCard  = { type = "int", vLocal = 136 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1796 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
                 SecondCard = { type = "int", vLocal = 136 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1796 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
@@ -241,77 +255,160 @@ end)
 Script.RegisterLooped(function()
     if ShouldUnload() then return end
 
-    local heist = eStat.HEIST_MISSION_RCONT_ID_1:Get()
+    local function IsInApartmentInterior()
+        return GTA.IsInInterior()
+            and not GTA.IsScriptRunning(eScript.Kosatka.Interior)
+            and not GTA.IsScriptRunning(eScript.Arcade.Interior)
+            and not GTA.IsScriptRunning(eScript.Facility.Interior)
+    end
 
-    if heist ~= eTable.Heist.Apartment.Heists.PacificJob then
-        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(false)
+    if Helper.IsPropertyOwned(eTable.Properties.Agency) then
+        FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance):SetVisible(true)
+
+        if GTA.IsScriptRunning(eScript.Agency.Interior) then
+            FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Computer):SetVisible(true)
+
+            if eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(eTable.BlipSprites.Franklin) ~= 0 then
+                FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(true)
+            else
+                FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(false)
+            end
+        else
+            FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Computer):SetVisible(false)
+            FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(false)
+        end
     else
-        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Computer):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(false)
     end
+
+    if Helper.IsPropertyOwned(eTable.Properties.Apartment) then
+        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Teleport.Entrance):SetVisible(true)
+
+        if IsInApartmentInterior() then
+            if eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(eTable.BlipSprites.Heist) ~= 0 then
+                FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Teleport.Board):SetVisible(true)
+            else
+                FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Teleport.Board):SetVisible(false)
+            end
+        else
+            FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Teleport.Board):SetVisible(false)
+        end
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Teleport.Board):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.AutoShop) then
+        FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Misc.Teleport.Board):SetVisible(GTA.IsScriptRunning(eScript.AutoShop.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Misc.Teleport.Board):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.Kosatka) then
+        FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Misc.Teleport):SetVisible(true)
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Misc.Teleport):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.Arcade) then
+        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Board):SetVisible(GTA.IsScriptRunning(eScript.Arcade.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Board):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.Facility) then
+        FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Misc.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Misc.Teleport.Screen):SetVisible(GTA.IsScriptRunning(eScript.Facility.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Misc.Teleport.Screen):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.SalvageYard) then
+        FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Misc.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Misc.Teleport.Board):SetVisible(GTA.IsScriptRunning(eScript.SalvageYard.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Misc.Teleport.Board):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.Bunker) then
+        FeatureMgr.GetFeature(eFeature.Business.Bunker.Misc.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Bunker.Misc.Teleport.Laptop):SetVisible(GTA.IsScriptRunning(eScript.Bunker.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Business.Bunker.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Bunker.Misc.Teleport.Laptop):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.Hangar) then
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Misc.Teleport.Laptop):SetVisible(GTA.IsScriptRunning(eScript.Hangar.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Misc.Teleport.Laptop):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.Nightclub) then
+        FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Computer):SetVisible(GTA.IsScriptRunning(eScript.Nightclub.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Computer):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.Office) then
+        FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Office):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer):SetVisible(GTA.IsScriptRunning(eScript.Office.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Office):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer):SetVisible(false)
+    end
+
+    FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Warehouse):SetVisible(Helper.IsPropertyOwned(eTable.Properties.Warehouse))
+
+    if Helper.IsPropertyOwned(eTable.Properties.Garment) then
+        FeatureMgr.GetFeature(eFeature.Business.Misc.Garment.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Misc.Garment.Teleport.Computer):SetVisible(GTA.IsScriptRunning(eScript.Garment.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Business.Misc.Garment.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Misc.Garment.Teleport.Computer):SetVisible(false)
+    end
+
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.PacificJob)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(not ePackedBool.Business.Arcade.Setup:Get())
+    FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Setup):SetVisible(not ePackedBool.Business.Nightclub.Setup.DJ:Get())
+
+    if FeatureMgr.GetFeatureListIndex(eFeature.Heist.Apartment.Cuts.Presets) == 3 then
+        local ftr = eFeature.Heist.Apartment.Cuts.Double
+        eFeature.Heist.Apartment.Cuts.Presets.func(FeatureMgr.GetFeature(ftr):IsToggled())
+    end
+
+    if FeatureMgr.GetFeatureListIndex(eFeature.Heist.CayoPerico.Cuts.Presets) == 3 then
+        FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false)
+        eFeature.Heist.CayoPerico.Cuts.Presets.func()
+    end
+
+    if FeatureMgr.GetFeatureListIndex( eFeature.Heist.DiamondCasino.Cuts.Presets) == 3 then
+        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(true)
+        eFeature.Heist.DiamondCasino.Cuts.Presets.func()
+    end
+
+    if FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Cuts.Presets) == 3 then
+        eFeature.Heist.Doomsday.Cuts.Presets.func()
+    end
+
+    Helper.RegisterAsBoss()
 
     Script.Yield()
 end)
 
-Script.RegisterLooped(function()
-    if ShouldUnload() then return end
-
-    local ftr = eFeature.Heist.Apartment.Cuts.Presets
-
-    if FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
-        Script.Yield()
-        return
-    end
-
-    local ftr = eFeature.Heist.Apartment.Cuts.Double
-    eFeature.Heist.Apartment.Cuts.Presets.func(FeatureMgr.GetFeature(ftr):IsToggled())
-    Script.Yield()
-end)
-
-Script.RegisterLooped(function()
-    if ShouldUnload() then return end
-
-    local ftr = eFeature.Heist.CayoPerico.Cuts.Presets
-
-    if FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
-        Script.Yield()
-        return
-    end
-
-    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false)
-    eFeature.Heist.CayoPerico.Cuts.Presets.func()
-    Script.Yield()
-end)
-
-Script.RegisterLooped(function()
-    if ShouldUnload() then return end
-
-    local ftr = eFeature.Heist.DiamondCasino.Cuts.Presets
-
-    if FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
-        Script.Yield()
-        return
-    end
-
-    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(true)
-    eFeature.Heist.DiamondCasino.Cuts.Presets.func()
-    Script.Yield()
-end)
-
-Script.RegisterLooped(function()
-    if ShouldUnload() then return end
-
-    local ftr = eFeature.Heist.Doomsday.Cuts.Presets
-
-    if FeatureMgr.GetFeatureListIndex(ftr) ~= 3 then
-        Script.Yield()
-        return
-    end
-
-    eFeature.Heist.Doomsday.Cuts.Presets.func()
-    Script.Yield()
-end)
-
-STATES = { false, false, false, false, false, false }
+LOOP_STATES = { false, false, false, false, false, false }
 
 Script.RegisterLooped(function()
     if ShouldUnload() then return end
@@ -326,11 +423,11 @@ Script.RegisterLooped(function()
     for i, ftr in ipairs(easyLoops) do
         local isOn = FeatureMgr.GetFeatureBool(ftr)
 
-        if isOn and not STATES[i] then
+        if isOn and not LOOP_STATES[i] then
             toggled = i
         end
 
-        STATES[i] = isOn
+        LOOP_STATES[i] = isOn
     end
 
     if toggled then

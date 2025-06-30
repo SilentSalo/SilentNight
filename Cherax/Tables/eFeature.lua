@@ -47,8 +47,8 @@ eFeature = {
                 type = eFeatureType.Button,
                 desc = "Skips the heist to the next checkpoint.",
                 func = function()
-                    eLocal.Heist.Generic.Skip.Old:Set(eLocal.Heist.Generic.Skip.Old:Get() | (1 << 17))
-                    eLocal.Heist.Generic.Skip.New:Set(eLocal.Heist.Generic.Skip.New:Get() | (1 << 17))
+                    eLocal.Heist.Generic.Skip.Old:Set(Bits.SetBit(eLocal.Heist.Generic.Skip.Old:Get(), 17))
+                    eLocal.Heist.Generic.Skip.New:Set(Bits.SetBit(eLocal.Heist.Generic.Skip.New:Get(), 17))
                     SilentLogger.LogInfo("[Skip Checkpoint] Checkpoint should've been skipped ツ")
                 end
             },
@@ -120,6 +120,41 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_Agency_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Agency's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Agency)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Agency)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Computer = {
+                        hash = J("SN_Agency_Computer"),
+                        name = "Teleport to Computer",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Agency's computer.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.Agency))
+                            SilentLogger.LogInfo("[Teleport to Computer (Agency)] You should've been teleported to the computer ツ")
+                        end
+                    },
+
+                    Mission = {
+                        hash = J("SN_Agency_Board"),
+                        name = "Teleport to Mission",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Agency's mission.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Franklin, nil, true)
+                            SilentLogger.LogInfo("[Teleport to Board (Agency)] You should've been teleported to the mission ツ")
+                        end
+                    }
+                },
+
                 Finish = {
                     hash = Utils.Joaat("SN_Agency_Finish"),
                     name = "Instant Finish",
@@ -133,7 +168,7 @@ eFeature = {
                             return
                         end
 
-                        GTA.ForceScriptHost(eScript.Heist.Agency)
+                        GTA.ForceScriptHost(eScript.Heist.New)
                         Script.Yield(1000)
                         eLocal.Heist.Agency.Finish.Step1:Set(51338752)
                         eLocal.Heist.Agency.Finish.Step2:Set(50)
@@ -248,13 +283,37 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_Apartment_Teleport"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Apartment's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Apartment)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Apartment)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Board = {
+                        hash = J("SN_Apartment_Board"),
+                        name = "Teleport to Board",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Apartment's planning board.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Heist, 173.376, true)
+                            SilentLogger.LogInfo("[Teleport to Board (Apartment)] You should've been teleported to the board ツ")
+                        end
+                    },
+                },
+
                 Force = {
                     hash = J("SN_Apartment_Force"),
                     name = "Force Ready",
                     type = eFeatureType.Button,
                     desc = "Forces everyone to be «Ready».",
                     func = function()
-                        GTA.ForceScriptHost(eScript.Heist.Apartment)
+                        GTA.ForceScriptHost(eScript.Heist.Old)
                         Script.Yield(1000)
 
                         for i = 2, 4 do
@@ -278,7 +337,7 @@ eFeature = {
                             return
                         end
 
-                        GTA.ForceScriptHost(eScript.Heist.Apartment)
+                        GTA.ForceScriptHost(eScript.Heist.Old)
                         Script.Yield(1000)
 
                         local heist = eStat.HEIST_MISSION_RCONT_ID_1:Get()
@@ -581,7 +640,31 @@ eFeature = {
             },
 
             Misc = {
-                 Finish = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_AutoShop_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Auto Shop's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.AutoShop)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Auto Shop)] You should've been teleported to the etrance ツ")
+                        end
+                    },
+
+                    Board = {
+                        hash = J("SN_AutoShop_Board"),
+                        name = "Teleport to Board",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Auto Shop's planning board.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.AutoShop))
+                            SilentLogger.LogInfo("[Teleport to Board (Auto Shop)] You should've been teleported to the board ツ")
+                        end
+                    }
+                },
+
+                Finish = {
                     hash = Utils.Joaat("SN_AutoShop_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
@@ -594,7 +677,7 @@ eFeature = {
                             return
                         end
 
-                        GTA.ForceScriptHost(eScript.Heist.AutoShop)
+                        GTA.ForceScriptHost(eScript.Heist.New)
                         Script.Yield(1000)
                         eLocal.Heist.AutoShop.Finish.Step1:Set(51338977)
                         eLocal.Heist.AutoShop.Finish.Step2:Set(101)
@@ -962,13 +1045,48 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    hash = J("SN_CayoPerico_Teleport"),
+                    name = "Teleport to Kosatka",
+                    type = eFeatureType.Button,
+                    desc = "Teleports you to the Kosatka.",
+                    func = function()
+                        local function IsKosatkaInOcean()
+                            return Bits.IsBitSet(eGlobal.World.Kosatka.Status:Get(), 31)
+                        end
+
+                        if not IsKosatkaInOcean() then
+                            eGlobal.World.Kosatka.Request:Set(1)
+
+                            SilentLogger.LogInfo("[Teleport to Kosatka (Cayo Perico)] Kosatka isn't in the ocean. Requesting... ツ")
+
+                            while not IsKosatkaInOcean() do
+                                Script.Yield()
+                            end
+                        end
+
+                        local entity = GTA.PointerToHandle(GTA.GetLocalPed())
+
+                        eNative.ENTITY.FREEZE_ENTITY_POSITION(entity, true)
+                        GTA.TeleportXYZ(U(eTable.Teleports.Kosatka))
+
+                        while eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(eTable.BlipSprites.Heist) == 0 do
+                            Script.Yield()
+                        end
+
+                        eNative.ENTITY.FREEZE_ENTITY_POSITION(entity, false)
+
+                        SilentLogger.LogInfo("[Teleport to Kosatka (Cayo Perico)] You should've been teleported to the Kosatka ツ")
+                    end
+                },
+
                 Force = {
                     hash = J("SN_CayoPerico_Force"),
                     name = "Force Ready",
                     type = eFeatureType.Button,
                     desc = "Forces everyone to be «Ready».",
                     func = function()
-                        GTA.ForceScriptHost(eScript.Heist.CayoPerico)
+                        GTA.ForceScriptHost(eScript.Heist.New)
                         Script.Yield(1000)
 
                         for i = 2, 4 do
@@ -992,7 +1110,7 @@ eFeature = {
                             return
                         end
 
-                        GTA.ForceScriptHost(eScript.Heist.CayoPerico)
+                        GTA.ForceScriptHost(eScript.Heist.New)
                         Script.Yield(1000)
                         eLocal.Heist.CayoPerico.Finish.Step1:Set(9)
                         eLocal.Heist.CayoPerico.Finish.Step2:Set(50)
@@ -1574,13 +1692,37 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_DiamondCasino_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Arcade's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Arcade)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Diamond Casino)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Board = {
+                        hash = J("SN_DiamondCasino_Board"),
+                        name = "Teleport to Boards",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Arcade's planning boards.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.Arcade))
+                            SilentLogger.LogInfo("[Teleport to Boards (Diamond Casino)] You should've been teleported to the boards ツ")
+                        end
+                    }
+                },
+
                 Force = {
                     hash = J("SN_DiamondCasino_Force"),
                     name = "Force Ready",
                     type = eFeatureType.Button,
                     desc = "Forces everyone to be «Ready».",
                     func = function()
-                        GTA.ForceScriptHost(eScript.Heist.DiamondCasino)
+                        GTA.ForceScriptHost(eScript.Heist.Old)
                         Script.Yield(1000)
 
                         for i = 2, 4 do
@@ -1604,7 +1746,7 @@ eFeature = {
                             return
                         end
 
-                        GTA.ForceScriptHost(eScript.Heist.DiamondCasino)
+                        GTA.ForceScriptHost(eScript.Heist.Old)
                         Script.Yield(1000)
 
                         if eStat.MPX_H3OPT_APPROACH:Get() == 3 then
@@ -1992,13 +2134,37 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_Doomsday_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Facility's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Facility)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Doomsday)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Screen = {
+                        hash = J("SN_Doomsday_Screen"),
+                        name = "Teleport to Screen",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Facility's planning screen.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Heist, 325.726, true)
+                            SilentLogger.LogInfo("[Teleport to Screen (Doomsday)] You should've been teleported to the screen ツ")
+                        end
+                    }
+                },
+
                 Force = {
                     hash = J("SN_Doomsday_Force"),
                     name = "Force Ready",
                     type = eFeatureType.Button,
                     desc = "Forces everyone to be «Ready».",
                     func = function()
-                        GTA.ForceScriptHost(eScript.Heist.Doomsday)
+                        GTA.ForceScriptHost(eScript.Heist.Old)
                         Script.Yield(1000)
 
                         for i = 2, 4 do
@@ -2022,7 +2188,7 @@ eFeature = {
                             return
                         end
 
-                        GTA.ForceScriptHost(eScript.Heist.Doomsday)
+                        GTA.ForceScriptHost(eScript.Heist.Old)
                         Script.Yield(1000)
                         eLocal.Heist.Doomsday.Finish.Step1:Set(12)
                         eLocal.Heist.Doomsday.Finish.Step2:Set(150)
@@ -2151,6 +2317,18 @@ eFeature = {
 
         SalvageYard = {
             Slot1 = {
+                Available = {
+                    hash = J("SN_SalvageYard_AvailableSlot1"),
+                    name = "Make Available",
+                    type = eFeatureType.Button,
+                    desc = "Makes the slot 1 «Available». Also, reloads the planning screen.",
+                    func = function()
+                        eStat.MPX_SALV23_VEHROB_STATUS0:Set(0)
+                        eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Make Available (Salvage Yard)] Slot 1 should've been made «Available» ツ")
+                    end
+                },
+
                 Robbery = {
                     hash = J("SN_SalvageYard_RobberySlot1"),
                     name = "Robbery",
@@ -2219,6 +2397,18 @@ eFeature = {
             },
 
             Slot2 = {
+                Available = {
+                    hash = J("SN_SalvageYard_AvailableSlot2"),
+                    name = "Make Available",
+                    type = eFeatureType.Button,
+                    desc = "Makes the slot 2 «Available». Also, reloads the planning screen.",
+                    func = function()
+                        eStat.MPX_SALV23_VEHROB_STATUS1:Set(0)
+                        eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Make Available (Salvage Yard)] Slot 2 should've been made «Available» ツ")
+                    end
+                },
+
                 Robbery = {
                     hash = J("SN_SalvageYard_RobberySlot2"),
                     name = "Robbery",
@@ -2287,6 +2477,18 @@ eFeature = {
             },
 
             Slot3 = {
+                Available = {
+                    hash = J("SN_SalvageYard_AvailableSlot3"),
+                    name = "Make Available",
+                    type = eFeatureType.Button,
+                    desc = "Makes the slot 3 «Available». Also, reloads the planning screen.",
+                    func = function()
+                        eStat.MPX_SALV23_VEHROB_STATUS2:Set(0)
+                        eLocal.Heist.SalvageYard.Reload:Set(2)
+                        SilentLogger.LogInfo("[Make Available (Salvage Yard)] Slot 3 should've been made «Available» ツ")
+                    end
+                },
+
                 Robbery = {
                     hash = J("SN_SalvageYard_RobberySlot3"),
                     name = "Robbery",
@@ -2461,16 +2663,40 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_SalvageYard_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Salvage Yard's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.SalvageYard)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Salvage Yard)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Board = {
+                        hash = J("SN_SalvageYard_Board"),
+                        name = "Teleport to Screen & Board",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Salvage Yard's planning screen and board.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.SalvageYard))
+                            SilentLogger.LogInfo("[Teleport to Screen & Board (Salvage Yard)] You should've been teleported to the screen & board ツ")
+                        end
+                    }
+                },
+
                 Finish = {
                     hash = J("SN_SalvageYard_Finish"),
                     name = "Instant Finish",
                     type = eFeatureType.Button,
                     desc = "Finishes the heist instantly. Use after you can see the minimap.",
                     func = function()
-                        for heist, script in pairs(eScript.Heist.SalvageYard) do
+                        for heist, script in pairs(eScript.SalvageYard.Heist) do
                             if GTA.IsScriptRunning(script) then
-                                local value = eLocal.Heist.SalvageYard.Finish[heist].Step1:Get()
-                                eLocal.Heist.SalvageYard.Finish[heist].Step1:Set(value | (1 << 11))
+                                local value = Bits.SetBit(eLocal.Heist.SalvageYard.Finish[heist].Step1:Get(), 11)
+                                eLocal.Heist.SalvageYard.Finish[heist].Step1:Set(value)
                                 eLocal.Heist.SalvageYard.Finish[heist].Step2:Set(2)
                                 break
                             end
@@ -2485,47 +2711,9 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the sell mission instantly. Use after you can see the minimap.",
                     func = function()
-                        GTA.TeleportXYZ(1169.0, -2976.0, 6.0)
+                        GTA.TeleportXYZ(U(eTable.Teleports.Terminal))
                         SilentLogger.LogInfo("[Instant Sell (Salvage Yard)] Sell mission should've been finished ツ")
                     end
-                },
-
-                Availability = {
-                    Slot1 = {
-                        hash = J("SN_SalvageYard_AvailableSlot1"),
-                        name = "Make Slot 1 Available",
-                        type = eFeatureType.Button,
-                        desc = "Makes the slot 1 «Available». Also, reloads the planning screen.",
-                        func = function()
-                            eStat.MPX_SALV23_VEHROB_STATUS0:Set(0)
-                            eLocal.Heist.SalvageYard.Reload:Set(2)
-                            SilentLogger.LogInfo("[Make Slot 1 Available (Salvage Yard)] Slot 1 should've been made «Available» ツ")
-                        end
-                    },
-
-                    Slot2 = {
-                        hash = J("SN_SalvageYard_AvailableSlot2"),
-                        name = "Make Slot 2 Available",
-                        type = eFeatureType.Button,
-                        desc = "Makes the slot 2 «Available». Also, reloads the planning screen.",
-                        func = function()
-                            eStat.MPX_SALV23_VEHROB_STATUS1:Set(0)
-                            eLocal.Heist.SalvageYard.Reload:Set(2)
-                            SilentLogger.LogInfo("[Make Slot 2 Available (Salvage Yard)] Slot 2 should've been made «Available» ツ")
-                        end
-                    },
-
-                    Slot3 = {
-                        hash = J("SN_SalvageYard_AvailableSlot3"),
-                        name = "Make Slot 3 Available",
-                        type = eFeatureType.Button,
-                        desc = "Makes the slot 3 «Available». Also, reloads the planning screen.",
-                        func = function()
-                            eStat.MPX_SALV23_VEHROB_STATUS2:Set(0)
-                            eLocal.Heist.SalvageYard.Reload:Set(2)
-                            SilentLogger.LogInfo("[Make Slot 3 Available (Salvage Yard)] Slot 3 should've been made «Available» ツ")
-                        end
-                    }
                 },
 
                 Force = {
@@ -2686,13 +2874,37 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_Bunker_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Bunker's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Bunker)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Bunker)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Laptop = {
+                        hash = J("SN_Bunker_Laptop"),
+                        name = "Teleport to Laptop",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Bunker's laptop.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.Bunker))
+                            SilentLogger.LogInfo("[Teleport to Laptop (Bunker)] You should've been teleported to the laptop ツ")
+                        end
+                    }
+                },
+
                 Open = {
                     hash = J("SN_Bunker_Open"),
                     name = "Open Laptop",
                     type = eFeatureType.Button,
                     desc = "Opens the Bunker's laptop screen.",
                     func = function()
-                        GTA.StartScript(eScript.Business.Bunker.Laptop)
+                        GTA.StartScript(eScript.Bunker.Laptop)
                         SilentLogger.LogInfo("[Open Laptop (Bunker)] Laptop screen should've been opened ツ")
                     end
                 },
@@ -2714,7 +2926,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Triggers production of your stock.",
                     func = function()
-                        if not GTA.IsScriptRunning(eScript.Business.Bunker.Laptop) then
+                        if not GTA.IsScriptRunning(eScript.Bunker.Laptop) then
                             eGlobal.Business.Bunker.Production.Trigger1:Set(0)
                             eGlobal.Business.Bunker.Production.Trigger2:Set(true)
                             SilentLogger.LogInfo("[Trigger Production (Bunker)] Production should've been triggered ツ")
@@ -2728,7 +2940,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Fills your Bunker stock. Also, gets supplies for your Bunker repeatedly.",
                     func = function(ftr)
-                        if not GTA.IsScriptRunning(eScript.Business.Bunker.Laptop) then
+                        if not GTA.IsScriptRunning(eScript.Bunker.Laptop) then
                             if ftr:IsToggled() then
                                 eGlobal.Business.Supplies.Bunker:Set(1)
                                 eGlobal.Business.Bunker.Production.Trigger1:Set(0)
@@ -2838,7 +3050,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, no bans reported.\nApplies the maximum price for your cargo.",
                     func = function(ftr)
-                        if not GTA.IsScriptRunning(eScript.Business.Hangar.Sell) then
+                        if not GTA.IsScriptRunning(eScript.Hangar.Sell) then
                             if ftr:IsToggled() then
                                 if not GTA.IsInSessionAlone() then
                                     GTA.EmptySession()
@@ -2890,13 +3102,37 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_Hangar_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Hangar's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Hangar)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Hangar)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Laptop = {
+                        hash = J("SN_Hangar_Laptop"),
+                        name = "Teleport to Laptop",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Hangar's laptop.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.Hangar))
+                            SilentLogger.LogInfo("[Teleport to Laptop (Hangar)] You should've been teleported to the laptop ツ")
+                        end
+                    }
+                },
+
                 Open = {
                     hash = J("SN_Hangar_Open"),
                     name = "Open Laptop",
                     type = eFeatureType.Button,
                     desc = "Opens the Hangar's laptop screen.",
                     func = function()
-                        GTA.StartScript(eScript.Business.Hangar.Laptop)
+                        GTA.StartScript(eScript.Hangar.Laptop)
                         SilentLogger.LogInfo("[Open Laptop (Hangar)] Laptop screen should've been opened ツ")
                     end
                 },
@@ -2907,7 +3143,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Gets cargo for your Hangar.",
                     func = function()
-                        if not GTA.IsScriptRunning(eScript.Business.Hangar.Laptop) then
+                        if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
                             ePackedBool.Business.Hangar.Cargo:Set(true)
                             SilentLogger.LogInfo("[Get Cargo (Hangar)] Cargo should've been received ツ")
                         end
@@ -2920,7 +3156,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Fills your Hangar stock repeatedly.",
                     func = function(ftr)
-                        if not GTA.IsScriptRunning(eScript.Business.Hangar.Laptop) then
+                        if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
                             if ftr:IsToggled() then
                                 ePackedBool.Business.Hangar.Cargo:Set(true)
 
@@ -3131,13 +3367,37 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_Nightclub_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Nightclub's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Nightclub)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Nightclub)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Computer = {
+                        hash = J("SN_Nightclub_Computer"),
+                        name = "Teleport to Computer",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Nightclub's computer.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.Nightclub))
+                            SilentLogger.LogInfo("[Teleport to Computer (Nightclub)] You should've been teleported to the computer ツ")
+                        end
+                    }
+                },
+
                 Open = {
                     hash = J("SN_Nightclub_Open"),
                     name = "Open Computer",
                     type = eFeatureType.Button,
                     desc = "Opens the Nightclub's computer screen.",
                     func = function()
-                        GTA.StartScript(eScript.Business.Nightclub.Laptop)
+                        GTA.StartScript(eScript.Nightclub.Laptop)
                         SilentLogger.LogInfo("[Open Computer (Nightclub)] Computer screen should've been opened ツ")
                     end
                 },
@@ -3443,7 +3703,7 @@ eFeature = {
                     desc = "Finishes the sell mission instantly. Use after you can see the minimap.",
                     func = function(bool1, bool2)
                         if not bool2 then
-                            if GTA.IsScriptRunning(eScript.Business.CrateWarehouse.Sell) then
+                            if GTA.IsScriptRunning(eScript.CrateWarehouse.Sell) then
                                 ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
                             end
                         end
@@ -3458,6 +3718,41 @@ eFeature = {
             },
 
             Misc = {
+                Teleport = {
+                    Office = {
+                        hash = J("SN_CrateWarehouse_Office"),
+                        name = "Teleport to Office",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Office's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Office)
+                            SilentLogger.LogInfo("[Teleport to Office (Crate Warehouse)] You should've been teleported to the Office ツ")
+                        end
+                    },
+
+                    Computer = {
+                        hash = J("SN_CrateWarehouse_Computer"),
+                        name = "Teleport to Computer",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Office's computer.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.Office))
+                            SilentLogger.LogInfo("[Teleport to Computer (Crate Warehouse)] You should've been teleported to the computer ツ")
+                        end
+                    },
+
+                    Warehouse = {
+                        hash = J("SN_CrateWarehouse_Warehouse"),
+                        name = "Teleport to Warehouse",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the closest Crate Warehouse's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Warehouse)
+                            SilentLogger.LogInfo("[Teleport to Closest Warehouse (Crate Warehouse)] You should've been teleported to the warehouse ツ")
+                        end
+                    }
+                },
+
                 Supply = {
                     hash = J("SN_CrateWarehouse_Supply"),
                     name = "Get Crates",
@@ -3488,7 +3783,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Maximizes the crates amount, but not buying them.",
                     func = function()
-                        SilentLogger.LogInfo("[Max (Crate Warehouse)] Crates amount should've been maximized. Don't forget to apply ツ")
+                        SilentLogger.LogInfo("[Max (Crate Warehouse)] Crates amount should've been maximized. Don't forget to buy ツ")
                     end
                 },
 
@@ -3725,6 +4020,30 @@ eFeature = {
             },
 
             Garment = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_Garment_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Garment Factory's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Garment)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Garment Factory)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Computer = {
+                        hash = J("SN_Garment_Computer"),
+                        name = "Teleport to Computer",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Garment Factory's computer.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.Garment))
+                            SilentLogger.LogInfo("[Open Computer (Garment Factory)] Computer screen should've been opened ツ")
+                        end
+                    }
+                },
+
                 Unbrick = {
                     hash = J("SN_Misc_GarmentUnbrick"),
                     name = "Unbrick Computer",
@@ -4916,6 +5235,7 @@ eFeature = {
                     loggedJinxScriptStop    = true
                     loggedUCayoPerico       = true
                     loggedUDiamondCasino    = true
+                    loggedAutoRegister      = true
                     loggedDummyPrevention   = true
                     loggedAllow300kLoop     = true
                     FileMgr.ResetConfig()
@@ -4943,6 +5263,16 @@ eFeature = {
                 func = function()
                     ImGui.SetClipboardText(DISCORD)
                     SilentLogger.LogInfo("[Copy Discord Invite Link (Settings)] Discord server invite link should've been copied ツ")
+                end
+            },
+
+            Unload = {
+                hash = J("SN_Settings_CUnload"),
+                name = F("Unload %s", SCRIPT_NAME),
+                type = eFeatureType.Button,
+                desc = F("Unloads the %s script.", SCRIPT_NAME),
+                func = function()
+                    SetShouldUnload()
                 end
             }
         },
@@ -5058,7 +5388,7 @@ eFeature = {
                     hash = J("SN_Settings_CJinxScriptToggle"),
                     name = "JinxScript",
                     type = eFeatureType.Toggle,
-                    desc = "If enabled, JinxScript will help speed up some processes.",
+                    desc = "JinxScript will help speed up some processes.",
                     func = function(ftr)
                         CONFIG.collab.jinxscript.enabled = ftr:IsToggled()
                         FileMgr.SaveConfig(CONFIG)
@@ -5214,7 +5544,7 @@ eFeature = {
                 hash = J("SN_Settings_UCayoPerico"),
                 name = "Cayo Perico",
                 type = eFeatureType.Toggle,
-                desc = "If enabled, «Apply & Complete Preps» will automatically unlock all points of interest.",
+                desc = "«Apply & Complete Preps» will automatically unlock all points of interest.",
                 func = function(ftr)
                     CONFIG.unlock_all_poi.cayo_perico = ftr:IsToggled()
                     FileMgr.SaveConfig(CONFIG)
@@ -5233,7 +5563,7 @@ eFeature = {
                 hash = J("SN_Settings_UDiamondCasino"),
                 name = "Diamond Casino",
                 type = eFeatureType.Toggle,
-                desc = "If enabled, «Apply & Complete Preps» will automatically unlock all points of interest.",
+                desc = "«Apply & Complete Preps» will automatically unlock all points of interest.",
                 func = function(ftr)
                     CONFIG.unlock_all_poi.diamond_casino = ftr:IsToggled()
                     FileMgr.SaveConfig(CONFIG)
@@ -5245,6 +5575,48 @@ eFeature = {
                     end
 
                     SilentLogger.LogInfo(F("[Diamond Casino (Settings)] Unlock All POI should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            }
+        },
+
+        RegisterAsBoss = {
+            AutoRegister = {
+                hash = J("SN_Settings_RAutoRegister"),
+                name = "Auto-Register",
+                type = eFeatureType.Toggle,
+                desc = "Automatically tries to register you as a boss while the script is running.",
+                func = function(ftr)
+                    CONFIG.register_as_boss.autoregister = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedAutoRegister then
+                        loggedAutoRegister = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Auto-Register (Settings)] Auto-Register should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            },
+
+            Type = {
+                hash = J("SN_Settings_RType"),
+                name = "Type",
+                type = eFeatureType.Combo,
+                desc = "Select the desired organization type.",
+                list = eTable.Settings.OrgTypes,
+                func = function(ftr)
+                    CONFIG.register_as_boss.type = ftr:GetListIndex()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if CONFIG.register_as_boss.autoregister then
+                        eGlobal.Player.Organization.CEO:Set(-1)
+                    end
+
+                    local list  = eTable.Settings.OrgTypes
+                    local index = list[ftr:GetListIndex() + 1].index
+                    SilentLogger.LogInfo(F("[Type (Settings)] Selected organization type: %s ツ", list:GetName(index)))
                 end
             }
         },
