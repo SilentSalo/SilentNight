@@ -67,6 +67,7 @@ end
 
 function GTA.StartSession(sessionType)
     FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.SessionType):SetListIndex(sessionType)
+    Script.Yield(25)
     FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.StartSession):OnClick()
 end
 

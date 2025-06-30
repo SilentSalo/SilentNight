@@ -501,6 +501,8 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Reload)
 
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Board):SetVisible(false)
@@ -520,8 +522,6 @@ FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Misc.Autograbber, nil, function(
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Cooldown)
-
-FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.Team, function(f)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Presets):SetListIndex(0)

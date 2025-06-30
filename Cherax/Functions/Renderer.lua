@@ -270,6 +270,7 @@ function Renderer.RenderHeistTool()
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Setup)
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Launch)
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance)
@@ -286,7 +287,6 @@ function Renderer.RenderHeistTool()
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Autograbber)
                         ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Cooldown)
-                        ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Setup)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -563,13 +563,13 @@ function Renderer.RenderBusinessTool()
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Misc.Setup)
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance)
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Misc.Teleport.Computer)
                         ImGui.ResetButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Misc.Open)
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Misc.Cooldown)
-                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Misc.Setup)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -651,6 +651,8 @@ function Renderer.RenderBusinessTool()
                     if ClickGUI.BeginCustomChildWindow("Supplies") then
                         ClickGUI.RenderFeature(eFeature.Business.Misc.Supplies.Business)
                         ClickGUI.RenderFeature(eFeature.Business.Misc.Supplies.Resupply)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.Misc.Supplies.Refresh)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -1217,6 +1219,7 @@ function Renderer.RenderListGUI()
             PresetsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Presets.Copy)
 
             local MiscSubTab = CasinoHeistTab:AddSubTab("Misc", "Misc")
+            MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup)
             MiscSubTab:AddFeature(eFeature.Heist.Generic.Launch)
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance)
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Board)
@@ -1229,7 +1232,6 @@ function Renderer.RenderListGUI()
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.VaultDoorDrill)
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Autograbber)
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Cooldown)
-            MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup)
 
             local CutsSubTab = CasinoHeistTab:AddSubTab("Cuts", "Cuts")
             CutsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Cuts.Team)
@@ -1395,11 +1397,11 @@ function Renderer.RenderListGUI()
             SafeSubTab:AddFeature(eFeature.Business.Nightclub.Safe.Unbrick)
 
             local MiscSubTab = NightclubTab:AddSubTab("Misc", "Misc")
+            MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Setup)
             MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance)
             MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Teleport.Computer)
             MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Open)
             MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Cooldown)
-            MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Setup)
 
             local PopularitySubTab = NightclubTab:AddSubTab("Popularity", "Popularity")
             PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Lock)
@@ -1450,6 +1452,7 @@ function Renderer.RenderListGUI()
             local SuppliesSubTab = MiscTab:AddSubTab("Supplies", "Supplies")
             SuppliesSubTab:AddFeature(eFeature.Business.Misc.Supplies.Business)
             SuppliesSubTab:AddFeature(eFeature.Business.Misc.Supplies.Resupply)
+            SuppliesSubTab:AddFeature(eFeature.Business.Misc.Supplies.Refresh)
 
             local GarmentSubTab = MiscTab:AddSubTab("Garment Factory", "Garment Factory")
             GarmentSubTab:AddFeature(eFeature.Business.Misc.Garment.Teleport.Entrance)

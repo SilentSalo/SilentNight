@@ -364,7 +364,12 @@ Script.RegisterLooped(function()
 
     if Helper.IsPropertyOwned(eTable.Properties.Office) then
         FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Office):SetVisible(true)
-        FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer):SetVisible(GTA.IsScriptRunning(eScript.Office.Interior))
+
+        if eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(eTable.BlipSprites.Laptop) ~= 0 then
+            FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer):SetVisible(GTA.IsScriptRunning(eScript.Office.Interior))
+        else
+            FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer):SetVisible(false)
+        end
     else
         FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Office):SetVisible(false)
         FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer):SetVisible(false)

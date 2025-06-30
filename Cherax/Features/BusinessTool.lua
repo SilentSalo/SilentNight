@@ -118,6 +118,8 @@ FeatureMgr.AddLoop(eFeature.Business.Nightclub.Sale.Price, nil, function(f)
     eFeature.Business.Nightclub.Sale.Price.func(f)
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Setup):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Teleport.Computer):SetVisible(false)
@@ -127,8 +129,6 @@ FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Open)
 FeatureMgr.AddLoop(eFeature.Business.Nightclub.Misc.Cooldown, nil, function(f)
     eFeature.Business.Nightclub.Misc.Cooldown.func(f)
 end)
-
-FeatureMgr.AddFeature(eFeature.Business.Nightclub.Misc.Setup)
 
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Stats.SellMade)
 
@@ -255,6 +255,8 @@ FeatureMgr.AddFeature(eFeature.Business.Misc.Supplies.Resupply, function(f)
     local business = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
     eFeature.Business.Misc.Supplies.Resupply.func(business)
 end)
+
+FeatureMgr.AddFeature(eFeature.Business.Misc.Supplies.Refresh)
 
 FeatureMgr.AddFeature(eFeature.Business.Misc.Garment.Teleport.Entrance):SetVisible(false)
 

@@ -1692,6 +1692,17 @@ eFeature = {
             },
 
             Misc = {
+                Setup = {
+                    hash = J("SN_DiamondCasino_Setup"),
+                    name = "Skip Setup",
+                    type = eFeatureType.Button,
+                    desc = "Skips the setup mission for your Arcade. Change the session to apply.",
+                    func = function()
+                        ePackedBool.Business.Arcade.Setup:Set(true)
+                        SilentLogger.LogInfo("[Skip Setup (Diamond Casino)] Setups should've been skipped. Don't forget to change the session ツ")
+                    end
+                },
+
                 Teleport = {
                     Entrance = {
                         hash = J("SN_DiamondCasino_Entrance"),
@@ -1833,17 +1844,6 @@ eFeature = {
                         eStat.MPX_H3_COMPLETEDPOSIX:Set(-1)
                         eStat.MPPLY_H3_COOLDOWN:Set(-1)
                         SilentLogger.LogInfo("[Kill Cooldown (Diamond Casino)] Cooldown should've been killed ツ")
-                    end
-                },
-
-                Setup = {
-                    hash = J("SN_DiamondCasino_Setup"),
-                    name = "Skip Setup",
-                    type = eFeatureType.Button,
-                    desc = "Skips the setup mission for your Arcade. Change the session to apply.",
-                    func = function()
-                        ePackedBool.Business.Arcade.Setup:Set(true)
-                        SilentLogger.LogInfo("[Skip Setup (Diamond Casino)] Setups should've been skipped. Don't forget to change the session ツ")
                     end
                 }
             },
@@ -3367,6 +3367,19 @@ eFeature = {
             },
 
             Misc = {
+                Setup = {
+                    hash = J("SN_Nightclub_Setup"),
+                    name = "Skip Setup",
+                    type = eFeatureType.Button,
+                    desc = "Skips the setup missions for your Nightclub. Change the session to apply.",
+                    func = function()
+                        ePackedBool.Business.Nightclub.Setup.Staff:Set(true)
+                        ePackedBool.Business.Nightclub.Setup.Equipment:Set(true)
+                        ePackedBool.Business.Nightclub.Setup.DJ:Set(true)
+                        SilentLogger.LogInfo("[Skip Setup (Nightclub)] Setups should've been skipped. Don't forget to change the session ツ")
+                    end
+                },
+
                 Teleport = {
                     Entrance = {
                         hash = J("SN_Nightclub_Entrance"),
@@ -3424,19 +3437,6 @@ eFeature = {
                             SilentLogger.LogInfo("[Kill Cooldowns (Nightclub)] Cooldowns should've been reset ツ")
                             loggedNightclubCooldown = false
                         end
-                    end
-                },
-
-                Setup = {
-                    hash = J("SN_Nightclub_Setup"),
-                    name = "Skip Setup",
-                    type = eFeatureType.Button,
-                    desc = "Skips the setup missions for your Nightclub. Change the session to apply.",
-                    func = function()
-                        ePackedBool.Business.Nightclub.Setup.Staff:Set(true)
-                        ePackedBool.Business.Nightclub.Setup.Equipment:Set(true)
-                        ePackedBool.Business.Nightclub.Setup.DJ:Set(true)
-                        SilentLogger.LogInfo("[Skip Setup (Nightclub)] Setups should've been skipped. Don't forget to change the session ツ")
                     end
                 }
             },
@@ -3663,14 +3663,14 @@ eFeature = {
                             eTunable.Business.CrateWarehouse.Price.Threshold21:Set(math.floor(price / 111))
 
                             if not loggedSpecialPrice then
-                                SilentLogger.LogInfo("[Maximize Price (Crate Warehouse)] Price should've been maximized ツ")
+                                SilentLogger.LogInfo("[Maximize Price (Special Cargo)] Price should've been maximized ツ")
                                 loggedSpecialPrice = true
                             end
                         else
                             for i = 1, 21 do
                                 eTunable.Business.CrateWarehouse.Price[F("Threshold%d", i)]:Reset()
                             end
-                            SilentLogger.LogInfo("[Maximize Price (Crate Warehouse)] Price should've been reset ツ")
+                            SilentLogger.LogInfo("[Maximize Price (Special Cargo)] Price should've been reset ツ")
                             loggedSpecialPrice = false
                         end
                     end
@@ -3682,7 +3682,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Disables the xp gain for sell missions.",
                     func = function(ftr)
-                        SilentLogger.LogInfo(F("[No XP Gain (Crate Warehouse)] XP gain should've been %s ツ", (ftr:IsToggled()) and "disabled" or "enabled"))
+                        SilentLogger.LogInfo(F("[No XP Gain (Special Cargo)] XP gain should've been %s ツ", (ftr:IsToggled()) and "disabled" or "enabled"))
                     end
                 },
 
@@ -3692,7 +3692,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Disables auto refill of the crates after «Instant Sell».",
                     func = function(ftr)
-                        SilentLogger.LogInfo(F("[No CrateBack (Crate Warehouse)] Crate refill should've been %s ツ", (ftr:IsToggled()) and "disabled" or "enabled"))
+                        SilentLogger.LogInfo(F("[No CrateBack (Special Cargo)] Crate refill should've been %s ツ", (ftr:IsToggled()) and "disabled" or "enabled"))
                     end
                 },
 
@@ -3712,7 +3712,7 @@ eFeature = {
                         eLocal.Business.CrateWarehouse.Sell.Finish:Set(99999)
                         Script.Yield(2000)
                         eLocal.Business.CrateWarehouse.Sell.Finish:Set(99999)
-                        SilentLogger.LogInfo("[Instant Sell (Crate Warehouse)] Sell mission should've been finished ツ", eToastPos.BOTTOM_RIGHT)
+                        SilentLogger.LogInfo("[Instant Sell (Special Cargo)] Sell mission should've been finished ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 }
             },
@@ -3726,7 +3726,7 @@ eFeature = {
                         desc = "Teleports you to the Office's entrance.",
                         func = function()
                             GTA.TeleportToBlip(eTable.BlipSprites.Office)
-                            SilentLogger.LogInfo("[Teleport to Office (Crate Warehouse)] You should've been teleported to the Office ツ")
+                            SilentLogger.LogInfo("[Teleport to Office (Special Cargo)] You should've been teleported to the Office ツ")
                         end
                     },
 
@@ -3737,7 +3737,7 @@ eFeature = {
                         desc = "Teleports you to the Office's computer.",
                         func = function()
                             GTA.TeleportXYZ(U(eTable.Teleports.Office))
-                            SilentLogger.LogInfo("[Teleport to Computer (Crate Warehouse)] You should've been teleported to the computer ツ")
+                            SilentLogger.LogInfo("[Teleport to Computer (Special Cargo)] You should've been teleported to the computer ツ")
                         end
                     },
 
@@ -3748,7 +3748,7 @@ eFeature = {
                         desc = "Teleports you to the closest Crate Warehouse's entrance.",
                         func = function()
                             GTA.TeleportToBlip(eTable.BlipSprites.Warehouse)
-                            SilentLogger.LogInfo("[Teleport to Closest Warehouse (Crate Warehouse)] You should've been teleported to the warehouse ツ")
+                            SilentLogger.LogInfo("[Teleport to Warehouse (Special Cargo)] You should've been teleported to the warehouse ツ")
                         end
                     }
                 },
@@ -3760,7 +3760,7 @@ eFeature = {
                     desc = "Gets crates for your Crate Warehouse.",
                     func = function()
                         ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
-                        SilentLogger.LogInfo("[Get Crates (Crate Warehouse)] Crates should've been received ツ")
+                        SilentLogger.LogInfo("[Get Crates (Special Cargo)] Crates should've been received ツ")
                     end
                 },
 
@@ -3773,7 +3773,7 @@ eFeature = {
                     lims = { 0, 111 },
                     step = 1,
                     func = function()
-                        SilentLogger.LogInfo("[Crates Amount (Crate Warehouse)] Crates amount should've been changed ツ")
+                        SilentLogger.LogInfo("[Crates Amount (Special Cargo)] Crates amount should've been changed ツ")
                     end
                 },
 
@@ -3783,7 +3783,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Maximizes the crates amount, but not buying them.",
                     func = function()
-                        SilentLogger.LogInfo("[Max (Crate Warehouse)] Crates amount should've been maximized. Don't forget to buy ツ")
+                        SilentLogger.LogInfo("[Max (Special Cargo)] Crates amount should've been maximized. Don't forget to buy ツ")
                     end
                 },
 
@@ -3797,7 +3797,7 @@ eFeature = {
                         eLocal.Business.CrateWarehouse.Buy.Finish1:Set(1)
                         eLocal.Business.CrateWarehouse.Buy.Finish2:Set(6)
                         eLocal.Business.CrateWarehouse.Buy.Finish3:Set(4)
-                        SilentLogger.LogInfo("[Instant Buy (Crate Warehouse)] Buy mission should've been finished ツ")
+                        SilentLogger.LogInfo("[Instant Buy (Special Cargo)] Buy mission should've been finished ツ")
                     end
                 },
 
@@ -3811,13 +3811,13 @@ eFeature = {
                             ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
 
                             if not loggedSpecialSupplier then
-                                SilentLogger.LogInfo("[Turkish Supplier (Crate Warehouse)] Supplier should've been enabled ツ")
+                                SilentLogger.LogInfo("[Turkish Supplier (Special Cargo)] Supplier should've been enabled ツ")
                                 loggedCrateSupplier = true
                             end
 
                             Script.Yield(1000)
                         else
-                            SilentLogger.LogInfo("[Turkish Supplier (Crate Warehouse)] Supplier should've been disabled ツ")
+                            SilentLogger.LogInfo("[Turkish Supplier (Special Cargo)] Supplier should've been disabled ツ")
                             loggedSpecialSupplier = false
                         end
                     end
@@ -3834,13 +3834,13 @@ eFeature = {
                             eTunable.Business.CrateWarehouse.Cooldown.Sell:Set(0)
 
                             if not loggedSpecialCooldown then
-                                SilentLogger.LogInfo("[Kill Cooldowns (Crate Warehouse)] Cooldowns should've been killed ツ")
+                                SilentLogger.LogInfo("[Kill Cooldowns (Special Cargo)] Cooldowns should've been killed ツ")
                                 loggedSpecialCooldown = true
                             end
                         else
                             eTunable.Business.CrateWarehouse.Cooldown.Buy:Reset()
                             eTunable.Business.CrateWarehouse.Cooldown.Sell:Reset()
-                            SilentLogger.LogInfo("[Kill Cooldowns (Crate Warehouse)] Cooldowns should've been reset ツ")
+                            SilentLogger.LogInfo("[Kill Cooldowns (Special Cargo)] Cooldowns should've been reset ツ")
                             loggedSpecialCooldown = false
                         end
                     end
@@ -3857,7 +3857,7 @@ eFeature = {
                     lims = { 0, INT32_MAX },
                     step = 10,
                     func = function(ftr)
-                        SilentLogger.LogInfo("[Buy Made (Crate Warehouse)] Buy made should've been changed. Don't forget to apply ツ")
+                        SilentLogger.LogInfo("[Buy Made (Special Cargo)] Buy made should've been changed. Don't forget to apply ツ")
                     end
                 },
 
@@ -3870,7 +3870,7 @@ eFeature = {
                     lims = { 0, INT32_MAX },
                     step = 10,
                     func = function(ftr)
-                        SilentLogger.LogInfo("[Buy Undertaken (Crate Warehouse)] Buy undertaken should've been changed. Don't forget to apply ツ")
+                        SilentLogger.LogInfo("[Buy Undertaken (Special Cargo)] Buy undertaken should've been changed. Don't forget to apply ツ")
                     end
                 },
 
@@ -3883,7 +3883,7 @@ eFeature = {
                     lims = { 0, INT32_MAX },
                     step = 10,
                     func = function(ftr)
-                        SilentLogger.LogInfo("[Sell Made (Crate Warehouse)] Sales made should've been changed. Don't forget to apply ツ")
+                        SilentLogger.LogInfo("[Sell Made (Special Cargo)] Sales made should've been changed. Don't forget to apply ツ")
                     end
                 },
 
@@ -3896,7 +3896,7 @@ eFeature = {
                     lims = { 0, INT32_MAX },
                     step = 10,
                     func = function(ftr)
-                        SilentLogger.LogInfo("[Sell Undertaken (Crate Warehouse)] Sales undertaken should've been changed. Don't forget to apply ツ")
+                        SilentLogger.LogInfo("[Sell Undertaken (Special Cargo)] Sales undertaken should've been changed. Don't forget to apply ツ")
                     end
                 },
 
@@ -3909,7 +3909,7 @@ eFeature = {
                     lims = { 0, INT32_MAX },
                     step = 1000000,
                     func = function(ftr)
-                        SilentLogger.LogInfo("[Earnings (Crate Warehouse)] Earnings should've been changed. Don't forget to apply ツ")
+                        SilentLogger.LogInfo("[Earnings (Special Cargo)] Earnings should've been changed. Don't forget to apply ツ")
                     end
                 },
 
@@ -3919,7 +3919,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Decides whether you want to apply new buy missions or not.",
                     func = function(ftr)
-                        SilentLogger.LogInfo(F("[Don't Apply Buy (Crate Warehouse)] Selected buy: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                        SilentLogger.LogInfo(F("[Don't Apply Buy (Special Cargo)] Selected buy: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
                     end
                 },
 
@@ -3929,7 +3929,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Decides whether you want to apply new sell missions or not.",
                     func = function(ftr)
-                        SilentLogger.LogInfo(F("[Don't Apply Sell (Crate Warehouse)] Selected sell: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                        SilentLogger.LogInfo(F("[Don't Apply Sell (Special Cargo)] Selected sell: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
                     end
                 },
 
@@ -3939,7 +3939,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Decides whether you want to apply new earnings or not.",
                     func = function(ftr)
-                        SilentLogger.LogInfo(F("[Don't Apply Earnings (Crate Warehouse)] Selected earnings: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
+                        SilentLogger.LogInfo(F("[Don't Apply Earnings (Special Cargo)] Selected earnings: %s ツ", (ftr:IsToggled()) and "Don't Apply" or "Apply"))
                     end
                 },
 
@@ -3960,7 +3960,7 @@ eFeature = {
                         if not bool3 then
                             eStat.MPX_LIFETIME_CONTRA_EARNINGS:Set(earnings)
                         end
-                        SilentLogger.LogInfo("[Apply All Changes (Crate Warehouse)] Changes should've been applied ツ")
+                        SilentLogger.LogInfo("[Apply All Changes (Special Cargo)] Changes should've been applied ツ")
                     end
                 }
             }
@@ -3972,7 +3972,7 @@ eFeature = {
                     hash = J("SN_Misc_SuppliesBusiness"),
                     name = "Business",
                     type = eFeatureType.Combo,
-                    desc = "Select the desired business. If you don't see all the businesses, change the session.",
+                    desc = "Select the desired business.",
                     list = eTable.Business.Supplies,
                     func = function(ftr)
                         local list  = eTable.Business.Supplies
@@ -4015,6 +4015,19 @@ eFeature = {
 
                         businesses[business]:Set(1)
                         SilentLogger.LogInfo("[Resupply (Misc)] Business should've been resupplied ツ")
+                    end
+                },
+
+                Refresh = {
+                    hash = J("SN_Misc_SuppliesRefresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the list of the businesses.",
+                    func = function()
+                        Utils.FillDynamicTables()
+                        Parser.ParseTables(eTable)
+                        Script.ReAssign()
+                        SilentLogger.LogInfo("[Refresh (Misc)] Businesses list should've been refreshed ツ")
                     end
                 }
             },

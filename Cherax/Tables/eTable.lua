@@ -669,7 +669,8 @@ eTable = {
         Warehouse   = 473,
         Garment     = 900,
         Heist       = 428,
-        Franklin    = 88
+        Franklin    = 88,
+        Laptop      = 521
     },
 
     Properties = {
