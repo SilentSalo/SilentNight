@@ -32,8 +32,10 @@ DEFAULT_CONFIG = {
     },
 
     easy_money = {
+        autodeposit      = false,
         dummy_prevention = true,
         allow_300k_loop  = GTA_EDITION == "EE",
+
         delay = {
             _5k   = 1.5,
             _50k  = 0.333,

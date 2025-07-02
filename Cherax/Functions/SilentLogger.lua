@@ -3,36 +3,27 @@
 SilentLogger = {}
 
 function SilentLogger.Log(color, str, toastPos)
-    if CONFIG.logging == 0 then
-        return
+    if not CONFIG or CONFIG.logging == 2 then
+        Logger.Log(color, SCRIPT_NAME, str)
+        GUI.AddToast(SCRIPT_NAME, CleanToast(str), 5000, toastPos or eToastPos.TOP_RIGHT)
     elseif CONFIG.logging == 1 then
-        Logger.Log(color, str)
-    elseif CONFIG.logging == 2 or not CONFIG then
-        Logger.Log(color, str)
-        GUI.AddToast(str, toastPos)
+        Logger.Log(color, SCRIPT_NAME, str)
     end
 end
 
 function SilentLogger.LogError(str, toastPos)
-    if CONFIG.logging == 0 then
-        return
-    elseif CONFIG.logging == 1 then
-        Logger.LogError(str)
-    elseif CONFIG.logging == 2 or not CONFIG then
-        Logger.LogError(str)
-        GUI.AddToast(str, toastPos)
-    end
+    SilentLogger.Log(eLogColor.LIGHTRED, str, toastPos)
 end
 
 function SilentLogger.LogInfo(str, toastPos)
-    if CONFIG.logging == 0 then
-        return
-    elseif CONFIG.logging == 1 then
-        Logger.LogInfo(str)
-    elseif CONFIG.logging == 2 or not CONFIG then
-        Logger.LogInfo(str)
-        GUI.AddToast(str, toastPos)
-    end
+    SilentLogger.Log(eLogColor.LIGHTGREEN, str, toastPos)
+end
+
+function CleanToast(str)
+    local cleaned = str:gsub("^%[.-%]%s*", "")
+    cleaned = cleaned:gsub("%s*ツ", ".")
+    cleaned = cleaned:gsub("%..$", ".")
+    return cleaned
 end
 
 --#endregion

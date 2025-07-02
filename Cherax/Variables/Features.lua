@@ -228,6 +228,7 @@ loggedJinxScriptStop    = true
 loggedUCayoPerico       = true
 loggedUDiamondCasino    = true
 loggedAutoRegister      = true
+loggedAutoDeposit       = true
 loggedDummyPrevention   = true
 loggedAllow300kLoop     = true
 

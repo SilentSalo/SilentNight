@@ -357,6 +357,7 @@ Script.RegisterLooped(function()
     if Helper.IsPropertyOwned(eTable.Properties.Nightclub) then
         FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance):SetVisible(true)
         FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Computer):SetVisible(GTA.IsScriptRunning(eScript.Nightclub.Interior))
+        FeatureMgr.GetFeature(eFeature.Business.Nightclub.Popularity.Select):SetIntValue(eStat.MPX_CLUB_POPULARITY:Get() / 10)
     else
         FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance):SetVisible(false)
         FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Computer):SetVisible(false)
@@ -410,7 +411,7 @@ Script.RegisterLooped(function()
 
     Helper.RegisterAsBoss()
 
-    Script.Yield()
+    Script.Yield(100)
 end)
 
 LOOP_STATES = { false, false, false, false, false, false }

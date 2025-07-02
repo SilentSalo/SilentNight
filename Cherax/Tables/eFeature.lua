@@ -3588,7 +3588,7 @@ eFeature = {
                             eStat.MPX_CLUB_POPULARITY:Set(NPOPULARITY)
 
                             if not loggedNightclubLock then
-                                SilentLogger.LogInfo(F("[Lock Popularity (Nightclub)] Popularity should've been locked at %d%%ツ", (NPOPULARITY ~= 0) and NPOPULARITY / 10 or 0))
+                                SilentLogger.LogInfo(F("[Lock Popularity (Nightclub)] Popularity should've been locked at %d%% ツ", NPOPULARITY / 10))
                                 loggedNightclubLock = true
                             end
 
@@ -3620,6 +3620,19 @@ eFeature = {
                     func = function()
                         eStat.MPX_CLUB_POPULARITY:Set(0)
                         SilentLogger.LogInfo("[Min Popularity (Nightclub)] Popularity should've been minimized ツ")
+                    end
+                },
+
+                Select = {
+                    hash = J("SN_Nightclub_Select"),
+                    name = "Percentage",
+                    type = eFeatureType.SliderInt,
+                    desc = "Select the desired popularity level.",
+                    defv = 0,
+                    lims = { 0, 100 },
+                    func = function(ftr)
+                        eStat.MPX_CLUB_POPULARITY:Set(ftr:GetIntValue() * 10)
+                        SilentLogger.LogInfo("[Percentage (Nightclub)] Popularity level should've been changed ツ")
                     end
                 }
             }
@@ -4500,6 +4513,15 @@ eFeature = {
                                 end
                             elseif safeValue == 0 then
                                 eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
+
+                                if CONFIG.easy_money.autodeposit then
+                                    local charSlot = eStat.MPPLY_LAST_MP_CHAR:Get()
+                                    local amount   = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
+
+                                    if amount > 0 then
+                                        eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, amount)
+                                    end
+                                end
                             end
 
                             if not logged300kLoop then
@@ -4528,7 +4550,7 @@ eFeature = {
                     lims = { 0, INT32_MAX },
                     step = 1000000,
                     func = function(ftr)
-                        SilentLogger.LogInfo("[Money Amount (Misc)] Money amount should've been changed. Don't forget to apply ツ")
+                        SilentLogger.LogInfo("[Money Amount (Misc)] Money amount should've been changed. Don't forget to apply ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 },
 
@@ -5249,8 +5271,9 @@ eFeature = {
                     loggedUCayoPerico       = true
                     loggedUDiamondCasino    = true
                     loggedAutoRegister      = true
-                    loggedDummyPrevention   = true
+                    loggedAutoDeposit       = true
                     loggedAllow300kLoop     = true
+                    loggedDummyPrevention   = true
                     FileMgr.ResetConfig()
                     CONFIG = Json.DecodeFromFile(CONFIG_PATH)
                     SilentLogger.LogInfo("[Reset (Settings)] Config should've been reset to default ツ")
@@ -5635,6 +5658,25 @@ eFeature = {
         },
 
         EasyMoney = {
+            AutoDeposit = {
+                hash = J("SN_Settings_AutoDeposit"),
+                name = "Auto-Deposit",
+                type = eFeatureType.Toggle,
+                desc = "Automatically deposits money from wallet into your bank account while using some loops.",
+                func = function(ftr)
+                    CONFIG.easy_money.autodeposit = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedAutoDeposit then
+                        loggedAutoDeposit = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Auto-Deposit (Settings)] Auto-Deposit should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            },
+
             Prevention = {
                 hash = J("SN_Settings_Prevention"),
                 name = "Dummy Prevention",

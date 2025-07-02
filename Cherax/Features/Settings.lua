@@ -34,8 +34,9 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
     FeatureMgr.GetFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino):Toggle(CONFIG.unlock_all_poi.diamond_casino)
     FeatureMgr.GetFeature(eFeature.Settings.RegisterAsBoss.AutoRegister):Toggle(CONFIG.register_as_boss.autoregister)
     FeatureMgr.GetFeature(eFeature.Settings.RegisterAsBoss.Type):SetListIndex(CONFIG.register_as_boss.type)
-    FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy_money.dummy_prevention)
-    FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.Allow300k):Toggle(CONFIG.easy_money.allow_300k_loop)
+    FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.AutoDeposit):Toggle(CONFIG.easy_money.autodeposit)
+    FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy_money.allow_300k_loop)
+    FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.Allow300k):Toggle(CONFIG.easy_money.dummy_prevention)
 
     for i = 1, #settingsInstantFinishes do
         FeatureMgr.GetFeature(settingsInstantFinishes[i]):SetListIndex(CONFIG.instant_finish[methodKeys[i]])
@@ -96,11 +97,13 @@ FeatureMgr.AddFeature(eFeature.Settings.RegisterAsBoss.AutoRegister):Toggle(CONF
 
 FeatureMgr.AddFeature(eFeature.Settings.RegisterAsBoss.Type):SetListIndex(CONFIG.register_as_boss.type)
 
-FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy_money.dummy_prevention)
+FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.AutoDeposit):Toggle(CONFIG.easy_money.autodeposit)
 
 FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.Allow300k)
     :Toggle(CONFIG.easy_money.allow_300k_loop)
     :SetVisible(GTA_EDITION == "EE")
+
+FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy_money.dummy_prevention)
 
 for i = 1, #settingsEasyDelays do
     FeatureMgr.AddFeature(settingsEasyDelays[i]):SetFloatValue((CONFIG.easy_money.delay[delayKeys[i]]))

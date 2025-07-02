@@ -7,8 +7,6 @@ local folders = { "Features", "Functions", "Tables", "Variables", "Wrappers" }
 local files = {
     "Shortcuts",
     "Generic",
-    "Logger",
-    "GUI",
     "SilentLogger",
     "Natives",
     "Stats",

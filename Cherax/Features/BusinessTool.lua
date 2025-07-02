@@ -158,13 +158,15 @@ FeatureMgr.AddFeature(eFeature.Business.Nightclub.Safe.Collect)
 
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Safe.Unbrick)
 
+FeatureMgr.AddLoop(eFeature.Business.Nightclub.Popularity.Lock, nil, function(f)
+    eFeature.Business.Nightclub.Popularity.Lock.func(f)
+end)
+
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Popularity.Max)
 
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Popularity.Min)
 
-FeatureMgr.AddLoop(eFeature.Business.Nightclub.Popularity.Lock, nil, function(f)
-    eFeature.Business.Nightclub.Popularity.Lock.func(f)
-end)
+FeatureMgr.AddFeature(eFeature.Business.Nightclub.Popularity.Select)
 
 --#endregion
 
