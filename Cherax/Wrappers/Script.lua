@@ -96,9 +96,9 @@ function Script.ReAssign()
     PLAYER_ID = GTA.GetLocalPlayerId()
 
     if GTA_EDITION == "EE" then
-        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845274 + 1 + (PLAYER_ID * 877) + 260 + 358 + 5            }
-        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76                        }
-        eGlobal.World.Kosatka.Status           = { type = "int", global = 2658019 + 1 + (PLAYER_ID * 467) + 324 + 4                  }
+        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845274 + 1 + (PLAYER_ID * 877) + 260 + 358 + 5 }
+        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877086 + 1 + (PLAYER_ID * 77) + 76             }
+        eGlobal.World.Kosatka.Status           = { type = "int", global = 2658019 + 1 + (PLAYER_ID * 467) + 324 + 4       }
 
         eGlobal.Player.Organization = {
             CEO  = { type = "int", global = 1888882 + 1 + (PLAYER_ID * 611) + 10       },
@@ -118,9 +118,9 @@ function Script.ReAssign()
             VisibleCards = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
         }
     else
-        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845225 + 1 + (PLAYER_ID * 874) + 260 + 358 + 5            }
-        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1876941 + 1 + (PLAYER_ID * 77) + 76                        }
-        eGlobal.World.Kosatka.Status           = { type = "int", global = 2658019 + 1 + (PLAYER_ID * 467) + 324 + 4                  }
+        eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845225 + 1 + (PLAYER_ID * 874) + 260 + 358 + 5 }
+        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1876941 + 1 + (PLAYER_ID * 77) + 76             }
+        eGlobal.World.Kosatka.Status           = { type = "int", global = 2658016 + 1 + (PLAYER_ID * 467) + 324 + 4       }
 
         eGlobal.Player.Organization = {
             CEO  = { type = "int", global = 1888737 + 1 + (PLAYER_ID * 611) + 10       },
