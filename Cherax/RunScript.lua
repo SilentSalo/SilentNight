@@ -14,7 +14,7 @@ local files = {
     "eGlobal",
     "eLocal",
     "eStat",
-    "ePackedBool",
+    "ePackedStat",
     "eTable",
     "eNative",
     "eScript",

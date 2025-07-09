@@ -124,6 +124,12 @@ hangarToggles = {
     eFeature.Business.Hangar.Stats.NoEarnings
 }
 
+moneyFrontsBusinesses = {
+    eFeature.Business.MoneyFronts.HandsOnCarWash,
+    eFeature.Business.MoneyFronts.SmokeOnTheWater,
+    eFeature.Business.MoneyFronts.HigginsHelitours
+}
+
 nightclubStats = {
     eFeature.Business.Nightclub.Stats.SellMade,
     eFeature.Business.Nightclub.Stats.Earnings
@@ -212,10 +218,14 @@ loggedHangarSupplier    = false
 loggedHangarCooldown    = false
 loggedNightclubPrice    = false
 loggedNightclubCooldown = false
+loggedNightclubLock     = false
 loggedSpecialPrice      = false
 loggedSpecialSupplier   = false
 loggedSpecialCooldown   = false
 loggedCasinoLimits      = false
+loggedHOCWLock          = false
+loggedSOTWLock          = false
+loggedHHLock            = false
 logged5kLoop            = false
 logged50kLoop           = false
 logged100kLoop          = false

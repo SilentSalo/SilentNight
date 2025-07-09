@@ -1,7 +1,7 @@
 --#region Generic
 
 SCRIPT_NAME = "Silent Night"
-SCRIPT_VER  = "1.3.3"
+SCRIPT_VER  = "1.4.0"
 DISCORD     = "https://discord.gg/AYpT8cBaVb"
 INT32_MAX   = 2147483647
 PLAYER_ID   = GTA.GetLocalPlayerId()
@@ -14,6 +14,9 @@ DIAMOND_DIR = F("%s\\Lua\\SilentNight\\Data\\Presets\\DiamondCasino", MENU_PATH)
 STATS_DIR   = F("%s\\Lua\\SilentNight\\Data\\Stats", MENU_PATH)
 CONFIG_PATH = F("%s\\config.json", CONFIG_DIR)
 NPOPULARITY = "TEMP"
+HOCWHEAT    = "TEMP"
+SOTWHEAT    = "TEMP"
+HHHEAT      = "TEMP"
 TEMP_GLOBAL = "TEMP"
 TEMP_LOCAL  = "TEMP"
 TEMP_STAT   = "TEMP"

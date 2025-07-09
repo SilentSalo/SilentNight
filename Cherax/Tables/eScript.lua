@@ -45,6 +45,18 @@ eScript = {
         Interior = { name = "am_mp_hangar", stack = 0,    hash = J("am_mp_hangar") }
     },
 
+    CarWash = {
+        Interior = { name = "am_mp_sb_car_wash", stack = 0, hash = J("am_mp_sb_car_wash") }
+    },
+
+    WeedShop = {
+        Interior = { name = "am_mp_sb_weed_shop", stack = 0, hash = J("am_mp_sb_weed_shop") }
+    },
+
+    TourCompany = {
+        Interior = { name = "am_mp_sb_heli_tours", stack = 0, hash = J("am_mp_sb_heli_tours") }
+    },
+
     Nightclub = {
         Laptop   = { name = "appbusinesshub",  stack = 4592, hash = J("appbusinesshub")  },
         Interior = { name = "am_mp_nightclub", stack = 0,    hash = J("am_mp_nightclub") }

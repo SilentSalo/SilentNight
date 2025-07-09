@@ -112,6 +112,26 @@ end)
 
 --#endregion
 
+--#region Money Fronts
+
+for i = 1, #moneyFrontsBusinesses do
+    FeatureMgr.AddFeature(moneyFrontsBusinesses[i].Teleport.Entrance):SetVisible(false)
+
+    FeatureMgr.AddFeature(moneyFrontsBusinesses[i].Teleport.Laptop):SetVisible(false)
+
+    FeatureMgr.AddLoop(moneyFrontsBusinesses[i].Heat.Lock, nil, function(f)
+        moneyFrontsBusinesses[i].Heat.Lock.func(f)
+    end)
+
+    FeatureMgr.AddFeature(moneyFrontsBusinesses[i].Heat.Max)
+
+    FeatureMgr.AddFeature(moneyFrontsBusinesses[i].Heat.Min)
+
+    FeatureMgr.AddFeature(moneyFrontsBusinesses[i].Heat.Select)
+end
+
+--#endregion
+
 --#region Nightclub
 
 FeatureMgr.AddLoop(eFeature.Business.Nightclub.Sale.Price, nil, function(f)

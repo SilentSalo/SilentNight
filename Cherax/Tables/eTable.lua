@@ -655,22 +655,28 @@ eTable = {
     },
 
     BlipSprites = {
-        Agency      = 826,
-        Apartment   = 40,
-        AutoShop    = 779,
-        Kosatka     = 760,
-        Arcade      = 740,
-        Facility    = 590,
-        SalvageYard = 867,
-        Bunker      = 557,
-        Hangar      = 569,
-        Nightclub   = 614,
-        Office      = 475,
-        Warehouse   = 473,
-        Garment     = 900,
-        Heist       = 428,
-        Franklin    = 88,
-        Laptop      = 521
+        Agency       = 826,
+        Apartment    = 40,
+        AutoShop     = 779,
+        Kosatka      = 760,
+        Arcade       = 740,
+        Facility     = 590,
+        SalvageYard  = 867,
+        Bunker       = 557,
+        Hangar       = 569,
+        Nightclub    = 614,
+        Office       = 475,
+        Warehouse    = 473,
+        Garment      = 900,
+        Heist        = 428,
+        Franklin     = 88,
+        Laptop       = 521,
+        WeedShop     = 925,
+        WeedShopH    = 927,
+        TourCompany  = 928,
+        TourCompanyH = 930,
+        CarWash      = 931,
+        CarWashH     = 933
     },
 
     Properties = {
@@ -686,7 +692,10 @@ eTable = {
         Nightclub   = eStat.MPX_NIGHTCLUB_OWNED,
         Office      = eStat.MPX_PROP_OFFICE,
         Warehouse   = eStat.MPX_WAREHOUSE_OWNED,
-        Garment     = eStat.MPX_HACKER_DEN_OWNED
+        Garment     = eStat.MPX_HACKER_DEN_OWNED,
+        CarWash     = eStat.MPX_SB_CAR_WASH_OWNED,
+        WeedShop    = eStat.MPX_SB_WEED_SHOP_OWNED,
+        TourCompany = eStat.MPX_SB_HELI_TOURS_OWNED
     },
 
     Teleports = {
@@ -701,7 +710,10 @@ eTable = {
         Nightclub   = { -1618.249, -3013.507, -75.205, 257.431 },
         Garment     = { 749.337,   -995.654,  -46.376, 50.750  },
         MazeBank    = { -75.146,   -818.687,  326.175, 357.531 },
-        Terminal    = { 1169.749,  -2973.535, 5.902,   271.204 }
+        Terminal    = { 1169.749,  -2973.535, 5.902,   271.204 },
+        CarWash     = { 23.684,    -1400.633, -73.999, 357.518 },
+        WeedShop    = { -1160.636, -1535.462, -48.994, 180.271 },
+        TourCompany = { -1160.599, -1535.585, -48.999, 177.268 }
     }
 }
 

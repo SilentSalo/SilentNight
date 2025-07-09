@@ -540,6 +540,58 @@ function Renderer.RenderBusinessTool()
                 ImGui.EndTabItem()
             end
 
+            if ImGui.BeginTabItem("Money Fronts") then
+                if ImGui.BeginColumns(3) then
+                    if ClickGUI.BeginCustomChildWindow("Hands On Car Wash") then
+                        ImGui.PushButtonStyle(eBtnStyle.PINK)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Entrance)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Laptop)
+                        ImGui.ResetButtonStyle()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Lock)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Max)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Min)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Select)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("Smoke On The Water") then
+                        ImGui.PushButtonStyle(eBtnStyle.PINK)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Entrance)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Laptop)
+                        ImGui.ResetButtonStyle()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Lock)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Max)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Min)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Select)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("Higgins Helitours") then
+                        ImGui.PushButtonStyle(eBtnStyle.PINK)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Entrance)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Laptop)
+                        ImGui.ResetButtonStyle()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Lock)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Max)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Min)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Select)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.EndColumns()
+                end
+                ImGui.EndTabItem()
+            end
+
             if ImGui.BeginTabItem("Nightclub") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
@@ -1386,6 +1438,33 @@ function Renderer.RenderListGUI()
             StatsSubTab:AddFeature(eFeature.Business.Hangar.Stats.NoSell)
             StatsSubTab:AddFeature(eFeature.Business.Hangar.Stats.NoEarnings)
             StatsSubTab:AddFeature(eFeature.Business.Hangar.Stats.Apply)
+        end
+
+        local MoneyFrontsTab = BusinessToolTab:AddSubTab("Money Fronts", "Money Fronts")
+        if MoneyFrontsTab then
+            local CarWashTab = MoneyFrontsTab:AddSubTab("Hands On Car Wash")
+            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Entrance)
+            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Laptop)
+            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Lock)
+            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Max)
+            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Min)
+            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Select)
+
+            local WeedShopTab = MoneyFrontsTab:AddSubTab("Smoke On The Water")
+            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Entrance)
+            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Laptop)
+            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Lock)
+            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Max)
+            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Min)
+            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Select)
+
+            local TourCompanyTab = MoneyFrontsTab:AddSubTab("Higgins Helitours")
+            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Entrance)
+            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Laptop)
+            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Lock)
+            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Max)
+            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Min)
+            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Select)
         end
 
         local NightclubTab = BusinessToolTab:AddSubTab("Nightclub", "Nightclub")

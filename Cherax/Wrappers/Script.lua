@@ -225,14 +225,14 @@ function Script.ReParse()
             Parser.ParseGlobals(eGlobal)
             Script.ReloadFeatures()
             Parser.ParseLocals(eLocal)
-            Parser.ParsePackedBools(ePackedBool)
+            Parser.ParsePackedStats(ePackedStat)
 
             while not (
                 eTunable.HAS_PARSED
                 and eGlobal.HAS_PARSED
                 and eLocal.HAS_PARSED
                 and eStat.HAS_PARSED
-                and ePackedBool.HAS_PARSED
+                and ePackedStat.HAS_PARSED
                 and eTable.HAS_PARSED
             ) do
                 Script.Yield()
@@ -354,6 +354,26 @@ Script.RegisterLooped(function()
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Misc.Teleport.Laptop):SetVisible(false)
     end
 
+    if Helper.IsPropertyOwned(eTable.Properties.CarWash) then
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Laptop):SetVisible(GTA.IsScriptRunning(eScript.CarWash.Interior))
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Select):SetIntValue(ePackedStat.Business.Heat.HandsOnCarWash:Get())
+
+        if Helper.IsPropertyOwned(eTable.Properties.WeedShop) then
+            FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Entrance):SetVisible(true)
+            FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Laptop):SetVisible(GTA.IsScriptRunning(eScript.WeedShop.Interior))
+            FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Select):SetIntValue(ePackedStat.Business.Heat.SmokeOnTheWater:Get())
+        end
+
+        if Helper.IsPropertyOwned(eTable.Properties.TourCompany) then
+            FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Entrance):SetVisible(true)
+            FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Laptop):SetVisible(GTA.IsScriptRunning(eScript.TourCompany.Interior))
+            FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Select):SetIntValue(ePackedStat.Business.Heat.HigginsHelitours:Get())
+        end
+    else
+
+    end
+
     if Helper.IsPropertyOwned(eTable.Properties.Nightclub) then
         FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance):SetVisible(true)
         FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Teleport.Computer):SetVisible(GTA.IsScriptRunning(eScript.Nightclub.Interior))
@@ -387,8 +407,8 @@ Script.RegisterLooped(function()
     end
 
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.PacificJob)
-    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(not ePackedBool.Business.Arcade.Setup:Get())
-    FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Setup):SetVisible(not ePackedBool.Business.Nightclub.Setup.DJ:Get())
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(not ePackedStat.Business.Arcade.Setup:Get())
+    FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Setup):SetVisible(not ePackedStat.Business.Nightclub.Setup.DJ:Get())
 
     if FeatureMgr.GetFeatureListIndex(eFeature.Heist.Apartment.Cuts.Presets) == 3 then
         local ftr = eFeature.Heist.Apartment.Cuts.Double

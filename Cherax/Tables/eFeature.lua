@@ -288,7 +288,7 @@ eFeature = {
                         hash = J("SN_Apartment_Teleport"),
                         name = "Teleport to Entrance",
                         type = eFeatureType.Button,
-                        desc = "Teleports you to the Apartment's entrance.",
+                        desc = "Teleports you to the closest Apartment's entrance.",
                         func = function()
                             GTA.TeleportToBlip(eTable.BlipSprites.Apartment)
                             SilentLogger.LogInfo("[Teleport to Entrance (Apartment)] You should've been teleported to the entrance ツ")
@@ -1698,7 +1698,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Skips the setup mission for your Arcade. Change the session to apply.",
                     func = function()
-                        ePackedBool.Business.Arcade.Setup:Set(true)
+                        ePackedStat.Business.Arcade.Setup:Set(true)
                         SilentLogger.LogInfo("[Skip Setup (Diamond Casino)] Setups should've been skipped. Don't forget to change the session ツ")
                     end
                 },
@@ -3057,7 +3057,7 @@ eFeature = {
                                 end
 
                                 if eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() < 4 then
-                                    ePackedBool.Business.Hangar.Cargo:Set(true)
+                                    ePackedStat.Business.Hangar.Cargo:Set(true)
                                     Script.Yield(1000)
                                 end
 
@@ -3144,7 +3144,7 @@ eFeature = {
                     desc = "Gets cargo for your Hangar.",
                     func = function()
                         if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
-                            ePackedBool.Business.Hangar.Cargo:Set(true)
+                            ePackedStat.Business.Hangar.Cargo:Set(true)
                             SilentLogger.LogInfo("[Get Cargo (Hangar)] Cargo should've been received ツ")
                         end
                     end
@@ -3158,7 +3158,7 @@ eFeature = {
                     func = function(ftr)
                         if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
                             if ftr:IsToggled() then
-                                ePackedBool.Business.Hangar.Cargo:Set(true)
+                                ePackedStat.Business.Hangar.Cargo:Set(true)
 
                                 if not loggedHangarSupplier then
                                     SilentLogger.LogInfo("[Turkish Supplier (Hangar)] Supplier should've been enabled ツ")
@@ -3167,7 +3167,7 @@ eFeature = {
 
                                 Script.Yield(1000)
                             else
-                                ePackedBool.Business.Hangar.Cargo:Set(false)
+                                ePackedStat.Business.Hangar.Cargo:Set(false)
                                 SilentLogger.LogInfo("[Turkish Supplier (Hangar)] Supplier should've been disabled ツ")
                                 loggedHangarSupplier = false
                             end
@@ -3324,6 +3324,290 @@ eFeature = {
             }
         },
 
+        MoneyFronts = {
+            HandsOnCarWash = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_HandsOnCarWash_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Car Wash's entrance.",
+                        func = function()
+                            if ePackedStat.Business.Heat.HandsOnCarWash:Get() ~= 100 then
+                                GTA.TeleportToBlip(eTable.BlipSprites.CarWash)
+                            else
+                                GTA.TeleportToBlip(eTable.BlipSprites.CarWashH)
+                            end
+                            SilentLogger.LogInfo("[Teleport to Entrance (Money Fronts)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Laptop = {
+                        hash = J("SN_HandsOnCarWash_Laptop"),
+                        name = "Teleport to Laptop",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Car Wash's laptop.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.CarWash))
+                            SilentLogger.LogInfo("[Teleport to Laptop (Money Fronts)] You should've been teleported to the laptop ツ")
+                        end
+                    }
+                },
+
+                Heat = {
+                    Lock = {
+                        hash = J("SN_HandsOnCarWash_Lock"),
+                        name = "Lock",
+                        type = eFeatureType.Toggle,
+                        desc = "Locks the heat of your Car Wash on the current level.",
+                        func = function(ftr)
+                            if ftr:IsToggled() then
+                                if HOCWHEAT == "TEMP" then
+                                    HOCWHEAT = ePackedStat.Business.Heat.HandsOnCarWash:Get()
+                                end
+
+                                ePackedStat.Business.Heat.HandsOnCarWash:Set(HOCWHEAT)
+
+                                if not loggedHOCWLock then
+                                    SilentLogger.LogInfo(F("[Lock (Money Fronts)] Heat should've been locked at %d%% ツ", HOCWHEAT))
+                                    loggedHOCWLock = true
+                                end
+
+                                Script.Yield(1000)
+                            else
+                                HOCWHEAT = "TEMP"
+                                SilentLogger.LogInfo("[Lock (Money Fronts)] Heat should've been unlocked ツ")
+                                loggedHOCWLock = false
+                            end
+                        end
+                    },
+
+                    Max = {
+                        hash = J("SN_HandsOnCarWash_Max"),
+                        name = "Max",
+                        type = eFeatureType.Button,
+                        desc = "Makes your Car Wash's heat high.",
+                        func = function()
+                            ePackedStat.Business.Heat.HandsOnCarWash:Set(100)
+                            SilentLogger.LogInfo("[Max (Money Fronts)] Heat should've been maximized ツ")
+                        end
+                    },
+
+                    Min = {
+                        hash = J("SN_HandsOnCarWash_Min"),
+                        name = "Min",
+                        type = eFeatureType.Button,
+                        desc = "Makes your Car Wash's heat low.",
+                        func = function()
+                            ePackedStat.Business.Heat.HandsOnCarWash:Set(0)
+                            SilentLogger.LogInfo("[Min (Money Fronts)] Heat should've been minimized ツ")
+                        end
+                    },
+
+                    Select = {
+                        hash = J("SN_HandsOnCarWash_Select"),
+                        name = "Heat Percentage",
+                        type = eFeatureType.SliderInt,
+                        desc = "Select the desired Car Wash's heat level.",
+                        defv = 0,
+                        lims = { 0, 100 },
+                        func = function(ftr)
+                            ePackedStat.Business.Heat.HandsOnCarWash:Set(ftr:GetIntValue())
+                            SilentLogger.LogInfo("[Heat Percentage (Money Fronts)] Heat level should've been changed ツ")
+                        end
+                    }
+                }
+            },
+
+            SmokeOnTheWater = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_SmokeOnTheWater_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Weed Shop's entrance.",
+                        func = function()
+                            if ePackedStat.Business.Heat.SmokeOnTheWater:Get() ~= 100 then
+                                GTA.TeleportToBlip(eTable.BlipSprites.WeedShop)
+                            else
+                                GTA.TeleportToBlip(eTable.BlipSprites.WeedShopH)
+                            end
+                            SilentLogger.LogInfo("[Teleport to Entrance (Money Fronts)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Laptop = {
+                        hash = J("SN_SmokeOnTheWater_Laptop"),
+                        name = "Teleport to Laptop",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Weed Shop's laptop.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.WeedShop))
+                            SilentLogger.LogInfo("[Teleport to Laptop (Money Fronts)] You should've been teleported to the laptop ツ")
+                        end
+                    }
+                },
+
+                Heat = {
+                    Lock = {
+                        hash = J("SN_SmokeOnTheWaterLock"),
+                        name = "Lock",
+                        type = eFeatureType.Toggle,
+                        desc = "Locks the heat of your Weed Shop on the current level.",
+                        func = function(ftr)
+                            if ftr:IsToggled() then
+                                if SOTWHEAT == "TEMP" then
+                                    SOTWHEAT = ePackedStat.Business.Heat.SmokeOnTheWater:Get()
+                                end
+
+                                ePackedStat.Business.Heat.SmokeOnTheWater:Set(SOTWHEAT)
+
+                                if not loggedSOTWLock then
+                                    SilentLogger.LogInfo(F("[Lock (Money Fronts)] Heat should've been locked at %d%% ツ", SOTWHEAT))
+                                    loggedSOTWLock = true
+                                end
+
+                                Script.Yield(1000)
+                            else
+                                SOTWHEAT = "TEMP"
+                                SilentLogger.LogInfo("[Lock (Money Fronts)] Heat should've been unlocked ツ")
+                                loggedSOTWLock = false
+                            end
+                        end
+                    },
+
+                    Max = {
+                        hash = J("SN_SmokeOnTheWater_Max"),
+                        name = "Max",
+                        type = eFeatureType.Button,
+                        desc = "Makes your Weed Shop's heat high.",
+                        func = function()
+                            ePackedStat.Business.Heat.SmokeOnTheWater:Set(100)
+                            SilentLogger.LogInfo("[Max (Money Fronts)] Heat should've been maximized ツ")
+                        end
+                    },
+
+                    Min = {
+                        hash = J("SN_SmokeOnTheWater_Min"),
+                        name = "Min",
+                        type = eFeatureType.Button,
+                        desc = "Makes your Weed Shop's heat low.",
+                        func = function()
+                            ePackedStat.Business.Heat.SmokeOnTheWater:Set(0)
+                            SilentLogger.LogInfo("[Min (Money Fronts)] Heat should've been minimized ツ")
+                        end
+                    },
+
+                    Select = {
+                        hash = J("SN_SmokeOnTheWater_Select"),
+                        name = "Heat Percentage",
+                        type = eFeatureType.SliderInt,
+                        desc = "Select the desired Weed Shop's heat level.",
+                        defv = 0,
+                        lims = { 0, 100 },
+                        func = function(ftr)
+                            ePackedStat.Business.Heat.SmokeOnTheWater:Set(ftr:GetIntValue())
+                            SilentLogger.LogInfo("[Heat Percentage (Money Fronts)] Heat level should've been changed ツ")
+                        end
+                    }
+                }
+            },
+
+            HigginsHelitours = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_HigginsHelitours_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Tour Company's entrance.",
+                        func = function()
+                            if ePackedStat.Business.Heat.HigginsHelitours:Get() ~= 100 then
+                                GTA.TeleportToBlip(eTable.BlipSprites.TourCompany)
+                            else
+                                GTA.TeleportToBlip(eTable.BlipSprites.TourCompanyH)
+                            end
+                            SilentLogger.LogInfo("[Teleport to Entrance (Money Fronts)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Laptop = {
+                        hash = J("SN_HigginsHelitours_Laptop"),
+                        name = "Teleport to Laptop",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Tour Company's laptop.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.TourCompany))
+                            SilentLogger.LogInfo("[Teleport to Laptop (Money Fronts)] You should've been teleported to the laptop ツ")
+                        end
+                    }
+                },
+
+                Heat = {
+                    Lock = {
+                        hash = J("SN_HigginsHelitours_Lock"),
+                        name = "Lock",
+                        type = eFeatureType.Toggle,
+                        desc = "Locks the heat of your Tour Company on the current level.",
+                        func = function(ftr)
+                            if ftr:IsToggled() then
+                                if HHHEAT == "TEMP" then
+                                    HHHEAT = ePackedStat.Business.Heat.HigginsHelitours:Get()
+                                end
+
+                                ePackedStat.Business.Heat.HigginsHelitours:Set(HHHEAT)
+
+                                if not loggedHHLock then
+                                    SilentLogger.LogInfo(F("[Lock (Money Fronts)] Heat should've been locked at %d%% ツ", HHHEAT))
+                                    loggedHHLock = true
+                                end
+
+                                Script.Yield(1000)
+                            else
+                                HHHEAT = "TEMP"
+                                SilentLogger.LogInfo("[Lock (Money Fronts)] Heat should've been unlocked ツ")
+                                loggedHHLock = false
+                            end
+                        end
+                    },
+
+                    Max = {
+                        hash = J("SN_HigginsHelitours_Max"),
+                        name = "Max",
+                        type = eFeatureType.Button,
+                        desc = "Makes your Tour Company's heat high.",
+                        func = function()
+                            ePackedStat.Business.Heat.HigginsHelitours:Set(100)
+                            SilentLogger.LogInfo("[Max (Money Fronts)] Heat should've been maximized ツ")
+                        end
+                    },
+
+                    Min = {
+                        hash = J("SN_HigginsHelitours_Min"),
+                        name = "Min",
+                        type = eFeatureType.Button,
+                        desc = "Makes your Tour Company's heat low.",
+                        func = function()
+                            ePackedStat.Business.Heat.HigginsHelitours:Set(0)
+                            SilentLogger.LogInfo("[Min (Money Fronts)] Heat should've been minimized ツ")
+                        end
+                    },
+
+                    Select = {
+                        hash = J("SN_HigginsHelitours_Select"),
+                        name = "Heat Percentage",
+                        type = eFeatureType.SliderInt,
+                        desc = "Select the desired Tour Company's heat level.",
+                        defv = 0,
+                        lims = { 0, 100 },
+                        func = function(ftr)
+                            ePackedStat.Business.Heat.HigginsHelitours:Set(ftr:GetIntValue())
+                            SilentLogger.LogInfo("[Heat Percentage (Money Fronts)] Heat level should've been changed ツ")
+                        end
+                    }
+                }
+            }
+        },
+
         Nightclub = {
             Sale = {
                 Price = {
@@ -3369,13 +3653,13 @@ eFeature = {
             Misc = {
                 Setup = {
                     hash = J("SN_Nightclub_Setup"),
-                    name = "Skip Setup",
+                    name = "Skip Setups",
                     type = eFeatureType.Button,
                     desc = "Skips the setup missions for your Nightclub. Change the session to apply.",
                     func = function()
-                        ePackedBool.Business.Nightclub.Setup.Staff:Set(true)
-                        ePackedBool.Business.Nightclub.Setup.Equipment:Set(true)
-                        ePackedBool.Business.Nightclub.Setup.DJ:Set(true)
+                        ePackedStat.Business.Nightclub.Setup.Staff:Set(true)
+                        ePackedStat.Business.Nightclub.Setup.Equipment:Set(true)
+                        ePackedStat.Business.Nightclub.Setup.DJ:Set(true)
                         SilentLogger.LogInfo("[Skip Setup (Nightclub)] Setups should've been skipped. Don't forget to change the session ツ")
                     end
                 },
@@ -3588,14 +3872,14 @@ eFeature = {
                             eStat.MPX_CLUB_POPULARITY:Set(NPOPULARITY)
 
                             if not loggedNightclubLock then
-                                SilentLogger.LogInfo(F("[Lock Popularity (Nightclub)] Popularity should've been locked at %d%% ツ", NPOPULARITY / 10))
+                                SilentLogger.LogInfo(F("[Lock (Nightclub)] Popularity should've been locked at %d%% ツ", NPOPULARITY / 10))
                                 loggedNightclubLock = true
                             end
 
                             Script.Yield(1000)
                         else
                             NPOPULARITY = "TEMP"
-                            SilentLogger.LogInfo("[Lock Popularity (Nightclub)] Popularity should've been unlocked ツ")
+                            SilentLogger.LogInfo("[Lock (Nightclub)] Popularity should've been unlocked ツ")
                             loggedNightclubLock = false
                         end
                     end
@@ -3608,7 +3892,7 @@ eFeature = {
                     desc = "Makes your Nightclub popular.",
                     func = function()
                         eStat.MPX_CLUB_POPULARITY:Set(1000)
-                        SilentLogger.LogInfo("[Max Popularity (Nightclub)] Popularity should've been maximized ツ")
+                        SilentLogger.LogInfo("[Max (Nightclub)] Popularity should've been maximized ツ")
                     end
                 },
 
@@ -3619,7 +3903,7 @@ eFeature = {
                     desc = "Makes your Nightclub unpopular.",
                     func = function()
                         eStat.MPX_CLUB_POPULARITY:Set(0)
-                        SilentLogger.LogInfo("[Min Popularity (Nightclub)] Popularity should've been minimized ツ")
+                        SilentLogger.LogInfo("[Min (Nightclub)] Popularity should've been minimized ツ")
                     end
                 },
 
@@ -3627,7 +3911,7 @@ eFeature = {
                     hash = J("SN_Nightclub_Select"),
                     name = "Percentage",
                     type = eFeatureType.SliderInt,
-                    desc = "Select the desired popularity level.",
+                    desc = "Select the desired Nightclub's popularity level.",
                     defv = 0,
                     lims = { 0, 100 },
                     func = function(ftr)
@@ -3717,7 +4001,7 @@ eFeature = {
                     func = function(bool1, bool2)
                         if not bool2 then
                             if GTA.IsScriptRunning(eScript.CrateWarehouse.Sell) then
-                                ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
+                                ePackedStat.Business.CrateWarehouse.Cargo:Set(true)
                             end
                         end
                         eGlobal.World.Multiplier.Xp:Set((bool1) and 0.0 or 1.0)
@@ -3772,7 +4056,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Gets crates for your Crate Warehouse.",
                     func = function()
-                        ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
+                        ePackedStat.Business.CrateWarehouse.Cargo:Set(true)
                         SilentLogger.LogInfo("[Get Crates (Special Cargo)] Crates should've been received ツ")
                     end
                 },
@@ -3821,7 +4105,7 @@ eFeature = {
                     desc = "Fills your Crate Warehouse stock repeatedly.",
                     func = function(ftr)
                         if ftr:IsToggled() then
-                            ePackedBool.Business.CrateWarehouse.Cargo:Set(true)
+                            ePackedStat.Business.CrateWarehouse.Cargo:Set(true)
 
                             if not loggedSpecialSupplier then
                                 SilentLogger.LogInfo("[Turkish Supplier (Special Cargo)] Supplier should've been enabled ツ")

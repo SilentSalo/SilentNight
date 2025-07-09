@@ -193,32 +193,57 @@ function Parser.ParseStats(tbl)
     tbl.HAS_PARSED = true
 end
 
-function Parser.ParsePackedBools(tbl)
+function Parser.ParsePackedStats(tbl)
     for _, v in pairs(tbl) do
-        if type(v) == "table" and v[1] then
+        if type(v) == "table" and v.index then
+            if type(v.index) == "number" then
+                v.index = { v.index }
+            end
+
             v.Get = function(self)
+                if self.index[2] then
+                    return false
+                end
+
                 local _, charSlot = Stats.GetInt(J("MPPLY_LAST_MP_CHAR"))
 
-                if v[2] then
-                    return false
+                if self.type == "int" then
+                    return eNative.STATS.GET_PACKED_STAT_INT_CODE(self.index[1], charSlot)
+                elseif self.type == "bool" then
+                    return eNative.STATS.GET_PACKED_STAT_INT_CODE(self.index[1], charSlot)
                 else
-                    return eNative.STATS.GET_PACKED_STAT_BOOL_CODE(v[1], charSlot)
+                    SilentLogger.LogError(F("No type for packed stat! %s", S(self.index[1])))
+                    return nil
                 end
             end
 
             v.Set = function(self, value)
                 local _, charSlot = Stats.GetInt(J("MPPLY_LAST_MP_CHAR"))
 
-                if v[2] then
-                    for i = v[1], v[2] do
-                        eNative.STATS.SET_PACKED_STAT_BOOL_CODE(i, value, charSlot)
+                if self.index[2] then
+                    for i = self.index[1], self.index[2] do
+                        if self.type == "int" then
+                            eNative.STATS.SET_PACKED_STAT_INT_CODE(i, value, charSlot)
+                        elseif self.type == "bool" then
+                            eNative.STATS.SET_PACKED_STAT_BOOL_CODE(i, value, charSlot)
+                        else
+                            SilentLogger.LogError(F("No type for packed stat! %s", S(i)))
+                            return nil
+                        end
                     end
                 else
-                    eNative.STATS.SET_PACKED_STAT_BOOL_CODE(v[1], value, charSlot)
+                    if self.type == "int" then
+                        eNative.STATS.SET_PACKED_STAT_INT_CODE(self.index[1], value, charSlot)
+                    elseif self.type == "bool" then
+                        eNative.STATS.SET_PACKED_STAT_BOOL_CODE(self.index[1], value, charSlot)
+                    else
+                        SilentLogger.LogError(F("No type for packed stat! %s", S(self.index[1])))
+                        return nil
+                    end
                 end
             end
         elseif type(v) == "table" then
-            Parser.ParsePackedBools(v)
+            Parser.ParsePackedStats(v)
         end
     end
 
@@ -287,12 +312,12 @@ Parser.ParseTunables(eTunable)
 Parser.ParseGlobals(eGlobal)
 Parser.ParseLocals(eLocal)
 Parser.ParseStats(eStat)
-Parser.ParsePackedBools(ePackedBool)
+Parser.ParsePackedStats(ePackedStat)
 Utils.FillDynamicTables()
 Parser.ParseTables(eTable)
 
 Script.QueueJob(function()
-    while not eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedBool.HAS_PARSED and eTable.HAS_PARSED do
+    while not eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedStat.HAS_PARSED and eTable.HAS_PARSED do
         Script.Yield()
     end
 
