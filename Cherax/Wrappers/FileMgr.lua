@@ -121,7 +121,7 @@ function FileMgr.ExportTranslation(file)
                     desc = desc
                 }
 
-                if feature:GetType() == eFeatureType.Combo then
+                if feature:GetType() == eFeatureType.Combo and hash ~= eTable.SilentNight.Features.Language then
                     local list = feature:GetList()
                     entry.list = {}
 
