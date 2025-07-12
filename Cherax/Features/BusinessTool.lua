@@ -130,6 +130,26 @@ for i = 1, #moneyFrontsBusinesses do
     FeatureMgr.AddFeature(moneyFrontsBusinesses[i].Heat.Select)
 end
 
+FeatureMgr.AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Lock, function(f)
+    for i = 1, #moneyFrontsBusinesses do
+        FeatureMgr.GetFeature(moneyFrontsBusinesses[i].Heat.Lock):Toggle(f:IsToggled())
+    end
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Max, function(f)
+    for i = 1, #moneyFrontsBusinesses do
+        moneyFrontsBusinesses[i].Heat.Max.func()
+    end
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Min, function(f)
+    for i = 1, #moneyFrontsBusinesses do
+        moneyFrontsBusinesses[i].Heat.Min.func()
+    end
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Select)
+
 --#endregion
 
 --#region Nightclub

@@ -84,9 +84,7 @@ function Script.Translate(path)
             end
 
             if data.list and type(data.list) == "table" and feature.SetList then
-                if feature:GetHash() ~= eTable.SilentNight.Features.Language then
-                    feature:SetList(data.list)
-                end
+                feature:SetList(data.list)
             end
         end
     end
@@ -370,8 +368,20 @@ Script.RegisterLooped(function()
             FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Laptop):SetVisible(GTA.IsScriptRunning(eScript.TourCompany.Interior))
             FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Select):SetIntValue(ePackedStat.Business.Heat.HigginsHelitours:Get())
         end
-    else
 
+        local business = ePackedStat.Business.Heat
+        local heat     = math.max(business.HandsOnCarWash:Get(), business.SmokeOnTheWater:Get(), business.HigginsHelitours:Get())
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.OverallHeat.Select):SetIntValue(heat)
+    else
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Laptop):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Select):SetIntValue(0)
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Laptop):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Select):SetIntValue(0)
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Laptop):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Select):SetIntValue(0)
     end
 
     if Helper.IsPropertyOwned(eTable.Properties.Nightclub) then
@@ -420,7 +430,7 @@ Script.RegisterLooped(function()
         eFeature.Heist.CayoPerico.Cuts.Presets.func()
     end
 
-    if FeatureMgr.GetFeatureListIndex( eFeature.Heist.DiamondCasino.Cuts.Presets) == 3 then
+    if FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Cuts.Presets) == 3 then
         FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(true)
         eFeature.Heist.DiamondCasino.Cuts.Presets.func()
     end

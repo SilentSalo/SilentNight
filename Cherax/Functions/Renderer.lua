@@ -556,6 +556,16 @@ function Renderer.RenderBusinessTool()
                         ClickGUI.EndCustomChildWindow()
                     end
 
+                    if ClickGUI.BeginCustomChildWindow("Overall Heat") then
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.OverallHeat.Lock)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.OverallHeat.Max)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.OverallHeat.Min)
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.OverallHeat.Select)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Smoke On The Water") then
@@ -1465,6 +1475,12 @@ function Renderer.RenderListGUI()
             TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Max)
             TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Min)
             TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Select)
+
+            local OverallHeatTab = MoneyFrontsTab:AddSubTab("Overall Heat")
+            OverallHeatTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Lock)
+            OverallHeatTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Max)
+            OverallHeatTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Min)
+            OverallHeatTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Select)
         end
 
         local NightclubTab = BusinessToolTab:AddSubTab("Nightclub", "Nightclub")

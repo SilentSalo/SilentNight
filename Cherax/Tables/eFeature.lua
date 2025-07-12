@@ -3369,14 +3369,14 @@ eFeature = {
                                 ePackedStat.Business.Heat.HandsOnCarWash:Set(HOCWHEAT)
 
                                 if not loggedHOCWLock then
-                                    SilentLogger.LogInfo(F("[Lock (Money Fronts)] Heat should've been locked at %d%% ツ", HOCWHEAT))
+                                    SilentLogger.LogInfo(F("[Lock (Money Fronts)] Heat level should've been locked at %d%% ツ", HOCWHEAT))
                                     loggedHOCWLock = true
                                 end
 
                                 Script.Yield(1000)
                             else
                                 HOCWHEAT = "TEMP"
-                                SilentLogger.LogInfo("[Lock (Money Fronts)] Heat should've been unlocked ツ")
+                                SilentLogger.LogInfo("[Lock (Money Fronts)] Heat level should've been unlocked ツ")
                                 loggedHOCWLock = false
                             end
                         end
@@ -3389,7 +3389,7 @@ eFeature = {
                         desc = "Makes your Car Wash's heat high.",
                         func = function()
                             ePackedStat.Business.Heat.HandsOnCarWash:Set(100)
-                            SilentLogger.LogInfo("[Max (Money Fronts)] Heat should've been maximized ツ")
+                            SilentLogger.LogInfo("[Max (Money Fronts)] Heat level should've been maximized ツ")
                         end
                     },
 
@@ -3400,7 +3400,7 @@ eFeature = {
                         desc = "Makes your Car Wash's heat low.",
                         func = function()
                             ePackedStat.Business.Heat.HandsOnCarWash:Set(0)
-                            SilentLogger.LogInfo("[Min (Money Fronts)] Heat should've been minimized ツ")
+                            SilentLogger.LogInfo("[Min (Money Fronts)] Heat level should've been minimized ツ")
                         end
                     },
 
@@ -3463,14 +3463,14 @@ eFeature = {
                                 ePackedStat.Business.Heat.SmokeOnTheWater:Set(SOTWHEAT)
 
                                 if not loggedSOTWLock then
-                                    SilentLogger.LogInfo(F("[Lock (Money Fronts)] Heat should've been locked at %d%% ツ", SOTWHEAT))
+                                    SilentLogger.LogInfo(F("[Lock (Money Fronts)] Heat level should've been locked at %d%% ツ", SOTWHEAT))
                                     loggedSOTWLock = true
                                 end
 
                                 Script.Yield(1000)
                             else
                                 SOTWHEAT = "TEMP"
-                                SilentLogger.LogInfo("[Lock (Money Fronts)] Heat should've been unlocked ツ")
+                                SilentLogger.LogInfo("[Lock (Money Fronts)] Heat level should've been unlocked ツ")
                                 loggedSOTWLock = false
                             end
                         end
@@ -3483,7 +3483,7 @@ eFeature = {
                         desc = "Makes your Weed Shop's heat high.",
                         func = function()
                             ePackedStat.Business.Heat.SmokeOnTheWater:Set(100)
-                            SilentLogger.LogInfo("[Max (Money Fronts)] Heat should've been maximized ツ")
+                            SilentLogger.LogInfo("[Max (Money Fronts)] Heat level should've been maximized ツ")
                         end
                     },
 
@@ -3494,7 +3494,7 @@ eFeature = {
                         desc = "Makes your Weed Shop's heat low.",
                         func = function()
                             ePackedStat.Business.Heat.SmokeOnTheWater:Set(0)
-                            SilentLogger.LogInfo("[Min (Money Fronts)] Heat should've been minimized ツ")
+                            SilentLogger.LogInfo("[Min (Money Fronts)] Heat level should've been minimized ツ")
                         end
                     },
 
@@ -3557,14 +3557,14 @@ eFeature = {
                                 ePackedStat.Business.Heat.HigginsHelitours:Set(HHHEAT)
 
                                 if not loggedHHLock then
-                                    SilentLogger.LogInfo(F("[Lock (Money Fronts)] Heat should've been locked at %d%% ツ", HHHEAT))
+                                    SilentLogger.LogInfo(F("[Lock (Money Fronts)] Heat level should've been locked at %d%% ツ", HHHEAT))
                                     loggedHHLock = true
                                 end
 
                                 Script.Yield(1000)
                             else
                                 HHHEAT = "TEMP"
-                                SilentLogger.LogInfo("[Lock (Money Fronts)] Heat should've been unlocked ツ")
+                                SilentLogger.LogInfo("[Lock (Money Fronts)] Heat level should've been unlocked ツ")
                                 loggedHHLock = false
                             end
                         end
@@ -3577,7 +3577,7 @@ eFeature = {
                         desc = "Makes your Tour Company's heat high.",
                         func = function()
                             ePackedStat.Business.Heat.HigginsHelitours:Set(100)
-                            SilentLogger.LogInfo("[Max (Money Fronts)] Heat should've been maximized ツ")
+                            SilentLogger.LogInfo("[Max (Money Fronts)] Heat level should've been maximized ツ")
                         end
                     },
 
@@ -3588,7 +3588,7 @@ eFeature = {
                         desc = "Makes your Tour Company's heat low.",
                         func = function()
                             ePackedStat.Business.Heat.HigginsHelitours:Set(0)
-                            SilentLogger.LogInfo("[Min (Money Fronts)] Heat should've been minimized ツ")
+                            SilentLogger.LogInfo("[Min (Money Fronts)] Heat level should've been minimized ツ")
                         end
                     },
 
@@ -3604,6 +3604,44 @@ eFeature = {
                             SilentLogger.LogInfo("[Heat Percentage (Money Fronts)] Heat level should've been changed ツ")
                         end
                     }
+                }
+            },
+
+            OverallHeat = {
+                Lock = {
+                    hash = J("SN_OverallHeat_Lock"),
+                    name = "Lock",
+                    type = eFeatureType.Toggle,
+                    desc = "Locks the heat of all businesses on the current level."
+                },
+
+                Max = {
+                    hash = J("SN_OverallHeat_Max"),
+                    name = "Max",
+                    type = eFeatureType.Button,
+                    desc = "Makes the heat of all businesses high."
+                },
+
+                Min = {
+                    hash = J("SN_OverallHeat_Min"),
+                    name = "Min",
+                    type = eFeatureType.Button,
+                    desc = "Makes the heat of all businesses low."
+                },
+
+                Select = {
+                    hash = J("SN_OverallHeat_Select"),
+                    name = "Heat Percentage",
+                    type = eFeatureType.SliderInt,
+                    desc = "Select the desired overall heat level.",
+                    defv = 0,
+                    lims = { 0, 100 },
+                    func = function(ftr)
+                        ePackedStat.Business.Heat.HandsOnCarWash:Set(ftr:GetIntValue())
+                        ePackedStat.Business.Heat.SmokeOnTheWater:Set(ftr:GetIntValue())
+                        ePackedStat.Business.Heat.HigginsHelitours:Set(ftr:GetIntValue())
+                        SilentLogger.LogInfo("[Heat Percentage (Money Fronts)] Heat level should've been changed ツ")
+                    end
                 }
             }
         },
