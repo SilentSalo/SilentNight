@@ -849,6 +849,9 @@ function Renderer.RenderMoneyTool()
             if ImGui.BeginTabItem("Misc") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Edit") then
+                        ClickGUI.RenderFeature(eFeature.Money.Misc.Edit.DepositAll)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Money.Misc.Edit.WithdrawAll)
                         ClickGUI.RenderFeature(eFeature.Money.Misc.Edit.Select)
                         ClickGUI.RenderFeature(eFeature.Money.Misc.Edit.Deposit)
                         ImGui.SameLine()
@@ -856,9 +859,6 @@ function Renderer.RenderMoneyTool()
                         ImGui.PushButtonStyle(eBtnStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Money.Misc.Edit.Remove)
                         ImGui.ResetButtonStyle()
-                        ClickGUI.RenderFeature(eFeature.Money.Misc.Edit.DepositAll)
-                        ImGui.SameLine()
-                        ClickGUI.RenderFeature(eFeature.Money.Misc.Edit.WithdrawAll)
                         ClickGUI.EndCustomChildWindow()
                     end
 

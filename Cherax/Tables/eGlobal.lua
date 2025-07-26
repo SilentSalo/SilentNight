@@ -198,7 +198,7 @@ if GTA_EDITION == "EE" then
         World = {
             Casino = {
                 Chips = {
-                    Bonus = { type = "int", global = 1968565 }
+                    Bonus = { type = "bool", global = 1968565 }
                 }
             },
 
@@ -409,7 +409,7 @@ else
         World = {
             Casino = {
                 Chips = {
-                    Bonus = { type = "int", global = 1967286 }
+                    Bonus = { type = "bool", global = 1967286 }
                 }
             },
 

@@ -1055,19 +1055,22 @@ eFeature = {
                             return Bits.IsBitSet(eGlobal.World.Kosatka.Status:Get(), 31)
                         end
 
-                        if not IsKosatkaInOcean() then
-                            eGlobal.World.Kosatka.Request:Set(1)
+                        local entity = GTA.PointerToHandle(GTA.GetLocalPed())
+                        eNative.ENTITY.FREEZE_ENTITY_POSITION(entity, true)
 
+                        if GTA.IsInInterior() then
+                            GTA.TeleportXYZ(U(eTable.Teleports.MazeBank))
+                        end
+
+                        if not IsKosatkaInOcean() then
                             SilentLogger.LogInfo("[Teleport to Kosatka (Cayo Perico)] Kosatka isn't in the ocean. Requesting... ツ")
 
                             while not IsKosatkaInOcean() do
+                                eGlobal.World.Kosatka.Request:Set(1)
                                 Script.Yield()
                             end
                         end
 
-                        local entity = GTA.PointerToHandle(GTA.GetLocalPed())
-
-                        eNative.ENTITY.FREEZE_ENTITY_POSITION(entity, true)
                         GTA.TeleportXYZ(U(eTable.Teleports.Kosatka))
 
                         while eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(eTable.BlipSprites.Heist) == 0 do
@@ -4703,7 +4706,7 @@ eFeature = {
                     desc = "ATTENTION: might be unsafe, no bans reported.\nToggles the 5k chips loop.",
                     func = function(ftr, delay)
                         if ftr:IsToggled() then
-                            eGlobal.World.Casino.Chips.Bonus:Set(1)
+                            eGlobal.World.Casino.Chips.Bonus:Set(true)
 
                             if not logged5kLoop then
                                 SilentLogger.LogInfo("[5k Loop (Easy Money)] 5k chips loop should've been enabled ツ", eToastPos.BOTTOM_RIGHT)
@@ -4863,6 +4866,32 @@ eFeature = {
 
         Misc = {
             Edit = {
+                DepositAll = {
+                    hash = J("SN_Misc_EditDepositAll"),
+                    name = "Deposit All",
+                    type = eFeatureType.Button,
+                    desc = "Deposits all money to your bank.",
+                    func = function()
+                        local charSlot    = eStat.MPPLY_LAST_MP_CHAR:Get()
+                        local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
+                        eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, walletMoney)
+                        SilentLogger.LogInfo("[Deposit All (Misc)] Money should've been deposited ツ", eToastPos.BOTTOM_RIGHT)
+                    end
+                },
+
+                WithdrawAll = {
+                    hash = J("SN_Misc_EditWithdrawAll"),
+                    name = "Withdraw All",
+                    type = eFeatureType.Button,
+                    desc = "Withdraws all money from your bank.",
+                    func = function()
+                        local charSlot  = eStat.MPPLY_LAST_MP_CHAR:Get()
+                        local bankMoney = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
+                        eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, bankMoney)
+                        SilentLogger.LogInfo("[Withdraw All (Misc)] Money should've been withdrawn ツ", eToastPos.BOTTOM_RIGHT)
+                    end
+                },
+
                 Select = {
                     hash = J("SN_Misc_EditSelect"),
                     name = "Money Amount",
@@ -4931,32 +4960,6 @@ eFeature = {
                         local amount      = (amount > bankMoney + walletMoney) and bankMoney + walletMoney or amount
                         eGlobal.Player.Cash.Remove:Set(amount)
                         SilentLogger.LogInfo("[Remove (Misc)] Money amount should've been removed ツ", eToastPos.BOTTOM_RIGHT)
-                    end
-                },
-
-                DepositAll = {
-                    hash = J("SN_Misc_EditDepositAll"),
-                    name = "Deposit All",
-                    type = eFeatureType.Button,
-                    desc = "Deposits all money to your bank.",
-                    func = function()
-                        local charSlot    = eStat.MPPLY_LAST_MP_CHAR:Get()
-                        local walletMoney = eNative.MONEY.NETWORK_GET_VC_WALLET_BALANCE(charSlot)
-                        eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_WALLET_TO_BANK(charSlot, walletMoney)
-                        SilentLogger.LogInfo("[Deposit All (Misc)] Money should've been deposited ツ", eToastPos.BOTTOM_RIGHT)
-                    end
-                },
-
-                WithdrawAll = {
-                    hash = J("SN_Misc_EditWithdrawAll"),
-                    name = "Withdraw All",
-                    type = eFeatureType.Button,
-                    desc = "Withdraws all money from your bank.",
-                    func = function()
-                        local charSlot  = eStat.MPPLY_LAST_MP_CHAR:Get()
-                        local bankMoney = eNative.MONEY.NETWORK_GET_VC_BANK_BALANCE()
-                        eNative.NETSHOPPING.NET_GAMESERVER_TRANSFER_BANK_TO_WALLET(charSlot, bankMoney)
-                        SilentLogger.LogInfo("[Withdraw All (Misc)] Money should've been withdrawn ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 }
             },
