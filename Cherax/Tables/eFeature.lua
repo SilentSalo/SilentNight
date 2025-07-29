@@ -3170,7 +3170,6 @@ eFeature = {
 
                                 Script.Yield(1000)
                             else
-                                ePackedStat.Business.Hangar.Cargo:Set(false)
                                 SilentLogger.LogInfo("[Turkish Supplier (Hangar)] Supplier should've been disabled ツ")
                                 loggedHangarSupplier = false
                             end
@@ -4150,7 +4149,7 @@ eFeature = {
 
                             if not loggedSpecialSupplier then
                                 SilentLogger.LogInfo("[Turkish Supplier (Special Cargo)] Supplier should've been enabled ツ")
-                                loggedCrateSupplier = true
+                                loggedSpecialSupplier = true
                             end
 
                             Script.Yield(1000)
