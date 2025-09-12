@@ -1,11 +1,11 @@
 --#region Generic
 
 SCRIPT_NAME = "Silent Night"
-SCRIPT_VER  = "1.4.3"
+SCRIPT_VER  = "1.4.4"
 DISCORD     = "https://discord.gg/AYpT8cBaVb"
 INT32_MAX   = 2147483647
 PLAYER_ID   = GTA.GetLocalPlayerId()
-GTA_EDITION = Cherax.GetEdition()
+GTA_EDITION = string.sub(Cherax.GetEdition(), 1, 2)
 MENU_PATH   = FileMgr.GetMenuRootPath()
 CONFIG_DIR  = F("%s\\Lua\\SilentNight\\Data\\Config", MENU_PATH)
 TRANS_DIR   = F("%s\\Lua\\SilentNight\\Data\\Translations", MENU_PATH)
