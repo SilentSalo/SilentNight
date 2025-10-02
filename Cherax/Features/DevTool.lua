@@ -390,9 +390,10 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Write, function(f)
     end
 
     local GetValue = {
-        ["int"]   = Stats.GetInt,
-        ["float"] = Stats.GetFloat,
-        ["bool"]  = Stats.GetBool
+        ["int"]    = Stats.GetInt,
+        ["float"]  = Stats.GetFloat,
+        ["bool"]   = Stats.GetBool,
+        ["string"] = Stats.GetString
     }
 
     local ftr  = eFeature.Dev.Editor.Stats.Type
