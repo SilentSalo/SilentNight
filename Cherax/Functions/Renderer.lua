@@ -1065,7 +1065,9 @@ function Renderer.RenderSettings()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Register As Boss") then
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Settings.RegisterAsBoss.AutoRegister)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Settings.RegisterAsBoss.Type)
                         ClickGUI.EndCustomChildWindow()
                     end

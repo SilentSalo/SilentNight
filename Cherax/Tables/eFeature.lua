@@ -4679,7 +4679,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_30m"),
                     name = "Give 30mil",
                     type = eFeatureType.Button,
-                    desc = "ATTENTION: might be unsafe, don't use more than once.\nGives 30mil dollars in a few seconds. Has a cooldown.",
+                    desc = "ATTENTION: might be unsafe, prefer to use once.\nGives 30mil dollars in a few seconds. Has a cooldown.",
                     func = function()
                         GTA.TriggerTransaction(0xA174F633)
                         Script.Yield(3000)
@@ -5944,7 +5944,7 @@ eFeature = {
                 hash = J("SN_Settings_RAutoRegister"),
                 name = "Auto-Register",
                 type = eFeatureType.Toggle,
-                desc = "Automatically tries to register you as a boss while the script is running.",
+                desc = "ATTENTION: might cause issues during missions.\nAutomatically tries to register you as a boss while the script is running.",
                 func = function(ftr)
                     CONFIG.register_as_boss.autoregister = ftr:IsToggled()
                     FileMgr.SaveConfig(CONFIG)

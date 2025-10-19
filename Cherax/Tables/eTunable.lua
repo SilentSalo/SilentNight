@@ -111,7 +111,7 @@ eTunable = {
 
     Heist = {
         Agency = {
-            Payout   = { type = "int", tunable = "FIXER_FINALE_LEADER_CASH_REWARD", defaultValue = 1000000 },
+            Payout = { type = "int", tunable = "FIXER_FINALE_LEADER_CASH_REWARD", defaultValue = 1000000 },
 
             Cooldown = {
                 Story    = { type = "int", tunable = "FIXER_STORY_COOLDOWN_POSIX",             defaultValue = 1800   },

@@ -234,8 +234,11 @@ function Helper.RefreshFiles()
     Parser.ParseTables(eTable)
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.File):SetList(eFeature.Heist.CayoPerico.Presets.File.list:GetNames()):SetListIndex(0)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Presets.File):SetList(eFeature.Heist.DiamondCasino.Presets.File.list:GetNames()):SetListIndex(0)
-    FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.File):SetList(eFeature.Dev.Editor.Stats.File.list:GetNames()):SetListIndex(0)
     FeatureMgr.GetFeature(eFeature.Settings.Translation.File):SetList(eFeature.Settings.Translation.File.list:GetNames()):SetListIndex(0)
+    FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.File)
+        :SetList(eFeature.Dev.Editor.Stats.File.list:GetNames())
+        :SetDesc("Select the desired stat file.")
+        :SetListIndex(0)
 end
 
 function Helper.GetCardName(index)

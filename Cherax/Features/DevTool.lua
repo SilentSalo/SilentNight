@@ -472,7 +472,20 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Revert, function(f)
     eFeature.Dev.Editor.Stats.Revert.func(type, hash)
 end)
 
-FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.File):SetVisible(false)
+FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.File, function(f)
+    local ftr  = eFeature.Dev.Editor.Stats.File
+    local file = ftr.list[f:GetListIndex() + 1].name
+    eFeature.Dev.Editor.Stats.File.func(f)
+
+    if file == "" then
+        f:SetDesc("Select the desired stat file.")
+        return
+    end
+
+    local json = Json.DecodeFromFile(F("%s\\%s.json", STATS_DIR, file))
+    f:SetDesc(json.comment)
+end)
+    :SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.WriteAll, function(f)
     local ftr  = eFeature.Dev.Editor.Stats.File
