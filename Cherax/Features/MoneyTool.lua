@@ -91,6 +91,8 @@ end)
 
 --#region Easy Money
 
+FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Acknowledge):Toggle(CONFIG.easy_money.acknowledge)
+
 FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Instant.Give30m)
 
 for i = 1, #easyLoops do

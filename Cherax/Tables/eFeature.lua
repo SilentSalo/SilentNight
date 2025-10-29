@@ -4674,13 +4674,37 @@ eFeature = {
         },
 
         EasyMoney = {
+            Acknowledge = {
+                hash = J("SN_EasyMoney_IAcknowledge"),
+                name = "I Acknowledge",
+                type = eFeatureType.Toggle,
+                desc = "Allows using «Easy Money» features.",
+                func = function(ftr)
+                    CONFIG.easy_money.acknowledge = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedAcknowledgment then
+                        loggedAcknowledgment = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[I Acknowledge (Easy Money)] Easy Money should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            },
+
             Instant = {
                 Give30m = {
                     hash = J("SN_EasyMoney_30m"),
                     name = "Give 30mil",
                     type = eFeatureType.Button,
-                    desc = "ATTENTION: might be unsafe, prefer to use once.\nGives 30mil dollars in a few seconds. Has a cooldown.",
+                    desc = "CAUTION: might be unsafe, prefer to use once.\nGives 30mil dollars in a few seconds. Has a cooldown.",
                     func = function()
+                        if not CONFIG.easy_money.acknowledge then
+                            SilentLogger.LogError("[Give 30mil (Easy Money)] You must acknowledge the risks first ツ")
+                            return
+                        end
+
                         GTA.TriggerTransaction(0xA174F633)
                         Script.Yield(3000)
                         GTA.TriggerTransaction(0xED97AFC1)
@@ -4704,6 +4728,15 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "ATTENTION: might be unsafe, no bans reported.\nToggles the 5k chips loop.",
                     func = function(ftr, delay)
+                        if not CONFIG.easy_money.acknowledge then
+                            if ftr:IsToggled() then
+                                SilentLogger.LogError("[5k Loop (Easy Money)] You must acknowledge the risks first ツ")
+                            end
+
+                            ftr:Toggle(false)
+                            return
+                        end
+
                         if ftr:IsToggled() then
                             eGlobal.World.Casino.Chips.Bonus:Set(true)
 
@@ -4726,6 +4759,15 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, if overused.\nToggles the 50k dollars loop.",
                     func = function(ftr, delay)
+                        if not CONFIG.easy_money.acknowledge then
+                            if ftr:IsToggled() then
+                                SilentLogger.LogError("[50k Loop (Easy Money)] You must acknowledge the risks first ツ")
+                            end
+
+                            ftr:Toggle(false)
+                            return
+                        end
+
                         if ftr:IsToggled() then
                             GTA.TriggerTransaction(0x610F9AB4)
 
@@ -4748,6 +4790,15 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, if overused.\nToggles the 100k dollars loop.",
                     func = function(ftr, delay)
+                        if not CONFIG.easy_money.acknowledge then
+                            if ftr:IsToggled() then
+                                SilentLogger.LogError("[100k Loop (Easy Money)] You must acknowledge the risks first ツ")
+                            end
+
+                            ftr:Toggle(false)
+                            return
+                        end
+
                         if ftr:IsToggled() then
                             GTA.TriggerTransaction(J("SERVICE_EARN_AMBIENT_JOB_AMMUNATION_DELIVERY"))
 
@@ -4770,6 +4821,15 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, if overused.\nToggles the 180k dollars loop. Has a cooldown.",
                     func = function(ftr, delay)
+                        if not CONFIG.easy_money.acknowledge then
+                            if ftr:IsToggled() then
+                                SilentLogger.LogError("[180k Loop (Easy Money)] You must acknowledge the risks first ツ")
+                            end
+
+                            ftr:Toggle(false)
+                            return
+                        end
+
                         if ftr:IsToggled() then
                             GTA.TriggerTransaction(0x615762F1)
 
@@ -4792,6 +4852,15 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, if overused.\nToggles the 680k dollars loop. Has a cooldown.",
                     func = function(ftr, delay)
+                        if not CONFIG.easy_money.acknowledge then
+                            if ftr:IsToggled() then
+                                SilentLogger.LogError("[680k Loop (Easy Money)] You must acknowledge the risks first ツ")
+                            end
+
+                            ftr:Toggle(false)
+                            return
+                        end
+
                         if ftr:IsToggled() then
                             GTA.TriggerTransaction(J("SERVICE_EARN_BETTING"))
 
@@ -4816,6 +4885,15 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = F("CAUTION: might be unsafe, if overused.\nToggles the 300k dollars loop.%s Has a cooldown.", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
                     func = function(ftr, delay)
+                        if not CONFIG.easy_money.acknowledge then
+                            if ftr:IsToggled() then
+                                SilentLogger.LogError("[300k Loop (Easy Money)] You must acknowledge the risks first ツ")
+                            end
+
+                            ftr:Toggle(false)
+                            return
+                        end
+
                         if ftr:IsToggled() then
                             local top5      = eGlobal.Business.Nightclub.Safe.Income.Top5.global
                             local top100    = eGlobal.Business.Nightclub.Safe.Income.Top100.global
@@ -5563,7 +5641,7 @@ eFeature = {
                         return
                     end
 
-                    SilentLogger.LogInfo(F("[Auto-Open Lua Tab (Settings)] Auto-open should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    SilentLogger.LogInfo(F("[Auto-Open Lua Tab (Settings)] Auto-Open should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                 end
             },
 
@@ -5589,15 +5667,16 @@ eFeature = {
                 type = eFeatureType.Button,
                 desc = "ATTENTION: cannot be undone.\nResets the config to default.",
                 func = function()
-                    loggedAutoOpen          = true
-                    loggedJinxScript        = true
-                    loggedJinxScriptStop    = true
-                    loggedUCayoPerico       = true
-                    loggedUDiamondCasino    = true
-                    loggedAutoRegister      = true
-                    loggedAutoDeposit       = true
-                    loggedAllow300kLoop     = true
-                    loggedDummyPrevention   = true
+                    loggedAcknowledgment  = CONFIG.easy_money.acknowledge
+                    loggedAutoOpen        = CONFIG.autoopen
+                    loggedJinxScript      = CONFIG.collab.jinxscript.enabled
+                    loggedJinxScriptStop  = CONFIG.collab.jinxscript.autostop
+                    loggedUCayoPerico     = CONFIG.unlock_all_poi.cayo_perico
+                    loggedUDiamondCasino  = CONFIG.unlock_all_poi.diamond_casino
+                    loggedAutoRegister    = CONFIG.register_as_boss.autoregister
+                    loggedAutoDeposit     = CONFIG.easy_money.autodeposit
+                    loggedDummyPrevention = CONFIG.easy_money.dummy_prevention
+                    loggedAllow300kLoop   = CONFIG.easy_money.allow_300k_loop
                     FileMgr.ResetConfig()
                     CONFIG = Json.DecodeFromFile(CONFIG_PATH)
                     SilentLogger.LogInfo("[Reset (Settings)] Config should've been reset to default ツ")

@@ -32,6 +32,7 @@ DEFAULT_CONFIG = {
     },
 
     easy_money = {
+        acknowledge      = false,
         autodeposit      = false,
         dummy_prevention = true,
         allow_300k_loop  = GTA_EDITION == "EE",
@@ -175,5 +176,16 @@ FileMgr.CreateConfig()
 CONFIG = Json.DecodeFromFile(CONFIG_PATH)
 
 FileMgr.EnsureConfigKeys()
+
+loggedAcknowledgment  = CONFIG.easy_money.acknowledge
+loggedAutoOpen        = CONFIG.autoopen
+loggedJinxScript      = CONFIG.collab.jinxscript.enabled
+loggedJinxScriptStop  = CONFIG.collab.jinxscript.autostop
+loggedUCayoPerico     = CONFIG.unlock_all_poi.cayo_perico
+loggedUDiamondCasino  = CONFIG.unlock_all_poi.diamond_casino
+loggedAutoRegister    = CONFIG.register_as_boss.autoregister
+loggedAutoDeposit     = CONFIG.easy_money.autodeposit
+loggedDummyPrevention = CONFIG.easy_money.dummy_prevention
+loggedAllow300kLoop   = CONFIG.easy_money.allow_300k_loop
 
 --#endregion

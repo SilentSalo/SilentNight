@@ -232,14 +232,5 @@ logged100kLoop          = false
 logged180kLoop          = false
 logged300kLoop          = false
 logged680kLoop          = false
-loggedAutoOpen          = true
-loggedJinxScript        = true
-loggedJinxScriptStop    = true
-loggedUCayoPerico       = true
-loggedUDiamondCasino    = true
-loggedAutoRegister      = true
-loggedAutoDeposit       = true
-loggedDummyPrevention   = true
-loggedAllow300kLoop     = true
 
 --#endregion

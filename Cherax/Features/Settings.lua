@@ -25,6 +25,7 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logg
 FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
     eFeature.Settings.Config.Reset.func()
 
+    FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Acknowledge):Toggle(CONFIG.easy_money.acknowledge)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Open):Toggle(CONFIG.autoopen)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logging)
     FeatureMgr.GetFeature(eFeature.Settings.Translation.File):SetListIndex(0)

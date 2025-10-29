@@ -810,9 +810,21 @@ function Renderer.RenderMoneyTool()
             end
 
             if ImGui.BeginTabItem("Easy Money") then
+                if ImGui.BeginColumns(1) then
+                    if ClickGUI.BeginCustomChildWindow("Acknowledgment") then
+                        local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                        ImGui.TextColored(1, 1, 1, 1, "Please, make sure to read all feature descriptions carefully before using them!")
+                        ImGui.TextColored(1, 1, 1, 1, "Remember, any form of feature misuse or abuse can lead to a ban!")
+                        ImGui.TextColored(r, g, b, a, "Use these features responsibly and at your own risk!")
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Acknowledge)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.EndColumns()
+                end
+
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Instant") then
-                        ImGui.PushButtonStyle(eBtnStyle.ORANGE)
+                        ImGui.PushButtonStyle(eBtnStyle.RED)
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Instant.Give30m)
                         ImGui.ResetButtonStyle()
                         ClickGUI.EndCustomChildWindow()
@@ -1599,6 +1611,7 @@ function Renderer.RenderListGUI()
         local MiscTab = MoneyToolTab:AddSubTab("Misc", "Misc")
         if MiscTab then
             local EasyMoneyTab = MiscTab:AddSubTab("Easy Money", "Easy Money")
+            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Acknowledge)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Instant.Give30m)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._5k)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._50k)
