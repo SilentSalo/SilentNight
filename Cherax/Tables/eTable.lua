@@ -33,15 +33,6 @@ eTable = {
     },
 
     Heist = {
-        Generic = {
-            Team = {
-                { name = "Solo",  index = 1 },
-                { name = "Duo",   index = 2 },
-                { name = "Trio",  index = 3 },
-                { name = "Squad", index = 4 }
-            }
-        },
-
         Agency = {
             Contracts = {
                 { name = "None",           index = 3    },
@@ -60,18 +51,6 @@ eTable = {
         },
 
         Apartment = {
-            Team = {
-                { name = "Solo",  index = 1 },
-                { name = "Duo",   index = 2 },
-                { name = "Squad", index = 4 }
-            },
-
-            Receivers = {
-                { name = "All",       index = 0 },
-                { name = "Only Crew", index = 1 },
-                { name = "Only Me",   index = 2 }
-            },
-
             Presets = {
                 { name = "All - 0%",    index = 0   },
                 { name = "All - 85%",   index = 85  },
@@ -85,7 +64,9 @@ eTable = {
                 HumaneLabs  = "BWsCWtmnvEWXBrprK9hDHA",
                 SeriesA     = "20Lu41Px20OJMPdZ6wXG3g",
                 PacificJob  = "zCxFg29teE2ReKGnr0L4Bg"
-            }
+            },
+
+            Files = {}
         },
 
         AutoShop = {
@@ -368,7 +349,9 @@ eTable = {
                 Data     = 503,
                 Bogdan   = 240,
                 Doomsday = 16368,
-            }
+            },
+
+            Files = {}
         },
 
         SalvageYard = {

@@ -25,9 +25,6 @@ function Helper.NewInstantFinishHeist()
 end
 
 function Helper.SetApartmentMaxPayout(bool)
-    local ftr  = eFeature.Heist.Apartment.Cuts.Team
-    local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
     local heist      = eStat.HEIST_MISSION_RCONT_ID_1:Get()
     local difficulty = eGlobal.Heist.Generic.Difficulty:Get() + 1
 
@@ -45,15 +42,12 @@ function Helper.SetApartmentMaxPayout(bool)
     local maxPayout = 3000000
     local cut       = math.floor(maxPayout / (payout / 100) / ((bool) and 2 or 1))
 
-    for i = 1, team do
-        FeatureMgr.GetFeature(apartmentPlayers[i]):SetIntValue(cut)
+    for i = 1, #apartmentPlayers.Cuts do
+        FeatureMgr.GetFeature(apartmentPlayers.Cuts[i]):SetIntValue(cut)
     end
 end
 
 function Helper.SetCayoMaxPayout()
-    local ftr  = eFeature.Heist.CayoPerico.Cuts.Team
-    local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
     local target     = eStat.MPX_H4CNF_TARGET:Get()
     local difficulty = (eStat.MPX_H4_PROGRESS:Get() == eTable.Heist.CayoPerico.Difficulties[2].index) and 2 or 1
 
@@ -96,8 +90,8 @@ function Helper.SetCayoMaxPayout()
         end
     end
 
-    for i = 1, team do
-        FeatureMgr.GetFeature(cayoPlayers[i]):SetIntValue(cut)
+    for i = 1, #cayoPlayers.Cuts do
+        FeatureMgr.GetFeature(cayoPlayers.Cuts[i]):SetIntValue(cut)
     end
 end
 
@@ -105,9 +99,6 @@ function Helper.SetDiamondMaxPayout()
     eTunable.Heist.DiamondCasino.Buyer.Low:Set(1.0)
     eTunable.Heist.DiamondCasino.Buyer.Mid:Set(1.0)
     eTunable.Heist.DiamondCasino.Buyer.High:Set(1.0)
-
-    local ftr  = eFeature.Heist.DiamondCasino.Cuts.Team
-    local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
 
     local difficulty = (eStat.MPX_H3OPT_APPROACH:Get() == eStat.MPX_H3_HARD_APPROACH:Get()) and 2 or 1
     local target     = eStat.MPX_H3OPT_TARGET:Get()
@@ -125,57 +116,52 @@ function Helper.SetDiamondMaxPayout()
     local maxPayout = 3619000
     local cut       = math.floor(maxPayout / (payout / 100))
 
-    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player1):SetIntValue(cut)
+    FeatureMgr.GetFeature(diamondPlayers.Cuts[1]):SetIntValue(cut)
 
-    if team > 1 then
-        local gunman     = eStat.MPX_H3OPT_CREWWEAP:Get()
-        local driver     = eStat.MPX_H3OPT_CREWDRIVER:Get()
-        local hacker     = eStat.MPX_H3OPT_CREWHACKER:Get()
-        local buyerFee   = 0.1
-        local lesterCut  = 0.05
+    local gunman    = eStat.MPX_H3OPT_CREWWEAP:Get()
+    local driver    = eStat.MPX_H3OPT_CREWDRIVER:Get()
+    local hacker    = eStat.MPX_H3OPT_CREWHACKER:Get()
+    local buyerFee  = 0.1
+    local lesterCut = 0.05
 
-        local gunmanCuts = {
-            [1] = 0.05,
-            [3] = 0.07,
-            [5] = 0.08,
-            [2] = 0.09,
-            [4] = 0.1
-        }
+    local gunmanCuts = {
+        [1] = 0.05,
+        [3] = 0.07,
+        [5] = 0.08,
+        [2] = 0.09,
+        [4] = 0.1
+    }
 
-        local driverCuts = {
-            [1] = 0.05,
-            [4] = 0.06,
-            [2] = 0.07,
-            [3] = 0.09,
-            [5] = 0.1
-        }
+    local driverCuts = {
+        [1] = 0.05,
+        [4] = 0.06,
+        [2] = 0.07,
+        [3] = 0.09,
+        [5] = 0.1
+    }
 
-        local hackerCuts = {
-            [1] = 0.03,
-            [3] = 0.05,
-            [2] = 0.07,
-            [5] = 0.09,
-            [4] = 0.1
-        }
+    local hackerCuts = {
+        [1] = 0.03,
+        [3] = 0.05,
+        [2] = 0.07,
+        [5] = 0.09,
+        [4] = 0.1
+    }
 
-        local feePayout = payout - (payout * buyerFee)
-        local lesterCut = feePayout * lesterCut
-        local gunmanCut = feePayout * gunmanCuts[gunman]
-        local driverCut = feePayout * driverCuts[driver]
-        local hackerCut = feePayout * hackerCuts[hacker]
-        local crewCut   = lesterCut + gunmanCut + driverCut + hackerCut
-        local cut       = math.floor(maxPayout / ((feePayout - crewCut) / 100))
+    local feePayout = payout - (payout * buyerFee)
+    local lesterCut = feePayout * lesterCut
+    local gunmanCut = feePayout * gunmanCuts[gunman]
+    local driverCut = feePayout * driverCuts[driver]
+    local hackerCut = feePayout * hackerCuts[hacker]
+    local crewCut   = lesterCut + gunmanCut + driverCut + hackerCut
+    local cut       = math.floor(maxPayout / ((feePayout - crewCut) / 100))
 
-        for i = 2, team do
-            FeatureMgr.GetFeature(diamondPlayers[i]):SetIntValue(cut)
-        end
+    for i = 2, #diamondPlayers.Cuts do
+        FeatureMgr.GetFeature(diamondPlayers.Cuts[i]):SetIntValue(cut)
     end
 end
 
-function Helper.SetDoomsdayMaxPayout(bool)
-    local ftr  = eFeature.Heist.Doomsday.Cuts.Team
-    local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
+function Helper.SetDoomsdayMaxPayout()
     local heist      = eStat.MPX_GANGOPS_FLOW_MISSION_PROG:Get()
     local difficulty = eGlobal.Heist.Generic.Difficulty:Get()
 
@@ -192,12 +178,36 @@ function Helper.SetDoomsdayMaxPayout(bool)
     local maxPayout = 2550000
     local cut       = math.floor(maxPayout / (payout / 100))
 
-    for i = 1, team do
-        FeatureMgr.GetFeature(doomsdayPlayers[i]):SetIntValue(cut)
+    for i = 1, #doomsdayPlayers.Cuts do
+        FeatureMgr.GetFeature(doomsdayPlayers.Cuts[i]):SetIntValue(cut)
     end
 end
 
+function Helper.ApplyApartmentPreset(preps)
+    local temp     = CONFIG.logging
+    CONFIG.logging = 0
+
+    FeatureMgr.GetFeature(eFeature.Heist.Generic.Launch):Toggle(preps.solo_launch or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):Toggle(preps.bonus_12mil or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):Toggle(preps.double_rewards_week or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Presets):SetListIndex(preps.presets or 0):OnClick()
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player1.Toggle):Toggle(preps.player1.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player2.Toggle):Toggle(preps.player2.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player3.Toggle):Toggle(preps.player3.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player4.Toggle):Toggle(preps.player4.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player1.Cut):SetIntValue(preps.player1.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player2.Cut):SetIntValue(preps.player2.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player3.Cut):SetIntValue(preps.player3.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player4.Cut):SetIntValue(preps.player4.cut or 0)
+
+    Script.Yield(500)
+    CONFIG.logging = temp
+end
+
 function Helper.ApplyCayoPreset(preps)
+    local temp     = CONFIG.logging
+    CONFIG.logging = 0
+
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Difficulty):SetListIndex(preps.difficulty or 0)
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Approach):SetListIndex(preps.approach or 0)
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Loadout):SetListIndex(preps.loadout or 0)
@@ -213,9 +223,26 @@ function Helper.ApplyCayoPreset(preps)
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Coke):SetIntValue(preps.coke_value or 202500)
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Gold):SetIntValue(preps.gold_value or 333333)
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Preps.Target.Value.Arts):SetIntValue(preps.arts_value or 180000)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Misc.Bag):Toggle(preps.womans_bag or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(preps.remove_crew_cuts or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Presets):SetListIndex(preps.presets or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Player1.Toggle):Toggle(preps.player1.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Player2.Toggle):Toggle(preps.player2.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Player3.Toggle):Toggle(preps.player3.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Player4.Toggle):Toggle(preps.player4.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Player1.Cut):SetIntValue(preps.player1.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Player2.Cut):SetIntValue(preps.player2.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Player3.Cut):SetIntValue(preps.player3.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Player4.Cut):SetIntValue(preps.player4.cut or 0)
+
+    Script.Yield(500)
+    CONFIG.logging = temp
 end
 
 function Helper.ApplyDiamondPreset(preps)
+    local temp     = CONFIG.logging
+    CONFIG.logging = 0
+
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Difficulty):SetListIndex(preps.difficulty or 0)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Approach):SetListIndex(preps.approach or 0)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Gunman):SetListIndex(preps.gunman or 0)
@@ -227,13 +254,49 @@ function Helper.ApplyDiamondPreset(preps)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Guards):SetListIndex(preps.guards or 0)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Keycards):SetListIndex(preps.keycards or 0)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Target):SetListIndex(preps.target or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Generic.Launch):Toggle(preps.solo_launch or false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Autograbber):Toggle(preps.autograbber or false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Presets):SetListIndex(preps.presets or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player1.Toggle):Toggle(preps.player1.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player2.Toggle):Toggle(preps.player2.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player3.Toggle):Toggle(preps.player3.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player4.Toggle):Toggle(preps.player4.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player1.Cut):SetIntValue(preps.player1.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player2.Cut):SetIntValue(preps.player2.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player3.Cut):SetIntValue(preps.player3.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player4.Cut):SetIntValue(preps.player4.cut or 0)
+
+    Script.Yield(500)
+    CONFIG.logging = temp
+end
+
+function Helper.ApplyDoomsdayPreset(preps)
+    local temp     = CONFIG.logging
+    CONFIG.logging = 0
+
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Preps.Act):SetListIndex(preps.act or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Generic.Launch):Toggle(preps.solo_launch or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Presets):SetListIndex(preps.presets or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player1.Toggle):Toggle(preps.player1.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player2.Toggle):Toggle(preps.player2.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player3.Toggle):Toggle(preps.player3.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player4.Toggle):Toggle(preps.player4.enabled or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player1.Cut):SetIntValue(preps.player1.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player2.Cut):SetIntValue(preps.player2.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player3.Cut):SetIntValue(preps.player3.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player4.Cut):SetIntValue(preps.player4.cut or 0)
+
+    Script.Yield(500)
+    CONFIG.logging = temp
 end
 
 function Helper.RefreshFiles()
     Utils.FillDynamicTables()
     Parser.ParseTables(eTable)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Presets.File):SetList(eFeature.Heist.Apartment.Presets.File.list:GetNames()):SetListIndex(0)
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.File):SetList(eFeature.Heist.CayoPerico.Presets.File.list:GetNames()):SetListIndex(0)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Presets.File):SetList(eFeature.Heist.DiamondCasino.Presets.File.list:GetNames()):SetListIndex(0)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Presets.File):SetList(eFeature.Heist.Doomsday.Presets.File.list:GetNames()):SetListIndex(0)
     FeatureMgr.GetFeature(eFeature.Settings.Translation.File):SetList(eFeature.Settings.Translation.File.list:GetNames()):SetListIndex(0)
     FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.File)
         :SetList(eFeature.Dev.Editor.Stats.File.list:GetNames())

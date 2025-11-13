@@ -81,31 +81,13 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Play)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Unlock)
 
-FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Team, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Presets):SetListIndex(0)
-    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Receivers):SetListIndex(0)
-    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(false)
-    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):Toggle(false)
-
-    local bool = f:GetListIndex() ~= 0
-    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Receivers):SetVisible((bool) and true or false)
-
-    for i = 1, #apartmentPlayers do
-        FeatureMgr.GetFeature(apartmentPlayers[i]):SetIntValue(0)
-    end
-
-    eFeature.Heist.Apartment.Cuts.Team.func(f)
+FeatureMgr.AddLoop(eFeature.Heist.Apartment.Cuts.Bonus, nil, function(f)
+    eFeature.Heist.Apartment.Cuts.Bonus.func(f)
 end)
 
-FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Receivers):SetVisible(false)
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Presets, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):Toggle(false)
-
-    for i = 1, #apartmentPlayers do
-        FeatureMgr.GetFeature(apartmentPlayers[i]):SetIntValue(0)
-    end
-
     local ftr    = eFeature.Heist.Apartment.Cuts.Presets
     local preset = ftr.list[f:GetListIndex() + 1].index
 
@@ -120,42 +102,85 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Presets, function(f)
         FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(false)
     end
 
-    local ftr  = eFeature.Heist.Apartment.Cuts.Team
-    local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
-    for i = 1, team do
-        FeatureMgr.GetFeature(apartmentPlayers[i]):SetIntValue(preset)
+    for i = 1, #apartmentPlayers.Cuts do
+        FeatureMgr.GetFeature(apartmentPlayers.Cuts[i]):SetIntValue(preset)
     end
 end)
 
-FeatureMgr.AddLoop(eFeature.Heist.Apartment.Cuts.Bonus, nil, function(f)
-    eFeature.Heist.Apartment.Cuts.Bonus.func(f)
-end)
-
-FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(false)
-
-for i = 1, #apartmentPlayers do
-    FeatureMgr.AddFeature(apartmentPlayers[i])
+for i = 1, #apartmentPlayers.Toggles do
+    FeatureMgr.AddFeature(apartmentPlayers.Toggles[i]):SetBoolValue((i == 1) and true or false)
+    FeatureMgr.AddFeature(apartmentPlayers.Cuts[i])
 end
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Apply, function(f)
-    local ftr  = eFeature.Heist.Apartment.Cuts.Team
-    local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
-    local ftr       = eFeature.Heist.Apartment.Cuts.Receivers
-    local receivers = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
-    local ftr    = eFeature.Heist.Apartment.Cuts.Presets
-    local preset = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
     local cuts = {}
 
-    for i = 1, #apartmentPlayers do
-        I(cuts, FeatureMgr.GetFeature(apartmentPlayers[i]):GetIntValue())
+    for i = 1, #apartmentPlayers.Toggles do
+        local ftr = FeatureMgr.GetFeature(apartmentPlayers.Toggles[i])
+        I(cuts, (ftr:IsToggled()) and FeatureMgr.GetFeature(apartmentPlayers.Cuts[i]):GetIntValue() or 0)
     end
 
-    eFeature.Heist.Apartment.Cuts.Apply.func(team, receivers, cuts)
+    eFeature.Heist.Apartment.Cuts.Apply.func(cuts)
 end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.File)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Load, function(f)
+    local ftr  = eFeature.Heist.Apartment.Presets.File
+    local file = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+    eFeature.Heist.Apartment.Presets.Load.func(file)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Remove, function(f)
+    local ftr  = eFeature.Heist.Apartment.Presets.File
+    local file = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+    eFeature.Heist.Apartment.Presets.Remove.func(file)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Refresh)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Name)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Save, function(f)
+    local file = FeatureMgr.GetFeature(eFeature.Heist.Apartment.Presets.Name):GetStringValue()
+
+    if file == "" then
+        SilentLogger.LogError("[Save (Apartment)] Failed to save preset. File name is empty.")
+        return
+    end
+
+    local preps = {
+        solo_launch         = FeatureMgr.GetFeatureBool(apartmentPreps[1]),
+        bonus_12mil         = FeatureMgr.GetFeatureBool(apartmentPreps[2]),
+        double_rewards_week = FeatureMgr.GetFeatureBool(apartmentPreps[3]),
+        presets             = FeatureMgr.GetFeatureListIndex(apartmentPreps[4]),
+
+        player1 = {
+            enabled = FeatureMgr.GetFeatureBool(apartmentPlayers.Toggles[1]),
+            cut     = FeatureMgr.GetFeatureInt(apartmentPlayers.Cuts[1])
+        },
+
+        player2 = {
+            enabled = FeatureMgr.GetFeatureBool(apartmentPlayers.Toggles[2]),
+            cut     = FeatureMgr.GetFeatureInt(apartmentPlayers.Cuts[2])
+        },
+
+        player3 = {
+            enabled = FeatureMgr.GetFeatureBool(apartmentPlayers.Toggles[3]),
+            cut     = FeatureMgr.GetFeatureInt(apartmentPlayers.Cuts[3])
+        },
+
+        player4 = {
+            enabled = FeatureMgr.GetFeatureBool(apartmentPlayers.Toggles[4]),
+            cut     = FeatureMgr.GetFeatureInt(apartmentPlayers.Cuts[4])
+        }
+    }
+
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Presets.Name):SetStringValue("")
+    eFeature.Heist.Apartment.Presets.Save.func(file, preps)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Copy)
 
 --#endregion
 
@@ -289,24 +314,11 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Cooldown.Offline)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Cooldown.Online)
 
-FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.Team, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Presets):SetListIndex(0)
-    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false)
-
-    for i = 1, #cayoPlayers do
-        FeatureMgr.GetFeature(cayoPlayers[i]):SetIntValue(0)
-    end
-
-    eFeature.Heist.CayoPerico.Cuts.Team.func(f)
+FeatureMgr.AddLoop(eFeature.Heist.CayoPerico.Cuts.Crew, nil, function(f)
+    eFeature.Heist.CayoPerico.Cuts.Crew.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.Presets, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false)
-
-    for i = 1, #cayoPlayers do
-        FeatureMgr.GetFeature(cayoPlayers[i]):SetIntValue(0)
-    end
-
     local ftr    = eFeature.Heist.CayoPerico.Cuts.Presets
     local preset = ftr.list[f:GetListIndex() + 1].index
 
@@ -316,27 +328,22 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.Presets, function(f)
 
     if preset == -1 then return end
 
-    local ftr  = eFeature.Heist.CayoPerico.Cuts.Team
-    local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
-    for i = 1, team do
-        FeatureMgr.GetFeature(cayoPlayers[i]):SetIntValue(preset)
+    for i = 1, #cayoPlayers.Cuts do
+        FeatureMgr.GetFeature(cayoPlayers.Cuts[i]):SetIntValue(preset)
     end
 end)
 
-FeatureMgr.AddLoop(eFeature.Heist.CayoPerico.Cuts.Crew, nil, function(f)
-    eFeature.Heist.CayoPerico.Cuts.Crew.func(f)
-end)
-
-for i = 1, #cayoPlayers do
-    FeatureMgr.AddFeature(cayoPlayers[i])
+for i = 1, #cayoPlayers.Toggles do
+    FeatureMgr.AddFeature(cayoPlayers.Toggles[i]):SetBoolValue((i == 1) and true or false)
+    FeatureMgr.AddFeature(cayoPlayers.Cuts[i])
 end
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.Apply, function(f)
     local cuts = {}
 
-    for i = 1, #cayoPlayers do
-        I(cuts, FeatureMgr.GetFeature(cayoPlayers[i]):GetIntValue())
+    for i = 1, #cayoPlayers.Toggles do
+        local ftr = FeatureMgr.GetFeature(cayoPlayers.Toggles[i])
+        I(cuts, (ftr:IsToggled()) and FeatureMgr.GetFeature(cayoPlayers.Cuts[i]):GetIntValue() or 0)
     end
 
     eFeature.Heist.CayoPerico.Cuts.Apply.func(cuts)
@@ -369,21 +376,44 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Save, function(f)
     end
 
     local preps = {
-        difficulty      = FeatureMgr.GetFeatureListIndex(cayoPreps[1]),
-        approach        = FeatureMgr.GetFeatureListIndex(cayoPreps[2]),
-        loadout         = FeatureMgr.GetFeatureListIndex(cayoPreps[3]),
-        primary_target  = FeatureMgr.GetFeatureListIndex(cayoPreps[4]),
-        compound_target = FeatureMgr.GetFeatureListIndex(cayoPreps[5]),
-        compound_amount = FeatureMgr.GetFeatureListIndex(cayoPreps[6]),
-        arts_amount     = FeatureMgr.GetFeatureListIndex(cayoPreps[7]),
-        island_target   = FeatureMgr.GetFeatureListIndex(cayoPreps[8]),
-        island_amount   = FeatureMgr.GetFeatureListIndex(cayoPreps[9]),
-        cash_value      = FeatureMgr.GetFeatureInt(cayoPreps[10]),
-        weed_value      = FeatureMgr.GetFeatureInt(cayoPreps[11]),
-        coke_value      = FeatureMgr.GetFeatureInt(cayoPreps[12]),
-        gold_value      = FeatureMgr.GetFeatureInt(cayoPreps[13]),
-        arts_value      = FeatureMgr.GetFeatureInt(cayoPreps[14]),
-        advanced        = FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Preps.Advanced)
+        difficulty       = FeatureMgr.GetFeatureListIndex(cayoPreps[1]),
+        approach         = FeatureMgr.GetFeatureListIndex(cayoPreps[2]),
+        loadout          = FeatureMgr.GetFeatureListIndex(cayoPreps[3]),
+        primary_target   = FeatureMgr.GetFeatureListIndex(cayoPreps[4]),
+        compound_target  = FeatureMgr.GetFeatureListIndex(cayoPreps[5]),
+        compound_amount  = FeatureMgr.GetFeatureListIndex(cayoPreps[6]),
+        arts_amount      = FeatureMgr.GetFeatureListIndex(cayoPreps[7]),
+        island_target    = FeatureMgr.GetFeatureListIndex(cayoPreps[8]),
+        island_amount    = FeatureMgr.GetFeatureListIndex(cayoPreps[9]),
+        advanced         = FeatureMgr.GetFeatureBool(cayoPreps[10]),
+        cash_value       = FeatureMgr.GetFeatureInt(cayoPreps[11]),
+        weed_value       = FeatureMgr.GetFeatureInt(cayoPreps[12]),
+        coke_value       = FeatureMgr.GetFeatureInt(cayoPreps[13]),
+        gold_value       = FeatureMgr.GetFeatureInt(cayoPreps[14]),
+        arts_value       = FeatureMgr.GetFeatureInt(cayoPreps[15]),
+        womans_bag       = FeatureMgr.GetFeatureBool(cayoPreps[16]),
+        remove_crew_cuts = FeatureMgr.GetFeatureBool(cayoPreps[17]),
+        presets          = FeatureMgr.GetFeatureListIndex(cayoPreps[18]),
+
+        player1 = {
+            enabled = FeatureMgr.GetFeatureBool(cayoPlayers.Toggles[1]),
+            cut     = FeatureMgr.GetFeatureInt(cayoPlayers.Cuts[1])
+        },
+
+        player2 = {
+            enabled = FeatureMgr.GetFeatureBool(cayoPlayers.Toggles[2]),
+            cut     = FeatureMgr.GetFeatureInt(cayoPlayers.Cuts[2])
+        },
+
+        player3 = {
+            enabled = FeatureMgr.GetFeatureBool(cayoPlayers.Toggles[3]),
+            cut     = FeatureMgr.GetFeatureInt(cayoPlayers.Cuts[3])
+        },
+
+        player4 = {
+            enabled = FeatureMgr.GetFeatureBool(cayoPlayers.Toggles[4]),
+            cut     = FeatureMgr.GetFeatureInt(cayoPlayers.Cuts[4])
+        }
     }
 
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Presets.Name):SetStringValue("")
@@ -523,56 +553,36 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Cooldown)
 
-FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.Team, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Presets):SetListIndex(0)
-    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(false)
-
-    for i = 1, #diamondPlayers do
-        FeatureMgr.GetFeature(diamondPlayers[i]):SetIntValue(0)
-    end
-
-    eFeature.Heist.DiamondCasino.Cuts.Team.func(f)
+FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Cuts.Crew, nil, function(f)
+    eFeature.Heist.DiamondCasino.Cuts.Crew.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.Presets, function(f)
-    for i = 1, #diamondPlayers do
-        FeatureMgr.GetFeature(diamondPlayers[i]):SetIntValue(0)
-    end
-
     local ftr    = eFeature.Heist.DiamondCasino.Cuts.Presets
     local preset = ftr.list[f:GetListIndex() + 1].index
 
     local list  = eFeature.Heist.DiamondCasino.Cuts.Presets.list
     local index = list[f:GetListIndex() + 1].index
-    SilentLogger.LogInfo(F("[Presets (Cayo Perico)] Selected preset: %s. Don't forget to apply ツ", list:GetName(index)))
+    SilentLogger.LogInfo(F("[Presets (Diamond Casino)] Selected preset: %s. Don't forget to apply ツ", list:GetName(index)))
 
-    if preset == -1 then
-        return
-    else
-        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(false)
-    end
+    if preset == -1 then return end
 
-    local ftr  = eFeature.Heist.DiamondCasino.Cuts.Team
-    local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
-    for i = 1, team do
-        FeatureMgr.GetFeature(diamondPlayers[i]):SetIntValue(preset)
+    for i = 1, #diamondPlayers.Cuts do
+        FeatureMgr.GetFeature(diamondPlayers.Cuts[i]):SetIntValue(preset)
     end
 end)
 
-FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Cuts.Crew, nil, function(f)
-    eFeature.Heist.DiamondCasino.Cuts.Crew.func(f)
-end)
-
-for i = 1, #diamondPlayers do
-    FeatureMgr.AddFeature(diamondPlayers[i])
+for i = 1, #diamondPlayers.Toggles do
+    FeatureMgr.AddFeature(diamondPlayers.Toggles[i]):SetBoolValue((i == 1) and true or false)
+    FeatureMgr.AddFeature(diamondPlayers.Cuts[i])
 end
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.Apply, function(f)
     local cuts = {}
 
-    for i = 1, #diamondPlayers do
-        I(cuts, FeatureMgr.GetFeature(diamondPlayers[i]):GetIntValue())
+    for i = 1, #diamondPlayers.Toggles do
+        local ftr = FeatureMgr.GetFeature(diamondPlayers.Toggles[i])
+        I(cuts, (ftr:IsToggled()) and FeatureMgr.GetFeature(diamondPlayers.Cuts[i]):GetIntValue() or 0)
     end
 
     eFeature.Heist.DiamondCasino.Cuts.Apply.func(cuts)
@@ -605,17 +615,41 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Save, function(f)
     end
 
     local preps = {
-        difficulty = FeatureMgr.GetFeatureListIndex(diamondPreps[1]),
-        approach   = FeatureMgr.GetFeatureListIndex(diamondPreps[2]),
-        gunman     = FeatureMgr.GetFeatureListIndex(diamondPreps[3]),
-        driver     = FeatureMgr.GetFeatureListIndex(diamondPreps[4]),
-        hacker     = FeatureMgr.GetFeatureListIndex(diamondPreps[5]),
-        masks      = FeatureMgr.GetFeatureListIndex(diamondPreps[6]),
-        guards     = FeatureMgr.GetFeatureListIndex(diamondPreps[7]),
-        keycards   = FeatureMgr.GetFeatureListIndex(diamondPreps[8]),
-        target     = FeatureMgr.GetFeatureListIndex(diamondPreps[9]),
-        loadout    = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Preps.Loadout),
-        vehicles   = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Preps.Vehicles)
+        difficulty       = FeatureMgr.GetFeatureListIndex(diamondPreps[1]),
+        approach         = FeatureMgr.GetFeatureListIndex(diamondPreps[2]),
+        gunman           = FeatureMgr.GetFeatureListIndex(diamondPreps[3]),
+        loadout          = FeatureMgr.GetFeatureListIndex(diamondPreps[4]),
+        driver           = FeatureMgr.GetFeatureListIndex(diamondPreps[5]),
+        vehicles         = FeatureMgr.GetFeatureListIndex(diamondPreps[6]),
+        hacker           = FeatureMgr.GetFeatureListIndex(diamondPreps[7]),
+        masks            = FeatureMgr.GetFeatureListIndex(diamondPreps[8]),
+        guards           = FeatureMgr.GetFeatureListIndex(diamondPreps[9]),
+        keycards         = FeatureMgr.GetFeatureListIndex(diamondPreps[10]),
+        target           = FeatureMgr.GetFeatureListIndex(diamondPreps[11]),
+        solo_launch      = FeatureMgr.GetFeatureBool(diamondPreps[12]),
+        autograbber      = FeatureMgr.GetFeatureBool(diamondPreps[13]),
+        remove_crew_cuts = FeatureMgr.GetFeatureBool(diamondPreps[14]),
+        presets          = FeatureMgr.GetFeatureListIndex(diamondPreps[15]),
+
+        player1 = {
+            enabled = FeatureMgr.GetFeatureBool(diamondPlayers.Toggles[1]),
+            cut     = FeatureMgr.GetFeatureInt(diamondPlayers.Cuts[1])
+        },
+
+        player2 = {
+            enabled = FeatureMgr.GetFeatureBool(diamondPlayers.Toggles[2]),
+            cut     = FeatureMgr.GetFeatureInt(diamondPlayers.Cuts[2])
+        },
+
+        player3 = {
+            enabled = FeatureMgr.GetFeatureBool(diamondPlayers.Toggles[3]),
+            cut     = FeatureMgr.GetFeatureInt(diamondPlayers.Cuts[3])
+        },
+
+        player4 = {
+            enabled = FeatureMgr.GetFeatureBool(diamondPlayers.Toggles[4]),
+            cut     = FeatureMgr.GetFeatureInt(diamondPlayers.Cuts[4])
+        }
     }
 
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Presets.Name):SetStringValue("")
@@ -652,51 +686,94 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.DataHack)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.DoomsdayHack)
 
-FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Cuts.Team, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Presets):SetListIndex(0)
-
-    for i = 1, #doomsdayPlayers do
-        FeatureMgr.GetFeature(doomsdayPlayers[i]):SetIntValue(0)
-    end
-
-    eFeature.Heist.Doomsday.Cuts.Team.func(f)
-end)
-
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Cuts.Presets, function(f)
-    for i = 1, #doomsdayPlayers do
-        FeatureMgr.GetFeature(doomsdayPlayers[i]):SetIntValue(0)
-    end
-
     local ftr    = eFeature.Heist.Doomsday.Cuts.Presets
     local preset = ftr.list[f:GetListIndex() + 1].index
 
     local list  = eFeature.Heist.Doomsday.Cuts.Presets.list
     local index = list[f:GetListIndex() + 1].index
-    SilentLogger.LogInfo(F("[Presets (Cayo Perico)] Selected preset: %s. Don't forget to apply ツ", list:GetName(index)))
+    SilentLogger.LogInfo(F("[Presets (Doomsday)] Selected preset: %s. Don't forget to apply ツ", list:GetName(index)))
 
     if preset == -1 then return end
 
-    local ftr  = eFeature.Heist.Doomsday.Cuts.Team
-    local team = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-
-    for i = 1, team do
-        FeatureMgr.GetFeature(doomsdayPlayers[i]):SetIntValue(preset)
+    for i = 1, #doomsdayPlayers.Cuts do
+        FeatureMgr.GetFeature(doomsdayPlayers.Cuts[i]):SetIntValue(preset)
     end
 end)
 
-for i = 1, #doomsdayPlayers do
-    FeatureMgr.AddFeature(doomsdayPlayers[i])
+for i = 1, #doomsdayPlayers.Toggles do
+    FeatureMgr.AddFeature(doomsdayPlayers.Toggles[i]):SetBoolValue((i == 1) and true or false)
+    FeatureMgr.AddFeature(doomsdayPlayers.Cuts[i])
 end
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Cuts.Apply, function(f)
     local cuts = {}
 
-    for i = 1, #doomsdayPlayers do
-        I(cuts, FeatureMgr.GetFeature(doomsdayPlayers[i]):GetIntValue())
+    for i = 1, #doomsdayPlayers.Toggles do
+        local ftr = FeatureMgr.GetFeature(doomsdayPlayers.Toggles[i])
+        I(cuts, (ftr:IsToggled()) and FeatureMgr.GetFeature(doomsdayPlayers.Cuts[i]):GetIntValue() or 0)
     end
 
     eFeature.Heist.Doomsday.Cuts.Apply.func(cuts)
 end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.File)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Load, function(f)
+    local ftr  = eFeature.Heist.Doomsday.Presets.File
+    local file = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+    eFeature.Heist.Doomsday.Presets.Load.func(file)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Remove, function(f)
+    local ftr  = eFeature.Heist.Doomsday.Presets.File
+    local file = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].name
+    eFeature.Heist.Doomsday.Presets.Remove.func(file)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Refresh)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Name)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Save, function(f)
+    local file = FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Presets.Name):GetStringValue()
+
+    if file == "" then
+        SilentLogger.LogError("[Save (Doomsday)] Failed to save preset. File name is empty.")
+        return
+    end
+
+    local preps = {
+        act         = FeatureMgr.GetFeatureListIndex(doomsdayPreps[1]),
+        solo_launch = FeatureMgr.GetFeatureBool(doomsdayPreps[2]),
+        presets     = FeatureMgr.GetFeatureListIndex(doomsdayPreps[3]),
+
+        player1 = {
+            enabled = FeatureMgr.GetFeatureBool(doomsdayPlayers.Toggles[1]),
+            cut     = FeatureMgr.GetFeatureInt(doomsdayPlayers.Cuts[1])
+        },
+
+        player2 = {
+            enabled = FeatureMgr.GetFeatureBool(doomsdayPlayers.Toggles[2]),
+            cut     = FeatureMgr.GetFeatureInt(doomsdayPlayers.Cuts[2])
+        },
+
+        player3 = {
+            enabled = FeatureMgr.GetFeatureBool(doomsdayPlayers.Toggles[3]),
+            cut     = FeatureMgr.GetFeatureInt(doomsdayPlayers.Cuts[3])
+        },
+
+        player4 = {
+            enabled = FeatureMgr.GetFeatureBool(doomsdayPlayers.Toggles[4]),
+            cut     = FeatureMgr.GetFeatureInt(doomsdayPlayers.Cuts[4])
+        }
+    }
+
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Presets.Name):SetStringValue("")
+    eFeature.Heist.Doomsday.Presets.Save.func(file, preps)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Copy)
 
 --#endregion
 

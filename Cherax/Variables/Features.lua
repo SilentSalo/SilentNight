@@ -1,10 +1,26 @@
 --#region Features
 
+apartmentPreps = {
+    eFeature.Heist.Generic.Launch,
+    eFeature.Heist.Apartment.Cuts.Bonus,
+    eFeature.Heist.Apartment.Cuts.Double,
+    eFeature.Heist.Apartment.Cuts.Presets
+}
+
 apartmentPlayers = {
-    eFeature.Heist.Apartment.Cuts.Player1,
-    eFeature.Heist.Apartment.Cuts.Player2,
-    eFeature.Heist.Apartment.Cuts.Player3,
-    eFeature.Heist.Apartment.Cuts.Player4
+    Toggles = {
+        eFeature.Heist.Apartment.Cuts.Player1.Toggle,
+        eFeature.Heist.Apartment.Cuts.Player2.Toggle,
+        eFeature.Heist.Apartment.Cuts.Player3.Toggle,
+        eFeature.Heist.Apartment.Cuts.Player4.Toggle
+    },
+
+    Cuts = {
+        eFeature.Heist.Apartment.Cuts.Player1.Cut,
+        eFeature.Heist.Apartment.Cuts.Player2.Cut,
+        eFeature.Heist.Apartment.Cuts.Player3.Cut,
+        eFeature.Heist.Apartment.Cuts.Player4.Cut
+    }
 }
 
 cayoPreps = {
@@ -17,44 +33,87 @@ cayoPreps = {
     eFeature.Heist.CayoPerico.Preps.Target.Amount.Arts,
     eFeature.Heist.CayoPerico.Preps.Target.Secondary.Island,
     eFeature.Heist.CayoPerico.Preps.Target.Amount.Island,
+    eFeature.Heist.CayoPerico.Preps.Advanced,
     eFeature.Heist.CayoPerico.Preps.Target.Value.Cash,
     eFeature.Heist.CayoPerico.Preps.Target.Value.Weed,
     eFeature.Heist.CayoPerico.Preps.Target.Value.Coke,
     eFeature.Heist.CayoPerico.Preps.Target.Value.Gold,
-    eFeature.Heist.CayoPerico.Preps.Target.Value.Arts
+    eFeature.Heist.CayoPerico.Preps.Target.Value.Arts,
+    eFeature.Heist.CayoPerico.Misc.Bag,
+    eFeature.Heist.CayoPerico.Cuts.Crew,
+    eFeature.Heist.CayoPerico.Cuts.Presets
 }
 
 cayoPlayers = {
-    eFeature.Heist.CayoPerico.Cuts.Player1,
-    eFeature.Heist.CayoPerico.Cuts.Player2,
-    eFeature.Heist.CayoPerico.Cuts.Player3,
-    eFeature.Heist.CayoPerico.Cuts.Player4
+    Toggles = {
+        eFeature.Heist.CayoPerico.Cuts.Player1.Toggle,
+        eFeature.Heist.CayoPerico.Cuts.Player2.Toggle,
+        eFeature.Heist.CayoPerico.Cuts.Player3.Toggle,
+        eFeature.Heist.CayoPerico.Cuts.Player4.Toggle
+    },
+
+    Cuts = {
+        eFeature.Heist.CayoPerico.Cuts.Player1.Cut,
+        eFeature.Heist.CayoPerico.Cuts.Player2.Cut,
+        eFeature.Heist.CayoPerico.Cuts.Player3.Cut,
+        eFeature.Heist.CayoPerico.Cuts.Player4.Cut
+    }
 }
 
 diamondPreps = {
     eFeature.Heist.DiamondCasino.Preps.Difficulty,
     eFeature.Heist.DiamondCasino.Preps.Approach,
     eFeature.Heist.DiamondCasino.Preps.Gunman,
+    eFeature.Heist.DiamondCasino.Preps.Loadout,
     eFeature.Heist.DiamondCasino.Preps.Driver,
+    eFeature.Heist.DiamondCasino.Preps.Vehicles,
     eFeature.Heist.DiamondCasino.Preps.Hacker,
     eFeature.Heist.DiamondCasino.Preps.Masks,
     eFeature.Heist.DiamondCasino.Preps.Guards,
     eFeature.Heist.DiamondCasino.Preps.Keycards,
-    eFeature.Heist.DiamondCasino.Preps.Target
+    eFeature.Heist.DiamondCasino.Preps.Target,
+    eFeature.Heist.Generic.Launch,
+    eFeature.Heist.DiamondCasino.Misc.Autograbber,
+    eFeature.Heist.DiamondCasino.Cuts.Crew,
+    eFeature.Heist.DiamondCasino.Cuts.Presets
 }
 
 diamondPlayers = {
-    eFeature.Heist.DiamondCasino.Cuts.Player1,
-    eFeature.Heist.DiamondCasino.Cuts.Player2,
-    eFeature.Heist.DiamondCasino.Cuts.Player3,
-    eFeature.Heist.DiamondCasino.Cuts.Player4
+    Toggles = {
+        eFeature.Heist.DiamondCasino.Cuts.Player1.Toggle,
+        eFeature.Heist.DiamondCasino.Cuts.Player2.Toggle,
+        eFeature.Heist.DiamondCasino.Cuts.Player3.Toggle,
+        eFeature.Heist.DiamondCasino.Cuts.Player4.Toggle
+    },
+
+    Cuts = {
+        eFeature.Heist.DiamondCasino.Cuts.Player1.Cut,
+        eFeature.Heist.DiamondCasino.Cuts.Player2.Cut,
+        eFeature.Heist.DiamondCasino.Cuts.Player3.Cut,
+        eFeature.Heist.DiamondCasino.Cuts.Player4.Cut
+    }
+}
+
+doomsdayPreps = {
+    eFeature.Heist.Doomsday.Preps.Act,
+    eFeature.Heist.Generic.Launch,
+    eFeature.Heist.Doomsday.Cuts.Presets
 }
 
 doomsdayPlayers = {
-    eFeature.Heist.Doomsday.Cuts.Player1,
-    eFeature.Heist.Doomsday.Cuts.Player2,
-    eFeature.Heist.Doomsday.Cuts.Player3,
-    eFeature.Heist.Doomsday.Cuts.Player4
+    Toggles = {
+        eFeature.Heist.Doomsday.Cuts.Player1.Toggle,
+        eFeature.Heist.Doomsday.Cuts.Player2.Toggle,
+        eFeature.Heist.Doomsday.Cuts.Player3.Toggle,
+        eFeature.Heist.Doomsday.Cuts.Player4.Toggle
+    },
+
+    Cuts = {
+        eFeature.Heist.Doomsday.Cuts.Player1.Cut,
+        eFeature.Heist.Doomsday.Cuts.Player2.Cut,
+        eFeature.Heist.Doomsday.Cuts.Player3.Cut,
+        eFeature.Heist.Doomsday.Cuts.Player4.Cut
+    }
 }
 
 salvageSlotsAvailable = {

@@ -121,9 +121,17 @@ function Json.Encode(val, indent)
                 stack[value] = nil
                 return "[\n" .. table.concat(res, ",\n") .. "\n" .. currentIndent .. "]"
             else
-                -- Object
-                for k, v in pairs(value) do
-                    I(res, nextIndent .. EncodeString(k) .. ": " .. EncodeValue(v, stack, nextIndent))
+                -- Object (sort keys alphabetically)
+                local keys = {}
+                for k, _ in pairs(value) do
+                    if type(k) ~= "string" then
+                        SilentLogger.LogError("invalid table: mixed or invalid key types")
+                    end
+                    table.insert(keys, k)
+                end
+                table.sort(keys)
+                for _, k in ipairs(keys) do
+                    I(res, nextIndent .. EncodeString(k) .. ": " .. EncodeValue(value[k], stack, nextIndent))
                 end
                 stack[value] = nil
                 return "{\n" .. table.concat(res, ",\n") .. "\n" .. currentIndent .. "}"

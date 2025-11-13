@@ -140,12 +140,20 @@ function FileMgr.ExportTranslation(file)
 end
 
 function FileMgr.CreateHeistPresetsDirs()
+    if not FileMgr.DoesFileExist(APART_DIR) then
+        FileMgr.CreateDir(APART_DIR)
+    end
+
     if not FileMgr.DoesFileExist(CAYO_DIR) then
         FileMgr.CreateDir(CAYO_DIR)
     end
 
     if not FileMgr.DoesFileExist(DIAMOND_DIR) then
         FileMgr.CreateDir(DIAMOND_DIR)
+    end
+
+    if not FileMgr.DoesFileExist(DDAY_DIR) then
+        FileMgr.CreateDir(DDAY_DIR)
     end
 end
 

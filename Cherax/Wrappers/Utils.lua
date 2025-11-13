@@ -7,6 +7,22 @@ function Utils.ClearTable(tbl)
 end
 
 function Utils.FillDynamicTables()
+    -- eTable.Heist.Apartment.Files
+    Utils.ClearTable(eTable.Heist.Apartment.Files)
+
+    if FileMgr.DoesFileExist(APART_DIR) then
+        local files = FileMgr.FindFiles(APART_DIR, ".json", true)
+
+        for i, file in ipairs(files) do
+            local fileName = string.match(file, "[^\\]+$"):gsub(".json", "")
+            I(eTable.Heist.Apartment.Files, { name = fileName, index = i })
+        end
+    end
+
+    if #eTable.Heist.Apartment.Files == 0 then
+        I(eTable.Heist.Apartment.Files, { name = "", index = -1 })
+    end
+
     -- eTable.Heist.CayoPerico.Files
     Utils.ClearTable(eTable.Heist.CayoPerico.Files)
 
@@ -37,6 +53,22 @@ function Utils.FillDynamicTables()
 
     if #eTable.Heist.DiamondCasino.Files == 0 then
         I(eTable.Heist.DiamondCasino.Files, { name = "", index = -1 })
+    end
+
+    -- eTable.Heist.Doomsday.Files
+    Utils.ClearTable(eTable.Heist.Doomsday.Files)
+
+    if FileMgr.DoesFileExist(DDAY_DIR) then
+        local files = FileMgr.FindFiles(DDAY_DIR, ".json", true)
+
+        for i, file in ipairs(files) do
+            local fileName = string.match(file, "[^\\]+$"):gsub(".json", "")
+            I(eTable.Heist.Doomsday.Files, { name = fileName, index = i })
+        end
+    end
+
+    if #eTable.Heist.Doomsday.Files == 0 then
+        I(eTable.Heist.Doomsday.Files, { name = "", index = -1 })
     end
 
     -- eTable.Editor.Stats.Files

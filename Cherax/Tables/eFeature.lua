@@ -437,43 +437,6 @@ eFeature = {
             },
 
             Cuts = {
-                Team = {
-                    hash = J("SN_Apartment_Team"),
-                    name = "Team",
-                    type = eFeatureType.Combo,
-                    desc = "Select your number of players.",
-                    list = eTable.Heist.Apartment.Team,
-                    func = function(ftr)
-                        local list  = eTable.Heist.Apartment.Team
-                        local index = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Team (Apartment)] Selected team size: %s ツ", list:GetName(index)))
-                    end
-                },
-
-                Receivers = {
-                    hash = J("SN_Apartment_Receivers"),
-                    name = "Receivers",
-                    type = eFeatureType.Combo,
-                    desc = "Decide who will receive the money.",
-                    list = eTable.Heist.Apartment.Receivers,
-                    func = function(ftr)
-                        local list  = eTable.Heist.Apartment.Receivers
-                        local index = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Receivers (Apartment)] Selected payout receivers: %s ツ", list:GetName(index)))
-                    end
-                },
-
-                Presets = {
-                    hash = J("SN_Apartment_Presets"),
-                    name = "Presets",
-                    type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets.",
-                    list = eTable.Heist.Apartment.Presets,
-                    func = function(bool)
-                        Helper.SetApartmentMaxPayout(bool)
-                    end
-                },
-
                 Bonus = {
                     hash = J("SN_Apartment_Bonus"),
                     name = "12mil Bonus",
@@ -509,56 +472,115 @@ eFeature = {
                     end
                 },
 
-                Player1 = {
-                    hash = J("SN_Apartment_Player1"),
-                    name = "Player 1",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 1.",
-                    defv = 0,
-                    lims = { 0, 10000 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 1 (Apartment)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                Presets = {
+                    hash = J("SN_Apartment_Presets"),
+                    name = "Presets",
+                    type = eFeatureType.Combo,
+                    desc = "Select one of the ready-made presets.",
+                    list = eTable.Heist.Apartment.Presets,
+                    func = function(bool)
+                        Helper.SetApartmentMaxPayout(bool)
                     end
+                },
+
+                Player1 = {
+                    Toggle = {
+                        hash = J("SN_Apartment_Player1_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 1.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 1 (Apartment)] Player 1 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_Apartment_Player1"),
+                        name = "Player 1",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 1.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 1 (Apartment)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player2 = {
-                    hash = J("SN_Apartment_Player2"),
-                    name = "Player 2",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 2.",
-                    defv = 0,
-                    lims = { 0, 10000 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 2 (Apartment)] Player 2 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_Apartment_Player2_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 2.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 2 (Apartment)] Player 2 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_Apartment_Player2"),
+                        name = "Player 2",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 2.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 2 (Apartment)] Player 2 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player3 = {
-                    hash = J("SN_Apartment_Player3"),
-                    name = "Player 3",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 3.",
-                    defv = 0,
-                    lims = { 0, 10000 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 3 (Apartment)] Player 3 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_Apartment_Player3_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 3.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 3 (Apartment)] Player 3 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_Apartment_Player3"),
+                        name = "Player 3",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 3.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 3 (Apartment)] Player 3 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player4 = {
-                    hash = J("SN_Apartment_Player4"),
-                    name = "Player 4",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 4.",
-                    defv = 0,
-                    lims = { 0, 10000 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 4 (Apartment)] Player 4 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_Apartment_Player4_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 4.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 4 (Apartment)] Player 4 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_Apartment_Player4"),
+                        name = "Player 4",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 4.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 4 (Apartment)] Player 4 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Apply = {
@@ -566,12 +588,12 @@ eFeature = {
                     name = "Apply Cuts",
                     type = eFeatureType.Button,
                     desc = "ATTENTION: screen «Aspect Ratio» must be «16:9».\nApplies the selected cuts for players.",
-                    func = function(team, receivers, cuts)
+                    func = function(cuts)
                         GUI.Toggle()
                         Script.Yield(1000)
 
                         local function SetCuts()
-                            eGlobal.Heist.Apartment.Cut.Player1.Global:Set(100 - (cuts[1] * team))
+                            eGlobal.Heist.Apartment.Cut.Player1.Global:Set(100 - (cuts[1] + cuts[2] + cuts[3] + cuts[4]))
                             eGlobal.Heist.Apartment.Cut.Player2.Global:Set(cuts[2])
                             eGlobal.Heist.Apartment.Cut.Player3.Global:Set(cuts[3])
                             eGlobal.Heist.Apartment.Cut.Player4.Global:Set(cuts[4])
@@ -580,20 +602,117 @@ eFeature = {
                             GTA.SimulateFrontendControl(202)
                         end
 
-                        if team ~= 1 and receivers == 0 then
+                        if cuts[1] ~= 0 and (cuts[2] ~= 0 or cuts[3] ~= 0 or cuts[4] ~= 0) then
                             SetCuts()
                             Script.Yield(1000)
                             eGlobal.Heist.Apartment.Cut.Player1.Local:Set(cuts[1])
-                        elseif team ~= 1 and receivers == 1 then
+                        elseif cuts[1] == 0 then
                             SetCuts()
                             Script.Yield(1000)
                             eGlobal.Heist.Apartment.Cut.Player1.Local:Set(0)
-                        elseif team == 1 or receivers == 2 then
+                        else
                             eGlobal.Heist.Apartment.Cut.Player1.Local:Set(cuts[1])
                         end
 
                         GUI.Toggle()
                         SilentLogger.LogInfo("[Apply Cuts (Apartment)] Cuts should've been applied ツ")
+                    end
+                }
+            },
+
+            Presets = {
+                File = {
+                    hash = J("SN_Apartment_File"),
+                    name = "File",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired preset.",
+                    list = eTable.Heist.Apartment.Files,
+                    func = function(ftr)
+                        local list  = eTable.Heist.Apartment.Files
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[File (Apartment)] Selected heist preset: %s ツ", (list:GetName(index) == "") and "Empty" or list:GetName(index)))
+                    end
+                },
+
+                Load = {
+                    hash = J("SN_Apartment_Load"),
+                    name = "Load",
+                    type = eFeatureType.Button,
+                    desc = "Loads the selected preset.",
+                    func = function(file)
+                        local path = F("%s\\%s.json", APART_DIR, file)
+
+                        if FileMgr.DoesFileExist(path) then
+                            local preps = Json.DecodeFromFile(path)
+                            Helper.ApplyApartmentPreset(preps)
+                            SilentLogger.LogInfo(F("[Load (Apartment)] Preset «%s» should've been loaded ツ", file))
+                            return
+                        end
+
+                        SilentLogger.LogError(F("[Load (Apartment)] Preset «%s» doesn't exist ツ", (file == "") and "Empty" or file))
+                    end
+                },
+
+                Remove = {
+                    hash = J("SN_Apartment_Remove"),
+                    name = "Remove",
+                    type = eFeatureType.Button,
+                    desc = "ATTENTION: cannot be undone.\nRemoves the selected preset.",
+                    func = function(file)
+                        local path = F("%s\\%s.json", APART_DIR, file)
+
+                        if FileMgr.DoesFileExist(path) then
+                            FileMgr.DeleteFile(path)
+                            Helper.RefreshFiles()
+                            SilentLogger.LogInfo(F("[Remove (Apartment)] Preset «%s» should've been removed ツ", file))
+                            return
+                        end
+
+                        SilentLogger.LogError(F("[Remove (Apartment)] Preset «%s» doesn't exist ツ", (file == "") and "Empty" or file))
+                    end
+                },
+
+                Refresh = {
+                    hash = J("SN_Apartment_Refresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the list of presets.",
+                    func = function()
+                        Helper.RefreshFiles()
+                        SilentLogger.LogInfo("[Refresh (Apartment)] Heist presets should've been refreshed ツ")
+                    end
+                },
+
+                Name = {
+                    hash = J("SN_Apartment_Name"),
+                    name = "QuickPreset",
+                    type = eFeatureType.InputText,
+                    desc = "Input the desired preset name."
+                },
+
+                Save = {
+                    hash = J("SN_Apartment_Save"),
+                    name = "Save",
+                    type = eFeatureType.Button,
+                    desc = "Saves the current heist preset to the file.",
+                    func = function(file, preps)
+                        local path = F("%s\\%s.json", APART_DIR, file)
+                        FileMgr.CreateHeistPresetsDirs()
+                        Json.EncodeToFile(path, preps)
+                        Helper.RefreshFiles()
+                        SilentLogger.LogInfo(F("[Save (Apartment)] Preset «%s» should've been saved ツ", file))
+                    end
+                },
+
+                Copy = {
+                    hash = J("SN_Apartment_Copy"),
+                    name = "Copy Folder Path",
+                    type = eFeatureType.Button,
+                    desc = "Copies the presets folder path to the clipboard.",
+                    func = function()
+                        FileMgr.CreateHeistPresetsDirs()
+                        ImGui.SetClipboardText(APART_DIR)
+                        SilentLogger.LogInfo("[Copy Folder Path (Apartment)] Presets folder path should've been copied ツ")
                     end
                 }
             }
@@ -1232,31 +1351,6 @@ eFeature = {
             },
 
             Cuts = {
-                Team = {
-                    hash = J("SN_CayoPerico_Team"),
-                    name = "Team",
-                    type = eFeatureType.Combo,
-                    desc = "Select your number of players.",
-                    list = eTable.Heist.Generic.Team,
-                    func = function(ftr)
-                        local list = eTable.Heist.Generic.Team
-                        local team = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Team (Cayo Perico)] Selected team size: %s ツ", list:GetName(team)))
-                    end
-                },
-
-                Presets = {
-                    hash = J("SN_CayoPerico_Presets"),
-                    name = "Presets",
-                    type = eFeatureType.Combo,
-                    desc = "ATTENTION: «2.55mil Payout» works only if you've set the «Difficulty» through the script and you don't have any «Secondary Targets».\nSelect one of the ready-made presets.",
-                    list = eTable.Heist.CayoPerico.Presets,
-                    func = function()
-                        Helper.SetCayoMaxPayout()
-                        Script.Yield()
-                    end
-                },
-
                 Crew = {
                     hash = J("SN_CayoPerico_Crew"),
                     name = "Remove Crew Cuts",
@@ -1280,56 +1374,116 @@ eFeature = {
                     end
                 },
 
-                Player1 = {
-                    hash = J("SN_CayoPerico_Player1"),
-                    name = "Player 1",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 1.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 1 (Cayo Perico)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                Presets = {
+                    hash = J("SN_CayoPerico_Presets"),
+                    name = "Presets",
+                    type = eFeatureType.Combo,
+                    desc = "ATTENTION: «2.55mil Payout» works only if you've set the «Difficulty» through the script and you don't have any «Secondary Targets».\nSelect one of the ready-made presets.",
+                    list = eTable.Heist.CayoPerico.Presets,
+                    func = function()
+                        Helper.SetCayoMaxPayout()
+                        Script.Yield()
                     end
+                },
+
+                Player1 = {
+                    Toggle = {
+                        hash = J("SN_CayoPerico_Player1_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 1.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 1 (Cayo Perico)] Player 1 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_CayoPerico_Player1_Cut"),
+                        name = "Player 1",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 1.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 1 (Cayo Perico)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player2 = {
-                    hash = J("SN_CayoPerico_Player2"),
-                    name = "Player 2",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 2.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 2 (Cayo Perico)] Player 2 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_CayoPerico_Player2_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 2.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 2 (Cayo Perico)] Player 2 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_CayoPerico_Player2_Cut"),
+                        name = "Player 2",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 2.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 2 (Cayo Perico)] Player 2 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player3 = {
-                    hash = J("SN_CayoPerico_Player3"),
-                    name = "Player 3",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 3.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 3 (Cayo Perico)] Player 3 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_CayoPerico_Player3_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 3.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 3 (Cayo Perico)] Player 3 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_CayoPerico_Player3_Cut"),
+                        name = "Player 3",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 3.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 3 (Cayo Perico)] Player 3 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player4 = {
-                    hash = J("SN_CayoPerico_Player4"),
-                    name = "Player 4",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 4.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 4 (Cayo Perico)] Player 4 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_CayoPerico_Player4_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 4.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 4 (Cayo Perico)] Player 4 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_CayoPerico_Player4_Cut"),
+                        name = "Player 4",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 4.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 4 (Cayo Perico)] Player 4 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Apply = {
@@ -1364,7 +1518,7 @@ eFeature = {
                     hash = J("SN_CayoPerico_Load"),
                     name = "Load",
                     type = eFeatureType.Button,
-                    desc = "Loads the selected preset.",
+                    desc = "Loads the selected preset, but doesn't apply preparations.",
                     func = function(file)
                         local path = F("%s\\%s.json", CAYO_DIR, file)
 
@@ -1420,7 +1574,7 @@ eFeature = {
                     hash = J("SN_CayoPerico_Save"),
                     name = "Save",
                     type = eFeatureType.Button,
-                    desc = "Saves the current preparations to the file.",
+                    desc = "Saves the current heist preset to the file.",
                     func = function(file, preps)
                         local path = F("%s\\%s.json", CAYO_DIR, file)
                         FileMgr.CreateHeistPresetsDirs()
@@ -1852,31 +2006,6 @@ eFeature = {
             },
 
             Cuts = {
-                Team = {
-                    hash = J("SN_DiamondCasino_Team"),
-                    name = "Team",
-                    type = eFeatureType.Combo,
-                    desc = "Select your number of players.",
-                    list = eTable.Heist.Generic.Team,
-                    func = function(ftr)
-                        local list = eTable.Heist.Generic.Team
-                        local team = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Team (Diamond Casino)] Selected team size: %s ツ", list:GetName(team)))
-                    end
-                },
-
-                Presets = {
-                    hash = J("SN_DiamondCasino_Presets"),
-                    name = "Presets",
-                    type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets.",
-                    list = eTable.Heist.DiamondCasino.Presets,
-                    func = function()
-                        Helper.SetDiamondMaxPayout()
-                        Script.Yield()
-                    end
-                },
-
                 Crew = {
                     hash = J("SN_DiamondCasino_Crew"),
                     name = "Remove Crew Cuts",
@@ -1911,56 +2040,116 @@ eFeature = {
                     end
                 },
 
-                Player1 = {
-                    hash = J("SN_DiamondCasino_Player1"),
-                    name = "Player 1",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 1.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 1 (Diamond Casino)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                Presets = {
+                    hash = J("SN_DiamondCasino_Presets"),
+                    name = "Presets",
+                    type = eFeatureType.Combo,
+                    desc = "Select one of the ready-made presets.",
+                    list = eTable.Heist.DiamondCasino.Presets,
+                    func = function()
+                        Helper.SetDiamondMaxPayout()
+                        Script.Yield()
                     end
+                },
+
+                Player1 = {
+                    Toggle = {
+                        hash = J("SN_DiamondCasino_Player1_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 1.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 1 (Diamond Casino)] Player 1 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_DiamondCasino_Player1_Cut"),
+                        name = "Player 1",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 1.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 1 (Diamond Casino)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player2 = {
-                    hash = J("SN_DiamondCasino_Player2"),
-                    name = "Player 2",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 2.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 2 (Diamond Casino)] Player 2 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_DiamondCasino_Player2_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 2.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 2 (Diamond Casino)] Player 2 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_DiamondCasino_Player2_Cut"),
+                        name = "Player 2",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 2.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 2 (Diamond Casino)] Player 2 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player3 = {
-                    hash = J("SN_DiamondCasino_Player3"),
-                    name = "Player 3",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 3.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 3 (Diamond Casino)] Player 3 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_DiamondCasino_Player3_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 3.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 3 (Diamond Casino)] Player 3 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_DiamondCasino_Player3_Cut"),
+                        name = "Player 3",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 3.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 3 (Diamond Casino)] Player 3 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player4 = {
-                    hash = J("SN_DiamondCasino_Player4"),
-                    name = "Player 4",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 4.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 4 (Diamond Casino)] Player 4 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_DiamondCasino_Player4_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 4.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 4 (Diamond Casino)] Player 4 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_DiamondCasino_Player4_Cut"),
+                        name = "Player 4",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 4.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 4 (Diamond Casino)] Player 4 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Apply = {
@@ -1995,7 +2184,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Load"),
                     name = "Load",
                     type = eFeatureType.Button,
-                    desc = "Loads the selected preset.",
+                    desc = "Loads the selected preset, but doesn't apply preparations.",
                     func = function(file)
                         local path = F("%s\\%s.json", DIAMOND_DIR, file)
 
@@ -2051,7 +2240,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Save"),
                     name = "Save",
                     type = eFeatureType.Button,
-                    desc = "Saves the current preparations to the file.",
+                    desc = "Saves the current heist preset to the file.",
                     func = function(file, preps)
                         local path = F("%s\\%s.json", DIAMOND_DIR, file)
                         FileMgr.CreateHeistPresetsDirs()
@@ -2226,19 +2415,6 @@ eFeature = {
             },
 
             Cuts = {
-                Team = {
-                    hash = J("SN_Doomsday_Team"),
-                    name = "Team",
-                    type = eFeatureType.Combo,
-                    desc = "Select your number of players.",
-                    list = eTable.Heist.Generic.Team,
-                    func = function(ftr)
-                        local list = eTable.Heist.Generic.Team
-                        local team = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Team (Doomsday)] Selected team size: %s ツ", list:GetName(team)))
-                    end
-                },
-
                 Presets = {
                     hash = J("SN_Doomsday_Presets"),
                     name = "Presets",
@@ -2252,55 +2428,103 @@ eFeature = {
                 },
 
                 Player1 = {
-                    hash = J("SN_Doomsday_Player1"),
-                    name = "Player 1",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 1.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 1 (Doomsday)] Player 1 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_Doomsday_Player1_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 1.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 1 (Doomsday)] Player 1 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_Doomsday_Player1"),
+                        name = "Player 1",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 1.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 1 (Doomsday)] Player 1 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player2 = {
-                    hash = J("SN_Doomsday_Player2"),
-                    name = "Player 2",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 2.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 2 (Doomsday)] Player 2 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_Doomsday_Player2_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 2.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 2 (Doomsday)] Player 2 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_Doomsday_Player2"),
+                        name = "Player 2",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 2.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 2 (Doomsday)] Player 2 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player3 = {
-                    hash = J("SN_Doomsday_Player3"),
-                    name = "Player 3",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 3.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 3 (Doomsday)] Player 3 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_Doomsday_Player3_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 3.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 3 (Doomsday)] Player 3 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_Doomsday_Player3"),
+                        name = "Player 3",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 3.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 3 (Doomsday)] Player 3 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Player4 = {
-                    hash = J("SN_Doomsday_Player4"),
-                    name = "Player 4",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the cut for Player 4.",
-                    defv = 0,
-                    lims = { 0, 999 },
-                    step = 1,
-                    func = function(ftr)
-                        SilentLogger.LogInfo("[Player 4 (Doomsday)] Player 4 cut should've been changed. Don't forget to apply ツ")
-                    end
+                    Toggle = {
+                        hash = J("SN_Doomsday_Player4_Toggle"),
+                        name = "",
+                        type = eFeatureType.Toggle,
+                        desc = "Enable the cut for Player 4.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Player 4 (Doomsday)] Player 4 cut should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        end
+                    },
+
+                    Cut = {
+                        hash = J("SN_Doomsday_Player4"),
+                        name = "Player 4",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the cut for Player 4.",
+                        defv = 0,
+                        lims = { 0, 999 },
+                        step = 1,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Player 4 (Doomsday)] Player 4 cut should've been changed. Don't forget to apply ツ")
+                        end
+                    }
                 },
 
                 Apply = {
@@ -2313,6 +2537,103 @@ eFeature = {
                             eGlobal.Heist.Doomsday.Cut[F("Player%d", i)]:Set(cuts[i])
                         end
                         SilentLogger.LogInfo("[Apply Cuts (Doomsday)] Cuts should've been applied ツ")
+                    end
+                }
+            },
+
+            Presets = {
+                File = {
+                    hash = J("SN_Doomsday_File"),
+                    name = "File",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired preset.",
+                    list = eTable.Heist.Doomsday.Files,
+                    func = function(ftr)
+                        local list  = eTable.Heist.Doomsday.Files
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[File (Doomsday)] Selected heist preset: %s ツ", (list:GetName(index) == "") and "Empty" or list:GetName(index)))
+                    end
+                },
+
+                Load = {
+                    hash = J("SN_Doomsday_Load"),
+                    name = "Load",
+                    type = eFeatureType.Button,
+                    desc = "Loads the selected preset, but doesn't apply preparations.",
+                    func = function(file)
+                        local path = F("%s\\%s.json", DDAY_DIR, file)
+
+                        if FileMgr.DoesFileExist(path) then
+                            local preps = Json.DecodeFromFile(path)
+                            Helper.ApplyDoomsdayPreset(preps)
+                            SilentLogger.LogInfo(F("[Load (Doomsday)] Preset «%s» should've been loaded ツ", file))
+                            return
+                        end
+
+                        SilentLogger.LogError(F("[Load (Doomsday)] Preset «%s» doesn't exist ツ", (file == "") and "Empty" or file))
+                    end
+                },
+
+                Remove = {
+                    hash = J("SN_Doomsday_Remove"),
+                    name = "Remove",
+                    type = eFeatureType.Button,
+                    desc = "ATTENTION: cannot be undone.\nRemoves the selected preset.",
+                    func = function(file)
+                        local path = F("%s\\%s.json", DDAY_DIR, file)
+
+                        if FileMgr.DoesFileExist(path) then
+                            FileMgr.DeleteFile(path)
+                            Helper.RefreshFiles()
+                            SilentLogger.LogInfo(F("[Remove (Doomsday)] Preset «%s» should've been removed ツ", file))
+                            return
+                        end
+
+                        SilentLogger.LogError(F("[Remove (Doomsday)] Preset «%s» doesn't exist ツ", (file == "") and "Empty" or file))
+                    end
+                },
+
+                Refresh = {
+                    hash = J("SN_Doomsday_Refresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the list of presets.",
+                    func = function()
+                        Helper.RefreshFiles()
+                        SilentLogger.LogInfo("[Refresh (Doomsday)] Heist presets should've been refreshed ツ")
+                    end
+                },
+
+                Name = {
+                    hash = J("SN_Doomsday_Name"),
+                    name = "QuickPreset",
+                    type = eFeatureType.InputText,
+                    desc = "Input the desired preset name."
+                },
+
+                Save = {
+                    hash = J("SN_Doomsday_Save"),
+                    name = "Save",
+                    type = eFeatureType.Button,
+                    desc = "Saves the current heist preset to the file.",
+                    func = function(file, preps)
+                        local path = F("%s\\%s.json", DDAY_DIR, file)
+                        FileMgr.CreateHeistPresetsDirs()
+                        Json.EncodeToFile(path, preps)
+                        Helper.RefreshFiles()
+                        SilentLogger.LogInfo(F("[Save (Doomsday)] Preset «%s» should've been saved ツ", file))
+                    end
+                },
+
+                Copy = {
+                    hash = J("SN_Doomsday_Copy"),
+                    name = "Copy Folder Path",
+                    type = eFeatureType.Button,
+                    desc = "Copies the presets folder path to the clipboard.",
+                    func = function()
+                        FileMgr.CreateHeistPresetsDirs()
+                        ImGui.SetClipboardText(DDAY_DIR)
+                        SilentLogger.LogInfo("[Copy Folder Path (Doomsday)] Presets folder path should've been copied ツ")
                     end
                 }
             }
