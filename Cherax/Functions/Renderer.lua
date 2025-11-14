@@ -1696,9 +1696,8 @@ function Renderer.RenderListGUI()
             MiscSubTab:AddFeature(eFeature.Money.Casino.Misc.Limit.Trade)
         end
 
-        local MiscTab = MoneyToolTab:AddSubTab("Misc", "Misc")
-        if MiscTab then
-            local EasyMoneyTab = MiscTab:AddSubTab("Easy Money", "Easy Money")
+        local EasyMoneyTab = MoneyToolTab:AddSubTab("Easy Money", "Easy Money")
+        if EasyMoneyTab then
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Acknowledge)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Instant.Give30m)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._5k)
@@ -1707,7 +1706,10 @@ function Renderer.RenderListGUI()
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._180k)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._680k)
             EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Property._300k)
+        end
 
+        local MiscTab = MoneyToolTab:AddSubTab("Misc", "Misc")
+        if MiscTab then
             local EditSubTab = MiscTab:AddSubTab("Edit", "Edit")
             EditSubTab:AddFeature(eFeature.Money.Misc.Edit.Select)
             EditSubTab:AddFeature(eFeature.Money.Misc.Edit.Deposit)

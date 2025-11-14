@@ -1,12 +1,5 @@
 --#region Features
 
-apartmentPreps = {
-    eFeature.Heist.Generic.Launch,
-    eFeature.Heist.Apartment.Cuts.Bonus,
-    eFeature.Heist.Apartment.Cuts.Double,
-    eFeature.Heist.Apartment.Cuts.Presets
-}
-
 apartmentPlayers = {
     Toggles = {
         eFeature.Heist.Apartment.Cuts.Player1.Toggle,
@@ -38,10 +31,7 @@ cayoPreps = {
     eFeature.Heist.CayoPerico.Preps.Target.Value.Weed,
     eFeature.Heist.CayoPerico.Preps.Target.Value.Coke,
     eFeature.Heist.CayoPerico.Preps.Target.Value.Gold,
-    eFeature.Heist.CayoPerico.Preps.Target.Value.Arts,
-    eFeature.Heist.CayoPerico.Misc.Bag,
-    eFeature.Heist.CayoPerico.Cuts.Crew,
-    eFeature.Heist.CayoPerico.Cuts.Presets
+    eFeature.Heist.CayoPerico.Preps.Target.Value.Arts
 }
 
 cayoPlayers = {
@@ -64,18 +54,12 @@ diamondPreps = {
     eFeature.Heist.DiamondCasino.Preps.Difficulty,
     eFeature.Heist.DiamondCasino.Preps.Approach,
     eFeature.Heist.DiamondCasino.Preps.Gunman,
-    eFeature.Heist.DiamondCasino.Preps.Loadout,
     eFeature.Heist.DiamondCasino.Preps.Driver,
-    eFeature.Heist.DiamondCasino.Preps.Vehicles,
     eFeature.Heist.DiamondCasino.Preps.Hacker,
     eFeature.Heist.DiamondCasino.Preps.Masks,
     eFeature.Heist.DiamondCasino.Preps.Guards,
     eFeature.Heist.DiamondCasino.Preps.Keycards,
-    eFeature.Heist.DiamondCasino.Preps.Target,
-    eFeature.Heist.Generic.Launch,
-    eFeature.Heist.DiamondCasino.Misc.Autograbber,
-    eFeature.Heist.DiamondCasino.Cuts.Crew,
-    eFeature.Heist.DiamondCasino.Cuts.Presets
+    eFeature.Heist.DiamondCasino.Preps.Target
 }
 
 diamondPlayers = {
@@ -92,12 +76,6 @@ diamondPlayers = {
         eFeature.Heist.DiamondCasino.Cuts.Player3.Cut,
         eFeature.Heist.DiamondCasino.Cuts.Player4.Cut
     }
-}
-
-doomsdayPreps = {
-    eFeature.Heist.Doomsday.Preps.Act,
-    eFeature.Heist.Generic.Launch,
-    eFeature.Heist.Doomsday.Cuts.Presets
 }
 
 doomsdayPlayers = {

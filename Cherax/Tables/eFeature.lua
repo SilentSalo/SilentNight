@@ -1518,7 +1518,7 @@ eFeature = {
                     hash = J("SN_CayoPerico_Load"),
                     name = "Load",
                     type = eFeatureType.Button,
-                    desc = "Loads the selected preset, but doesn't apply preparations.",
+                    desc = "Loads the selected preset, but doesn't complete preparations.",
                     func = function(file)
                         local path = F("%s\\%s.json", CAYO_DIR, file)
 
@@ -1747,8 +1747,8 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Complete"),
                     name = "Apply & Complete Preps",
                     type = eFeatureType.Button,
-                    desc = "Applies all changes and completes all preparations. Also, redraws the planning board.",
-                    func = function(difficulty, approach, gunman, driver, hacker, masks, guards, keycards, target, loadout, vehicles, unlock)
+                    desc = "Applies all changes and completes all preparations. Also, redraws the planning boards.",
+                    func = function(difficulty, approach, gunman, driver, hacker, masks, guards, keycards, target, loadout, vehicles)
                         if CONFIG.unlock_all_poi.diamond_casino then
                             eStat.MPX_H3OPT_POI:Set(-1)
                             eStat.MPX_H3OPT_ACCESSPOINTS:Set(-1)
@@ -1804,7 +1804,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Reset"),
                     name = "Reset Preps",
                     type = eFeatureType.Button,
-                    desc = "Resets all preparations. Also, redraws the planning board.",
+                    desc = "Resets all preparations. Also, redraws the planning boards.",
                     func = function()
                         eStat.MPX_H3_LAST_APPROACH:Set(0)
                         eStat.MPX_H3_HARD_APPROACH:Set(0)
@@ -1838,12 +1838,12 @@ eFeature = {
 
                 Reload = {
                     hash = J("SN_DiamondCasino_Reload"),
-                    name = "Redraw Board",
+                    name = "Redraw Boards",
                     type = eFeatureType.Button,
-                    desc = "Redraws the planning board.",
+                    desc = "Redraws the planning boards.",
                     func = function()
                         eLocal.Heist.DiamondCasino.Reload:Set(2)
-                        SilentLogger.LogInfo("[Redraw Board (Diamond Casino)] Board should've been redrawn ツ")
+                        SilentLogger.LogInfo("[Redraw Boards (Diamond Casino)] Boards should've been redrawn ツ")
                     end
                 }
             },
@@ -2010,7 +2010,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Crew"),
                     name = "Remove Crew Cuts",
                     type = eFeatureType.Toggle,
-                    desc = "ATTENTION: should be used with «Instant Finish».\nRemoves crew cuts and Lester's cut.",
+                    desc = "ATTENTION: cannot be unused with «3.6mil Payout».\nRemoves crew cuts and Lester's cut.",
                     func = function(ftr)
                         local function SetOrResetCuts(tbl, bool)
                             for _, v in pairs(tbl) do
@@ -2184,7 +2184,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Load"),
                     name = "Load",
                     type = eFeatureType.Button,
-                    desc = "Loads the selected preset, but doesn't apply preparations.",
+                    desc = "Loads the selected preset, but doesn't complete preparations.",
                     func = function(file)
                         local path = F("%s\\%s.json", DIAMOND_DIR, file)
 
@@ -2559,7 +2559,7 @@ eFeature = {
                     hash = J("SN_Doomsday_Load"),
                     name = "Load",
                     type = eFeatureType.Button,
-                    desc = "Loads the selected preset, but doesn't apply preparations.",
+                    desc = "Loads the selected preset, but doesn't complete preparations.",
                     func = function(file)
                         local path = F("%s\\%s.json", DDAY_DIR, file)
 

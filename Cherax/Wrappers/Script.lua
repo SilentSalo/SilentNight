@@ -426,12 +426,12 @@ Script.RegisterLooped(function()
     end
 
     if FeatureMgr.GetFeatureListIndex(eFeature.Heist.CayoPerico.Cuts.Presets) == 3 then
-        FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false):SetVisible(false)
         eFeature.Heist.CayoPerico.Cuts.Presets.func()
     end
 
     if FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Cuts.Presets) == 3 then
-        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(true)
+        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(true):SetVisible(false)
         eFeature.Heist.DiamondCasino.Cuts.Presets.func()
     end
 

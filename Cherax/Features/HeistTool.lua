@@ -150,10 +150,10 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Save, function(f)
     end
 
     local preps = {
-        solo_launch         = FeatureMgr.GetFeatureBool(apartmentPreps[1]),
-        bonus_12mil         = FeatureMgr.GetFeatureBool(apartmentPreps[2]),
-        double_rewards_week = FeatureMgr.GetFeatureBool(apartmentPreps[3]),
-        presets             = FeatureMgr.GetFeatureListIndex(apartmentPreps[4]),
+        solo_launch         = FeatureMgr.GetFeatureBool(eFeature.Heist.Generic.Launch),
+        bonus_12mil         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Bonus),
+        double_rewards_week = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Double),
+        presets             = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Apartment.Cuts.Presets),
 
         player1 = {
             enabled = FeatureMgr.GetFeatureBool(apartmentPlayers.Toggles[1]),
@@ -319,6 +319,8 @@ FeatureMgr.AddLoop(eFeature.Heist.CayoPerico.Cuts.Crew, nil, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.Presets, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):SetVisible(true)
+
     local ftr    = eFeature.Heist.CayoPerico.Cuts.Presets
     local preset = ftr.list[f:GetListIndex() + 1].index
 
@@ -391,9 +393,9 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Save, function(f)
         coke_value       = FeatureMgr.GetFeatureInt(cayoPreps[13]),
         gold_value       = FeatureMgr.GetFeatureInt(cayoPreps[14]),
         arts_value       = FeatureMgr.GetFeatureInt(cayoPreps[15]),
-        womans_bag       = FeatureMgr.GetFeatureBool(cayoPreps[16]),
-        remove_crew_cuts = FeatureMgr.GetFeatureBool(cayoPreps[17]),
-        presets          = FeatureMgr.GetFeatureListIndex(cayoPreps[18]),
+        womans_bag       = FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Misc.Bag),
+        remove_crew_cuts = FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Cuts.Crew),
+        presets          = FeatureMgr.GetFeatureListIndex(eFeature.Heist.CayoPerico.Cuts.Presets),
 
         player1 = {
             enabled = FeatureMgr.GetFeatureBool(cayoPlayers.Toggles[1]),
@@ -558,6 +560,8 @@ FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Cuts.Crew, nil, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.Presets, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(f:GetListIndex() == 3):SetVisible(true)
+
     local ftr    = eFeature.Heist.DiamondCasino.Cuts.Presets
     local preset = ftr.list[f:GetListIndex() + 1].index
 
@@ -618,18 +622,18 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Save, function(f)
         difficulty       = FeatureMgr.GetFeatureListIndex(diamondPreps[1]),
         approach         = FeatureMgr.GetFeatureListIndex(diamondPreps[2]),
         gunman           = FeatureMgr.GetFeatureListIndex(diamondPreps[3]),
-        loadout          = FeatureMgr.GetFeatureListIndex(diamondPreps[4]),
-        driver           = FeatureMgr.GetFeatureListIndex(diamondPreps[5]),
-        vehicles         = FeatureMgr.GetFeatureListIndex(diamondPreps[6]),
-        hacker           = FeatureMgr.GetFeatureListIndex(diamondPreps[7]),
-        masks            = FeatureMgr.GetFeatureListIndex(diamondPreps[8]),
-        guards           = FeatureMgr.GetFeatureListIndex(diamondPreps[9]),
-        keycards         = FeatureMgr.GetFeatureListIndex(diamondPreps[10]),
-        target           = FeatureMgr.GetFeatureListIndex(diamondPreps[11]),
-        solo_launch      = FeatureMgr.GetFeatureBool(diamondPreps[12]),
-        autograbber      = FeatureMgr.GetFeatureBool(diamondPreps[13]),
-        remove_crew_cuts = FeatureMgr.GetFeatureBool(diamondPreps[14]),
-        presets          = FeatureMgr.GetFeatureListIndex(diamondPreps[15]),
+        driver           = FeatureMgr.GetFeatureListIndex(diamondPreps[4]),
+        hacker           = FeatureMgr.GetFeatureListIndex(diamondPreps[5]),
+        masks            = FeatureMgr.GetFeatureListIndex(diamondPreps[6]),
+        guards           = FeatureMgr.GetFeatureListIndex(diamondPreps[7]),
+        keycards         = FeatureMgr.GetFeatureListIndex(diamondPreps[8]),
+        target           = FeatureMgr.GetFeatureListIndex(diamondPreps[9]),
+        loadout          = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Preps.Loadout),
+        vehicles         = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Preps.Vehicles),
+        solo_launch      = FeatureMgr.GetFeatureBool(eFeature.Heist.Generic.Launch),
+        autograbber      = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Misc.Autograbber),
+        remove_crew_cuts = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Cuts.Crew),
+        presets          = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Cuts.Presets),
 
         player1 = {
             enabled = FeatureMgr.GetFeatureBool(diamondPlayers.Toggles[1]),
@@ -744,9 +748,9 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Save, function(f)
     end
 
     local preps = {
-        act         = FeatureMgr.GetFeatureListIndex(doomsdayPreps[1]),
-        solo_launch = FeatureMgr.GetFeatureBool(doomsdayPreps[2]),
-        presets     = FeatureMgr.GetFeatureListIndex(doomsdayPreps[3]),
+        act         = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Preps.Act),
+        solo_launch = FeatureMgr.GetFeatureBool(eFeature.Heist.Generic.Launch),
+        presets     = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Cuts.Presets),
 
         player1 = {
             enabled = FeatureMgr.GetFeatureBool(doomsdayPlayers.Toggles[1]),
