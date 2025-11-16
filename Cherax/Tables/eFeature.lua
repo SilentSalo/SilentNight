@@ -1084,7 +1084,7 @@ eFeature = {
                     name = "Apply & Complete Preps",
                     type = eFeatureType.Button,
                     desc = "Applies all changes and completes all preparations. Also, reloads the planning screen.",
-                    func = function(difficulty, approach, loadout, primaryTarget, compoundTarget, compoundAmount, artsAmount, islandTarget, islandAmount, cashValue, weedValue, cokeValue, goldValue, artsValue)
+                    func = function(difficulty, approach, loadout, primaryTarget, compoundTarget, compoundAmount, artsAmount, islandTarget, islandAmount, advanced, cashValue, weedValue, cokeValue, goldValue, artsValue)
                         if CONFIG.unlock_all_poi.cayo_perico then
                             eStat.MPX_H4CNF_BS_GEN:Set(-1)
                             eStat.MPX_H4CNF_BS_ENTR:Set(63)
