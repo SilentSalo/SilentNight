@@ -5019,7 +5019,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_30m"),
                     name = "Give 30mil",
                     type = eFeatureType.Button,
-                    desc = "CAUTION: might be unsafe, prefer to use once.\nGives 30mil dollars in a few seconds. Has a cooldown.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nGives 30mil dollars in a few seconds. Has a cooldown.",
                     func = function()
                         if not CONFIG.easy_money.acknowledge then
                             SilentLogger.LogError("[Give 30mil (Easy Money)] You must acknowledge the risks first ツ")
@@ -5047,7 +5047,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_5k"),
                     name = "5k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "ATTENTION: might be unsafe, no bans reported.\nToggles the 5k chips loop.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 5k chips loop.",
                     func = function(ftr, delay)
                         if not CONFIG.easy_money.acknowledge then
                             if ftr:IsToggled() then
@@ -5078,7 +5078,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_50k"),
                     name = "50k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "CAUTION: might be unsafe, if overused.\nToggles the 50k dollars loop.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 50k dollars loop.",
                     func = function(ftr, delay)
                         if not CONFIG.easy_money.acknowledge then
                             if ftr:IsToggled() then
@@ -5109,7 +5109,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_100k"),
                     name = "100k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "CAUTION: might be unsafe, if overused.\nToggles the 100k dollars loop.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 100k dollars loop.",
                     func = function(ftr, delay)
                         if not CONFIG.easy_money.acknowledge then
                             if ftr:IsToggled() then
@@ -5140,7 +5140,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_180k"),
                     name = "180k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "CAUTION: might be unsafe, if overused.\nToggles the 180k dollars loop. Has a cooldown.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 180k dollars loop. Has a cooldown.",
                     func = function(ftr, delay)
                         if not CONFIG.easy_money.acknowledge then
                             if ftr:IsToggled() then
@@ -5171,7 +5171,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_680k"),
                     name = "680k Loop",
                     type = eFeatureType.Toggle,
-                    desc = "CAUTION: might be unsafe, if overused.\nToggles the 680k dollars loop. Has a cooldown.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 680k dollars loop. Has a cooldown.",
                     func = function(ftr, delay)
                         if not CONFIG.easy_money.acknowledge then
                             if ftr:IsToggled() then

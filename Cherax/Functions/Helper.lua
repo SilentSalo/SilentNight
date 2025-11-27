@@ -148,13 +148,13 @@ function Helper.SetDiamondMaxPayout()
         [4] = 0.1
     }
 
-    local feePayout = payout - (payout * buyerFee)
-    local lesterCut = feePayout * lesterCut
-    local gunmanCut = feePayout * gunmanCuts[gunman]
-    local driverCut = feePayout * driverCuts[driver]
-    local hackerCut = feePayout * hackerCuts[hacker]
-    local crewCut   = lesterCut + gunmanCut + driverCut + hackerCut
-    local cut       = math.floor(maxPayout / ((feePayout - crewCut) / 100))
+    local feePayout    = payout - (payout * buyerFee)
+    local lesterPayout = feePayout * lesterCut
+    local gunmanPayout = feePayout * gunmanCuts[gunman]
+    local driverPayout = feePayout * driverCuts[driver]
+    local hackerPayout = feePayout * hackerCuts[hacker]
+    local crewPayout   = lesterPayout + gunmanPayout + driverPayout + hackerPayout
+    local cut          = math.floor(maxPayout / ((feePayout - crewPayout) / 100))
 
     for i = 2, #diamondPlayers.Cuts do
         FeatureMgr.GetFeature(diamondPlayers.Cuts[i]):SetIntValue(cut)

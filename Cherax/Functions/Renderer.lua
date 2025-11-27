@@ -892,10 +892,8 @@ function Renderer.RenderMoneyTool()
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Freeroam") then
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
-                        ImGui.ResetFrameBgStyle()
                         ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._50k)
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._100k)
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._180k)
