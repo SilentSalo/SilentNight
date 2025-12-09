@@ -2,10 +2,6 @@
 
 --#region Generic
 
-FeatureMgr.AddLoop(eFeature.Heist.Generic.Launch, nil, function(f)
-    eFeature.Heist.Generic.Launch.func(f)
-end)
-
 FeatureMgr.AddFeature(eFeature.Heist.Generic.Cutscene)
 
 FeatureMgr.AddFeature(eFeature.Heist.Generic.Skip)
@@ -60,6 +56,10 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Complete)
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Reload)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Change)
+
+FeatureMgr.AddLoop(eFeature.Heist.Apartment.Misc.Launch, nil, function(f)
+    eFeature.Heist.Apartment.Misc.Launch.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Teleport.Entrance):SetVisible(false)
 
@@ -150,7 +150,7 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Save, function(f)
     end
 
     local preps = {
-        solo_launch         = FeatureMgr.GetFeatureBool(eFeature.Heist.Generic.Launch),
+        solo_launch         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Misc.Launch),
         bonus_12mil         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Bonus),
         double_rewards_week = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Double),
         presets             = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Apartment.Cuts.Presets),
@@ -535,6 +535,10 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Reload)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(false)
 
+FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Misc.Launch, nil, function(f)
+    eFeature.Heist.DiamondCasino.Misc.Launch.func(f)
+end)
+
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Board):SetVisible(false)
@@ -630,7 +634,7 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Save, function(f)
         target           = FeatureMgr.GetFeatureListIndex(diamondPreps[9]),
         loadout          = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Preps.Loadout),
         vehicles         = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Preps.Vehicles),
-        solo_launch      = FeatureMgr.GetFeatureBool(eFeature.Heist.Generic.Launch),
+        solo_launch      = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Misc.Launch),
         autograbber      = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Misc.Autograbber),
         remove_crew_cuts = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Cuts.Crew),
         presets          = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Cuts.Presets),
@@ -677,6 +681,10 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Reload)
+
+FeatureMgr.AddLoop(eFeature.Heist.Doomsday.Misc.Launch, nil, function(f)
+    eFeature.Heist.Doomsday.Misc.Launch.func(f)
+end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Teleport.Entrance):SetVisible(false)
 
@@ -749,7 +757,7 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Save, function(f)
 
     local preps = {
         act         = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Preps.Act),
-        solo_launch = FeatureMgr.GetFeatureBool(eFeature.Heist.Generic.Launch),
+        solo_launch = FeatureMgr.GetFeatureBool(eFeature.Heist.Doomsday.Misc.Launch),
         presets     = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Cuts.Presets),
 
         player1 = {

@@ -3,38 +3,11 @@
 eFeature = {
     Heist = {
         Generic = {
-            Launch = {
-                hash = J("SN_Generic_Launch"),
-                name = "Solo Launch",
-                type = eFeatureType.Toggle,
-                desc = "Allows launching the heist alone.",
-                func = function(ftr)
-                    if GTA.IsInSession() then
-                        if ftr:IsToggled() then
-                            eLocal.Heist.Generic.Launch.Step1:Set(1)
-                            ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 1)
-                            eGlobal.Heist.Generic.Launch.Step1:Set(1)
-                            eGlobal.Heist.Generic.Launch.Step2:Set(1)
-                            eGlobal.Heist.Generic.Launch.Step3:Set(1)
-                            eGlobal.Heist.Generic.Launch.Step4:Set(0)
-
-                            if not loggedSoloLaunch then
-                                SilentLogger.LogInfo("[Solo Launch] Heists should've been made launchable ツ")
-                                loggedSoloLaunch = true
-                            end
-                        else
-                            SilentLogger.LogInfo("[Solo Launch] Heists should've been made unlaunchable ツ")
-                            loggedSoloLaunch = false
-                        end
-                    end
-                end
-            },
-
             Cutscene = {
                 hash = J("SN_Generic_Cutscene"),
                 name = "Skip Cutscene",
                 type = eFeatureType.Button,
-                desc = "Skips the current cutscene.",
+                desc = "Tries to skip the current cutscene.",
                 func = function()
                     eNative.CUTSCENE.STOP_CUTSCENE_IMMEDIATELY()
                     SilentLogger.LogInfo("[Skip Cutscene] Cutscene should've been skipped ツ")
@@ -45,7 +18,7 @@ eFeature = {
                 hash = J("SN_Generic_Skip"),
                 name = "Skip Checkpoint",
                 type = eFeatureType.Button,
-                desc = "Skips the heist to the next checkpoint.",
+                desc = "Tries to skip the heist to the next checkpoint.",
                 func = function()
                     eLocal.Heist.Generic.Skip.Old:Set(Bits.SetBit(eLocal.Heist.Generic.Skip.Old:Get(), 17))
                     eLocal.Heist.Generic.Skip.New:Set(Bits.SetBit(eLocal.Heist.Generic.Skip.New:Get(), 17))
@@ -283,6 +256,48 @@ eFeature = {
             },
 
             Misc = {
+                Launch = {
+                    hash = J("SN_Apartment_Launch"),
+                    name = "Solo Launch",
+                    type = eFeatureType.Toggle,
+                    desc = "Allows launching the heist alone.",
+                    func = function(ftr)
+                        if GTA.IsInSession() then
+                            if ftr:IsToggled() then
+                                eLocal.Heist.Generic.Launch.Step1:Set(1)
+                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 1)
+                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step4:Set(0)
+
+                                if not loggedApartmentLaunch then
+                                    SilentLogger.LogInfo("[Solo Launch (Apartment)] Heists should've been made launchable ツ")
+                                    loggedApartmentLaunch = true
+                                end
+                            else
+                                local isFleeca = eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.FleecaJob
+                                local step1l   = (isFleeca) and 2 or 4
+                                local global   = (isFleeca) and 2 or 4
+                                local step1    = (isFleeca) and 2 or 4
+                                local step2    = (isFleeca) and 2 or 4
+                                local step3    = (isFleeca) and 2 or 1
+                                local step4    = (isFleeca) and 2 or 1
+
+                                eLocal.Heist.Generic.Launch.Step1:Set(step1l)
+                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, global)
+                                eGlobal.Heist.Generic.Launch.Step1:Set(step1)
+                                eGlobal.Heist.Generic.Launch.Step2:Set(step2)
+                                eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step4:Set(0)
+
+                                SilentLogger.LogInfo("[Solo Launch (Apartment)] Heists should've been made unlaunchable ツ")
+                                loggedApartmentLaunch = false
+                            end
+                        end
+                    end
+                },
+
                 Teleport = {
                     Entrance = {
                         hash = J("SN_Apartment_Teleport"),
@@ -1860,6 +1875,40 @@ eFeature = {
                     end
                 },
 
+                Launch = {
+                    hash = J("SN_DiamondCasino_Launch"),
+                    name = "Solo Launch",
+                    type = eFeatureType.Toggle,
+                    desc = "Allows launching the heist alone.",
+                    func = function(ftr)
+                        if GTA.IsInSession() then
+                            if ftr:IsToggled() then
+                                eLocal.Heist.Generic.Launch.Step1:Set(1)
+                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 1)
+                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step4:Set(0)
+
+                                if not loggedDiamondLaunch then
+                                    SilentLogger.LogInfo("[Solo Launch (Diamond Casino)] Heists should've been made launchable ツ")
+                                    loggedDiamondLaunch = true
+                                end
+                            else
+                                eLocal.Heist.Generic.Launch.Step1:Set(2)
+                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 2)
+                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step3:Set(2)
+                                eGlobal.Heist.Generic.Launch.Step4:Set(11)
+
+                                SilentLogger.LogInfo("[Solo Launch (Diamond Casino)] Heists should've been made unlaunchable ツ")
+                                loggedDiamondLaunch = false
+                            end
+                        end
+                    end
+                },
+
                 Teleport = {
                     Entrance = {
                         hash = J("SN_DiamondCasino_Entrance"),
@@ -2326,6 +2375,40 @@ eFeature = {
             },
 
             Misc = {
+                Launch = {
+                    hash = J("SN_Doomsday_Launch"),
+                    name = "Solo Launch",
+                    type = eFeatureType.Toggle,
+                    desc = "Allows launching the heist alone.",
+                    func = function(ftr)
+                        if GTA.IsInSession() then
+                            if ftr:IsToggled() then
+                                eLocal.Heist.Generic.Launch.Step1:Set(1)
+                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 1)
+                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step4:Set(0)
+
+                                if not loggedDoomsdayLaunch then
+                                    SilentLogger.LogInfo("[Solo Launch (Doomsday)] Heists should've been made launchable ツ")
+                                    loggedDoomsdayLaunch = true
+                                end
+                            else
+                                eLocal.Heist.Generic.Launch.Step1:Set(2)
+                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 2)
+                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                                eGlobal.Heist.Generic.Launch.Step3:Set(2)
+                                eGlobal.Heist.Generic.Launch.Step4:Set(11)
+
+                                SilentLogger.LogInfo("[Solo Launch (Doomsday)] Heists should've been made unlaunchable ツ")
+                                loggedDoomsdayLaunch = false
+                            end
+                        end
+                    end
+                },
+
                 Teleport = {
                     Entrance = {
                         hash = J("SN_Doomsday_Entrance"),
@@ -4415,7 +4498,7 @@ eFeature = {
                     hash = J("SN_CrateWarehouse_Supply"),
                     name = "Get Crates",
                     type = eFeatureType.Button,
-                    desc = "Gets crates for your Crate Warehouse.",
+                    desc = "Gets some crates for your Crate Warehouses.",
                     func = function()
                         ePackedStat.Business.CrateWarehouse.Cargo:Set(true)
                         SilentLogger.LogInfo("[Get Crates (Special Cargo)] Crates should've been received ツ")

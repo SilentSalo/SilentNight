@@ -1,19 +1,21 @@
 --#region Generic
 
 SCRIPT_NAME = "Silent Night"
-SCRIPT_VER  = "1.5.4"
+SCRIPT_VER  = "1.5.5"
 DISCORD     = "https://discord.gg/AYpT8cBaVb"
 INT32_MAX   = 2147483647
 PLAYER_ID   = GTA.GetLocalPlayerId()
 GTA_EDITION = string.sub(Cherax.GetEdition(), 1, 2)
 MENU_PATH   = FileMgr.GetMenuRootPath()
-CONFIG_DIR  = F("%s\\Lua\\SilentNight\\Data\\Config", MENU_PATH)
-TRANS_DIR   = F("%s\\Lua\\SilentNight\\Data\\Translations", MENU_PATH)
-APART_DIR   = F("%s\\Lua\\SilentNight\\Data\\Presets\\Apartment", MENU_PATH)
-CAYO_DIR    = F("%s\\Lua\\SilentNight\\Data\\Presets\\CayoPerico", MENU_PATH)
-DIAMOND_DIR = F("%s\\Lua\\SilentNight\\Data\\Presets\\DiamondCasino", MENU_PATH)
-DDAY_DIR    = F("%s\\Lua\\SilentNight\\Data\\Presets\\Doomsday", MENU_PATH)
-STATS_DIR   = F("%s\\Lua\\SilentNight\\Data\\Stats", MENU_PATH)
+SILENT_PATH = F("%s\\Lua\\SilentNight", MENU_PATH)
+DATA_DIR    = F("%s\\Data", SILENT_PATH)
+CONFIG_DIR  = F("%s\\Config", DATA_DIR)
+TRANS_DIR   = F("%s\\Translations", DATA_DIR)
+APART_DIR   = F("%s\\Presets\\Apartment", DATA_DIR)
+CAYO_DIR    = F("%s\\Presets\\CayoPerico", DATA_DIR)
+DIAMOND_DIR = F("%s\\Presets\\DiamondCasino", DATA_DIR)
+DDAY_DIR    = F("%s\\Presets\\Doomsday", DATA_DIR)
+STATS_DIR   = F("%s\\Stats", DATA_DIR)
 CONFIG_PATH = F("%s\\config.json", CONFIG_DIR)
 NPOPULARITY = "TEMP"
 HOCWHEAT    = "TEMP"

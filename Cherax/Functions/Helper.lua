@@ -187,7 +187,7 @@ function Helper.ApplyApartmentPreset(preps)
     local temp     = CONFIG.logging
     CONFIG.logging = 0
 
-    FeatureMgr.GetFeature(eFeature.Heist.Generic.Launch):Toggle(preps.solo_launch or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Launch):Toggle(preps.solo_launch or false)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):Toggle(preps.bonus_12mil or false)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):Toggle(preps.double_rewards_week or false)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Presets):SetListIndex(preps.presets or 0):OnClick()
@@ -254,7 +254,7 @@ function Helper.ApplyDiamondPreset(preps)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Guards):SetListIndex(preps.guards or 0)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Keycards):SetListIndex(preps.keycards or 0)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Preps.Target):SetListIndex(preps.target or 0)
-    FeatureMgr.GetFeature(eFeature.Heist.Generic.Launch):Toggle(preps.solo_launch or false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Launch):Toggle(preps.solo_launch or false)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Autograbber):Toggle(preps.autograbber or false)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Presets):SetListIndex(preps.presets or 0):OnClick()
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Player1.Toggle):Toggle(preps.player1.enabled or false)
@@ -275,7 +275,7 @@ function Helper.ApplyDoomsdayPreset(preps)
     CONFIG.logging = 0
 
     FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Preps.Act):SetListIndex(preps.act or 0)
-    FeatureMgr.GetFeature(eFeature.Heist.Generic.Launch):Toggle(preps.solo_launch or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Misc.Launch):Toggle(preps.solo_launch or false)
     FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Presets):SetListIndex(preps.presets or 0):OnClick()
     FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player1.Toggle):Toggle(preps.player1.enabled or false)
     FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Player2.Toggle):Toggle(preps.player2.enabled or false)

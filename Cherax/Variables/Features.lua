@@ -241,12 +241,14 @@ settingsEasyDelays = {
     eFeature.Settings.EasyMoney.Delay._680k,
 }
 
-loggedSoloLaunch        = false
+loggedApartmentLaunch   = false
 loggedApartmentBonus    = false
 loggedCayoBag           = false
 loggedCayoCrew          = false
+loggedDiamondLaunch     = false
 loggedDiamondAuto       = false
 loggedDiamondCrew       = false
+loggedDoomsdayLaunch    = false
 loggedSalvageSetup      = false
 loggedSalvageClaim      = false
 loggedBunkerPrice       = false

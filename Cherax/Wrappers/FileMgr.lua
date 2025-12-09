@@ -7,7 +7,7 @@ DEFAULT_CONFIG = {
 
     collab = {
         jinxscript = {
-            enabled  = true,
+            enabled  = false,
             autostop = false
         }
     },
