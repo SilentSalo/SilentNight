@@ -5,6 +5,7 @@ local GTA_VERSION = "1.71"
 local folders = { "Features", "Functions", "Tables", "Variables", "Wrappers" }
 
 local files = {
+    "Startup",
     "Shortcuts",
     "Generic",
     "SilentLogger",
