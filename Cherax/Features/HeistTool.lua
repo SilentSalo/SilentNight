@@ -194,6 +194,8 @@ FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Preps.Complete, function(f)
     eFeature.Heist.AutoShop.Preps.Complete.func(contract)
 end)
 
+FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Preps.Reset)
+
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Preps.Reload)
 
 FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance):SetVisible(false)

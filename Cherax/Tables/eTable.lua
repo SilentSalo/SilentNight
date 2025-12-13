@@ -475,8 +475,8 @@ eTable = {
             },
 
             Keeps = {
-                { name = "Can't Claim", index = false },
-                { name = "Can Claim",   index = true  }
+                { name = "Can't Claim", index = 0 },
+                { name = "Can Claim",   index = 1 }
             }
         }
     },
@@ -627,7 +627,8 @@ eTable = {
             LogTransactions   = 925637617,
             SubscribedScripts = 3331055146,
             RunScript         = 2423908032,
-            StopScript        = 2425713991
+            StopScript        = 2425713991,
+            EventProtection   = 2022901605
         }
     },
 

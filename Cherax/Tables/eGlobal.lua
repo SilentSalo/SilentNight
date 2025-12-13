@@ -10,11 +10,13 @@ if GTA_EDITION == "EE" then
                     Step1 = { type = "int", global = 4718592 + 3539       },
                     Step2 = { type = "int", global = 4718592 + 3540       },
                     Step3 = { type = "int", global = 4718592 + 3542 + 1   },
-                    Step4 = { type = "int", global = 4718592 + 192451 + 1 }
+                    Step4 = { type = "int", global = 4718592 + 192451 + 1 },
+                    Step5 = { type = "int", global = 4718592 + 3536       }
                 },
 
-                Cut        = { type = "int", global = 2686095 + 6783 },
-                Difficulty = { type = "int", global = 4718592 + 3538 }
+                Cut            = { type = "int", global = 2686095 + 6783 },
+                Difficulty     = { type = "int", global = 4718592 + 3538 },
+                IsCasinoFinale = { type = "int", global = 2685153 + 21   }
             },
 
             Apartment = {
@@ -80,6 +82,32 @@ if GTA_EDITION == "EE" then
                     Player2 = { type = "int", global = 1977593 + 1 + (1 * 68) + 7 + 2 },
                     Player3 = { type = "int", global = 1977593 + 1 + (2 * 68) + 7 + 3 },
                     Player4 = { type = "int", global = 1977593 + 1 + (3 * 68) + 7 + 4 }
+                },
+
+                Data = {
+                    Target   = { type = "int",  global = 1973196 + 1  },
+                    Cameras  = { type = "bool", global = 1973196 + 2  },
+                    Patrol   = { type = "bool", global = 1973196 + 3  },
+                    Guards   = { type = "int",  global = 1973196 + 4  },
+                    NVDs     = { type = "bool", global = 1973196 + 5  },
+                    Drills   = { type = "bool", global = 1973196 + 6  },
+                    Unknown  = { type = "bool", global = 1973196 + 7  },
+                    Buyer    = { type = "int",  global = 1973196 + 8  },
+                    Decoy    = { type = "bool", global = 1973196 + 10 },
+                    Getaway  = { type = "int",  global = 1973196 + 11 },
+                    Gunman   = { type = "int",  global = 1973196 + 13 },
+                    Weapons  = { type = "int",  global = 1973196 + 14 },
+                    Driver   = { type = "int",  global = 1973196 + 15 },
+                    Vehicles = { type = "int",  global = 1973196 + 16 },
+                    Hacker   = { type = "int",  global = 1973196 + 17 },
+                    Keycards = { type = "int",  global = 1973196 + 18 },
+                    Exit     = { type = "int",  global = 1973196 + 20 },
+                    Masks    = { type = "int",  global = 1973196 + 21 },
+                    Van      = { type = "int",  global = 1973196 + 22 },
+                    Infested = { type = "bool", global = 1973196 + 24 },
+                    Bitset   = { type = "int",  global = 1973196 + 25 },
+                    Gear     = { type = "bool", global = 1973196 + 26 },
+                    HardMode = { type = "bool", global = 1973196 + 27 }
                 }
             },
 
@@ -97,44 +125,6 @@ if GTA_EDITION == "EE" then
                     Player3 = { type = "int", global = 1882717 + 1 + (2 * 315) + 43 + 11 + 3 },
                     Player4 = { type = "int", global = 1882717 + 1 + (3 * 315) + 43 + 11 + 4 },
                 }
-            },
-
-            SalvageYard = {
-                Robbery = {
-                    Slot1 = {
-                        Type = { type = "int", global = 262145 + 33613 + 1 }
-                    },
-
-                    Slot2 = {
-                        Type = { type = "int", global = 262145 + 33613 + 2 }
-                    },
-
-                    Slot3 = {
-                        Type = { type = "int", global = 262145 + 33613 + 3 }
-                    }
-                },
-
-                Vehicle = {
-                    Slot1 = {
-                        Type    = { type = "int",  global = 262145 + 33621 + 1 },
-                        Value   = { type = "int",  global = 262145 + 33625 + 1 },
-                        CanKeep = { type = "bool", global = 262145 + 33617 + 1 }
-                    },
-
-                    Slot2 = {
-                        Type    = { type = "int",  global = 262145 + 33621 + 2 },
-                        Value   = { type = "int",  global = 262145 + 33625 + 2 },
-                        CanKeep = { type = "bool", global = 262145 + 33617 + 2 }
-                    },
-
-                    Slot3 = {
-                        Type    = { type = "int",  global = 262145 + 33621 + 3 },
-                        Value   = { type = "int",  global = 262145 + 33625 + 3 },
-                        CanKeep = { type = "bool", global = 262145 + 33617 + 3 }
-                    },
-
-                    SalvageValueMultiplier = { type = "float", global = 262145 + 33633 }
-                }
             }
         },
 
@@ -143,9 +133,7 @@ if GTA_EDITION == "EE" then
                 Production = {
                     Trigger1 = { type = "int",  global = 2708925 + 1 + 5 * 2     },
                     Trigger2 = { type = "bool", global = 2708925 + 1 + 5 * 2 + 1 }
-                },
-
-                Multiplier = { type = "float", global = 262145 + 18968 }
+                }
             },
 
             Nightclub = {
@@ -199,11 +187,6 @@ if GTA_EDITION == "EE" then
             Kosatka = {
                 Request = { type = "int", global = 2733138 + 613                             },
                 Status  = { type = "int", global = 2658294 + 1 + (PLAYER_ID * 468) + 325 + 4 }
-            },
-
-            Multiplier = {
-                Cash = { type = "float", global = 262145     },
-                Xp   = { type = "float", global = 262145 + 1 }
             }
         }
     }
@@ -217,11 +200,13 @@ else
                     Step1 = { type = "int", global = 4718592 + 3539       },
                     Step2 = { type = "int", global = 4718592 + 3540       },
                     Step3 = { type = "int", global = 4718592 + 3542 + 1   },
-                    Step4 = { type = "int", global = 4718592 + 185951 + 1 }
+                    Step4 = { type = "int", global = 4718592 + 185951 + 1 },
+                    Step5 = { type = "int", global = 4718592 + 3536       }
                 },
 
-                Cut        = { type = "int", global = 2686090 + 6772 },
-                Difficulty = { type = "int", global = 4718592 + 3538 }
+                Cut            = { type = "int", global = 2686090 + 6772 },
+                Difficulty     = { type = "int", global = 4718592 + 3538 },
+                IsCasinoFinale = { type = "int", global = 2685150 + 21   }
             },
 
             Apartment = {
@@ -287,6 +272,32 @@ else
                     Player2 = { type = "int", global = 1976314 + 1 + (1 * 68) + 7 + 2 },
                     Player3 = { type = "int", global = 1976314 + 1 + (2 * 68) + 7 + 3 },
                     Player4 = { type = "int", global = 1976314 + 1 + (3 * 68) + 7 + 4 }
+                },
+
+                Data = {
+                    Target   = { type = "int",  global = 1971917 + 1  },
+                    Cameras  = { type = "bool", global = 1971917 + 2  },
+                    Patrol   = { type = "bool", global = 1971917 + 3  },
+                    Guards   = { type = "int",  global = 1971917 + 4  },
+                    NVDs     = { type = "bool", global = 1971917 + 5  },
+                    Drills   = { type = "bool", global = 1971917 + 6  },
+                    Unknown  = { type = "bool", global = 1971917 + 7  },
+                    Buyer    = { type = "int",  global = 1971917 + 8  },
+                    Decoy    = { type = "bool", global = 1971917 + 10 },
+                    Getaway  = { type = "int",  global = 1971917 + 11 },
+                    Gunman   = { type = "int",  global = 1971917 + 13 },
+                    Weapons  = { type = "int",  global = 1971917 + 14 },
+                    Driver   = { type = "int",  global = 1971917 + 15 },
+                    Vehicles = { type = "int",  global = 1971917 + 16 },
+                    Hacker   = { type = "int",  global = 1971917 + 17 },
+                    Keycards = { type = "int",  global = 1971917 + 18 },
+                    Exit     = { type = "int",  global = 1971917 + 20 },
+                    Masks    = { type = "int",  global = 1971917 + 21 },
+                    Van      = { type = "int",  global = 1971917 + 22 },
+                    Infested = { type = "bool", global = 1971917 + 24 },
+                    Bitset   = { type = "int",  global = 1971917 + 25 },
+                    Gear     = { type = "bool", global = 1971917 + 26 },
+                    HardMode = { type = "bool", global = 1971917 + 27 }
                 }
             },
 
@@ -304,44 +315,6 @@ else
                     Player3 = { type = "int", global = 1882572 + 1 + (2 * 315) + 43 + 11 + 3 },
                     Player4 = { type = "int", global = 1882572 + 1 + (3 * 315) + 43 + 11 + 4 },
                 }
-            },
-
-            SalvageYard = {
-                Robbery = {
-                    Slot1 = {
-                        Type = { type = "int", global = 262145 + 33111 + 1 }
-                    },
-
-                    Slot2 = {
-                        Type = { type = "int", global = 262145 + 33111 + 2 }
-                    },
-
-                    Slot3 = {
-                        Type = { type = "int", global = 262145 + 33111 + 3 }
-                    }
-                },
-
-                Vehicle = {
-                    Slot1 = {
-                        Type    = { type = "int",  global = 262145 + 33119 + 1 },
-                        Value   = { type = "int",  global = 262145 + 33123 + 1 },
-                        CanKeep = { type = "bool", global = 262145 + 33115 + 1 }
-                    },
-
-                    Slot2 = {
-                        Type    = { type = "int",  global = 262145 + 33119 + 2 },
-                        Value   = { type = "int",  global = 262145 + 33123 + 2 },
-                        CanKeep = { type = "bool", global = 262145 + 33115 + 2 }
-                    },
-
-                    Slot3 = {
-                        Type    = { type = "int",  global = 262145 + 33119 + 3 },
-                        Value   = { type = "int",  global = 262145 + 33123 + 3 },
-                        CanKeep = { type = "bool", global = 262145 + 33115 + 3 }
-                    },
-
-                    SalvageValueMultiplier = { type = "float", global = 262145 + 33131 }
-                }
             }
         },
 
@@ -351,8 +324,6 @@ else
                     Trigger1 = { type = "int",  global = 2708790 + 1 + 5 * 2     },
                     Trigger2 = { type = "bool", global = 2708790 + 1 + 5 * 2 + 1 }
                 },
-
-                Multiplier = { type = "float", global = 262145 + 18964 }
             },
 
             Nightclub = {
@@ -404,11 +375,6 @@ else
             Kosatka = {
                 Request = { type = "int", global = 2733002 + 613                             },
                 Status  = { type = "int", global = 2658291 + 1 + (PLAYER_ID * 468) + 325 + 4 }
-            },
-
-            Multiplier = {
-                Cash = { type = "float", global = 262145     },
-                Xp   = { type = "float", global = 262145 + 1 }
             }
         }
     }

@@ -77,8 +77,9 @@ eScript = {
     },
 
     Heist = {
-        Old = { name = "fm_mission_controller",      stack = 0, hash = J("fm_mission_controller")      },
-        New = { name = "fm_mission_controller_2020", stack = 0, hash = J("fm_mission_controller_2020") }
+        Launcher = { name = "fmmc_launcher",              stack = 0, hash = J("fmmc_launcher")              },
+        Old      = { name = "fm_mission_controller",      stack = 0, hash = J("fm_mission_controller")      },
+        New      = { name = "fm_mission_controller_2020", stack = 0, hash = J("fm_mission_controller_2020") }
     },
 
     World = {

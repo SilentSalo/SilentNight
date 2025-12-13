@@ -195,14 +195,46 @@ eTunable = {
 
         SalvageYard = {
             Robbery = {
+                Slot1 = {
+                    Type = { type = "int", tunable = 1152433341, defaultValue = -1 }
+                },
+
+                Slot2 = {
+                    Type = { type = "int", tunable = 852564222, defaultValue = -1 }
+                },
+
+                Slot3 = {
+                    Type = { type = "int", tunable = 552662330, defaultValue = -1 }
+                },
+
                 SetupPrice = { type = "int", tunable = 71522671, defaultValue = 20000 }
             },
 
             Vehicle = {
+                Slot1 = {
+                    Type    = { type = "int", tunable = -1012732012, defaultValue = 0 },
+                    Value   = { type = "int", tunable = -1699398139, defaultValue = 0 },
+                    CanKeep = { type = "int", tunable = -1700733442, defaultValue = 0 }
+                },
+
+                Slot2 = {
+                    Type    = { type = "int", tunable = 1366330161,  defaultValue = 0 },
+                    Value   = { type = "int", tunable = -1997104504, defaultValue = 0 },
+                    CanKeep = { type = "int", tunable = -1547046832, defaultValue = 0 }
+                },
+
+                Slot3 = {
+                    Type    = { type = "int", tunable = 1806057372,  defaultValue = 0 },
+                    Value   = { type = "int", tunable = -1704051341, defaultValue = 0 },
+                    CanKeep = { type = "int", tunable = 1830093543,  defaultValue = 0 }
+                },
+
                 ClaimPrice = {
                     Standard   = { type = "int", tunable = "SALV23_VEHICLE_CLAIM_PRICE",                  defaultValue = 20000 },
                     Discounted = { type = "int", tunable = "SALV23_VEHICLE_CLAIM_PRICE_FORGERY_DISCOUNT", defaultValue = 10000 }
-                }
+                },
+
+                SalvageValueMultiplier = { type = "float", tunable = 1601153005, defaultValue = 0.8}
             },
 
             Cooldown = {
@@ -222,6 +254,10 @@ eTunable = {
                     Trade            = { type = "int", tunable = "VC_CASINO_CHIP_MAX_SELL",          defaultValue = 10000000 }
                 }
             }
+        },
+
+        Multiplier = {
+            Xp = { type = "float", tunable = "XP_MULTIPLIER",   defaultValue = 1.0 }
         }
     }
 }

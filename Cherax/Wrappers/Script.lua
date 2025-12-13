@@ -142,16 +142,16 @@ end
 
 function Script.ReloadFeatures()
     FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Payout.Salvage)
-        :SetFloatValue(eGlobal.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Get())
+        :SetFloatValue(eTunable.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Get())
 
     FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Payout.Slot1)
-        :SetIntValue(eGlobal.Heist.SalvageYard.Vehicle.Slot1.Value:Get())
+        :SetIntValue(eTunable.Heist.SalvageYard.Vehicle.Slot1.Value:Get())
 
     FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Payout.Slot2)
-        :SetIntValue(eGlobal.Heist.SalvageYard.Vehicle.Slot2.Value:Get())
+        :SetIntValue(eTunable.Heist.SalvageYard.Vehicle.Slot2.Value:Get())
 
     FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Payout.Slot3)
-        :SetIntValue(eGlobal.Heist.SalvageYard.Vehicle.Slot3.Value:Get())
+        :SetIntValue(eTunable.Heist.SalvageYard.Vehicle.Slot3.Value:Get())
 
     FeatureMgr.GetFeature(eFeature.Business.Bunker.Stats.SellMade)
         :SetIntValue(eStat.MPX_LIFETIME_BKR_SEL_COMPLETBC5:Get())
@@ -442,6 +442,35 @@ Script.RegisterLooped(function()
     Helper.RegisterAsBoss()
 
     Script.Yield(100)
+end)
+
+LAUNCH_STATES = { false, false, false }
+
+Script.RegisterLooped(function()
+    if ShouldUnload() then return end
+
+    local toggled = nil
+
+    for i, ftr in ipairs(soloLaunches) do
+        local isOn = FeatureMgr.GetFeatureBool(ftr)
+
+        if isOn and not LAUNCH_STATES[i] then
+            toggled = i
+        end
+
+        LAUNCH_STATES[i] = isOn
+    end
+
+    if toggled then
+        for i, ftr in ipairs(soloLaunches) do
+            local temp = CONFIG.logging
+            CONFIG.logging = 0
+            FeatureMgr.GetFeature(ftr):Toggle(i == toggled)
+            CONFIG.logging = temp
+        end
+    end
+
+    Script.Yield()
 end)
 
 LOOP_STATES = { false, false, false, false, false, false }

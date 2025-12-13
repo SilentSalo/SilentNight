@@ -210,7 +210,7 @@ function Parser.ParsePackedStats(tbl)
                 if self.type == "int" then
                     return eNative.STATS.GET_PACKED_STAT_INT_CODE(self.index[1], charSlot)
                 elseif self.type == "bool" then
-                    return eNative.STATS.GET_PACKED_STAT_INT_CODE(self.index[1], charSlot)
+                    return eNative.STATS.GET_PACKED_STAT_BOOL_CODE(self.index[1], charSlot)
                 else
                     SilentLogger.LogError(F("No type for packed stat! %s", S(self.index[1])))
                     return nil

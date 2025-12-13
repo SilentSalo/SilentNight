@@ -262,38 +262,45 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Allows launching the heist alone.",
                     func = function(ftr)
-                        if GTA.IsInSession() then
-                            if ftr:IsToggled() then
-                                eLocal.Heist.Generic.Launch.Step1:Set(1)
-                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 1)
-                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step3:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step4:Set(0)
+                        if ftr:IsToggled() then
+                            if GTA.IsScriptRunning(eScript.Heist.Launcher) then
+                                local value = eLocal.Heist.Generic.Launch.Step1:Get()
 
-                                if not loggedApartmentLaunch then
-                                    SilentLogger.LogInfo("[Solo Launch (Apartment)] Heists should've been made launchable ツ")
-                                    loggedApartmentLaunch = true
+                                if value ~= 0 then
+                                    if ScriptGlobal.GetInt(794954 + 4 + 1 + (value * 95) + 75) > 1 then
+                                        ScriptGlobal.SetInt(794954 + 4 + 1 + (value * 95) + 75, 1)
+                                    end
+
+                                    if eLocal.Heist.Generic.Launch.Step2:Get() > 1 then
+                                        eLocal.Heist.Generic.Launch.Step2:Set(1)
+                                    end
+
+                                    eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                                    eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                                    eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                                    eGlobal.Heist.Generic.Launch.Step4:Set(0)
+
+                                    eLocal.Heist.Generic.Launch.Step3:Set(0)
+                                    eGlobal.Heist.Generic.Launch.Step5:Set(1)
                                 end
-                            else
-                                local isFleeca = eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.FleecaJob
-                                local step1l   = (isFleeca) and 2 or 4
-                                local global   = (isFleeca) and 2 or 4
-                                local step1    = (isFleeca) and 2 or 4
-                                local step2    = (isFleeca) and 2 or 4
-                                local step3    = (isFleeca) and 2 or 1
-                                local step4    = (isFleeca) and 2 or 1
-
-                                eLocal.Heist.Generic.Launch.Step1:Set(step1l)
-                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, global)
-                                eGlobal.Heist.Generic.Launch.Step1:Set(step1)
-                                eGlobal.Heist.Generic.Launch.Step2:Set(step2)
-                                eGlobal.Heist.Generic.Launch.Step3:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step4:Set(0)
-
-                                SilentLogger.LogInfo("[Solo Launch (Apartment)] Heists should've been made unlaunchable ツ")
-                                loggedApartmentLaunch = false
                             end
+
+                            if not loggedApartmentLaunch then
+                                SilentLogger.LogInfo("[Solo Launch (Apartment)] Heists should've been made launchable ツ")
+                                loggedApartmentLaunch = true
+                            end
+                        else
+                            local isFleeca = eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.FleecaJob
+
+                            ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, (isFleeca) and 2 or 4)
+                            eLocal.Heist.Generic.Launch.Step2:Set((isFleeca) and 2 or 4)
+                            eGlobal.Heist.Generic.Launch.Step1:Set((isFleeca) and 2 or 4)
+                            eGlobal.Heist.Generic.Launch.Step2:Set((isFleeca) and 2 or 4)
+                            eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                            eGlobal.Heist.Generic.Launch.Step4:Set(0)
+
+                            SilentLogger.LogInfo("[Solo Launch (Apartment)] Heists should've been made unlaunchable ツ")
+                            loggedApartmentLaunch = false
                         end
                     end
                 },
@@ -758,6 +765,18 @@ eFeature = {
                         eStat.MPX_TUNER_GEN_BS:Set((contract == 1) and 4351 or 12543)
                         eLocal.Heist.AutoShop.Reload:Set(2)
                         SilentLogger.LogInfo("[Apply & Complete Preps (Auto Shop)] Preps should've been completed ツ")
+                    end
+                },
+
+                Reset = {
+                    hash = J("SN_AutoShop_Reset"),
+                    name = "Reset Preps",
+                    type = eFeatureType.Button,
+                    desc = "Resets all preparations. Also, redraws the planning board.",
+                    func = function()
+                        eStat.MPX_TUNER_GEN_BS:Set(12467)
+                        eLocal.Heist.AutoShop.Reload:Set(2)
+                        SilentLogger.LogInfo("[Reset Preps (Auto Shop)] Preps should've been reset ツ")
                     end
                 },
 
@@ -1771,31 +1790,9 @@ eFeature = {
                             eStat.MPX_CAS_HEIST_FLOW:Set(-1)
                         end
 
-                        local function SetApproach(lastApproach, hardApproach, normalApproach)
-                            eStat.MPX_H3_LAST_APPROACH:Set(lastApproach)
-                            eStat.MPX_H3_HARD_APPROACH:Set(hardApproach)
-                            eStat.MPX_H3_APPROACH:Set(normalApproach)
-                            eStat.MPX_H3OPT_APPROACH:Set(approach)
-                        end
-
-                        local normalApproaches = {
-                            [1] = { 3, 2, 1 },
-                            [2] = { 3, 1, 2 },
-                            [3] = { 1, 2, 3 }
-                        }
-
-                        local hardApproaches = {
-                            [1] = { 2, 1, 3 },
-                            [2] = { 1, 2, 3 },
-                            [3] = { 2, 3, 1 }
-                        }
-
-                        if difficulty == 0 then
-                            SetApproach(U(normalApproaches[approach]))
-                        else
-                            SetApproach(U(hardApproaches[approach]))
-                        end
-
+                        eStat.MPX_H3_LAST_APPROACH:Set(0)
+                        eStat.MPX_H3_HARD_APPROACH:Set((difficulty == 0) and 0 or approach)
+                        eStat.MPX_H3OPT_APPROACH:Set(approach)
                         eStat.MPX_H3OPT_CREWWEAP:Set(gunman)
                         eStat.MPX_H3OPT_WEAPS:Set(loadout)
                         eStat.MPX_H3OPT_CREWDRIVER:Set(driver)
@@ -1881,30 +1878,74 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Allows launching the heist alone.",
                     func = function(ftr)
-                        if GTA.IsInSession() then
-                            if ftr:IsToggled() then
-                                eLocal.Heist.Generic.Launch.Step1:Set(1)
-                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 1)
-                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step3:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step4:Set(0)
+                        if ftr:IsToggled() then
+                            if GTA.IsScriptRunning(eScript.Heist.Launcher) then
+                                local value = eLocal.Heist.Generic.Launch.Step1:Get()
 
-                                if not loggedDiamondLaunch then
-                                    SilentLogger.LogInfo("[Solo Launch (Diamond Casino)] Heists should've been made launchable ツ")
-                                    loggedDiamondLaunch = true
+                                if value ~= 0 then
+                                    if eLocal.Heist.Generic.Launch.Step2:Get() > 1 then
+                                        eLocal.Heist.Generic.Launch.Step2:Set(1)
+                                    end
+
+                                    if ScriptGlobal.GetInt(794954 + 4 + 1 + (value * 95) + 75) > 1 then
+                                        ScriptGlobal.SetInt(794954 + 4 + 1 + (value * 95) + 75, 1)
+                                    end
+
+                                    eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                                    eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                                    eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                                    eGlobal.Heist.Generic.Launch.Step4:Set(0)
+
+                                    eLocal.Heist.Generic.Launch.Step3:Set(0)
+                                    eGlobal.Heist.Generic.Launch.Step5:Set(1)
                                 end
-                            else
-                                eLocal.Heist.Generic.Launch.Step1:Set(2)
-                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 2)
-                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step3:Set(2)
-                                eGlobal.Heist.Generic.Launch.Step4:Set(11)
-
-                                SilentLogger.LogInfo("[Solo Launch (Diamond Casino)] Heists should've been made unlaunchable ツ")
-                                loggedDiamondLaunch = false
                             end
+
+                            if GTA.IsScriptRunning(eScript.Heist.Old) then
+                                if eGlobal.Heist.Generic.IsCasinoFinale:Get() == 1 then
+                                    if eStat.MPX_H3OPT_APPROACH:Get() == 2 then
+                                        eGlobal.Heist.DiamondCasino.Data.Van:Set(3)
+                                    end
+
+                                    eGlobal.Heist.DiamondCasino.Data.Target:Set(eStat.MPX_H3OPT_TARGET:Get())
+                                    eGlobal.Heist.DiamondCasino.Data.Cameras:Set(true)
+                                    eGlobal.Heist.DiamondCasino.Data.Patrol:Set(true)
+                                    eGlobal.Heist.DiamondCasino.Data.Guards:Set(eStat.MPX_H3OPT_DISRUPTSHIP:Get())
+                                    eGlobal.Heist.DiamondCasino.Data.NVDs:Set(true)
+                                    eGlobal.Heist.DiamondCasino.Data.Drills:Set(true)
+                                    eGlobal.Heist.DiamondCasino.Data.Unknown:Set(true)
+                                    eGlobal.Heist.DiamondCasino.Data.Buyer:Set(math.random(6, 8))
+                                    eGlobal.Heist.DiamondCasino.Data.Decoy:Set(true)
+                                    eGlobal.Heist.DiamondCasino.Data.Getaway:Set(true)
+                                    eGlobal.Heist.DiamondCasino.Data.Gunman:Set(eStat.MPX_H3OPT_CREWWEAP:Get())
+                                    eGlobal.Heist.DiamondCasino.Data.Weapons:Set(eStat.MPX_H3OPT_WEAPS:Get())
+                                    eGlobal.Heist.DiamondCasino.Data.Driver:Set(eStat.MPX_H3OPT_CREWDRIVER:Get())
+                                    eGlobal.Heist.DiamondCasino.Data.Vehicles:Set(eStat.MPX_H3OPT_VEHS:Get())
+                                    eGlobal.Heist.DiamondCasino.Data.Hacker:Set(eStat.MPX_H3OPT_CREWHACKER:Get())
+                                    eGlobal.Heist.DiamondCasino.Data.Keycards:Set(eStat.MPX_H3OPT_KEYLEVELS:Get())
+                                    eGlobal.Heist.DiamondCasino.Data.Exit:Set(1)
+                                    eGlobal.Heist.DiamondCasino.Data.Masks:Set(eStat.MPX_H3OPT_MASKS:Get())
+                                    eGlobal.Heist.DiamondCasino.Data.Infested:Set(true)
+                                    eGlobal.Heist.DiamondCasino.Data.Bitset:Set(2047)
+                                    eGlobal.Heist.DiamondCasino.Data.Gear:Set(true)
+                                    eGlobal.Heist.DiamondCasino.Data.HardMode:Set(eStat.MPX_H3OPT_APPROACH:Get() == eStat.MPX_H3_HARD_APPROACH:Get())
+                                end
+                            end
+
+                            if not loggedDiamondLaunch then
+                                SilentLogger.LogInfo("[Solo Launch (Diamond Casino)] Heists should've been made launchable ツ")
+                                loggedDiamondLaunch = true
+                            end
+                        else
+                            ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, 2)
+                            eLocal.Heist.Generic.Launch.Step2:Set(2)
+                            eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                            eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                            eGlobal.Heist.Generic.Launch.Step3:Set(2)
+                            eGlobal.Heist.Generic.Launch.Step4:Set(11)
+
+                            SilentLogger.LogInfo("[Solo Launch (Diamond Casino)] Heists should've been made unlaunchable ツ")
+                            loggedDiamondLaunch = false
                         end
                     end
                 },
@@ -2381,30 +2422,43 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Allows launching the heist alone.",
                     func = function(ftr)
-                        if GTA.IsInSession() then
-                            if ftr:IsToggled() then
-                                eLocal.Heist.Generic.Launch.Step1:Set(1)
-                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 1)
-                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step3:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step4:Set(0)
+                        if ftr:IsToggled() then
+                            if GTA.IsScriptRunning(eScript.Heist.Launcher) then
+                                local value = eLocal.Heist.Generic.Launch.Step1:Get()
 
-                                if not loggedDoomsdayLaunch then
-                                    SilentLogger.LogInfo("[Solo Launch (Doomsday)] Heists should've been made launchable ツ")
-                                    loggedDoomsdayLaunch = true
+                                if value ~= 0 then
+                                    if eLocal.Heist.Generic.Launch.Step2:Get() > 1 then
+                                        eLocal.Heist.Generic.Launch.Step2:Set(1)
+                                    end
+
+                                    if ScriptGlobal.GetInt(794954 + 4 + 1 + (value * 95) + 75) > 1 then
+                                        ScriptGlobal.SetInt(794954 + 4 + 1 + (value * 95) + 75, 1)
+                                    end
+
+                                    eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                                    eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                                    eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                                    eGlobal.Heist.Generic.Launch.Step4:Set(0)
+
+                                    eLocal.Heist.Generic.Launch.Step3:Set(0)
+                                    eGlobal.Heist.Generic.Launch.Step5:Set(1)
                                 end
-                            else
-                                eLocal.Heist.Generic.Launch.Step1:Set(2)
-                                ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step2:Get() * 95) + 75, 2)
-                                eGlobal.Heist.Generic.Launch.Step1:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step2:Set(1)
-                                eGlobal.Heist.Generic.Launch.Step3:Set(2)
-                                eGlobal.Heist.Generic.Launch.Step4:Set(11)
-
-                                SilentLogger.LogInfo("[Solo Launch (Doomsday)] Heists should've been made unlaunchable ツ")
-                                loggedDoomsdayLaunch = false
                             end
+
+                            if not loggedDoomsdayLaunch then
+                                SilentLogger.LogInfo("[Solo Launch (Doomsday)] Heists should've been made launchable ツ")
+                                loggedDoomsdayLaunch = true
+                            end
+                        else
+                            ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, 2)
+                            eLocal.Heist.Generic.Launch.Step2:Set(2)
+                            eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                            eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                            eGlobal.Heist.Generic.Launch.Step3:Set(2)
+                            eGlobal.Heist.Generic.Launch.Step4:Set(11)
+
+                            SilentLogger.LogInfo("[Solo Launch (Doomsday)] Heists should've been made unlaunchable ツ")
+                            loggedDoomsdayLaunch = false
                         end
                     end
                 },
@@ -2794,9 +2848,9 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Applies all changes for the slot 1. Also, reloads the planning screen. Use before you start the preparation.",
                     func = function(robbery, vehicle, modification, keep)
-                        eGlobal.Heist.SalvageYard.Robbery.Slot1.Type:Set(robbery)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot1.Type:Set(vehicle + modification * 100)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot1.CanKeep:Set(keep)
+                        eTunable.Heist.SalvageYard.Robbery.Slot1.Type:Set(robbery)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot1.Type:Set(vehicle + modification * 100)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot1.CanKeep:Set(keep)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
                         SilentLogger.LogInfo("[Apply Changes (Salvage Yard)] Slot 1 changes should've been applied ツ")
                     end
@@ -2874,9 +2928,9 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Applies all changes for the slot 2. Also, reloads the planning screen. Use before you start the preparation.",
                     func = function(robbery, vehicle, modification, keep)
-                        eGlobal.Heist.SalvageYard.Robbery.Slot2.Type:Set(robbery)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot2.Type:Set(vehicle + modification * 100)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot2.CanKeep:Set(keep)
+                        eTunable.Heist.SalvageYard.Robbery.Slot2.Type:Set(robbery)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot2.Type:Set(vehicle + modification * 100)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot2.CanKeep:Set(keep)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
                         SilentLogger.LogInfo("[Apply Changes (Salvage Yard)] Slot 2 changes should've been applied ツ")
                     end
@@ -2954,9 +3008,9 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Applies all changes for the slot 3. Also, reloads the planning screen. Use before you start the preparation.",
                     func = function(robbery, vehicle, modification, keep)
-                        eGlobal.Heist.SalvageYard.Robbery.Slot3.Type:Set(robbery)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot3.Type:Set(vehicle + modification * 100)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot3.CanKeep:Set(keep)
+                        eTunable.Heist.SalvageYard.Robbery.Slot3.Type:Set(robbery)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot3.Type:Set(vehicle + modification * 100)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot3.CanKeep:Set(keep)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
                         SilentLogger.LogInfo("[Apply Changes (Salvage Yard)] Slot 3 changes should've been applied ツ")
                     end
@@ -2970,15 +3024,15 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Applies all changes. Also, reloads the planning screen. Use before you start the preparation.",
                     func = function(robbery1, vehicle1, mod1, keep1, robbery2, vehicle2, mod2, keep2, robbery3, vehicle3, mod3, keep3)
-                        eGlobal.Heist.SalvageYard.Robbery.Slot1.Type:Set(robbery1)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot1.Type:Set(vehicle1 + mod1 * 100)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot1.CanKeep:Set(keep1)
-                        eGlobal.Heist.SalvageYard.Robbery.Slot2.Type:Set(robbery2)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot2.Type:Set(vehicle2 + mod2 * 100)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot2.CanKeep:Set(keep2)
-                        eGlobal.Heist.SalvageYard.Robbery.Slot3.Type:Set(robbery3)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot3.Type:Set(vehicle3 + mod3 * 100)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot3.CanKeep:Set(keep3)
+                        eTunable.Heist.SalvageYard.Robbery.Slot1.Type:Set(robbery1)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot1.Type:Set(vehicle1 + mod1 * 100)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot1.CanKeep:Set(keep1)
+                        eTunable.Heist.SalvageYard.Robbery.Slot2.Type:Set(robbery2)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot2.Type:Set(vehicle2 + mod2 * 100)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot2.CanKeep:Set(keep2)
+                        eTunable.Heist.SalvageYard.Robbery.Slot3.Type:Set(robbery3)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot3.Type:Set(vehicle3 + mod3 * 100)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot3.CanKeep:Set(keep3)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
                         SilentLogger.LogInfo("[Apply All Changes (Salvage Yard)] Changes should've been applied ツ")
                     end
@@ -3153,7 +3207,7 @@ eFeature = {
                     name = "Salvage Value Multiplier",
                     type = eFeatureType.InputFloat,
                     desc = "ATTENTION: the transaction limit is 2.1mil.\nSelect the desired salvage value multiplier.",
-                    defv = eGlobal.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Get(),
+                    defv = eTunable.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Get(),
                     lims = { 0.0, 5.0 },
                     step = 0.1,
                     func = function(ftr)
@@ -3166,7 +3220,7 @@ eFeature = {
                     name = "Sell Value Slot 1",
                     type = eFeatureType.InputInt,
                     desc = "Select the desired sell value for the vehicle in slot 1.",
-                    defv = eGlobal.Heist.SalvageYard.Vehicle.Slot1.Value:Get(),
+                    defv = eTunable.Heist.SalvageYard.Vehicle.Slot1.Value:Get(),
                     lims = { 0, 2100000 },
                     step = 100000,
                     func = function(ftr)
@@ -3179,7 +3233,7 @@ eFeature = {
                     name = "Sell Value Slot 2",
                     type = eFeatureType.InputInt,
                     desc = "Select the desired sell value for the vehicle in slot 2.",
-                    defv = eGlobal.Heist.SalvageYard.Vehicle.Slot2.Value:Get(),
+                    defv = eTunable.Heist.SalvageYard.Vehicle.Slot2.Value:Get(),
                     lims = { 0, 2100000 },
                     step = 100000,
                     func = function(ftr)
@@ -3192,7 +3246,7 @@ eFeature = {
                     name = "Sell Value Slot 3",
                     type = eFeatureType.InputInt,
                     desc = "Select the desired sell value for the vehicle in slot 3.",
-                    defv = eGlobal.Heist.SalvageYard.Vehicle.Slot3.Value:Get(),
+                    defv = eTunable.Heist.SalvageYard.Vehicle.Slot3.Value:Get(),
                     lims = { 0, 2100000 },
                     step = 100000,
                     func = function(ftr)
@@ -3206,10 +3260,10 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Applies the selected sell values for the vehicles. Also, reloads the planning screen. Use before you start the preparation.",
                     func = function(salvageMultiplier, sellValue1, sellValue2, sellValue3)
-                        eGlobal.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Set(salvageMultiplier)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot1.Value:Set(sellValue1)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot2.Value:Set(sellValue2)
-                        eGlobal.Heist.SalvageYard.Vehicle.Slot3.Value:Set(sellValue3)
+                        eTunable.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Set(salvageMultiplier)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot1.Value:Set(sellValue1)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot2.Value:Set(sellValue2)
+                        eTunable.Heist.SalvageYard.Vehicle.Slot3.Value:Set(sellValue3)
                         eLocal.Heist.SalvageYard.Reload:Set(2)
                         SilentLogger.LogInfo("[Apply Sell Values (Salvage Yard)] Sell values should've been applied ツ")
                     end
@@ -3225,7 +3279,7 @@ eFeature = {
                     hash = J("SN_Bunker_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "CAUTION: might be unsafe, no bans reported.\nApplies the maximum price for your stock.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nApplies the maximum price for your stock.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if not GTA.IsInSessionAlone() then
@@ -3273,7 +3327,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the sell mission instantly. Use after you can see the minimap.",
                     func = function(bool)
-                        eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
+                        eTunable.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
                         eLocal.Business.Bunker.Sell.Finish:Set(0)
                         SilentLogger.LogInfo("[Instant Sell (Bunker)] Sell mission should've been finished ツ", eToastPos.BOTTOM_RIGHT)
                     end
@@ -3501,8 +3555,8 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Finishes the air cargo sell mission instantly. Use after you can see the minimap.",
                     func = function(bool)
-                        eGlobal.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
-                        eLocal.Business.Hangar.Sell.Finish:Set(eLocal.Business.Hangar.Sell.Delivered:Get())
+                        eTunable.World.Multiplier.Xp:Set((bool) and 0.0 or 1.0)
+                        eLocal.Business.Hangar.Sell.ToDeliver:Set(eLocal.Business.Hangar.Sell.Delivered:Get())
                         SilentLogger.LogInfo("[Instant Air Cargo Sell (Hangar)] Sell mission should've been finished ツ", eToastPos.BOTTOM_RIGHT)
                     end
                 }
@@ -4058,7 +4112,7 @@ eFeature = {
                     hash = J("SN_Nightclub_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "CAUTION: might be unsafe, no bans reported.\nApplies the maximum price for goods. Don't sell «All Goods».",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nApplies the maximum price for goods. Don't sell «All Goods».",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if not GTA.IsInSessionAlone() then
@@ -4448,7 +4502,7 @@ eFeature = {
                                 ePackedStat.Business.CrateWarehouse.Cargo:Set(true)
                             end
                         end
-                        eGlobal.World.Multiplier.Xp:Set((bool1) and 0.0 or 1.0)
+                        eTunable.World.Multiplier.Xp:Set((bool1) and 0.0 or 1.0)
                         eLocal.Business.CrateWarehouse.Sell.Type:Set(7)
                         eLocal.Business.CrateWarehouse.Sell.Finish:Set(99999)
                         Script.Yield(2000)

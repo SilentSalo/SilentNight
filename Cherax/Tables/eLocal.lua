@@ -28,7 +28,7 @@ if GTA_EDITION == "EE" then
             Hangar = {
                 Sell = {
                     Delivered = { type = "int", vLocal = 1991 + 1078, script = "gb_smuggler" },
-                    Finish    = { type = "int", vLocal = 1991 + 1035, script = "gb_smuggler" }
+                    ToDeliver = { type = "int", vLocal = 1991 + 1035, script = "gb_smuggler" }
                 }
             },
 
@@ -43,8 +43,9 @@ if GTA_EDITION == "EE" then
         Heist = {
             Generic = {
                 Launch = {
-                    Step1 = { type = "int", vLocal = 20056 + 15, script = "fmmc_launcher" },
-                    Step2 = { type = "int", vLocal = 20056 + 34, script = "fmmc_launcher" },
+                    Step1 = { type = "int", vLocal = 20056 + 34, script = "fmmc_launcher" },
+                    Step2 = { type = "int", vLocal = 20056 + 15, script = "fmmc_launcher" },
+                    Step3 = { type = "int", vLocal = 20297,      script = "fmmc_launcher" }
                 },
 
                 Skip = {
@@ -82,7 +83,7 @@ if GTA_EDITION == "EE" then
                     },
 
                     Pacific = {
-                        Hack = { type = "int", vLocal = 10215, script = "fm_mission_controller" }
+                        Hack = { type = "int", vLocal = 10217, script = "fm_mission_controller" }
                     }
                 },
 
@@ -264,7 +265,7 @@ else
             Hangar = {
                 Sell = {
                     Delivered = { type = "int", vLocal = 1989 + 1078, script = "gb_smuggler" },
-                    Finish    = { type = "int", vLocal = 1989 + 1035, script = "gb_smuggler" }
+                    ToDeliver = { type = "int", vLocal = 1989 + 1035, script = "gb_smuggler" }
                 }
             },
 
@@ -279,8 +280,9 @@ else
         Heist = {
             Generic = {
                 Launch = {
-                    Step1 = { type = "int", vLocal = 20054 + 15, script = "fmmc_launcher" },
-                    Step2 = { type = "int", vLocal = 20054 + 34, script = "fmmc_launcher" },
+                    Step1 = { type = "int", vLocal = 20054 + 34, script = "fmmc_launcher" },
+                    Step2 = { type = "int", vLocal = 20054 + 15, script = "fmmc_launcher" },
+                    Step3 = { type = "int", vLocal = 20295,      script = "fmmc_launcher" }
                 },
 
                 Skip = {
@@ -318,7 +320,7 @@ else
                     },
 
                     Pacific = {
-                        Hack = { type = "int", vLocal = 9813, script = "fm_mission_controller" }
+                        Hack = { type = "int", vLocal = 9815, script = "fm_mission_controller" }
                     }
                 },
 

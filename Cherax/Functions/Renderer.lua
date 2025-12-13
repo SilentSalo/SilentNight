@@ -123,6 +123,7 @@ function Renderer.RenderHeistTool()
                     if ClickGUI.BeginCustomChildWindow("Preps") then
                         ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Preps.Contract)
                         ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Preps.Complete)
+                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Preps.Reset)
                         ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Preps.Reload)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -1252,6 +1253,7 @@ function Renderer.RenderListGUI()
             local PrepsSubTab = AutoShopTab:AddSubTab("Preps", "Preps")
             PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Contract)
             PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Complete)
+            PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Reset)
             PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Reload)
 
             local MiscSubTab = AutoShopTab:AddSubTab("Misc", "Misc")

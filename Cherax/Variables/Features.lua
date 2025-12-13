@@ -1,5 +1,11 @@
 --#region Features
 
+soloLaunches = {
+    eFeature.Heist.Apartment.Misc.Launch,
+    eFeature.Heist.DiamondCasino.Misc.Launch,
+    eFeature.Heist.Doomsday.Misc.Launch
+}
+
 apartmentPlayers = {
     Toggles = {
         eFeature.Heist.Apartment.Cuts.Player1.Toggle,
