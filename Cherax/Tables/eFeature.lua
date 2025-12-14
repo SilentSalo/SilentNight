@@ -801,7 +801,7 @@ eFeature = {
                         desc = "Teleports you to the Auto Shop's entrance.",
                         func = function()
                             GTA.TeleportToBlip(eTable.BlipSprites.AutoShop)
-                            SilentLogger.LogInfo("[Teleport to Entrance (Auto Shop)] You should've been teleported to the etrance ツ")
+                            SilentLogger.LogInfo("[Teleport to Entrance (Auto Shop)] You should've been teleported to the entrance ツ")
                         end
                     },
 

@@ -14,6 +14,22 @@ function GTA.TeleportXYZ(x, y, z, heading)
 end
 
 function GTA.TeleportToBlip(blipSprite, heading, inside)
+    local function GetAllBlipsWithSprite(sprite)
+        local blip  = eNative.HUD.GET_FIRST_BLIP_INFO_ID(sprite)
+        local blips = {}
+
+        if not eNative.HUD.DOES_BLIP_EXIST(blip) then
+            return blips
+        end
+
+        while eNative.HUD.DOES_BLIP_EXIST(blip) do
+            I(blips, blip)
+            blip = eNative.HUD.GET_NEXT_BLIP_INFO_ID(sprite)
+        end
+
+        return blips
+    end
+
     local inside = inside or false
     local entity = GTA.PointerToHandle(GTA.GetLocalPed())
 
@@ -24,11 +40,33 @@ function GTA.TeleportToBlip(blipSprite, heading, inside)
         eNative.ENTITY.SET_ENTITY_COORDS_NO_OFFSET(entity, x, y, z, false, false, false)
     end
 
-    while eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(blipSprite) == 0 do
-        Script.Yield()
+    local blipToUse = nil
+    local blips     = GetAllBlipsWithSprite(blipSprite)
+
+    while #blips == 0 do
+        Script.Yield(100)
+        blips = GetAllBlipsWithSprite(blipSprite)
     end
 
-    local x, y, z = eNative.HUD.GET_BLIP_COORDS(eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(blipSprite))
+    if #blips == 1 then
+        local color = eNative.HUD.GET_BLIP_COLOUR(blips[1])
+
+        if color == eTable.BlipColors.Blue then
+            while #blips == 1 do
+                Script.Yield(100)
+                blips = GetAllBlipsWithSprite(blipSprite)
+            end
+        end
+    end
+
+    for _, blip in ipairs(blips) do
+        if eNative.HUD.GET_BLIP_COLOUR(blip) ~= eTable.BlipColors.Blue then
+            blipToUse = blip
+            break
+        end
+    end
+
+    local x, y, z = eNative.HUD.GET_BLIP_COORDS(blipToUse)
 
     eNative.ENTITY.SET_ENTITY_COORDS_NO_OFFSET(entity, x, y, z + 1.0, false, false, false)
 

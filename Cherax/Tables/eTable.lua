@@ -663,6 +663,10 @@ eTable = {
         CarWashH     = 933
     },
 
+    BlipColors = {
+        Blue = 3
+    },
+
     Properties = {
         Agency      = eStat.MPX_FIXER_HQ_OWNED,
         Apartment   = eStat.MPX_PROPERTY_HOUSE,

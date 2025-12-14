@@ -13,8 +13,12 @@ eNative = {
     },
 
     HUD = {
+        GET_FIRST_BLIP_INFO_ID   = Natives.Invoke("Int", 0x1BEDE233E6CD2A1F),
+        GET_NEXT_BLIP_INFO_ID    = Natives.Invoke("Int", 0x14F96AA50D6FBEA7),
         GET_CLOSEST_BLIP_INFO_ID = Natives.Invoke("Int", 0xD484BF71050CA1EE),
-        GET_BLIP_COORDS          = Natives.Invoke("V3", 0x586AFE3FF72D996E)
+        GET_BLIP_COORDS          = Natives.Invoke("V3", 0x586AFE3FF72D996E),
+        GET_BLIP_COLOUR          = Natives.Invoke("Int", 0xDF729E8D20CF7327),
+        DOES_BLIP_EXIST          = Natives.Invoke("Bool", 0xA6DB27D19ECBB7DA)
     },
 
     INTERIOR = {
