@@ -62,10 +62,10 @@ if GTA_EDITION == "EE" then
                 },
 
                 Ready = {
-                    Player1 = { type = "int", global = 1981146 + 1 + (0 * 27) + 7 + 1 },
-                    Player2 = { type = "int", global = 1981146 + 1 + (1 * 27) + 7 + 2 },
-                    Player3 = { type = "int", global = 1981146 + 1 + (2 * 27) + 7 + 3 },
-                    Player4 = { type = "int", global = 1981146 + 1 + (3 * 27) + 7 + 4 }
+                    Player1 = { type = "int", global = 1981147 + 1 + (0 * 27) + 7 + 1 },
+                    Player2 = { type = "int", global = 1981147 + 1 + (1 * 27) + 7 + 2 },
+                    Player3 = { type = "int", global = 1981147 + 1 + (2 * 27) + 7 + 3 },
+                    Player4 = { type = "int", global = 1981147 + 1 + (3 * 27) + 7 + 4 }
                 }
             },
 
@@ -252,10 +252,10 @@ else
                 },
 
                 Ready = {
-                    Player1 = { type = "int", global = 1979867 + 1 + (0 * 27) + 7 + 1 },
-                    Player2 = { type = "int", global = 1979867 + 1 + (1 * 27) + 7 + 2 },
-                    Player3 = { type = "int", global = 1979867 + 1 + (2 * 27) + 7 + 3 },
-                    Player4 = { type = "int", global = 1979867 + 1 + (3 * 27) + 7 + 4 }
+                    Player1 = { type = "int", global = 1979868 + 1 + (0 * 27) + 7 + 1 },
+                    Player2 = { type = "int", global = 1979868 + 1 + (1 * 27) + 7 + 2 },
+                    Player3 = { type = "int", global = 1979868 + 1 + (2 * 27) + 7 + 3 },
+                    Player4 = { type = "int", global = 1979868 + 1 + (3 * 27) + 7 + 4 }
                 }
             },
 
