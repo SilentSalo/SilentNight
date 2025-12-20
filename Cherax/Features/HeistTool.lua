@@ -57,9 +57,25 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Reload)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Change)
 
-FeatureMgr.AddLoop(eFeature.Heist.Apartment.Misc.Launch, nil, function(f)
-    eFeature.Heist.Apartment.Misc.Launch.func(f)
+FeatureMgr.AddLoop(eFeature.Heist.Apartment.Launch.Solo, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Launch.Reset):SetVisible(true)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Launch.Reset):SetVisible(true)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Launch.Reset):SetVisible(true)
+    eFeature.Heist.Apartment.Launch.Solo.func(f)
+end, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Launch.Reset):SetVisible(false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Launch.Reset):SetVisible(false)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Launch.Reset):SetVisible(false)
+    eFeature.Heist.Apartment.Launch.Solo.func(f)
 end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Launch.Reset, function(f)
+    for i = 1, #soloLaunches do
+        FeatureMgr.GetFeature(soloLaunches[i]):Toggle(false)
+    end
+    eFeature.Heist.Apartment.Launch.Reset.func()
+end)
+    :SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Misc.Teleport.Entrance):SetVisible(false)
 
@@ -150,7 +166,7 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Save, function(f)
     end
 
     local preps = {
-        solo_launch         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Misc.Launch),
+        solo_launch         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Launch.Solo),
         bonus_12mil         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Bonus),
         double_rewards_week = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Double),
         presets             = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Apartment.Cuts.Presets),
@@ -291,6 +307,14 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Reload)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Launch.Reset, function(f)
+    for i = 1, #soloLaunches do
+        FeatureMgr.GetFeature(soloLaunches[i]):Toggle(false)
+    end
+    eFeature.Heist.CayoPerico.Launch.Reset.func()
+end)
+    :SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Teleport):SetVisible(false)
 
@@ -535,11 +559,27 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Reload)
 
-FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(false)
-
-FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Misc.Launch, nil, function(f)
-    eFeature.Heist.DiamondCasino.Misc.Launch.func(f)
+FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Launch.Solo, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Launch.Reset):SetVisible(true)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Launch.Reset):SetVisible(true)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Launch.Reset):SetVisible(true)
+    eFeature.Heist.DiamondCasino.Launch.Solo.func(f)
+end, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Launch.Reset):SetVisible(false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Launch.Reset):SetVisible(false)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Launch.Reset):SetVisible(false)
+    eFeature.Heist.DiamondCasino.Launch.Solo.func(f)
 end)
+
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Launch.Reset, function(f)
+    for i = 1, #soloLaunches do
+        FeatureMgr.GetFeature(soloLaunches[i]):Toggle(false)
+    end
+    eFeature.Heist.DiamondCasino.Launch.Reset.func()
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance):SetVisible(false)
 
@@ -636,7 +676,7 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Save, function(f)
         target           = FeatureMgr.GetFeatureListIndex(diamondPreps[9]),
         loadout          = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Preps.Loadout),
         vehicles         = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Preps.Vehicles),
-        solo_launch      = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Misc.Launch),
+        solo_launch      = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Launch.Solo),
         autograbber      = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Misc.Autograbber),
         remove_crew_cuts = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Cuts.Crew),
         presets          = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Cuts.Presets),
@@ -684,9 +724,25 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Reload)
 
-FeatureMgr.AddLoop(eFeature.Heist.Doomsday.Misc.Launch, nil, function(f)
-    eFeature.Heist.Doomsday.Misc.Launch.func(f)
+FeatureMgr.AddLoop(eFeature.Heist.Doomsday.Launch.Solo, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Launch.Reset):SetVisible(true)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Launch.Reset):SetVisible(true)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Launch.Reset):SetVisible(true)
+    eFeature.Heist.Doomsday.Launch.Solo.func(f)
+end, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Launch.Reset):SetVisible(false)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Launch.Reset):SetVisible(false)
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Launch.Reset):SetVisible(false)
+    eFeature.Heist.Doomsday.Launch.Solo.func(f)
 end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Launch.Reset, function(f)
+    for i = 1, #soloLaunches do
+        FeatureMgr.GetFeature(soloLaunches[i]):Toggle(false)
+    end
+    eFeature.Heist.Doomsday.Launch.Reset.func()
+end)
+    :SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Teleport.Entrance):SetVisible(false)
 
@@ -759,7 +815,7 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Save, function(f)
 
     local preps = {
         act         = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Preps.Act),
-        solo_launch = FeatureMgr.GetFeatureBool(eFeature.Heist.Doomsday.Misc.Launch),
+        solo_launch = FeatureMgr.GetFeatureBool(eFeature.Heist.Doomsday.Launch.Solo),
         presets     = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Cuts.Presets),
 
         player1 = {

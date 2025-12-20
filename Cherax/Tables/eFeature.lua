@@ -255,12 +255,12 @@ eFeature = {
                 }
             },
 
-            Misc = {
-                Launch = {
+            Launch = {
+                Solo = {
                     hash = J("SN_Apartment_Launch"),
                     name = "Solo Launch",
                     type = eFeatureType.Toggle,
-                    desc = "Allows launching the heist alone.",
+                    desc = "Allows launching the current heist alone.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if GTA.IsScriptRunning(eScript.Heist.Launcher) then
@@ -305,6 +305,29 @@ eFeature = {
                     end
                 },
 
+                Reset = {
+                    hash = J("SN_Apartment_LaunchReset"),
+                    name = "Reset",
+                    type = eFeatureType.Button,
+                    desc = "Resets the launch settings for the current heist.",
+                    func = function()
+                        local isFleeca = eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.FleecaJob
+
+                        ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, (isFleeca) and 2 or 4)
+                        eLocal.Heist.Generic.Launch.Step2:Set((isFleeca) and 2 or 4)
+                        eGlobal.Heist.Generic.Launch.Step1:Set((isFleeca) and 2 or 4)
+                        eGlobal.Heist.Generic.Launch.Step2:Set((isFleeca) and 2 or 4)
+                        eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                        eGlobal.Heist.Generic.Launch.Step4:Set(0)
+                        eLocal.Heist.Generic.Launch.Step3:Set(0)
+                        eGlobal.Heist.Generic.Launch.Step5:Set(1)
+
+                        SilentLogger.LogInfo("[Reset (Apartment)] Launch settings should've been reset ツ")
+                    end
+                }
+            },
+
+            Misc = {
                 Teleport = {
                     Entrance = {
                         hash = J("SN_Apartment_Teleport"),
@@ -1197,6 +1220,27 @@ eFeature = {
                 }
             },
 
+            Launch = {
+                Reset = {
+                    hash = J("SN_CayoPerico_LaunchReset"),
+                    name = "Reset",
+                    type = eFeatureType.Button,
+                    desc = "Resets the launch settings for the current heist.",
+                    func = function()
+                        ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, 1)
+                        eLocal.Heist.Generic.Launch.Step2:Set(1)
+                        eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                        eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                        eGlobal.Heist.Generic.Launch.Step3:Set(1)
+                        eGlobal.Heist.Generic.Launch.Step4:Set(0)
+                        eLocal.Heist.Generic.Launch.Step3:Set(0)
+                        eGlobal.Heist.Generic.Launch.Step5:Set(1)
+
+                        SilentLogger.LogInfo("[Reset (Cayo Perico)] Launch settings should've been reset ツ")
+                    end
+                }
+            },
+
             Misc = {
                 Teleport = {
                     hash = J("SN_CayoPerico_Teleport"),
@@ -1860,23 +1904,12 @@ eFeature = {
                 }
             },
 
-            Misc = {
-                Setup = {
-                    hash = J("SN_DiamondCasino_Setup"),
-                    name = "Skip Setup",
-                    type = eFeatureType.Button,
-                    desc = "Skips the setup mission for your Arcade. Change the session to apply.",
-                    func = function()
-                        ePackedStat.Business.Arcade.Setup:Set(true)
-                        SilentLogger.LogInfo("[Skip Setup (Diamond Casino)] Setups should've been skipped. Don't forget to change the session ツ")
-                    end
-                },
-
-                Launch = {
+            Launch = {
+                Solo = {
                     hash = J("SN_DiamondCasino_Launch"),
                     name = "Solo Launch",
                     type = eFeatureType.Toggle,
-                    desc = "Allows launching the heist alone.",
+                    desc = "Allows launching the current heist alone.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if GTA.IsScriptRunning(eScript.Heist.Launcher) then
@@ -1947,6 +1980,38 @@ eFeature = {
                             SilentLogger.LogInfo("[Solo Launch (Diamond Casino)] Heists should've been made unlaunchable ツ")
                             loggedDiamondLaunch = false
                         end
+                    end
+                },
+
+                Reset = {
+                    hash = J("SN_DiamondCasino_LaunchReset"),
+                    name = "Reset",
+                    type = eFeatureType.Button,
+                    desc = "Resets the launch settings for the current heist.",
+                    func = function()
+                        ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, 2)
+                        eLocal.Heist.Generic.Launch.Step2:Set(2)
+                        eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                        eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                        eGlobal.Heist.Generic.Launch.Step3:Set(2)
+                        eGlobal.Heist.Generic.Launch.Step4:Set(11)
+                        eLocal.Heist.Generic.Launch.Step3:Set(0)
+                        eGlobal.Heist.Generic.Launch.Step5:Set(1)
+
+                        SilentLogger.LogInfo("[Reset (Diamond Casino)] Launch settings should've been reset ツ")
+                    end
+                }
+            },
+
+            Misc = {
+                Setup = {
+                    hash = J("SN_DiamondCasino_Setup"),
+                    name = "Skip Setup",
+                    type = eFeatureType.Button,
+                    desc = "Skips the setup mission for your Arcade. Change the session to apply.",
+                    func = function()
+                        ePackedStat.Business.Arcade.Setup:Set(true)
+                        SilentLogger.LogInfo("[Skip Setup (Diamond Casino)] Setups should've been skipped. Don't forget to change the session ツ")
                     end
                 },
 
@@ -2415,12 +2480,12 @@ eFeature = {
                 }
             },
 
-            Misc = {
-                Launch = {
+            Launch = {
+                Solo = {
                     hash = J("SN_Doomsday_Launch"),
                     name = "Solo Launch",
                     type = eFeatureType.Toggle,
-                    desc = "Allows launching the heist alone.",
+                    desc = "Allows launching the current heist alone.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if GTA.IsScriptRunning(eScript.Heist.Launcher) then
@@ -2463,6 +2528,27 @@ eFeature = {
                     end
                 },
 
+                Reset = {
+                    hash = J("SN_Doomsday_LaunchReset"),
+                    name = "Reset",
+                    type = eFeatureType.Button,
+                    desc = "Resets the launch settings for the current heist.",
+                    func = function()
+                        ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, 2)
+                        eLocal.Heist.Generic.Launch.Step2:Set(2)
+                        eGlobal.Heist.Generic.Launch.Step1:Set(1)
+                        eGlobal.Heist.Generic.Launch.Step2:Set(1)
+                        eGlobal.Heist.Generic.Launch.Step3:Set(2)
+                        eGlobal.Heist.Generic.Launch.Step4:Set(11)
+                        eLocal.Heist.Generic.Launch.Step3:Set(0)
+                        eGlobal.Heist.Generic.Launch.Step5:Set(1)
+
+                        SilentLogger.LogInfo("[Reset (Doomsday)] Launch settings should've been reset ツ")
+                    end
+                }
+            },
+
+            Misc = {
                 Teleport = {
                     Entrance = {
                         hash = J("SN_Doomsday_Entrance"),

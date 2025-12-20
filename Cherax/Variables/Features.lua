@@ -1,9 +1,9 @@
 --#region Features
 
 soloLaunches = {
-    eFeature.Heist.Apartment.Misc.Launch,
-    eFeature.Heist.DiamondCasino.Misc.Launch,
-    eFeature.Heist.Doomsday.Misc.Launch
+    eFeature.Heist.Apartment.Launch.Solo,
+    eFeature.Heist.DiamondCasino.Launch.Solo,
+    eFeature.Heist.Doomsday.Launch.Solo
 }
 
 apartmentPlayers = {

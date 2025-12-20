@@ -181,7 +181,7 @@ if GTA_EDITION == "EE" then
                     },
 
                     Podium = {
-                        Step1 = { type = "int", vLocal = 9194 + 1,    script = "fm_content_vehrob_casino_prize" },
+                        Step1 = { type = "int", vLocal = 9193 + 1,    script = "fm_content_vehrob_casino_prize" },
                         Step2 = { type = "int", vLocal = 9330 + 1258, script = "fm_content_vehrob_casino_prize" }
                     },
 

@@ -1,8 +1,17 @@
 --#region Natives
 
-function Natives.Invoke(returnType, hash)
+eNativeType = {
+    Bool    = "Bool",
+    Float   = "Float",
+    Int     = "Int",
+    String  = "String",
+    Vector3 = "V3",
+    Void    = "Void"
+}
+
+function Natives.Invoke(nativeType, hash)
     return function(...)
-        return Natives[F("Invoke%s", returnType)](hash, ...)
+        return Natives[F("Invoke%s", nativeType)](hash, ...)
     end
 end
 
