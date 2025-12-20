@@ -239,7 +239,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Write, function(f)
 
     local value = N(FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):GetStringValue())
 
-    TEMP_LOCAL = GetValue[type](J(script), vLocal)
+    TEMP_LOCAL = GetValue[type](J(scriptString), vLocal)
     eFeature.Dev.Editor.Locals.Write.func(type, J(scriptString), vLocal, value)
 end)
 

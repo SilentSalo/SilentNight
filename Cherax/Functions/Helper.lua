@@ -419,7 +419,7 @@ function Helper.RenderLaunchSettings(requiredPlayers, resetFeature)
     if reqPlayers ~= 0 and reqPlayers ~= requiredPlayers then
         ImGui.TextColored(1, 1, 1, 1, "Current State:")
         ImGui.SameLine()
-        local r, g, b, a = U(eBtnStyle.RED.Hovered)
+        local r, g, b, a = U(eBtnStyle.PINK.Hovered)
         ImGui.TextColored(r, g, b, a, "Modified")
         ImGui.TextColored(1, 1, 1, 1, "Required Players:")
         ImGui.SameLine()
@@ -428,7 +428,8 @@ function Helper.RenderLaunchSettings(requiredPlayers, resetFeature)
     else
         ImGui.TextColored(1, 1, 1, 1, "Current State:")
         ImGui.SameLine()
-        local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+        local color = (reqPlayers ~= 0) and eBtnStyle.GREEN or eBtnStyle.ORANGE
+        local r, g, b, a = U(color.Hovered)
         ImGui.TextColored(r, g, b, a, (reqPlayers ~= 0) and "Default" or "Waiting...")
         ImGui.TextColored(1, 1, 1, 1, "Required Players:")
         ImGui.SameLine()
