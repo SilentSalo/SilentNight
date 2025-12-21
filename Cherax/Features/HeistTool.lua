@@ -70,9 +70,14 @@ end, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Launch.Reset, function(f)
+    local temp = CONFIG.logging
+    CONFIG.logging = 0
+
     for i = 1, #soloLaunches do
         FeatureMgr.GetFeature(soloLaunches[i]):Toggle(false)
     end
+
+    CONFIG.logging = temp
     eFeature.Heist.Apartment.Launch.Reset.func()
 end)
     :SetVisible(false)
@@ -572,9 +577,14 @@ end, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Launch.Reset, function(f)
+    local temp = CONFIG.logging
+    CONFIG.logging = 0
+
     for i = 1, #soloLaunches do
         FeatureMgr.GetFeature(soloLaunches[i]):Toggle(false)
     end
+
+    CONFIG.logging = temp
     eFeature.Heist.DiamondCasino.Launch.Reset.func()
 end)
     :SetVisible(false)
@@ -737,9 +747,14 @@ end, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Launch.Reset, function(f)
+    local temp = CONFIG.logging
+    CONFIG.logging = 0
+
     for i = 1, #soloLaunches do
         FeatureMgr.GetFeature(soloLaunches[i]):Toggle(false)
     end
+
+    CONFIG.logging = temp
     eFeature.Heist.Doomsday.Launch.Reset.func()
 end)
     :SetVisible(false)

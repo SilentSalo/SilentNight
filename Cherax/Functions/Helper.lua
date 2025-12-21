@@ -430,10 +430,10 @@ function Helper.RenderLaunchSettings(requiredPlayers, resetFeature)
         ImGui.SameLine()
         local color = (reqPlayers ~= 0) and eBtnStyle.GREEN or eBtnStyle.ORANGE
         local r, g, b, a = U(color.Hovered)
-        ImGui.TextColored(r, g, b, a, (reqPlayers ~= 0) and "Default" or "Waiting...")
+        ImGui.TextColored(r, g, b, a, (reqPlayers ~= 0) and "Standard" or "Default")
         ImGui.TextColored(1, 1, 1, 1, "Required Players:")
         ImGui.SameLine()
-        ImGui.TextColored(r, g, b, a, S((reqPlayers ~= 0) and reqPlayers or "Waiting..."))
+        ImGui.TextColored(r, g, b, a, S((reqPlayers ~= 0) and reqPlayers or "N/A"))
         FeatureMgr.GetFeature(resetFeature):SetVisible(false)
     end
 end

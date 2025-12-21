@@ -15,7 +15,7 @@ function Renderer.RenderHeistTool()
 
                     ImGui.TableNextColumn()
 
-                    if ClickGUI.BeginCustomChildWindow("Launch Settings") then
+                    if ClickGUI.BeginCustomChildWindow("Launch Control") then
                         Helper.RenderLaunchSettings(1, eFeature.Heist.CayoPerico.Launch.Reset)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Launch.Reset)
                         ClickGUI.EndCustomChildWindow()
@@ -75,7 +75,7 @@ function Renderer.RenderHeistTool()
 
                     ImGui.TableNextColumn()
 
-                    if ClickGUI.BeginCustomChildWindow("Launch Settings") then
+                    if ClickGUI.BeginCustomChildWindow("Launch Control") then
                         local reqPlayers = eLocal.Heist.Generic.Launch.Step2:Get()
                         local isFleeca   = eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.FleecaJob
 
@@ -150,7 +150,7 @@ function Renderer.RenderHeistTool()
 
                     ImGui.TableNextColumn()
 
-                    if ClickGUI.BeginCustomChildWindow("Launch Settings") then
+                    if ClickGUI.BeginCustomChildWindow("Launch Control") then
                         Helper.RenderLaunchSettings(1, eFeature.Heist.CayoPerico.Launch.Reset)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Launch.Reset)
                         ClickGUI.EndCustomChildWindow()
@@ -232,7 +232,7 @@ function Renderer.RenderHeistTool()
 
                     ImGui.TableNextColumn()
 
-                    if ClickGUI.BeginCustomChildWindow("Launch Settings") then
+                    if ClickGUI.BeginCustomChildWindow("Launch Control") then
                         Helper.RenderLaunchSettings(1, eFeature.Heist.CayoPerico.Launch.Reset)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Launch.Reset)
                         ClickGUI.EndCustomChildWindow()
@@ -331,7 +331,7 @@ function Renderer.RenderHeistTool()
 
                     ImGui.TableNextColumn()
 
-                    if ClickGUI.BeginCustomChildWindow("Launch Settings") then
+                    if ClickGUI.BeginCustomChildWindow("Launch Control") then
                         local reqPlayers = eLocal.Heist.Generic.Launch.Step2:Get()
 
                         Helper.RenderLaunchSettings(2, eFeature.Heist.DiamondCasino.Launch.Reset)
@@ -428,7 +428,7 @@ function Renderer.RenderHeistTool()
 
                     ImGui.TableNextColumn()
 
-                    if ClickGUI.BeginCustomChildWindow("Launch Settings") then
+                    if ClickGUI.BeginCustomChildWindow("Launch Control") then
                         local reqPlayers = eLocal.Heist.Generic.Launch.Step2:Get()
 
                         Helper.RenderLaunchSettings(2, eFeature.Heist.Doomsday.Launch.Reset)
@@ -1276,7 +1276,7 @@ function Renderer.RenderListGUI()
             PresetsSubTab:AddFeature(eFeature.Heist.Apartment.Presets.Save)
             PresetsSubTab:AddFeature(eFeature.Heist.Apartment.Presets.Copy)
 
-            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Settings", "Launch Settings")
+            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Control", "Launch Control")
             LaunchSubTab:AddFeature(eFeature.Heist.Apartment.Launch.Solo)
             LaunchSubTab:AddFeature(eFeature.Heist.Apartment.Launch.Reset)
 
@@ -1363,7 +1363,7 @@ function Renderer.RenderListGUI()
             PresetsSubTab:AddFeature(eFeature.Heist.CayoPerico.Presets.Save)
             PresetsSubTab:AddFeature(eFeature.Heist.CayoPerico.Presets.Copy)
 
-            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Settings", "Launch Settings")
+            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Control", "Launch Control")
             LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
 
             local MiscSubTab = CayoPericoTab:AddSubTab("Misc", "Misc")
@@ -1424,7 +1424,7 @@ function Renderer.RenderListGUI()
             PresetsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Presets.Save)
             PresetsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Presets.Copy)
 
-            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Settings", "Launch Settings")
+            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Control", "Launch Control")
             LaunchSubTab:AddFeature(eFeature.Heist.DiamondCasino.Launch.Solo)
             LaunchSubTab:AddFeature(eFeature.Heist.DiamondCasino.Launch.Reset)
 
@@ -1477,7 +1477,7 @@ function Renderer.RenderListGUI()
             PresetsSubTab:AddFeature(eFeature.Heist.Doomsday.Presets.Save)
             PresetsSubTab:AddFeature(eFeature.Heist.Doomsday.Presets.Copy)
 
-            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Settings", "Launch Settings")
+            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Control", "Launch Control")
             LaunchSubTab:AddFeature(eFeature.Heist.Doomsday.Launch.Solo)
             LaunchSubTab:AddFeature(eFeature.Heist.Doomsday.Launch.Reset)
 
