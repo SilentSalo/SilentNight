@@ -1682,7 +1682,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Difficulty"),
                     name = "Difficulty",
                     type = eFeatureType.Combo,
-                    desc = "Select the desired difficulty.",
+                    desc = "ATTENTION: unstable when paired with «Solo Launch».\nSelect the desired difficulty.",
                     list = eTable.Heist.DiamondCasino.Difficulties,
                     func = function(ftr)
                         local list  = eTable.Heist.DiamondCasino.Difficulties
@@ -2199,7 +2199,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "Select one of the ready-made presets.",
+                    desc = "ATTENTION: if not solo, «3.6mil Payout» works only if you've set the «Buyer» as «Low Level».\nSelect one of the ready-made presets.",
                     list = eTable.Heist.DiamondCasino.Presets,
                     func = function()
                         Helper.SetDiamondMaxPayout()

@@ -296,7 +296,9 @@ function Renderer.RenderHeistTool()
             if ImGui.BeginTabItem("Diamond Casino") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Preps") then
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Preps.Difficulty)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Preps.Approach)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Preps.Gunman)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Preps.Loadout)
@@ -370,8 +372,8 @@ function Renderer.RenderHeistTool()
                     if ClickGUI.BeginCustomChildWindow("Cuts") then
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Crew)
-                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Presets)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Player1.Toggle)
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Player1.Cut)
