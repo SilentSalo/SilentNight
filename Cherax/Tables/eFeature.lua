@@ -213,18 +213,18 @@ eFeature = {
                         eStat.MPX_HEIST_PLANNING_STAGE:Set(-1)
 
                         if CONFIG.collab.jinxscript.enabled then
-                            Script.LoadSubscribedScript("JinxScript EE & LE")
+                            Script.LoadSubscribedScript("JinxScript")
 
                             if FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode) then
-                                SilentLogger.LogInfo("[JinxScript (Settings)] Restarting freemode using JinxScript ツ")
+                                SilentLogger.LogInfo("[Complete Preps (Apartment)] Restarting freemode using JinxScript ツ")
                                 FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode):OnClick()
-                                SilentLogger.LogInfo("[JinxScript (Settings)] Freemode should've been restarted by JinxScript ツ")
+                                SilentLogger.LogInfo("[Complete Preps (Apartment)] Freemode should've been restarted by JinxScript ツ")
                             else
-                                SilentLogger.LogError("[JinxScript (Settings)] JinxScript collab is enabled, but the script isn't running ツ")
+                                SilentLogger.LogError("[Complete Preps (Apartment)] JinxScript collab is enabled, but the script isn't running ツ")
                             end
 
                             if CONFIG.collab.jinxscript.autostop then
-                                Script.LoadSubscribedScript("JinxScript EE & LE", true)
+                                Script.LoadSubscribedScript("JinxScript", true)
                             end
                         end
 
@@ -6371,7 +6371,7 @@ eFeature = {
                     hash = J("SN_Settings_CJinxScriptToggle"),
                     name = "JinxScript",
                     type = eFeatureType.Toggle,
-                    desc = "JinxScript will help speed up some processes.",
+                    desc = "JinxScript might help speed up some processes.",
                     func = function(ftr)
                         CONFIG.collab.jinxscript.enabled = ftr:IsToggled()
                         FileMgr.SaveConfig(CONFIG)
