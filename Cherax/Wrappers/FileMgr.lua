@@ -189,6 +189,9 @@ function FileMgr.CreateStatsDir(generateExample)
 end
 
 FileMgr.CreateConfig()
+
+CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
 FileMgr.EnsureConfigKeys()
 
 loggedAcknowledgment  = CONFIG.easy_money.acknowledge
