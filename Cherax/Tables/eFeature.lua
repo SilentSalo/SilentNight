@@ -463,7 +463,7 @@ eFeature = {
                     hash = J("SN_Apartment_Unlock"),
                     name = "Unlock All Jobs",
                     type = eFeatureType.Button,
-                    desc = "Unlocks all jobs without playing every heist one by one. Restart the game to apply.",
+                    desc = "Unlocks all jobs without playing every heist one by one. Change the session to apply.",
                     func = function()
                         eStat.MPX_HEIST_SAVED_STRAND_0:Set(eTunable.Heist.Apartment.RootIdHash.Fleeca:Get())
                         eStat.MPX_HEIST_SAVED_STRAND_0_L:Set(5)
@@ -476,7 +476,7 @@ eFeature = {
                         eStat.MPX_HEIST_SAVED_STRAND_4:Set(eTunable.Heist.Apartment.RootIdHash.Pacific:Get())
                         eStat.MPX_HEIST_SAVED_STRAND_4_L:Set(5)
 
-                        SilentLogger.LogInfo("[Unlock All Jobs (Apartment)] All jobs should've been unlocked. Don't forget to restart the game ツ")
+                        SilentLogger.LogInfo("[Unlock All Jobs (Apartment)] All jobs should've been unlocked. Don't forget to change the session ツ")
                     end
                 }
             },

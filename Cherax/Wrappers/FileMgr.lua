@@ -71,11 +71,20 @@ function FileMgr.ResetConfig()
 end
 
 function FileMgr.EnsureConfigKeys()
-    if not CONFIG then
+    if type(CONFIG) ~= "table" then
         FileMgr.ResetConfig()
-        CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+        local cfg, err = Json.DecodeFromFile(CONFIG_PATH)
+
+        if type(cfg) ~= "table" then
+            SilentLogger.LogError("Config is invalid. Default config loaded ツ")
+            CONFIG = DEFAULT_CONFIG
+            FileMgr.SaveConfig(CONFIG)
+            return
+        end
+
+        CONFIG = cfg
         SilentLogger.LogError("Config is missing. Config created ツ")
-        return
     end
 
     local function DeepMergeDefaults(tbl, defaults)
@@ -180,9 +189,6 @@ function FileMgr.CreateStatsDir(generateExample)
 end
 
 FileMgr.CreateConfig()
-
-CONFIG = Json.DecodeFromFile(CONFIG_PATH)
-
 FileMgr.EnsureConfigKeys()
 
 loggedAcknowledgment  = CONFIG.easy_money.acknowledge

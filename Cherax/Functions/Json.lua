@@ -35,7 +35,7 @@ local function EncodeTable(val, stack)
     stack = stack or {}
 
     -- Circular reference?
-    if stack[val] then SilentLogger.LogError("circular reference") end
+    if stack[val] then error("circular reference") end
 
     stack[val] = true
 
@@ -44,12 +44,12 @@ local function EncodeTable(val, stack)
         local n = 0
         for k in pairs(val) do
             if type(k) ~= "number" then
-                SilentLogger.LogError("invalid table: mixed or invalid key types")
+                error("invalid table: mixed or invalid key types")
             end
             n = n + 1
         end
         if n ~= #val then
-            SilentLogger.LogError("invalid table: sparse array")
+            error("invalid table: sparse array")
         end
         -- Encode
         for i, v in ipairs(val) do
@@ -61,7 +61,7 @@ local function EncodeTable(val, stack)
         -- Treat as an object
         for k, v in pairs(val) do
             if type(k) ~= "string" then
-                SilentLogger.LogError("invalid table: mixed or invalid key types")
+                error("invalid table: mixed or invalid key types")
             end
             I(res, Encode(k, stack) .. ":" .. Encode(v, stack))
         end
@@ -77,7 +77,7 @@ end
 local function EncodeNumber(val)
     -- Check for NaN, -inf and inf
     if val ~= val or val <= -math.huge or val >= math.huge then
-        SilentLogger.LogError("unexpected number value '" .. S(val) .. "'")
+        error("unexpected number value '" .. S(val) .. "'")
     end
     return F("%.14g", val)
 end
@@ -96,7 +96,7 @@ Encode = function(val, stack)
     if f then
         return f(val, stack)
     end
-    SilentLogger.LogError("unexpected type '" .. t .. "'")
+    error("unexpected type '" .. t .. "'")
 end
 
 function Json.Encode(val, indent)
@@ -107,7 +107,7 @@ function Json.Encode(val, indent)
         currentIndent = currentIndent or ""
 
         if t == "table" then
-            if stack[value] then SilentLogger.LogError("circular reference") end
+            if stack[value] then error("circular reference") end
             stack[value] = true
 
             local res = {}
@@ -125,7 +125,7 @@ function Json.Encode(val, indent)
                 local keys = {}
                 for k, _ in pairs(value) do
                     if type(k) ~= "string" then
-                        SilentLogger.LogError("invalid table: mixed or invalid key types")
+                        error("invalid table: mixed or invalid key types")
                     end
                     table.insert(keys, k)
                 end
@@ -184,7 +184,8 @@ local function DecodeError(str, idx, msg)
             colCount = 1
         end
     end
-    SilentLogger.LogError(F("%s at line %d col %d", msg, lineCount, colCount))
+    -- Changed from SilentLogger to error() to allow pcall to catch it
+    error(F("%s at line %d col %d", msg, lineCount, colCount))
 end
 
 local function CodepointToUtf8(n)
@@ -198,7 +199,7 @@ local function CodepointToUtf8(n)
     elseif n <= 0x10ffff then
         return string.char(f(n / 262144) + 240, f(n % 262144 / 4096) + 128, f(n % 4096 / 64) + 128, n % 64 + 128)
     end
-    SilentLogger.LogError(F("invalid unicode codepoint '%x'", n))
+    error(F("invalid unicode codepoint '%x'", n))
 end
 
 local function ParseUnicodeEscape(s)
@@ -362,7 +363,7 @@ end
 
 function Json.Decode(str)
     if type(str) ~= "string" or str == "" then
-        SilentLogger.LogError("expected non-empty string, got " .. S(str))
+        error("expected non-empty string, got " .. S(str))
     end
     local res, idx = Parse(str, NextChar(str, 1, spaceChars, true))
     idx = NextChar(str, idx, spaceChars, true)
@@ -373,19 +374,27 @@ function Json.Decode(str)
 end
 
 function Json.EncodeToFile(path, tbl)
-    if FileMgr.DoesFileExist(path) then
-        FileMgr.DeleteFile(path)
-    end
-
     FileMgr.WriteFileContent(path, Json.Encode(tbl), false)
 end
 
 function Json.DecodeFromFile(path)
     if not FileMgr.DoesFileExist(path) then
-       SilentLogger.LogError(F("File not found: %s", path))
+        return nil, "file not found"
     end
 
-    return Json.Decode(FileMgr.ReadFileContent(path))
+    local content = FileMgr.ReadFileContent(path)
+
+    if content == "" then
+        return nil, "empty file"
+    end
+
+    local ok, result = pcall(Json.Decode, content)
+
+    if not ok then
+        return nil, "invalid json"
+    end
+
+    return result
 end
 
 --#endregion
