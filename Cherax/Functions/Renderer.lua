@@ -1125,9 +1125,23 @@ end
 function Renderer.RenderSettings()
     if ImGui.BeginTabItem("Settings") then
         if ImGui.BeginTabBar("Settings Tabs") then
-            if ImGui.BeginTabItem("Configuration") then
+            if ImGui.BeginTabItem("Preferences") then
                 if ImGui.BeginColumns(3) then
-                    if ClickGUI.BeginCustomChildWindow("Config & Discord") then
+                    if ClickGUI.BeginCustomChildWindow("Information") then
+                        local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                        ImGui.TextColored(1, 1, 1, 1, "Script Version:")
+                        ImGui.SameLine()
+                        ImGui.TextColored(r, g, b, a, SCRIPT_VER)
+                        ImGui.TextColored(1, 1, 1, 1, "Script Edition:")
+                        ImGui.SameLine()
+                        ImGui.TextColored(r, g, b, a, (GTA_EDITION == "EE") and "Enhanced" or "Legacy")
+                        ImGui.PushButtonStyle(eBtnStyle.DISCORD)
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Discord)
+                        ImGui.ResetButtonStyle()
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    if ClickGUI.BeginCustomChildWindow("Configuration") then
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Open)
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Logging)
                         ImGui.PushButtonStyle(eBtnStyle.ORANGE)
@@ -1135,9 +1149,6 @@ function Renderer.RenderSettings()
                         ImGui.ResetButtonStyle()
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Copy)
-                        ImGui.PushButtonStyle(eBtnStyle.DISCORD)
-                        ClickGUI.RenderFeature(eFeature.Settings.Config.Discord)
-                        ImGui.ResetButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Unload)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -1209,6 +1220,7 @@ function Renderer.RenderSettings()
                         ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._680k)
                         ClickGUI.EndCustomChildWindow()
                     end
+
                     ImGui.EndColumns()
                 end
                 ImGui.EndTabItem()
@@ -1230,36 +1242,40 @@ function Renderer.RenderClickGUI()
     end
 end
 
-ClickGUI.AddTab(F("%s v%s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), Renderer.RenderClickGUI)
+ClickGUI.AddTab(SCRIPT_NAME, Renderer.RenderClickGUI)
 
 function Renderer.RenderListGUI()
     local root = ListGUI.GetRootTab()
     if not root then return end
 
-    local SilentNightTab = root:AddSubTab(F("%s v%s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), SCRIPT_NAME)
+    local luaTab         = root:GetSubTab("Lua")
+    local SilentNightTab = luaTab:AddSubTab(F("%s v%s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), SCRIPT_NAME)
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
         local AgencyTab = HeistToolTab:AddSubTab("Agency", "Agency")
         if AgencyTab then
-            local prepsTab = AgencyTab:AddSubTab("Preps", "Preps")
+            local PrepsSubTab = AgencyTab:AddSubTab("Preps", "Preps")
 
-            prepsTab:AddFeature(eFeature.Heist.Agency.Preps.Contract)
-            prepsTab:AddFeature(eFeature.Heist.Agency.Preps.Complete)
+            PrepsSubTab:AddFeature(eFeature.Heist.Agency.Preps.Contract)
+            PrepsSubTab:AddFeature(eFeature.Heist.Agency.Preps.Complete)
 
-            local MiscTab = AgencyTab:AddSubTab("Misc", "Misc")
-            MiscTab:AddFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance)
-            MiscTab:AddFeature(eFeature.Heist.Agency.Misc.Teleport.Computer)
-            MiscTab:AddFeature(eFeature.Heist.Agency.Misc.Teleport.Mission)
-            MiscTab:AddFeature(eFeature.Heist.Generic.Cutscene)
-            MiscTab:AddFeature(eFeature.Heist.Generic.Skip)
-            MiscTab:AddFeature(eFeature.Heist.Agency.Misc.Finish)
-            MiscTab:AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
+            local LaunchSubTab = AgencyTab:AddSubTab("Launch Control", "Launch Control")
+            LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
 
-            local payoutTab = AgencyTab:AddSubTab("Payouts", "Payouts")
-            payoutTab:AddFeature(eFeature.Heist.Agency.Payout.Select)
-            payoutTab:AddFeature(eFeature.Heist.Agency.Payout.Max)
-            payoutTab:AddFeature(eFeature.Heist.Agency.Payout.Apply)
+            local MiscSubTab = AgencyTab:AddSubTab("Misc", "Misc")
+            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance)
+            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Teleport.Computer)
+            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Teleport.Mission)
+            MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
+            MiscSubTab:AddFeature(eFeature.Heist.Generic.Skip)
+            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Finish)
+            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
+
+            local PayoutSubTab = AgencyTab:AddSubTab("Payout", "Payout")
+            PayoutSubTab:AddFeature(eFeature.Heist.Agency.Payout.Select)
+            PayoutSubTab:AddFeature(eFeature.Heist.Agency.Payout.Max)
+            PayoutSubTab:AddFeature(eFeature.Heist.Agency.Payout.Apply)
         end
 
         local ApartmentTab = HeistToolTab:AddSubTab("Apartment", "Apartment")
@@ -1319,6 +1335,9 @@ function Renderer.RenderListGUI()
             PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Reset)
             PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Reload)
 
+            local LaunchSubTab = AutoShopTab:AddSubTab("Launch Control", "Launch Control")
+            LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
+
             local MiscSubTab = AutoShopTab:AddSubTab("Misc", "Misc")
             MiscSubTab:AddFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance)
             MiscSubTab:AddFeature(eFeature.Heist.AutoShop.Misc.Teleport.Board)
@@ -1365,7 +1384,7 @@ function Renderer.RenderListGUI()
             PresetsSubTab:AddFeature(eFeature.Heist.CayoPerico.Presets.Save)
             PresetsSubTab:AddFeature(eFeature.Heist.CayoPerico.Presets.Copy)
 
-            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Control", "Launch Control")
+            local LaunchSubTab = CayoPericoTab:AddSubTab("Launch Control", "Launch Control")
             LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
 
             local MiscSubTab = CayoPericoTab:AddSubTab("Misc", "Misc")
@@ -1426,7 +1445,7 @@ function Renderer.RenderListGUI()
             PresetsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Presets.Save)
             PresetsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Presets.Copy)
 
-            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Control", "Launch Control")
+            local LaunchSubTab = CasinoHeistTab:AddSubTab("Launch Control", "Launch Control")
             LaunchSubTab:AddFeature(eFeature.Heist.DiamondCasino.Launch.Solo)
             LaunchSubTab:AddFeature(eFeature.Heist.DiamondCasino.Launch.Reset)
 
@@ -1479,7 +1498,7 @@ function Renderer.RenderListGUI()
             PresetsSubTab:AddFeature(eFeature.Heist.Doomsday.Presets.Save)
             PresetsSubTab:AddFeature(eFeature.Heist.Doomsday.Presets.Copy)
 
-            local LaunchSubTab = ApartmentTab:AddSubTab("Launch Control", "Launch Control")
+            local LaunchSubTab = DoomsdayTab:AddSubTab("Launch Control", "Launch Control")
             LaunchSubTab:AddFeature(eFeature.Heist.Doomsday.Launch.Solo)
             LaunchSubTab:AddFeature(eFeature.Heist.Doomsday.Launch.Reset)
 
@@ -1617,35 +1636,35 @@ function Renderer.RenderListGUI()
 
         local MoneyFrontsTab = BusinessToolTab:AddSubTab("Money Fronts", "Money Fronts")
         if MoneyFrontsTab then
-            local CarWashTab = MoneyFrontsTab:AddSubTab("Hands On Car Wash")
-            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Entrance)
-            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Laptop)
-            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Lock)
-            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Max)
-            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Min)
-            CarWashTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Select)
+            local CarWashSubTab = MoneyFrontsTab:AddSubTab("Hands On Car Wash")
+            CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Entrance)
+            CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Laptop)
+            CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Lock)
+            CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Max)
+            CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Min)
+            CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Select)
 
-            local WeedShopTab = MoneyFrontsTab:AddSubTab("Smoke On The Water")
-            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Entrance)
-            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Laptop)
-            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Lock)
-            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Max)
-            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Min)
-            WeedShopTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Select)
+            local WeedShopSubTab = MoneyFrontsTab:AddSubTab("Smoke On The Water")
+            WeedShopSubTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Entrance)
+            WeedShopSubTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Teleport.Laptop)
+            WeedShopSubTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Lock)
+            WeedShopSubTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Max)
+            WeedShopSubTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Min)
+            WeedShopSubTab:AddFeature(eFeature.Business.MoneyFronts.SmokeOnTheWater.Heat.Select)
 
-            local TourCompanyTab = MoneyFrontsTab:AddSubTab("Higgins Helitours")
-            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Entrance)
-            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Laptop)
-            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Lock)
-            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Max)
-            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Min)
-            TourCompanyTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Select)
+            local TourCompanySubTab = MoneyFrontsTab:AddSubTab("Higgins Helitours")
+            TourCompanySubTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Entrance)
+            TourCompanySubTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Teleport.Laptop)
+            TourCompanySubTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Lock)
+            TourCompanySubTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Max)
+            TourCompanySubTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Min)
+            TourCompanySubTab:AddFeature(eFeature.Business.MoneyFronts.HigginsHelitours.Heat.Select)
 
-            local OverallHeatTab = MoneyFrontsTab:AddSubTab("Overall Heat")
-            OverallHeatTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Lock)
-            OverallHeatTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Max)
-            OverallHeatTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Min)
-            OverallHeatTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Select)
+            local OverallHeatSubTab = MoneyFrontsTab:AddSubTab("Overall Heat")
+            OverallHeatSubTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Lock)
+            OverallHeatSubTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Max)
+            OverallHeatSubTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Min)
+            OverallHeatSubTab:AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Select)
         end
 
         local NightclubTab = BusinessToolTab:AddSubTab("Nightclub", "Nightclub")
@@ -1842,12 +1861,14 @@ function Renderer.RenderListGUI()
 
     local SettingsTab = SilentNightTab:AddSubTab("Settings", "Settings")
     if SettingsTab then
-        local ConfigSubTab = SettingsTab:AddSubTab("Config & Discord", "Config & Discord")
+        local InfoSubTab = SettingsTab:AddSubTab("Information", "Information")
+        InfoSubTab:AddFeature(eFeature.Settings.Config.Discord)
+
+        local ConfigSubTab = SettingsTab:AddSubTab("Configuration", "Configuration")
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Open)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Logging)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Reset)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Copy)
-        ConfigSubTab:AddFeature(eFeature.Settings.Config.Discord)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Unload)
 
         local TranslationSubTab = SettingsTab:AddSubTab("Translation", "Translation")
@@ -1863,10 +1884,6 @@ function Renderer.RenderListGUI()
         CollabsSubTab:AddFeature(eFeature.Settings.Collab.JinxScript.Discord)
         CollabsSubTab:AddFeature(eFeature.Settings.Collab.JinxScript.Stop)
 
-        local UnlockAllPOISubTab = SettingsTab:AddSubTab("Unlock All POI", "Unlock All POI")
-        UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
-        UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
-
         local InstantFinishSubTab = SettingsTab:AddSubTab("Instant Finish", "Instant Finish")
         InstantFinishSubTab:AddFeature(eFeature.Settings.InstantFinish.Agency)
         InstantFinishSubTab:AddFeature(eFeature.Settings.InstantFinish.Apartment)
@@ -1874,6 +1891,10 @@ function Renderer.RenderListGUI()
         InstantFinishSubTab:AddFeature(eFeature.Settings.InstantFinish.CayoPerico)
         InstantFinishSubTab:AddFeature(eFeature.Settings.InstantFinish.DiamondCasino)
         InstantFinishSubTab:AddFeature(eFeature.Settings.InstantFinish.Doomsday)
+
+        local UnlockAllPOISubTab = SettingsTab:AddSubTab("Unlock All POI", "Unlock All POI")
+        UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
+        UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
 
         local RegisterAsBossSubTab = SettingsTab:AddSubTab("Register As Boss", "Register As Boss")
         RegisterAsBossSubTab:AddFeature(eFeature.Settings.RegisterAsBoss.AutoRegister)

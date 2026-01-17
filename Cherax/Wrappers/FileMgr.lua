@@ -84,7 +84,7 @@ function FileMgr.EnsureConfigKeys()
         end
 
         CONFIG = cfg
-        SilentLogger.LogError("Config is missing. Config created ツ")
+        SilentLogger.LogError("Config is missing. Default config created ツ")
     end
 
     local function DeepMergeDefaults(tbl, defaults)
