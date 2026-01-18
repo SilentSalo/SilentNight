@@ -10,7 +10,7 @@
 # Supported Menus
 | Menu | Version | Status | 
 |--|--|--|
-| Cherax | 1.6.6 | Updated |
+| Cherax | 1.6.7 | Updated |
 | Kiddion's | 2.6 | Discontinued |
 | Yim | 0.0.5 | Discontinued |
 

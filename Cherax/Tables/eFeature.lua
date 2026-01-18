@@ -441,7 +441,7 @@ eFeature = {
                     hash = J("SN_Apartment_Cooldown"),
                     name = "Kill Cooldown",
                     type = eFeatureType.Button,
-                    desc = "Skips the heist's cooldown. Doesn't skip the cooldown between transactions (20 min).",
+                    desc = "Skips the heist's setup cooldown.",
                     func = function()
                         eGlobal.Heist.Apartment.Cooldown:Set(-1)
                         SilentLogger.LogInfo("[Kill Cooldown (Apartment)] Cooldown should've been killed ツ")
@@ -866,7 +866,7 @@ eFeature = {
                     hash = J("SN_AutoShop_Cooldown"),
                     name = "Kill Cooldown",
                     type = eFeatureType.Button,
-                    desc = "Skips the heist's cooldown. Doesn't skip the cooldown between transactions (20 min).",
+                    desc = "Skips the heist's setup cooldown. Doesn't skip the cooldown between transactions (20 mins).",
                     func = function()
                         for i = 0, 7 do
                             eStat[F("MPX_TUNER_CONTRACT%d_POSIX", i)]:Set(0)
@@ -1381,7 +1381,7 @@ eFeature = {
                         hash = J("SN_CayoPerico_SoloCooldown"),
                         name = "Kill Cooldown (after solo)",
                         type = eFeatureType.Button,
-                        desc = "Skips the heist's cooldown after you have played solo. Doesn't skip the cooldown between transactions (20 min). Go offline and online after using.",
+                        desc = "Skips the heist's setup cooldown after you have played solo. Doesn't skip the cooldown between transactions (20 mins). Go offline and online after using.",
                         func = function()
                             eStat.MPX_H4_TARGET_POSIX:Set(1659643454)
                             eStat.MPX_H4_COOLDOWN:Set(0)
@@ -1394,7 +1394,7 @@ eFeature = {
                         hash = J("SN_CayoPerico_TeamCooldown"),
                         name = "Kill Cooldown (after team)",
                         type = eFeatureType.Button,
-                        desc = "Skips the heist's cooldown after you have played with a team. Doesn't skip the cooldown between transactions (20 min). Go offline and online after using.",
+                        desc = "Skips the heist's setup cooldown after you have played with a team. Doesn't skip the cooldown between transactions (20 mins). Go offline and online after using.",
                         func = function()
                             eStat.MPX_H4_TARGET_POSIX:Set(1659429119)
                             eStat.MPX_H4_COOLDOWN:Set(0)
@@ -2151,7 +2151,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Cooldown"),
                     name = "Kill Cooldown",
                     type = eFeatureType.Button,
-                    desc = "Skips the heist's cooldown. Doesn't skip the cooldown between transactions (20 min). Use outside of your arcade.",
+                    desc = "Skips the heist's setup cooldown. Doesn't skip the cooldown between transactions (20 mins). Use outside of your arcade.",
                     func = function()
                         eStat.MPX_H3_COMPLETEDPOSIX:Set(-1)
                         eStat.MPPLY_H3_COOLDOWN:Set(-1)

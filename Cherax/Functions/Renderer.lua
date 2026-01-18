@@ -1138,6 +1138,7 @@ function Renderer.RenderSettings()
                         ImGui.PushButtonStyle(eBtnStyle.DISCORD)
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Discord)
                         ImGui.ResetButtonStyle()
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Unload)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -1149,7 +1150,6 @@ function Renderer.RenderSettings()
                         ImGui.ResetButtonStyle()
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Copy)
-                        ClickGUI.RenderFeature(eFeature.Settings.Config.Unload)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -1245,11 +1245,10 @@ end
 ClickGUI.AddTab(SCRIPT_NAME, Renderer.RenderClickGUI)
 
 function Renderer.RenderListGUI()
-    local root = ListGUI.GetRootTab()
-    if not root then return end
+    local rootTab = ListGUI.GetRootTab()
+    if not rootTab then return end
 
-    local luaTab         = root:GetSubTab("Lua")
-    local SilentNightTab = luaTab:AddSubTab(F("%s v%s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), SCRIPT_NAME)
+    local SilentNightTab = rootTab:AddSubTab(F("%s v%s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION), SCRIPT_NAME)
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
@@ -1863,13 +1862,13 @@ function Renderer.RenderListGUI()
     if SettingsTab then
         local InfoSubTab = SettingsTab:AddSubTab("Information", "Information")
         InfoSubTab:AddFeature(eFeature.Settings.Config.Discord)
+        InfoSubTab:AddFeature(eFeature.Settings.Config.Unload)
 
         local ConfigSubTab = SettingsTab:AddSubTab("Configuration", "Configuration")
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Open)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Logging)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Reset)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Copy)
-        ConfigSubTab:AddFeature(eFeature.Settings.Config.Unload)
 
         local TranslationSubTab = SettingsTab:AddSubTab("Translation", "Translation")
         TranslationSubTab:AddFeature(eFeature.Settings.Translation.File)
