@@ -148,6 +148,10 @@ function Helper.SetDiamondMaxPayout()
         [4] = 0.1
     }
 
+    if gunmanCuts[gunman] == nil then return end
+    if driverCuts[driver] == nil then return end
+    if hackerCuts[hacker] == nil then return end
+
     local feePayout    = payout - (payout * buyerFee)
     local lesterPayout = feePayout * lesterCut
     local gunmanPayout = feePayout * gunmanCuts[gunman]

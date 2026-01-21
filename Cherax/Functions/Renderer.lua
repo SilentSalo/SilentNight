@@ -1128,7 +1128,7 @@ function Renderer.RenderSettings()
             if ImGui.BeginTabItem("Preferences") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Information") then
-                        local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                        local r, g, b, a = U(eBtnStyle.DISCORD.Hovered)
                         ImGui.TextColored(1, 1, 1, 1, "Script Version:")
                         ImGui.SameLine()
                         ImGui.TextColored(r, g, b, a, SCRIPT_VER)
