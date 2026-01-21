@@ -873,11 +873,14 @@ function Renderer.RenderMoneyTool()
                         ClickGUI.EndCustomChildWindow()
                     end
 
-                    if ClickGUI.BeginCustomChildWindow("Blackjack") then
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Blackjack.Card)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Blackjack.Reveal)
+                    if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
+                        ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Bypass)
+                        ImGui.ResetFrameBgStyle()
+                        ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Limit.Select)
+                        ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Limit.Acquire)
                         ImGui.PushButtonStyle(eBtnStyle.ORANGE)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Blackjack.Trick)
+                        ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Limit.Trade)
                         ImGui.ResetButtonStyle()
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -892,35 +895,12 @@ function Renderer.RenderMoneyTool()
                         ClickGUI.EndCustomChildWindow()
                     end
 
-                    if ClickGUI.BeginCustomChildWindow("Poker") then
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Poker.MyCards)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Poker.Cards)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Poker.Reveal)
-                        ImGui.PushButtonStyle(eBtnStyle.ORANGE)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Poker.Give)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Poker.Trick)
-                        ImGui.ResetButtonStyle()
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Roulette") then
                         ImGui.PushButtonStyle(eBtnStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Roulette.Land13)
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Roulette.Land16)
-                        ImGui.ResetButtonStyle()
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
-                    if ClickGUI.BeginCustomChildWindow("Misc") then
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Bypass)
-                        ImGui.ResetFrameBgStyle()
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Limit.Select)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Limit.Acquire)
-                        ImGui.PushButtonStyle(eBtnStyle.ORANGE)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Misc.Limit.Trade)
                         ImGui.ResetButtonStyle()
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -1750,21 +1730,9 @@ function Renderer.RenderListGUI()
             LuckyWheelSubTab:AddFeature(eFeature.Money.Casino.LuckyWheel.Select)
             LuckyWheelSubTab:AddFeature(eFeature.Money.Casino.LuckyWheel.Give)
 
-            local BlackjackSubTab = CasinoTab:AddSubTab("Blackjack", "Blackjack")
-            BlackjackSubTab:AddFeature(eFeature.Money.Casino.Blackjack.Card)
-            BlackjackSubTab:AddFeature(eFeature.Money.Casino.Blackjack.Reveal)
-            BlackjackSubTab:AddFeature(eFeature.Money.Casino.Blackjack.Trick)
-
             local SlotMachinesSubTab = CasinoTab:AddSubTab("Slot Machines", "Slot Machines")
             SlotMachinesSubTab:AddFeature(eFeature.Money.Casino.Slots.Win)
             SlotMachinesSubTab:AddFeature(eFeature.Money.Casino.Slots.Lose)
-
-            local PokerSubTab = CasinoTab:AddSubTab("Poker", "Poker")
-            PokerSubTab:AddFeature(eFeature.Money.Casino.Poker.MyCards)
-            PokerSubTab:AddFeature(eFeature.Money.Casino.Poker.Cards)
-            PokerSubTab:AddFeature(eFeature.Money.Casino.Poker.Reveal)
-            PokerSubTab:AddFeature(eFeature.Money.Casino.Poker.Give)
-            PokerSubTab:AddFeature(eFeature.Money.Casino.Poker.Trick)
 
             local RouletteSubTab = CasinoTab:AddSubTab("Roulette", "Roulette")
             RouletteSubTab:AddFeature(eFeature.Money.Casino.Roulette.Land13)

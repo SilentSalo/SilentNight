@@ -18,59 +18,6 @@ FeatureMgr.AddFeature(eFeature.Money.Casino.Roulette.Land13)
 
 FeatureMgr.AddFeature(eFeature.Money.Casino.Roulette.Land16)
 
-FeatureMgr.AddFeature(eFeature.Money.Casino.Blackjack.Card)
-
-FeatureMgr.AddFeature(eFeature.Money.Casino.Blackjack.Reveal, function(f)
-    if GTA.IsScriptRunning(eScript.World.Casino.Blackjack) then
-        if eLocal.World.Casino.Blackjack.CurrentTable:Get() ~= -1 then
-            local dealersCard = eLocal.World.Casino.Blackjack.Dealer.FirstCard:Get()
-            FeatureMgr.GetFeature(eFeature.Money.Casino.Blackjack.Card):SetStringValue(Helper.GetCardName(dealersCard))
-        else
-            FeatureMgr.GetFeature(eFeature.Money.Casino.Blackjack.Card):SetStringValue("Not at a table!")
-        end
-    else
-        FeatureMgr.GetFeature(eFeature.Money.Casino.Blackjack.Card):SetStringValue("Not in Casino!")
-    end
-    eFeature.Money.Casino.Blackjack.Reveal.func()
-end)
-
-FeatureMgr.AddFeature(eFeature.Money.Casino.Blackjack.Trick, function(f)
-    eFeature.Money.Casino.Blackjack.Trick.func()
-    FeatureMgr.GetFeature(eFeature.Money.Casino.Blackjack.Reveal):OnClick()
-end)
-
-FeatureMgr.AddFeature(eFeature.Money.Casino.Poker.MyCards)
-
-FeatureMgr.AddFeature(eFeature.Money.Casino.Poker.Cards)
-
-FeatureMgr.AddFeature(eFeature.Money.Casino.Poker.Reveal, function(f)
-    if GTA.IsScriptRunning(eScript.World.Casino.Poker) then
-        if eLocal.World.Casino.Poker.CurrentTable:Get() ~= -1 then
-            local myCards      = Helper.GetPokerCards(PLAYER_ID)
-            local dealersCards = Helper.GetPokerCards(Helper.GetPokerPlayersCount() + 1)
-            FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.MyCards):SetStringValue(myCards)
-            FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.Cards):SetStringValue(dealersCards)
-        else
-            FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.MyCards):SetStringValue("Not at a table!")
-            FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.Cards):SetStringValue("Not at a table!")
-        end
-    else
-        FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.MyCards):SetStringValue("Not in Casino!")
-        FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.Cards):SetStringValue("Not in Casino!")
-    end
-    eFeature.Money.Casino.Poker.Reveal.func()
-end)
-
-FeatureMgr.AddFeature(eFeature.Money.Casino.Poker.Give, function(f)
-    eFeature.Money.Casino.Poker.Give.func()
-    FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.Reveal):OnClick()
-end)
-
-FeatureMgr.AddFeature(eFeature.Money.Casino.Poker.Trick, function(f)
-    eFeature.Money.Casino.Poker.Trick.func()
-    FeatureMgr.GetFeature(eFeature.Money.Casino.Poker.Reveal):OnClick()
-end)
-
 FeatureMgr.AddLoop(eFeature.Money.Casino.Misc.Bypass, nil, function(f)
     eFeature.Money.Casino.Misc.Bypass.func(f)
 end)

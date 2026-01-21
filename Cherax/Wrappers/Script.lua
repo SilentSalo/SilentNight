@@ -107,9 +107,9 @@ function Script.ReAssign()
 
         eLocal.World.Casino.Blackjack = {
             Dealer = {
-                FirstCard  = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
-                SecondCard = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
-                ThirdCard  = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
+                FirstCard  = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1, script = "blackjack" },
+                SecondCard = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2, script = "blackjack" },
+                ThirdCard  = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3, script = "blackjack" }
             },
 
             CurrentTable = { type = "int", vLocal = 1800 + 1 + (PLAYER_ID * 8) + 4,                                                                 script = "blackjack" },
