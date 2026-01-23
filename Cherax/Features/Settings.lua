@@ -20,6 +20,8 @@ delayKeys = {
 
 FeatureMgr.AddFeature(eFeature.Settings.Config.Open):Toggle(CONFIG.autoopen)
 
+FeatureMgr.AddFeature(eFeature.Settings.Config.Compatibility):Toggle(CONFIG.compatibility_mode)
+
 FeatureMgr.AddFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logging)
 
 FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
@@ -27,6 +29,7 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
 
     FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Acknowledge):Toggle(CONFIG.easy_money.acknowledge)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Open):Toggle(CONFIG.autoopen)
+    FeatureMgr.GetFeature(eFeature.Settings.Config.Compatibility):Toggle(CONFIG.compatibility_mode)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logging)
     FeatureMgr.GetFeature(eFeature.Settings.Translation.File):SetListIndex(0)
     FeatureMgr.GetFeature(eFeature.Settings.Collab.JinxScript.Toggle):Toggle(CONFIG.collab.jinxscript.enabled)

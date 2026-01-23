@@ -8,6 +8,8 @@ local eventProtectionEnabled = false
 
 function EventMgr.OnPresent()
     onPresentEventId = EventMgr.RegisterHandler(eLuaEvent.ON_PRESENT, function()
+        if not CONFIG.compatibility_mode then return end
+
         if not FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.ProtectionWhitelist):IsListIndexToggled(0) then
             friendsWhitelisted = false
         end
@@ -28,12 +30,6 @@ end
 
 function EventMgr.OnUnload()
     onUnloadEventId = EventMgr.RegisterHandler(eLuaEvent.ON_UNLOAD, function()
-        EventMgr.RemoveHandler(onPresentEventId)
-        FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.ProtectionWhitelist):ToggleListIndex(0, friendsWhitelisted)
-        FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.ProtectionWhitelist):ToggleListIndex(1, teamWhitelisted)
-        FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.EventProtection):Toggle(eventProtectionEnabled)
-        SilentLogger.LogInfo(F("%s has unloaded ツ", SCRIPT_NAME))
-
         local rootTab = ListGUI.GetRootTab()
         if not rootTab then return end
 
@@ -41,6 +37,15 @@ function EventMgr.OnUnload()
         if not scriptTab then return end
 
         rootTab:RemoveSubTab(scriptTab)
+
+        EventMgr.RemoveHandler(onPresentEventId)
+        SilentLogger.LogInfo(F("%s has unloaded ツ", SCRIPT_NAME))
+
+        if CONFIG.compatibility_mode then
+            FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.ProtectionWhitelist):ToggleListIndex(0, friendsWhitelisted)
+            FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.ProtectionWhitelist):ToggleListIndex(1, teamWhitelisted)
+            FeatureMgr.GetFeatureByHash(eTable.Cherax.Features.EventProtection):Toggle(eventProtectionEnabled)
+        end
     end)
 end
 

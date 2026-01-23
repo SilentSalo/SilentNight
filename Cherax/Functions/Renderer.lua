@@ -1122,6 +1122,9 @@ function Renderer.RenderSettings()
 
                     if ClickGUI.BeginCustomChildWindow("Configuration") then
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Open)
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.GREEN)
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Compatibility)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Logging)
                         ImGui.PushButtonStyle(eBtnStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Reset)
@@ -1146,6 +1149,8 @@ function Renderer.RenderSettings()
                         ClickGUI.EndCustomChildWindow()
                     end
 
+                    ImGui.TableNextColumn()
+
                     if ClickGUI.BeginCustomChildWindow("Collabs") then
                         ClickGUI.RenderFeature(eFeature.Settings.Collab.JinxScript.Toggle)
                         ImGui.SameLine()
@@ -1155,8 +1160,6 @@ function Renderer.RenderSettings()
                         ClickGUI.RenderFeature(eFeature.Settings.Collab.JinxScript.Stop)
                         ClickGUI.EndCustomChildWindow()
                     end
-
-                    ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Instant Finish") then
                         ClickGUI.RenderFeature(eFeature.Settings.InstantFinish.Agency)
@@ -1174,14 +1177,6 @@ function Renderer.RenderSettings()
                         ClickGUI.EndCustomChildWindow()
                     end
 
-                    if ClickGUI.BeginCustomChildWindow("Register As Boss") then
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
-                        ClickGUI.RenderFeature(eFeature.Settings.RegisterAsBoss.AutoRegister)
-                        ImGui.ResetFrameBgStyle()
-                        ClickGUI.RenderFeature(eFeature.Settings.RegisterAsBoss.Type)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Easy Money") then
@@ -1196,6 +1191,14 @@ function Renderer.RenderSettings()
                         ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._180k)
                         ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._300k)
                         ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._680k)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    if ClickGUI.BeginCustomChildWindow("Register As Boss") then
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
+                        ClickGUI.RenderFeature(eFeature.Settings.RegisterAsBoss.AutoRegister)
+                        ImGui.ResetFrameBgStyle()
+                        ClickGUI.RenderFeature(eFeature.Settings.RegisterAsBoss.Type)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -1832,6 +1835,7 @@ function Renderer.RenderListGUI()
 
         local ConfigSubTab = SettingsTab:AddSubTab("Configuration", "Configuration")
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Open)
+        ConfigSubTab:AddFeature(eFeature.Settings.Config.Compatibility)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Logging)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Reset)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Copy)
@@ -1861,10 +1865,6 @@ function Renderer.RenderListGUI()
         UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
         UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
 
-        local RegisterAsBossSubTab = SettingsTab:AddSubTab("Register As Boss", "Register As Boss")
-        RegisterAsBossSubTab:AddFeature(eFeature.Settings.RegisterAsBoss.AutoRegister)
-        RegisterAsBossSubTab:AddFeature(eFeature.Settings.RegisterAsBoss.Type)
-
         local EasyMoneySubTab = SettingsTab:AddSubTab("Easy Money", "Easy Money")
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.AutoDeposit)
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Allow300k)
@@ -1875,6 +1875,10 @@ function Renderer.RenderListGUI()
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._180k)
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._680k)
         EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._300k)
+
+        local RegisterAsBossSubTab = SettingsTab:AddSubTab("Register As Boss", "Register As Boss")
+        RegisterAsBossSubTab:AddFeature(eFeature.Settings.RegisterAsBoss.AutoRegister)
+        RegisterAsBossSubTab:AddFeature(eFeature.Settings.RegisterAsBoss.Type)
     end
 end
 

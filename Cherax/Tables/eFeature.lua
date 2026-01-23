@@ -6086,7 +6086,7 @@ eFeature = {
                 hash = J("SN_Settings_CAutoOpen"),
                 name = "Auto-Open Lua Tab",
                 type = eFeatureType.Toggle,
-                desc = "Automatically opens Lua Tab upon running the script.",
+                desc = "Automatically opens Lua Tab upon loading the script.",
                 func = function(ftr)
                     CONFIG.autoopen = ftr:IsToggled()
                     FileMgr.SaveConfig(CONFIG)
@@ -6098,6 +6098,25 @@ eFeature = {
                     end
 
                     SilentLogger.LogInfo(F("[Auto-Open Lua Tab (Settings)] Auto-Open should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            },
+
+            Compatibility = {
+                hash = J("SN_Settings_CCompatibility"),
+                name = "Compatibility Mode",
+                type = eFeatureType.Toggle,
+                desc = "RECOMMENDED: it's better to leave this enabled.\nAutomatically adjusts certain Cherax features to prevent issues when playing missions while the script is running and restores them upon script unload.",
+                func = function(ftr)
+                    CONFIG.compatibility_mode = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedCompatibility then
+                        loggedCompatibility = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Compatibility Mode (Settings)] Compatibility Mode should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                 end
             },
 
@@ -6123,16 +6142,17 @@ eFeature = {
                 type = eFeatureType.Button,
                 desc = "ATTENTION: cannot be undone.\nResets the config to default.",
                 func = function()
-                    loggedAcknowledgment  = CONFIG.easy_money.acknowledge
-                    loggedAutoOpen        = CONFIG.autoopen
-                    loggedJinxScript      = CONFIG.collab.jinxscript.enabled
-                    loggedJinxScriptStop  = CONFIG.collab.jinxscript.autostop
-                    loggedUCayoPerico     = CONFIG.unlock_all_poi.cayo_perico
-                    loggedUDiamondCasino  = CONFIG.unlock_all_poi.diamond_casino
-                    loggedAutoRegister    = CONFIG.register_as_boss.autoregister
-                    loggedAutoDeposit     = CONFIG.easy_money.autodeposit
-                    loggedDummyPrevention = CONFIG.easy_money.dummy_prevention
-                    loggedAllow300kLoop   = CONFIG.easy_money.allow_300k_loop
+                    loggedAcknowledgment    = CONFIG.easy_money.acknowledge
+                    loggedAutoOpen          = CONFIG.autoopen
+                    loggedCompatibility     = CONFIG.compatibility_mode
+                    loggedJinxScript        = CONFIG.collab.jinxscript.enabled
+                    loggedJinxScriptStop    = CONFIG.collab.jinxscript.autostop
+                    loggedUCayoPerico       = CONFIG.unlock_all_poi.cayo_perico
+                    loggedUDiamondCasino    = CONFIG.unlock_all_poi.diamond_casino
+                    loggedAutoRegister      = CONFIG.register_as_boss.autoregister
+                    loggedAutoDeposit       = CONFIG.easy_money.autodeposit
+                    loggedDummyPrevention   = CONFIG.easy_money.dummy_prevention
+                    loggedAllow300kLoop     = CONFIG.easy_money.allow_300k_loop
                     FileMgr.ResetConfig()
                     CONFIG = Json.DecodeFromFile(CONFIG_PATH)
                     SilentLogger.LogInfo("[Reset (Settings)] Config should've been reset to default ツ")
@@ -6474,48 +6494,6 @@ eFeature = {
             }
         },
 
-        RegisterAsBoss = {
-            AutoRegister = {
-                hash = J("SN_Settings_RAutoRegister"),
-                name = "Auto-Register",
-                type = eFeatureType.Toggle,
-                desc = "ATTENTION: might cause issues during missions.\nAutomatically tries to register you as a boss while the script is running.",
-                func = function(ftr)
-                    CONFIG.register_as_boss.autoregister = ftr:IsToggled()
-                    FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
-
-                    if loggedAutoRegister then
-                        loggedAutoRegister = false
-                        return
-                    end
-
-                    SilentLogger.LogInfo(F("[Auto-Register (Settings)] Auto-Register should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
-                end
-            },
-
-            Type = {
-                hash = J("SN_Settings_RType"),
-                name = "Type",
-                type = eFeatureType.Combo,
-                desc = "Select the desired organization type.",
-                list = eTable.Settings.OrgTypes,
-                func = function(ftr)
-                    CONFIG.register_as_boss.type = ftr:GetListIndex()
-                    FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
-
-                    if CONFIG.register_as_boss.autoregister then
-                        eGlobal.Player.Organization.CEO:Set(-1)
-                    end
-
-                    local list  = eTable.Settings.OrgTypes
-                    local index = list[ftr:GetListIndex() + 1].index
-                    SilentLogger.LogInfo(F("[Type (Settings)] Selected organization type: %s ツ", list:GetName(index)))
-                end
-            }
-        },
-
         EasyMoney = {
             AutoDeposit = {
                 hash = J("SN_Settings_AutoDeposit"),
@@ -6540,7 +6518,7 @@ eFeature = {
                 hash = J("SN_Settings_Prevention"),
                 name = "Dummy Prevention",
                 type = eFeatureType.Toggle,
-                desc = "RECOMMENDED: don't disable.\nPrevents enabling multiple «Easy Money» loops simultaneously.",
+                desc = "RECOMMENDED: it's better to leave this enabled.\nPrevents enabling multiple «Easy Money» loops simultaneously.",
                 func = function(ftr)
                     CONFIG.easy_money.dummy_prevention = ftr:IsToggled()
                     FileMgr.SaveConfig(CONFIG)
@@ -6658,6 +6636,48 @@ eFeature = {
                         SilentLogger.LogInfo("[680k Loop (Settings)] Delay should've been changed ツ")
                     end
                 }
+            }
+        },
+
+        RegisterAsBoss = {
+            AutoRegister = {
+                hash = J("SN_Settings_RAutoRegister"),
+                name = "Auto-Register",
+                type = eFeatureType.Toggle,
+                desc = "ATTENTION: might cause issues during missions.\nAutomatically tries to register you as a boss while the script is running.",
+                func = function(ftr)
+                    CONFIG.register_as_boss.autoregister = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedAutoRegister then
+                        loggedAutoRegister = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Auto-Register (Settings)] Auto-Register should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            },
+
+            Type = {
+                hash = J("SN_Settings_RType"),
+                name = "Type",
+                type = eFeatureType.Combo,
+                desc = "Select the desired organization type.",
+                list = eTable.Settings.OrgTypes,
+                func = function(ftr)
+                    CONFIG.register_as_boss.type = ftr:GetListIndex()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if CONFIG.register_as_boss.autoregister then
+                        eGlobal.Player.Organization.CEO:Set(-1)
+                    end
+
+                    local list  = eTable.Settings.OrgTypes
+                    local index = list[ftr:GetListIndex() + 1].index
+                    SilentLogger.LogInfo(F("[Type (Settings)] Selected organization type: %s ツ", list:GetName(index)))
+                end
             }
         }
     }

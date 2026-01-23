@@ -1,9 +1,10 @@
 --#region FileMgr
 
 DEFAULT_CONFIG = {
-    autoopen = false,
-    logging  = 2,
-    language = "EN",
+    autoopen           = false,
+    compatibility_mode = true,
+    logging            = 2,
+    language           = "EN",
 
     collab = {
         jinxscript = {
@@ -196,6 +197,7 @@ FileMgr.EnsureConfigKeys()
 
 loggedAcknowledgment  = CONFIG.easy_money.acknowledge
 loggedAutoOpen        = CONFIG.autoopen
+loggedCompatibility   = CONFIG.compatibility_mode
 loggedJinxScript      = CONFIG.collab.jinxscript.enabled
 loggedJinxScriptStop  = CONFIG.collab.jinxscript.autostop
 loggedUCayoPerico     = CONFIG.unlock_all_poi.cayo_perico
