@@ -620,15 +620,16 @@ eTable = {
 
     Cherax = {
         Features = {
-            ForceScriptHost   = 1181010276,
-            SessionType       = 603923874,
-            StartSession      = 3364415752,
-            BailFromSession   = 3768410355,
-            LogTransactions   = 925637617,
-            SubscribedScripts = 3331055146,
-            RunScript         = 2423908032,
-            StopScript        = 2425713991,
-            EventProtection   = 2022901605
+            ForceScriptHost     = 1181010276,
+            SessionType         = 603923874,
+            StartSession        = 3364415752,
+            BailFromSession     = 3768410355,
+            LogTransactions     = 925637617,
+            SubscribedScripts   = 3331055146,
+            RunScript           = 2423908032,
+            StopScript          = 2425713991,
+            EventProtection     = 2022901605,
+            ProtectionWhitelist = 445959715
         }
     },
 
