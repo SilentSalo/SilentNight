@@ -333,7 +333,7 @@ eFeature = {
                         hash = J("SN_Apartment_Teleport"),
                         name = "Teleport to Entrance",
                         type = eFeatureType.Button,
-                        desc = "Teleports you to the closest Apartment's entrance.",
+                        desc = "Teleports you to the the Apartment's entrance.",
                         func = function()
                             GTA.TeleportToBlip(eTable.BlipSprites.Apartment)
                             SilentLogger.LogInfo("[Teleport to Entrance (Apartment)] You should've been teleported to the entrance ツ")

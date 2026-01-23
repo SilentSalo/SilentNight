@@ -63,7 +63,21 @@ end
 
 function Script.OpenLuaTab()
     if CONFIG.autoopen then
-        ClickGUI.SetActiveMenuTab(ClickTab.LuaTab)
+        Script.QueueJob(function()
+            if GUI.GetMode() == eGuiMode.ClickGUI then
+                ClickGUI.SetActiveMenuTab(ClickTab.LuaTab)
+            else
+                local scriptTabName = F("%s v%s %s", SCRIPT_NAME, SCRIPT_VER, GTA_EDITION)
+                local scriptTab     = ListGUI.GetRootTab():GetSubTab(scriptTabName)
+
+                while not scriptTab do
+                    Script.Yield()
+                    scriptTab = ListGUI.GetRootTab():GetSubTab(scriptTabName)
+                end
+
+                ListGUI.SetCurrentTab(scriptTab)
+            end
+        end)
     end
 end
 
