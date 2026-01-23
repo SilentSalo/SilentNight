@@ -118,11 +118,19 @@ function Helper.SetDiamondMaxPayout()
 
     FeatureMgr.GetFeature(diamondPlayers.Cuts[1]):SetIntValue(cut)
 
+    if FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Launch.Solo) then return end
+
     local gunman    = eStat.MPX_H3OPT_CREWWEAP:Get()
     local driver    = eStat.MPX_H3OPT_CREWDRIVER:Get()
     local hacker    = eStat.MPX_H3OPT_CREWHACKER:Get()
-    local buyerFee  = 0.1
+    local buyer     = eGlobal.Heist.DiamondCasino.Board.Buyer:Get()
     local lesterCut = 0.05
+
+    local buyerFees = {
+        [0] = 0.1,
+        [3] = 0.05,
+        [6] = 0.0
+    }
 
     local gunmanCuts = {
         [1] = 0.05,
@@ -148,11 +156,12 @@ function Helper.SetDiamondMaxPayout()
         [4] = 0.1
     }
 
+    if buyerFees[buyer] == nil then return end
     if gunmanCuts[gunman] == nil then return end
     if driverCuts[driver] == nil then return end
     if hackerCuts[hacker] == nil then return end
 
-    local feePayout    = payout - (payout * buyerFee)
+    local feePayout    = payout - (payout * buyerFees[buyer])
     local lesterPayout = feePayout * lesterCut
     local gunmanPayout = feePayout * gunmanCuts[gunman]
     local driverPayout = feePayout * driverCuts[driver]
@@ -306,85 +315,6 @@ function Helper.RefreshFiles()
         :SetList(eFeature.Dev.Editor.Stats.File.list:GetNames())
         :SetDesc("Select the desired stat file.")
         :SetListIndex(0)
-end
-
-function Helper.GetCardName(index)
-	if index == 0 then
-		return "Rolling..."
-	end
-
-	local number = math.fmod(index, 13)
-	local name   = ""
-	local suit   = ""
-
-	if number == 1 then
-		name = "A"
-	elseif number == 0 then
-		name = "K"
-	elseif number == 12 then
-		name = "Q"
-	elseif number == 11 then
-		name = "J"
-	else
-		name = S(number)
-	end
-
-	if index >= 1 and index <= 13 then
-		suit = "Clubs"
-	elseif index >= 14 and index <= 26 then
-		suit = "Diam."
-	elseif index >= 27 and index <= 39 then
-		suit = "Hearts"
-	elseif index >= 40 and index <= 52 then
-		suit = "Spades"
-	end
-
-	return name .. " " .. suit
-end
-
-function Helper.GetPokerPlayersCount()
-    local currentTable = eLocal.World.Casino.Poker.CurrentTable:Get()
-    local table        = eLocal.World.Casino.Poker.Table.vLocal
-    local tableSize    = eLocal.World.Casino.Poker.TableSize.vLocal
-    local players      = 0
-
-	for i = 0, 31 do
-		local playersTable = ScriptLocal.GetInt(eScript.World.Casino.Poker.hash, table + 1 + (i * tableSize) + 2)
-
-		if PLAYER_ID ~= i and playersTable == currentTable then
-			players = players + 1
-		end
-	end
-
-    return players
-end
-
-function Helper.GetPokerCards(id)
-    local currentTable  = eLocal.World.Casino.Poker.CurrentTable:Get()
-    local cards         = eLocal.World.Casino.Poker.Cards.vLocal
-    local currentDeck   = eLocal.World.Casino.Poker.CurrentDeck.vLocal
-    local antiCheat     = eLocal.World.Casino.Poker.AntiCheat.vLocal
-    local antiCheatDeck = eLocal.World.Casino.Poker.AntiCheatDeck.vLocal
-    local deckSize      = eLocal.World.Casino.Poker.DeckSize.vLocal
-    local card1         = ScriptLocal.GetInt(eScript.World.Casino.Poker.hash, cards + currentDeck + 1 + (currentTable * deckSize) + 2 + 1 + (id * 3))
-	local card2         = ScriptLocal.GetInt(eScript.World.Casino.Poker.hash, cards + currentDeck + 1 + (currentTable * deckSize) + 2 + 2 + (id * 3))
-	local card3         = ScriptLocal.GetInt(eScript.World.Casino.Poker.hash, cards + currentDeck + 1 + (currentTable * deckSize) + 2 + 3 + (id * 3))
-    return Helper.GetCardName(card1) .. ", " .. Helper.GetCardName(card2) .. ", " .. Helper.GetCardName(card3)
-end
-
-function Helper.SetPokerCards(id, card1, card2, card3)
-    local currentTable  = eLocal.World.Casino.Poker.CurrentTable:Get()
-    local cards         = eLocal.World.Casino.Poker.Cards.vLocal
-    local currentDeck   = eLocal.World.Casino.Poker.CurrentDeck.vLocal
-    local antiCheat     = eLocal.World.Casino.Poker.AntiCheat.vLocal
-    local antiCheatDeck = eLocal.World.Casino.Poker.AntiCheatDeck.vLocal
-    local deckSize      = eLocal.World.Casino.Poker.DeckSize.vLocal
-	ScriptLocal.SetInt(eScript.World.Casino.Poker.hash, cards + currentDeck + 1 + (currentTable * deckSize) + 2 + 1 + (id * 3), card1)
-	ScriptLocal.SetInt(eScript.World.Casino.Poker.hash, cards + currentDeck + 1 + (currentTable * deckSize) + 2 + 2 + (id * 3), card2)
-	ScriptLocal.SetInt(eScript.World.Casino.Poker.hash, cards + currentDeck + 1 + (currentTable * deckSize) + 2 + 3 + (id * 3), card3)
-	ScriptLocal.SetInt(eScript.World.Casino.Poker.hash, antiCheat + antiCheatDeck + 1 + 1 + (currentTable * deckSize) + 1 + (id * 3), card1)
-	ScriptLocal.SetInt(eScript.World.Casino.Poker.hash, antiCheat + antiCheatDeck + 1 + 1 + (currentTable * deckSize) + 2 + (id * 3), card2)
-	ScriptLocal.SetInt(eScript.World.Casino.Poker.hash, antiCheat + antiCheatDeck + 1 + 1 + (currentTable * deckSize) + 3 + (id * 3), card3)
 end
 
 function Helper.IsPropertyOwned(property)

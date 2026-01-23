@@ -1682,7 +1682,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Difficulty"),
                     name = "Difficulty",
                     type = eFeatureType.Combo,
-                    desc = "ATTENTION: unstable when paired with «Solo Launch».\nSelect the desired difficulty.",
+                    desc = "Select the desired difficulty.",
                     list = eTable.Heist.DiamondCasino.Difficulties,
                     func = function(ftr)
                         local list  = eTable.Heist.DiamondCasino.Difficulties
@@ -1962,6 +1962,7 @@ eFeature = {
                                     eGlobal.Heist.DiamondCasino.Data.Bitset:Set(2047)
                                     eGlobal.Heist.DiamondCasino.Data.Gear:Set(true)
                                     eGlobal.Heist.DiamondCasino.Data.HardMode:Set(eStat.MPX_H3OPT_APPROACH:Get() == eStat.MPX_H3_HARD_APPROACH:Get())
+                                    eGlobal.Heist.Generic.Difficulty:Set(eGlobal.Heist.DiamondCasino.Data.HardMode:Get() and 2 or 1)
                                 end
                             end
 
@@ -2199,7 +2200,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "ATTENTION: if not solo, «3.6mil Payout» works only if you've set the «Buyer» as «Low Level».\nSelect one of the ready-made presets.",
+                    desc = "Select one of the ready-made presets.",
                     list = eTable.Heist.DiamondCasino.Presets,
                     func = function()
                         Helper.SetDiamondMaxPayout()
@@ -2311,7 +2312,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Apply"),
                     name = "Apply Cuts",
                     type = eFeatureType.Button,
-                    desc = "ATTENTION: if solo, apply near the planning board.\nApplies the selected cuts for players.",
+                    desc = "ATTENTION: if solo, apply near the planning board. If not solo, apply after you've selected Buyer.\nApplies the selected cuts for players.",
                     func = function(cuts)
                         for i = 1, 4 do
                             eGlobal.Heist.DiamondCasino.Cut[F("Player%d", i)]:Set(cuts[i])

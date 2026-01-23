@@ -84,6 +84,10 @@ if GTA_EDITION == "EE" then
                     Player4 = { type = "int", global = 1977594 + 1 + (3 * 68) + 7 + 4 }
                 },
 
+                Board = {
+                    Buyer = { type = "int", global = 1973231 + 1497 + 1019 },
+                },
+
                 Data = {
                     Target   = { type = "int",  global = 1973197 + 1  },
                     Cameras  = { type = "bool", global = 1973197 + 2  },
@@ -272,6 +276,10 @@ else
                     Player2 = { type = "int", global = 1976315 + 1 + (1 * 68) + 7 + 2 },
                     Player3 = { type = "int", global = 1976315 + 1 + (2 * 68) + 7 + 3 },
                     Player4 = { type = "int", global = 1976315 + 1 + (3 * 68) + 7 + 4 }
+                },
+
+                Board = {
+                    Buyer = { type = "int", global = 1971952 + 1497 + 1019 },
                 },
 
                 Data = {
