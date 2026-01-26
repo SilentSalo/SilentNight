@@ -172,7 +172,9 @@ if GTA_EDITION == "EE" then
             Organization = {
                 CEO  = { type = "int", global = 1892798 + 1 + (PLAYER_ID * 615) + 10       },
                 Type = { type = "int", global = 1892798 + 1 + (PLAYER_ID * 615) + 10 + 433 }
-            }
+            },
+
+            RP = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 198 + 1 }
         },
 
         Session = {
@@ -364,7 +366,9 @@ else
             Organization = {
                 CEO  = { type = "int", global = 1892653 + 1 + (PLAYER_ID * 615) + 10       },
                 Type = { type = "int", global = 1892653 + 1 + (PLAYER_ID * 615) + 10 + 433 }
-            }
+            },
+
+            RP = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 198 + 1 }
         },
 
         Session = {

@@ -27,13 +27,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Read, function(f)
 
     if globalString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read global. Global is empty ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read global. Global is empty ツ")
         return
     end
 
     if not globalString:match("^[%d%s%+%-*/%%%(%)]+$") or globalString:match("%d+%s+%d+") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read global. Global is invalid ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read global. Global is invalid ツ")
         return
     end
 
@@ -41,7 +41,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Read, function(f)
 
     if not global then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read global. Global is invalid ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read global. Global is invalid ツ")
         return
     end
 
@@ -64,13 +64,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Write, function(f)
 
     if globalString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("")
-        SilentLogger.LogError("[Write (Dev Tool)] Failed to write global. Global is empty ツ")
+        SilentLogger.LogError("[Write (Editor)] Failed to write global. Global is empty ツ")
         return
     end
 
     if not globalString:match("^[%d%s%+%-*/%%%(%)]+$") or globalString:match("%d+%s+%d+") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Write (Dev Tool)] Failed to write global. Global is invalid ツ")
+        SilentLogger.LogError("[Write (Editor)] Failed to write global. Global is invalid ツ")
         return
     end
 
@@ -78,7 +78,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Write, function(f)
 
     if not global then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Write (Dev Tool)] Failed to write global. Global is invalid ツ")
+        SilentLogger.LogError("[Write (Editor)] Failed to write global. Global is invalid ツ")
         return
     end
 
@@ -112,13 +112,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Revert, function(f)
 
     if globalString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert global. Global is empty ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert global. Global is empty ツ")
         return
     end
 
     if not globalString:match("^[%d%s%+%-*/%%%(%)]+$") or globalString:match("%d+%s+%d+") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert global. Global is invalid ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert global. Global is invalid ツ")
         return
     end
 
@@ -126,7 +126,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Globals.Revert, function(f)
 
     if not global then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Globals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert global. Global is invalid ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert global. Global is invalid ツ")
         return
     end
 
@@ -173,13 +173,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Read, function(f)
 
     if scriptString == "" or localString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read local. Script or local is empty ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read local. Script or local is empty ツ")
         return
     end
 
     if not scriptString:match("^[A-Za-z_]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") or localString:match("%d+%s+%d+") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read local. Script or local is invalid ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read local. Script or local is invalid ツ")
         return
     end
 
@@ -187,7 +187,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Read, function(f)
 
     if not vLocal then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read local. Local is invalid ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read local. Local is invalid ツ")
         return
     end
 
@@ -211,13 +211,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Write, function(f)
 
     if scriptString == "" or localString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("")
-        SilentLogger.LogError("[Write (Dev Tool)] Failed to write local. Script or local is empty ツ")
+        SilentLogger.LogError("[Write (Editor)] Failed to write local. Script or local is empty ツ")
         return
     end
 
     if not scriptString:match("^[A-Za-z_]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Write (Dev Tool)] Failed to write local. Script or local is invalid ツ")
+        SilentLogger.LogError("[Write (Editor)] Failed to write local. Script or local is invalid ツ")
         return
     end
 
@@ -225,7 +225,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Write, function(f)
 
     if not vLocal then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Write (Dev Tool)] Failed to write local. Local is invalid ツ")
+        SilentLogger.LogError("[Write (Editor)] Failed to write local. Local is invalid ツ")
         return
     end
 
@@ -249,13 +249,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Revert, function(f)
 
     if scriptString == "" or localString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert local. Script or local is empty ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert local. Script or local is empty ツ")
         return
     end
 
     if not scriptString:match("^[A-Za-z_]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert local. Script or local is invalid ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert local. Script or local is invalid ツ")
         return
     end
 
@@ -263,7 +263,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Revert, function(f)
 
     if not vLocal then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert local. Local is invalid ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert local. Local is invalid ツ")
         return
     end
 
@@ -320,7 +320,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Read, function(f)
 
     if statString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read stat. Stat is empty ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read stat. Stat is empty ツ")
         return
     end
 
@@ -353,7 +353,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Read, function(f)
 
     if not success then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read stat. Stat isn't found ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read stat. Stat isn't found ツ")
         return
     end
 
@@ -370,7 +370,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Write, function(f)
 
     if statString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("")
-        SilentLogger.LogError("[Write (Dev Tool)] Failed to write stat. Stat is empty ツ")
+        SilentLogger.LogError("[Write (Editor)] Failed to write stat. Stat is empty ツ")
         return
     end
 
@@ -415,7 +415,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Write, function(f)
 
     if not success then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Write (Dev Tool)] Failed to write stat. Stat isn't found ツ")
+        SilentLogger.LogError("[Write (Editor)] Failed to write stat. Stat isn't found ツ")
         return
     end
 
@@ -428,7 +428,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Revert, function(f)
 
     if statString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert stat. Stat is empty ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert stat. Stat is empty ツ")
         return
     end
 
@@ -461,7 +461,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Stats.Revert, function(f)
 
     if not success then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Stats.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert stat. Stat isn't found ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert stat. Stat isn't found ツ")
         return
     end
 
@@ -586,13 +586,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Read, function(f)
 
     if packedStatString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read packed stat. Packed stat is empty ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read packed stat. Packed stat is empty ツ")
         return
     end
 
     if not packedStatString:match("^%d+$") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Read (Dev Tool)] Failed to read packed stat. Packed stat is invalid ツ")
+        SilentLogger.LogError("[Read (Editor)] Failed to read packed stat. Packed stat is invalid ツ")
         return
     end
 
@@ -621,13 +621,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Write, function(f)
 
         if packedStatString == "" then
             FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("")
-            SilentLogger.LogError("[Write (Dev Tool)] Failed to write packed stat. Packed stat is empty ツ")
+            SilentLogger.LogError("[Write (Editor)] Failed to write packed stat. Packed stat is empty ツ")
             return
         end
 
         if not packedStatString:match("^%d+$") then
             FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("invalid")
-            SilentLogger.LogError("[Write (Dev Tool)] Failed to write packed stat. Packed stat is invalid ツ")
+            SilentLogger.LogError("[Write (Editor)] Failed to write packed stat. Packed stat is invalid ツ")
             return
         end
 
@@ -637,13 +637,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Write, function(f)
 
         if packedStats == "" then
             FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("")
-            SilentLogger.LogError("[Write (Dev Tool)] Failed to write packed stats. Packed stats range is empty ツ")
+            SilentLogger.LogError("[Write (Editor)] Failed to write packed stats. Packed stats range is empty ツ")
             return
         end
 
         if not packedStats:match("^%d+%-%d+$") then
             FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("invalid")
-            SilentLogger.LogError("[Write (Dev Tool)] Failed to write packed stats. Packed stats range is invalid ツ")
+            SilentLogger.LogError("[Write (Editor)] Failed to write packed stats. Packed stats range is invalid ツ")
             return
         end
 
@@ -681,13 +681,13 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Revert, function(f)
 
     if packedStatString == "" then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert packed stat. Packed stat is empty ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert packed stat. Packed stat is empty ツ")
         return
     end
 
     if not packedStatString:match("^%d+$") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.PackedStats.Value):SetStringValue("invalid")
-        SilentLogger.LogError("[Revert (Dev Tool)] Failed to revert packed stat. Packed stat is invalid ツ")
+        SilentLogger.LogError("[Revert (Editor)] Failed to revert packed stat. Packed stat is invalid ツ")
         return
     end
 
@@ -701,6 +701,29 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.PackedStats.Revert, function(f)
     end
 
     eFeature.Dev.Editor.PackedStats.Revert.func(type, packedStat)
+end)
+
+--#endregion
+
+--#region Stats
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Global.Sync)
+FeatureMgr.AddFeature(eFeature.Dev.Stats.KD.Kills)
+FeatureMgr.AddFeature(eFeature.Dev.Stats.KD.Deaths)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.KD.Apply, function(f)
+    local kills  = FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Kills):GetIntValue()
+    local deaths = FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Deaths):GetIntValue()
+    eFeature.Dev.Stats.KD.Apply.func(kills, deaths)
+end)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Races.Wins)
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Races.Losses)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Races.Apply, function(f)
+    local wins   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Wins):GetIntValue()
+    local losses = FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Losses):GetIntValue()
+    eFeature.Dev.Stats.Races.Apply.func(wins, losses)
 end)
 
 --#endregion

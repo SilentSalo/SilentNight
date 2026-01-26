@@ -5611,7 +5611,7 @@ eFeature = {
                     func = function(ftr)
                         local list  = eTable.Editor.Globals.Types
                         local index = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Type (Globals)] Selected global type: %s ツ", list:GetName(index)))
+                        SilentLogger.LogInfo(F("[Type (Editor)] Selected global type: %s ツ", list:GetName(index)))
                     end
                 },
 
@@ -5635,7 +5635,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Reads the entered global value.",
                     func = function()
-                        SilentLogger.LogInfo("[Read (Dev Tool)] Value should've been read from global ツ")
+                        SilentLogger.LogInfo("[Read (Editor)] Value should've been read from global ツ")
                     end
                 },
 
@@ -5652,7 +5652,7 @@ eFeature = {
                         }
 
                         SetValue[type](global, value)
-                        SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to global ツ")
+                        SilentLogger.LogInfo("[Write (Editor)] Value should've been written to global ツ")
                     end
                 },
 
@@ -5673,7 +5673,7 @@ eFeature = {
                             TEMP_GLOBAL = "TEMP"
                         end
 
-                        SilentLogger.LogInfo("[Revert (Dev Tool)] Value should've been reverted to global ツ")
+                        SilentLogger.LogInfo("[Revert (Editor)] Value should've been reverted to global ツ")
                     end
                 }
             },
@@ -5688,7 +5688,7 @@ eFeature = {
                     func = function(ftr)
                         local list  = eTable.Editor.Locals.Types
                         local index = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Type (Locals)] Selected local type: %s ツ", list:GetName(index)))
+                        SilentLogger.LogInfo(F("[Type (Editor)] Selected local type: %s ツ", list:GetName(index)))
                     end
                 },
 
@@ -5719,7 +5719,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Reads the entered local value.",
                     func = function()
-                        SilentLogger.LogInfo("[Read (Dev Tool)] Value should've been read from local ツ")
+                        SilentLogger.LogInfo("[Read (Editor)] Value should've been read from local ツ")
                     end
                 },
 
@@ -5735,7 +5735,7 @@ eFeature = {
                         }
 
                         SetValue[type](hash, vLocal, value)
-                        SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to local ツ")
+                        SilentLogger.LogInfo("[Write (Editor)] Value should've been written to local ツ")
                     end
                 },
 
@@ -5755,7 +5755,7 @@ eFeature = {
                             TEMP_LOCAL = "TEMP"
                         end
 
-                        SilentLogger.LogInfo("[Revert (Dev Tool)] Value should've been reverted to local ツ")
+                        SilentLogger.LogInfo("[Revert (Editor)] Value should've been reverted to local ツ")
                     end
                 }
             },
@@ -5767,7 +5767,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Allows to write the stats from the file.",
                     func = function(ftr)
-                        SilentLogger.LogInfo(F("[From File (Dev Tool)] Stats from file should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        SilentLogger.LogInfo(F("[From File (Editor)] Stats from file should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                     end
                 },
 
@@ -5780,7 +5780,7 @@ eFeature = {
                     func = function(ftr)
                         local list  = eTable.Editor.Stats.Types
                         local index = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Type (Stats)] Selected stat type: %s ツ", list:GetName(index)))
+                        SilentLogger.LogInfo(F("[Type (Editor)] Selected stat type: %s ツ", list:GetName(index)))
                     end
                 },
 
@@ -5804,7 +5804,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Reads the entered stat value.",
                     func = function()
-                        SilentLogger.LogInfo("[Read (Dev Tool)] Value should've been read from stat ツ")
+                        SilentLogger.LogInfo("[Read (Editor)] Value should've been read from stat ツ")
                     end
                 },
 
@@ -5839,7 +5839,7 @@ eFeature = {
                             SetValue[type](hash, value)
                         end
 
-                        SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to stat ツ")
+                        SilentLogger.LogInfo("[Write (Editor)] Value should've been written to stat ツ")
                     end
                 },
 
@@ -5861,7 +5861,7 @@ eFeature = {
                             TEMP_STAT = "TEMP"
                         end
 
-                        SilentLogger.LogInfo("[Revert (Dev Tool)] Value should've been reverted to stat ツ")
+                        SilentLogger.LogInfo("[Revert (Editor)] Value should've been reverted to stat ツ")
                     end
                 },
 
@@ -5874,7 +5874,7 @@ eFeature = {
                     func = function(ftr)
                         local list  = eTable.Editor.Stats.Files
                         local index = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[File (Dev Tool)] Selected stats file: %s ツ", (list:GetName(index) == "") and "Empty" or list:GetName(index)))
+                        SilentLogger.LogInfo(F("[File (Editor)] Selected stats file: %s ツ", (list:GetName(index) == "") and "Empty" or list:GetName(index)))
                     end
                 },
 
@@ -5919,11 +5919,11 @@ eFeature = {
                                 end
                             end
 
-                            SilentLogger.LogInfo(F("[Write All (Dev Tool)] Stats from «%s» file should've been written ツ", file))
+                            SilentLogger.LogInfo(F("[Write All (Editor)] Stats from «%s» file should've been written ツ", file))
                             return
                         end
 
-                        SilentLogger.LogError(F("[Write All (Dev Tool)] Stats file «%s» doesn't exist ツ", (file == "") and "Empty" or file))
+                        SilentLogger.LogError(F("[Write All (Editor)] Stats file «%s» doesn't exist ツ", (file == "") and "Empty" or file))
                     end
                 },
 
@@ -5938,11 +5938,11 @@ eFeature = {
                         if FileMgr.DoesFileExist(path) then
                             FileMgr.DeleteFile(path)
                             Helper.RefreshFiles()
-                            SilentLogger.LogInfo(F("[Remove (Dev Tool)] Stats file «%s» should've been removed ツ", file))
+                            SilentLogger.LogInfo(F("[Remove (Editor)] Stats file «%s» should've been removed ツ", file))
                             return
                         end
 
-                        SilentLogger.LogError(F("[Remove (Dev Tool)] Stats file «%s» doesn't exist ツ", (file == "") and "Empty" or file))
+                        SilentLogger.LogError(F("[Remove (Editor)] Stats file «%s» doesn't exist ツ", (file == "") and "Empty" or file))
                     end
                 },
 
@@ -5953,7 +5953,7 @@ eFeature = {
                     desc = "Refreshes the list of stats files.",
                     func = function()
                         Helper.RefreshFiles()
-                        SilentLogger.LogInfo("[Refresh (Dev Tool)] Stats files list should've been refreshed ツ")
+                        SilentLogger.LogInfo("[Refresh (Editor)] Stats files list should've been refreshed ツ")
                     end
                 },
 
@@ -5966,7 +5966,7 @@ eFeature = {
                         FileMgr.CreateStatsDir()
                         Helper.RefreshFiles()
                         ImGui.SetClipboardText(STATS_DIR)
-                        SilentLogger.LogInfo("[Copy (Dev Tool)] Stats folder path should've been copied ツ")
+                        SilentLogger.LogInfo("[Copy (Editor)] Stats folder path should've been copied ツ")
                     end
                 },
 
@@ -5978,7 +5978,7 @@ eFeature = {
                     func = function()
                         FileMgr.CreateStatsDir(true)
                         Helper.RefreshFiles()
-                        SilentLogger.LogInfo("[Generate (Dev Tool)] Example stats file should've been generated ツ")
+                        SilentLogger.LogInfo("[Generate (Editor)] Example stats file should've been generated ツ")
                     end
                 }
             },
@@ -6027,7 +6027,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Reads the entered packed stat value.",
                     func = function()
-                        SilentLogger.LogInfo("[Read (Dev Tool)] Value should've been read from packed stat ツ")
+                        SilentLogger.LogInfo("[Read (Editor)] Value should've been read from packed stat ツ")
                     end
                 },
 
@@ -6044,7 +6044,7 @@ eFeature = {
 
                         if lastPStat == nil then
                             SetValue[type](firstPStat, value, eStat.MPPLY_LAST_MP_CHAR:Get())
-                            SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to packed stat ツ")
+                            SilentLogger.LogInfo("[Write (Editor)] Value should've been written to packed stat ツ")
                             return
                         end
 
@@ -6053,7 +6053,7 @@ eFeature = {
                         end
 
                         TEMP_PSTAT = "TEMP"
-                        SilentLogger.LogInfo("[Write (Dev Tool)] Value should've been written to packed stats ツ")
+                        SilentLogger.LogInfo("[Write (Editor)] Value should've been written to packed stats ツ")
                     end
                 },
 
@@ -6073,7 +6073,86 @@ eFeature = {
                             TEMP_PSTAT = "TEMP"
                         end
 
-                        SilentLogger.LogInfo("[Revert (Dev Tool)] Value should've been reverted to packed stat ツ")
+                        SilentLogger.LogInfo("[Revert (Editor)] Value should've been reverted to packed stat ツ")
+                    end
+                }
+            }
+        },
+
+        Stats = {
+            Global = {
+                Sync = {
+                    hash = J("SN_Stats_Sync"),
+                    name = "Sync Now",
+                    type = eFeatureType.Button,
+                    desc = "Synchronizes Global RP with your character's RP level.",
+                    func = function()
+                        eStat.MPPLY_GLOBALXP:Set(eGlobal.Player.RP:Get())
+                        SilentLogger.LogInfo("[Sync Now (Stats)] Global RP should've been synced ツ")
+                    end
+                }
+            },
+
+            KD = {
+                Kills = {
+                    hash = J("SN_Stats_KDKills"),
+                    name = "Kills",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired kills amount.",
+                    defv = eStat.MPPLY_KILLS_PLAYERS:Get(),
+                    lims = { 0, INT32_MAX }
+                },
+
+                Deaths = {
+                    hash = J("SN_Stats_KDDeaths"),
+                    name = "Deaths",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired deaths amount.",
+                    defv = eStat.MPPLY_DEATHS_PLAYER:Get(),
+                    lims = { 0, INT32_MAX }
+                },
+
+                Apply = {
+                    hash = J("SN_Stats_KDApply"),
+                    name = "Apply K/D",
+                    type = eFeatureType.Button,
+                    desc = "Applies the selected kills & deaths amounts.",
+                    func = function(kills, deaths)
+                        eStat.MPPLY_KILLS_PLAYERS:Set(kills)
+                        eStat.MPPLY_DEATHS_PLAYER:Set(deaths)
+                        SilentLogger.LogInfo("[Apply K/D (Stats)] Kills & Deaths amounts should've been applied ツ")
+                    end
+                }
+            },
+
+            Races = {
+                Wins = {
+                    hash = J("SN_Stats_RacesWins"),
+                    name = "Wins",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired races wins amount.",
+                    defv = eStat.MPPLY_TOTAL_RACES_WON:Get(),
+                    lims = { 0, INT32_MAX }
+                },
+
+                Losses = {
+                    hash = J("SN_Stats_RacesLosses"),
+                    name = "Losses",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired races losses amount.",
+                    defv = eStat.MPPLY_TOTAL_RACES_LOST:Get(),
+                    lims = { 0, INT32_MAX }
+                },
+
+                Apply = {
+                    hash = J("SN_Stats_RacesApply"),
+                    name = "Apply Races",
+                    type = eFeatureType.Button,
+                    desc = "Applies the selected races wins & losses amounts.",
+                    func = function(wins, losses)
+                        eStat.MPPLY_TOTAL_RACES_WON:Set(wins)
+                        eStat.MPPLY_TOTAL_RACES_LOST:Set(losses)
+                        SilentLogger.LogInfo("[Apply Races (Stats)] Races Wins & Losses amounts should've been applied ツ")
                     end
                 }
             }
@@ -6142,17 +6221,17 @@ eFeature = {
                 type = eFeatureType.Button,
                 desc = "ATTENTION: cannot be undone.\nResets the config to default.",
                 func = function()
-                    loggedAcknowledgment    = CONFIG.easy_money.acknowledge
-                    loggedAutoOpen          = CONFIG.autoopen
-                    loggedCompatibility     = CONFIG.compatibility_mode
-                    loggedJinxScript        = CONFIG.collab.jinxscript.enabled
-                    loggedJinxScriptStop    = CONFIG.collab.jinxscript.autostop
-                    loggedUCayoPerico       = CONFIG.unlock_all_poi.cayo_perico
-                    loggedUDiamondCasino    = CONFIG.unlock_all_poi.diamond_casino
-                    loggedAutoRegister      = CONFIG.register_as_boss.autoregister
-                    loggedAutoDeposit       = CONFIG.easy_money.autodeposit
-                    loggedDummyPrevention   = CONFIG.easy_money.dummy_prevention
-                    loggedAllow300kLoop     = CONFIG.easy_money.allow_300k_loop
+                    loggedAcknowledgment  = CONFIG.easy_money.acknowledge
+                    loggedAutoOpen        = CONFIG.autoopen
+                    loggedCompatibility   = CONFIG.compatibility_mode
+                    loggedJinxScript      = CONFIG.collab.jinxscript.enabled
+                    loggedJinxScriptStop  = CONFIG.collab.jinxscript.autostop
+                    loggedUCayoPerico     = CONFIG.unlock_all_poi.cayo_perico
+                    loggedUDiamondCasino  = CONFIG.unlock_all_poi.diamond_casino
+                    loggedAutoRegister    = CONFIG.register_as_boss.autoregister
+                    loggedAutoDeposit     = CONFIG.easy_money.autodeposit
+                    loggedDummyPrevention = CONFIG.easy_money.dummy_prevention
+                    loggedAllow300kLoop   = CONFIG.easy_money.allow_300k_loop
                     FileMgr.ResetConfig()
                     CONFIG = Json.DecodeFromFile(CONFIG_PATH)
                     SilentLogger.LogInfo("[Reset (Settings)] Config should've been reset to default ツ")

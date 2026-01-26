@@ -1094,6 +1094,64 @@ function Renderer.RenderDevTool()
                 end
                 ImGui.EndTabItem()
             end
+
+            if ImGui.BeginTabItem("Stats") then
+                if ImGui.BeginColumns(3) then
+                    if ClickGUI.BeginCustomChildWindow("Global RP") then
+                        local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+
+                        if not GLOBAL_XP_SYNCED then
+                            r, g, b, a = U(eBtnStyle.PINK.Hovered)
+                        end
+
+                        ImGui.TextColored(1, 1, 1, 1, "Current State:")
+                        ImGui.SameLine()
+                        ImGui.TextColored(r, g, b, a, (GLOBAL_XP_SYNCED) and "Synced" or "Unsynced")
+
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Global.Sync)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("K/D Ratio") then
+                        local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                        ImGui.TextColored(1, 1, 1, 1, "Current Ratio:")
+                        ImGui.SameLine()
+                        ImGui.TextColored(r, g, b, a, N(F("%.2f", KD_RATIO)) or "0.00")
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.KD.Kills)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.KD.Deaths)
+
+                        if KD_RATIO ~= NEW_KD_RATIO then
+                            r, g, b, a = U(eBtnStyle.PINK.Hovered)
+                            ImGui.TextColored(1, 1, 1, 1, "Modified Ratio:")
+                            ImGui.SameLine()
+                            ImGui.TextColored(r, g, b, a, N(F("%.2f", NEW_KD_RATIO)) or "0.00")
+                        end
+
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.KD.Apply)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("Races Wins & Losses") then
+                        local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                        ImGui.TextColored(1, 1, 1, 1, "Current Wins:")
+                        ImGui.SameLine()
+                        ImGui.TextColored(r, g, b, a, RACES_WINS)
+                        ImGui.TextColored(1, 1, 1, 1, "Current Losses:")
+                        ImGui.SameLine()
+                        ImGui.TextColored(r, g, b, a, RACES_LOSSES)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Races.Wins)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Races.Losses)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Races.Apply)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.EndColumns()
+                end
+                ImGui.EndTabItem()
+            end
             ImGui.EndTabBar()
         end
         ImGui.EndTabItem()
@@ -1824,6 +1882,22 @@ function Renderer.RenderListGUI()
             PackedStatsSubTab:AddFeature(eFeature.Dev.Editor.PackedStats.Read)
             PackedStatsSubTab:AddFeature(eFeature.Dev.Editor.PackedStats.Write)
             PackedStatsSubTab:AddFeature(eFeature.Dev.Editor.PackedStats.Revert)
+        end
+
+        local StatsTab = DevToolTab:AddSubTab("Stats", "Stats")
+        if StatsTab then
+            local GlobalSubTab = StatsTab:AddSubTab("Global RP", "Global RP")
+            GlobalSubTab:AddFeature(eFeature.Dev.Stats.Global.Sync)
+
+            local KDSubTab = StatsTab:AddSubTab("K/D Ratio", "K/D Ratio")
+            KDSubTab:AddFeature(eFeature.Dev.Stats.KD.Kills)
+            KDSubTab:AddFeature(eFeature.Dev.Stats.KD.Deaths)
+            KDSubTab:AddFeature(eFeature.Dev.Stats.KD.Apply)
+
+            local RacesSubTab = StatsTab:AddSubTab("Races Wins & Losses", "Races Wins & Losses")
+            RacesSubTab:AddFeature(eFeature.Dev.Stats.Races.Wins)
+            RacesSubTab:AddFeature(eFeature.Dev.Stats.Races.Losses)
+            RacesSubTab:AddFeature(eFeature.Dev.Stats.Races.Apply)
         end
     end
 

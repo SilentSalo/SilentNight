@@ -117,6 +117,8 @@ function Script.ReAssign()
             Type = { type = "int", global = 1892798 + 1 + (PLAYER_ID * 615) + 10 + 433 }
         }
 
+        eGlobal.Player.RP = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 198 + 1 }
+
         eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 773 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
 
         eLocal.World.Casino.Blackjack = {
@@ -138,6 +140,8 @@ function Script.ReAssign()
             CEO  = { type = "int", global = 1892653 + 1 + (PLAYER_ID * 615) + 10       },
             Type = { type = "int", global = 1892653 + 1 + (PLAYER_ID * 615) + 10 + 433 }
         }
+
+        eGlobal.Player.RP = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 198 + 1 }
 
         eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 771 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
 
@@ -214,6 +218,18 @@ function Script.ReloadFeatures()
 
     FeatureMgr.GetFeature(eFeature.Business.Misc.Supplies.Business)
         :SetList(eFeature.Business.Misc.Supplies.Business.list:GetNames())
+
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Kills)
+        :SetIntValue(eStat.MPPLY_KILLS_PLAYERS:Get())
+
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Deaths)
+        :SetIntValue(eStat.MPPLY_DEATHS_PLAYER:Get())
+
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Wins)
+        :SetIntValue(eStat.MPPLY_TOTAL_RACES_WON:Get())
+
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Losses)
+        :SetIntValue(eStat.MPPLY_TOTAL_RACES_LOST:Get())
 end
 
 HAS_PARSED         = false
@@ -263,6 +279,12 @@ Script.RegisterLooped(function()
     Script.ReParse()
     Script.Yield()
 end)
+
+GLOBAL_XP_SYNCED = false
+KD_RATIO         = 0.0
+NEW_KD_RATIO     = 0.0
+RACES_WINS       = 0
+RACES_LOSSES     = 0
 
 Script.RegisterLooped(function()
     if ShouldUnload() then return end
@@ -452,6 +474,18 @@ Script.RegisterLooped(function()
     if FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Cuts.Presets) == 3 then
         eFeature.Heist.Doomsday.Cuts.Presets.func()
     end
+
+    GLOBAL_XP_SYNCED = eStat.MPPLY_GLOBALXP:Get() == eGlobal.Player.RP:Get()
+    KD_RATIO         = eStat.MPPLY_KILLS_PLAYERS:Get() / ((eStat.MPPLY_DEATHS_PLAYER:Get() == 0) and 1.0 or eStat.MPPLY_DEATHS_PLAYER:Get())
+    RACES_WINS       = eStat.MPPLY_TOTAL_RACES_WON:Get()
+    RACES_LOSSES     = eStat.MPPLY_TOTAL_RACES_LOST:Get()
+
+    local kills  = FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Kills):GetIntValue()
+    local deaths = FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Deaths):GetIntValue()
+    NEW_KD_RATIO = kills / ((deaths == 0) and 1.0 or deaths)
+
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Global.Sync):SetVisible(not GLOBAL_XP_SYNCED)
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Apply):SetVisible(KD_RATIO ~= NEW_KD_RATIO)
 
     Helper.RegisterAsBoss()
 
