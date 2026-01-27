@@ -198,10 +198,17 @@ eStat = {
     MPPLY_DEATHS_PLAYER             = { type = "int",    stat = "MPPLY_DEATHS_PLAYER"            },
     MPPLY_TOTAL_RACES_WON           = { type = "int",    stat = "MPPLY_TOTAL_RACES_WON"          },
     MPPLY_TOTAL_RACES_LOST          = { type = "int",    stat = "MPPLY_TOTAL_RACES_LOST"         },
+    MPX_LAP_DANCED_BOUGHT           = { type = "int",    stat = "LAP_DANCED_BOUGHT"              },
+    MPX_PROSTITUTES_FREQUENTED      = { type = "int",    stat = "PROSTITUTES_FREQUENTED"         },
+    MP_PLAYING_TIME                 = { type = "int",    stat = "MP_PLAYING_TIME"                },
+    MPX_TOTAL_PLAYING_TIME          = { type = "int",    stat = "TOTAL_PLAYING_TIME"             },
     MPPLY_AWD_HST_ORDER             = { type = "bool",   stat = "MPPLY_AWD_HST_ORDER"            },
     MPPLY_AWD_HST_SAME_TEAM         = { type = "bool",   stat = "MPPLY_AWD_HST_SAME_TEAM"        },
     MPPLY_AWD_HST_ULT_CHAL          = { type = "bool",   stat = "MPPLY_AWD_HST_ULT_CHAL"         },
-    HEIST_MISSION_RCONT_ID_1        = { type = "string", stat = "HEIST_MISSION_RCONT_ID_1"       }
+    HEIST_MISSION_RCONT_ID_1        = { type = "string", stat = "HEIST_MISSION_RCONT_ID_1"       },
+    MPX_CHAR_DATE_CREATED           = { type = "date",   stat = "CHAR_DATE_CREATED"              },
+    MPX_CHAR_LAST_PLAY_TIME         = { type = "date",   stat = "CHAR_LAST_PLAY_TIME"            },
+    MPX_CHAR_DATE_RANKUP            = { type = "date",   stat = "CHAR_DATE_RANKUP"               }
 }
 
 --#endregion

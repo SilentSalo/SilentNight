@@ -159,6 +159,9 @@ function Script.ReAssign()
 end
 
 function Script.ReloadFeatures()
+    local temp     = CONFIG.logging
+    CONFIG.logging = 0
+
     FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Payout.Salvage)
         :SetFloatValue(eTunable.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Get())
 
@@ -219,17 +222,31 @@ function Script.ReloadFeatures()
     FeatureMgr.GetFeature(eFeature.Business.Misc.Supplies.Business)
         :SetList(eFeature.Business.Misc.Supplies.Business.list:GetNames())
 
-    FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Kills)
-        :SetIntValue(eStat.MPPLY_KILLS_PLAYERS:Get())
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Time)
+        :SetListIndex(0)
 
-    FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Deaths)
-        :SetIntValue(eStat.MPPLY_DEATHS_PLAYER:Get())
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Date)
+        :SetListIndex(0)
 
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Wins)
         :SetIntValue(eStat.MPPLY_TOTAL_RACES_WON:Get())
 
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Losses)
         :SetIntValue(eStat.MPPLY_TOTAL_RACES_LOST:Get())
+
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Kills)
+        :SetIntValue(eStat.MPPLY_KILLS_PLAYERS:Get())
+
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Deaths)
+        :SetIntValue(eStat.MPPLY_DEATHS_PLAYER:Get())
+
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Dances)
+        :SetIntValue(eStat.MPX_LAP_DANCED_BOUGHT:Get())
+
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Acts)
+        :SetIntValue(eStat.MPX_PROSTITUTES_FREQUENTED:Get())
+
+    CONFIG.logging = temp
 end
 
 HAS_PARSED         = false
@@ -285,6 +302,12 @@ KD_RATIO         = 0.0
 NEW_KD_RATIO     = 0.0
 RACES_WINS       = 0
 RACES_LOSSES     = 0
+CURRENT_TIME     = 0
+NEW_TIME         = 0
+CURRENT_DATE     = nil
+NEW_DATE         = nil
+PRIVATE_DANCES   = 0
+SEX_ACTS         = 0
 
 Script.RegisterLooped(function()
     if ShouldUnload() then return end
@@ -475,17 +498,44 @@ Script.RegisterLooped(function()
         eFeature.Heist.Doomsday.Cuts.Presets.func()
     end
 
-    GLOBAL_XP_SYNCED = eStat.MPPLY_GLOBALXP:Get() == eGlobal.Player.RP:Get()
-    KD_RATIO         = eStat.MPPLY_KILLS_PLAYERS:Get() / ((eStat.MPPLY_DEATHS_PLAYER:Get() == 0) and 1.0 or eStat.MPPLY_DEATHS_PLAYER:Get())
-    RACES_WINS       = eStat.MPPLY_TOTAL_RACES_WON:Get()
-    RACES_LOSSES     = eStat.MPPLY_TOTAL_RACES_LOST:Get()
-
     local kills  = FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Kills):GetIntValue()
     local deaths = FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Deaths):GetIntValue()
-    NEW_KD_RATIO = kills / ((deaths == 0) and 1.0 or deaths)
+    local wins   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Wins):GetIntValue()
+    local losses = FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Losses):GetIntValue()
+    local days   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Days):GetIntValue()
+    local hours  = FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Hours):GetIntValue()
+    local mins   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Minutes):GetIntValue()
+    local secs   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Seconds):GetIntValue()
+    local year   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Year):GetIntValue()
+    local month  = FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Month):GetIntValue()
+    local day    = FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Day):GetIntValue()
+    local dances = FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Dances):GetIntValue()
+    local acts   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Acts):GetIntValue()
+
+    GLOBAL_XP_SYNCED = eStat.MPPLY_GLOBALXP:Get() == eGlobal.Player.RP:Get()
+    KD_RATIO         = eStat.MPPLY_KILLS_PLAYERS:Get() / ((eStat.MPPLY_DEATHS_PLAYER:Get() == 0) and 1.0 or eStat.MPPLY_DEATHS_PLAYER:Get())
+    NEW_KD_RATIO     = kills / ((deaths == 0) and 1.0 or deaths)
+    RACES_WINS       = eStat.MPPLY_TOTAL_RACES_WON:Get()
+    RACES_LOSSES     = eStat.MPPLY_TOTAL_RACES_LOST:Get()
+    NEW_DATE         = F("%04d / %02d / %02d", year, month, day)
+    NEW_TIME         = F("%dd %dh %dm %d", days, hours, mins, secs)
+    PRIVATE_DANCES   = eStat.MPX_LAP_DANCED_BOUGHT:Get()
+    SEX_ACTS         = eStat.MPX_PROSTITUTES_FREQUENTED:Get()
+
+    if FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Time):GetListIndex() == 0 then
+        CURRENT_TIME = NEW_TIME
+    end
+
+    if FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Date):GetListIndex() == 0 then
+        CURRENT_DATE = NEW_DATE
+    end
 
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Global.Sync):SetVisible(not GLOBAL_XP_SYNCED)
     FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Apply):SetVisible(KD_RATIO ~= NEW_KD_RATIO)
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Apply):SetVisible(RACES_WINS ~= wins or RACES_LOSSES ~= losses)
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Apply):SetVisible(CURRENT_TIME ~= NEW_TIME)
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Apply):SetVisible(CURRENT_DATE ~= NEW_DATE)
+    FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Apply):SetVisible(PRIVATE_DANCES ~= dances or SEX_ACTS ~= acts)
 
     Helper.RegisterAsBoss()
 

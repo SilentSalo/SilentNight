@@ -6100,7 +6100,10 @@ eFeature = {
                     type = eFeatureType.InputInt,
                     desc = "Select the desired kills amount.",
                     defv = eStat.MPPLY_KILLS_PLAYERS:Get(),
-                    lims = { 0, INT32_MAX }
+                    lims = { 0, INT32_MAX },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Kills (Stats)] Kills should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Deaths = {
@@ -6109,7 +6112,10 @@ eFeature = {
                     type = eFeatureType.InputInt,
                     desc = "Select the desired deaths amount.",
                     defv = eStat.MPPLY_DEATHS_PLAYER:Get(),
-                    lims = { 0, INT32_MAX }
+                    lims = { 0, INT32_MAX },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Deaths (Stats)] Deaths should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Apply = {
@@ -6120,7 +6126,7 @@ eFeature = {
                     func = function(kills, deaths)
                         eStat.MPPLY_KILLS_PLAYERS:Set(kills)
                         eStat.MPPLY_DEATHS_PLAYER:Set(deaths)
-                        SilentLogger.LogInfo("[Apply K/D (Stats)] Kills & Deaths amounts should've been applied ツ")
+                        SilentLogger.LogInfo("[Apply K/D (Stats)] Kills & Deaths should've been applied ツ")
                     end
                 }
             },
@@ -6132,7 +6138,10 @@ eFeature = {
                     type = eFeatureType.InputInt,
                     desc = "Select the desired races wins amount.",
                     defv = eStat.MPPLY_TOTAL_RACES_WON:Get(),
-                    lims = { 0, INT32_MAX }
+                    lims = { 0, INT32_MAX },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Wins (Stats)] Wins should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Losses = {
@@ -6141,7 +6150,10 @@ eFeature = {
                     type = eFeatureType.InputInt,
                     desc = "Select the desired races losses amount.",
                     defv = eStat.MPPLY_TOTAL_RACES_LOST:Get(),
-                    lims = { 0, INT32_MAX }
+                    lims = { 0, INT32_MAX },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Losses (Stats)] Losses should've been changed. Don't forget to apply ツ")
+                    end
                 },
 
                 Apply = {
@@ -6152,7 +6164,242 @@ eFeature = {
                     func = function(wins, losses)
                         eStat.MPPLY_TOTAL_RACES_WON:Set(wins)
                         eStat.MPPLY_TOTAL_RACES_LOST:Set(losses)
-                        SilentLogger.LogInfo("[Apply Races (Stats)] Races Wins & Losses amounts should've been applied ツ")
+                        SilentLogger.LogInfo("[Apply Races (Stats)] Races Wins & Losses should've been applied ツ")
+                    end
+                }
+            },
+
+            Times = {
+                Time = {
+                    hash = J("SN_Stats_TimesTime"),
+                    name = "Time",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired time to modify.",
+                    list = eTable.Stats.Times,
+                    func = function(ftr)
+                        local list  = eTable.Stats.Times
+                        local index = list[ftr:GetListIndex() + 1].index
+
+                        if index ~= 0 then
+                            local totalSecs = math.floor(index:Get() / 1000)
+                            local days      = math.floor(totalSecs / 86400)
+                            local hours     = math.floor((totalSecs % 86400) / 3600)
+                            local minutes   = math.floor((totalSecs % 3600) / 60)
+                            local seconds   = totalSecs % 60
+
+                            CURRENT_TIME = F("%dd %dh %dm %d", days or 0, hours or 0, minutes or 0, seconds or 0)
+                            NEW_TIME     = CURRENT_TIME
+                        end
+
+                        SilentLogger.LogInfo(F("[Time (Stats)] Selected time: %s ツ", list:GetName(index)))
+                    end
+                },
+
+                Days = {
+                    hash = J("SN_Stats_TimesDays"),
+                    name = "Days",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired time days.",
+                    defv = 0,
+                    lims = { 0, INT32_MAX },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Days (Stats)] Days should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Hours = {
+                    hash = J("SN_Stats_TimesHours"),
+                    name = "Hours",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired time hours.",
+                    defv = 0,
+                    lims = { 0, 23 },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Hours (Stats)] Hours should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Minutes = {
+                    hash = J("SN_Stats_TimesMinutes"),
+                    name = "Minutes",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired time minutes.",
+                    defv = 0,
+                    lims = { 0, 59 },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Minutes (Stats)] Minutes should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Seconds = {
+                    hash = J("SN_Stats_TimesSeconds"),
+                    name = "Seconds",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired time seconds.",
+                    defv = 0,
+                    lims = { 0, 59 },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Seconds (Stats)] Seconds should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Apply = {
+                    hash = J("SN_Stats_TimesApply"),
+                    name = "Apply Time",
+                    type = eFeatureType.Button,
+                    desc = "Applies the selected days, hours, minutes, and seconds to the selected time.",
+                    func = function(timeStat, days, hours, minutes, seconds)
+                        if timeStat == 0 then
+                            SilentLogger.LogError("[Apply Time (Stats)] You must select a time first ツ")
+                            return
+                        end
+
+                        timeStat:Set(((days * 86400) + (hours * 3600) + (minutes * 60) + seconds) * 1000)
+
+                        local totalSecs = math.floor(timeStat:Get() / 1000)
+                        local days      = math.floor(totalSecs / 86400)
+                        local hours     = math.floor((totalSecs % 86400) / 3600)
+                        local minutes   = math.floor((totalSecs % 3600) / 60)
+                        local seconds   = totalSecs % 60
+
+                        CURRENT_TIME = F("%dd %dh %dm %d", days or 0, hours or 0, minutes or 0, seconds or 0)
+                        SilentLogger.LogInfo("[Apply Time (Stats)] Time should've been applied ツ")
+                    end
+                }
+            },
+
+            Dates = {
+                Date = {
+                    hash = J("SN_Stats_DatesDate"),
+                    name = "Date",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired date to modify.",
+                    list = eTable.Stats.Dates,
+                    func = function(ftr)
+                        local list  = eTable.Stats.Dates
+                        local index = list[ftr:GetListIndex() + 1].index
+
+                        if index ~= 0 then
+                            local date = index:Get()
+
+                            if not date then
+                                SilentLogger.LogError("[Date (Stats)] Unable to retrieve the selected date ツ")
+                                return
+                            end
+
+                            CURRENT_DATE = F("%04d / %02d / %02d", date.year, date.month, date.day)
+                            NEW_DATE     = CURRENT_DATE
+                        end
+
+                        SilentLogger.LogInfo(F("[Date (Stats)] Selected date: %s ツ", list:GetName(index)))
+                    end
+                },
+
+                Year = {
+                    hash = J("SN_Stats_DatesYear"),
+                    name = "Year",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired date year.",
+                    defv = 2015,
+                    lims = { 2015, 2026 },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Year (Stats)] Year should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Month = {
+                    hash = J("SN_Stats_DatesMonth"),
+                    name = "Month",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired date month.",
+                    defv = 1,
+                    lims = { 1, 12 },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Month (Stats)] Month should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Day = {
+                    hash = J("SN_Stats_DatesDay"),
+                    name = "Day",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired date day.",
+                    defv = 1,
+                    lims = { 1, 31 },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Day (Stats)] Day should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Apply = {
+                    hash = J("SN_Stats_CreationDateApply"),
+                    name = "Apply Date",
+                    type = eFeatureType.Button,
+                    desc = "Applies the selected day, month, and year to the selected date.",
+                    func = function(dateStat, year, month, day)
+                        if dateStat == 0 then
+                            SilentLogger.LogError("[Apply Date (Stats)] You must select a date first ツ")
+                            return
+                        end
+
+                        local date = {
+                            year        = year,
+                            month       = month,
+                            day         = day,
+                            hour        = 0,
+                            minute      = 0,
+                            second      = 0,
+                            millisecond = 0
+                        }
+
+                        dateStat:Set(date)
+                        local date = dateStat:Get()
+
+                        if not date then
+                            SilentLogger.LogError("[Apply Date (Stats)] Unable to retrieve the selected date ツ")
+                            return
+                        end
+
+                        CURRENT_DATE = F("%04d / %02d / %02d", date.year, date.month, date.day)
+                        SilentLogger.LogInfo("[Apply Date (Stats)] Date should've been applied ツ")
+                    end
+                }
+            },
+
+            Prostitutes = {
+                Dances = {
+                    hash = J("SN_Stats_ProstitutesDances"),
+                    name = "Private Dances",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired private dances amount.",
+                    defv = eStat.MPX_LAP_DANCED_BOUGHT:Get(),
+                    lims = { 0, INT32_MAX },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Private Dances (Stats)] Private Dances should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Acts = {
+                    hash = J("SN_Stats_ProstitutesActs"),
+                    name = "Sex Acts",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired sexual acts amount.",
+                    defv = eStat.MPX_PROSTITUTES_FREQUENTED:Get(),
+                    lims = { 0, INT32_MAX },
+                    func = function(ftr)
+                        SilentLogger.LogInfo("[Sex Acts (Stats)] Sex Acts should've been changed. Don't forget to apply ツ")
+                    end
+                },
+
+                Apply = {
+                    hash = J("SN_Stats_ProstitutesApply"),
+                    name = "Apply Dances & Acts",
+                    type = eFeatureType.Button,
+                    desc = "Applies the selected private dances and sexual acts amounts.",
+                    func = function(dances, acts)
+                        eStat.MPX_LAP_DANCED_BOUGHT:Set(dances)
+                        eStat.MPX_PROSTITUTES_FREQUENTED:Set(acts)
+                        SilentLogger.LogInfo("[Apply Dances & Acts (Stats)] Dances and Acts amounts should've been applied ツ")
                     end
                 }
             }

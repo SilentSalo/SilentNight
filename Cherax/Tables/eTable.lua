@@ -635,6 +635,7 @@ eTable = {
 
     JinxScript = {
         Features = {
+            ForceCloudSave  = 3244199536,
             RestartFreemode = 3731619689
         }
     },
@@ -685,6 +686,21 @@ eTable = {
         CarWash     = eStat.MPX_SB_CAR_WASH_OWNED,
         WeedShop    = eStat.MPX_SB_WEED_SHOP_OWNED,
         TourCompany = eStat.MPX_SB_HELI_TOURS_OWNED
+    },
+
+    Stats = {
+        Times = {
+            { name = "Unselected",    index = 0                            },
+            { name = "In GTA Online", index = eStat.MP_PLAYING_TIME        },
+            { name = "As Character",  index = eStat.MPX_TOTAL_PLAYING_TIME }
+        },
+
+        Dates = {
+            { name = "Unselected",        index = 0                             },
+            { name = "Character Created", index = eStat.MPX_CHAR_DATE_CREATED   },
+            { name = "Last Time Played",  index = eStat.MPX_CHAR_LAST_PLAY_TIME },
+            { name = "Last Ranked Up",    index = eStat.MPX_CHAR_DATE_RANKUP    }
+        }
     },
 
     Teleports = {

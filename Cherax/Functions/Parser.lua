@@ -141,10 +141,10 @@ function Parser.ParseStats(tbl)
 
             local hash = 0
 
-            if not v.stat:find("MPPLY") and not IsStoryStat() then
+            if not v.stat:find("MPPLY") and not IsStoryStat() and v.stat:sub(1, 3) ~= "MP_" then
                 local _, charSlot = Stats.GetInt(J("MPPLY_LAST_MP_CHAR"))
                 hash = J(F("MP%d_%s", charSlot, v.stat))
-            elseif v.stat:find("MPPLY") or IsStoryStat() then
+            elseif v.stat:find("MPPLY") or IsStoryStat() or v.stat:sub(1, 3) == "MP_" then
                 hash = J(v.stat)
             else
                 SilentLogger.LogError(F("Bad stat! %s", S(v.stat)))
@@ -166,6 +166,9 @@ function Parser.ParseStats(tbl)
                 elseif self.type == "string" then
                     local _, value = Stats.GetString(self.hash)
                     return value
+                elseif self.type == "date" then
+                    local _, value = Stats.GetDate(self.hash)
+                    return value
                 end
 
                 SilentLogger.LogError(F("No type for stat! %s", S(self.stat)))
@@ -181,6 +184,8 @@ function Parser.ParseStats(tbl)
                     Stats.SetBool(self.hash, (value) and 1 or 0)
                 elseif self.type == "string" then
                     Stats.SetString(self.hash, value)
+                elseif self.type == "date" then
+                    Stats.SetDate(self.hash, value)
                 else
                     SilentLogger.LogError(F("No type for stat! %s", S(self.stat)))
                 end

@@ -1097,6 +1097,32 @@ function Renderer.RenderDevTool()
 
             if ImGui.BeginTabItem("Stats") then
                 if ImGui.BeginColumns(3) then
+                    if ClickGUI.BeginCustomChildWindow("Times") then
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Times.Time)
+
+                        if FeatureMgr.GetFeatureListIndex(eFeature.Dev.Stats.Times.Time) ~= 0 then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored(1, 1, 1, 1, "Current Time:")
+                            ImGui.SameLine()
+                            ImGui.TextColored(r, g, b, a, CURRENT_TIME)
+                        end
+
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Times.Days)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Times.Hours)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Times.Minutes)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Times.Seconds)
+
+                        if CURRENT_TIME ~= NEW_TIME then
+                            local r, g, b, a = U(eBtnStyle.PINK.Hovered)
+                            ImGui.TextColored(1, 1, 1, 1, "New Time:")
+                            ImGui.SameLine()
+                            ImGui.TextColored(r, g, b, a, NEW_TIME)
+                        end
+
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Times.Apply)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     if ClickGUI.BeginCustomChildWindow("Global RP") then
                         local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
 
@@ -1114,6 +1140,31 @@ function Renderer.RenderDevTool()
 
                     ImGui.TableNextColumn()
 
+                    if ClickGUI.BeginCustomChildWindow("Dates") then
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Dates.Date)
+
+                        if FeatureMgr.GetFeatureListIndex(eFeature.Dev.Stats.Dates.Date) ~= 0 then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored(1, 1, 1, 1, "Current Date:")
+                            ImGui.SameLine()
+                            ImGui.TextColored(r, g, b, a, CURRENT_DATE)
+                        end
+
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Dates.Year)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Dates.Month)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Dates.Day)
+
+                        if CURRENT_DATE ~= NEW_DATE then
+                            local r, g, b, a = U(eBtnStyle.PINK.Hovered)
+                            ImGui.TextColored(1, 1, 1, 1, "New Date:")
+                            ImGui.SameLine()
+                            ImGui.TextColored(r, g, b, a, NEW_DATE)
+                        end
+
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Dates.Apply)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     if ClickGUI.BeginCustomChildWindow("K/D Ratio") then
                         local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
                         ImGui.TextColored(1, 1, 1, 1, "Current Ratio:")
@@ -1124,7 +1175,7 @@ function Renderer.RenderDevTool()
 
                         if KD_RATIO ~= NEW_KD_RATIO then
                             r, g, b, a = U(eBtnStyle.PINK.Hovered)
-                            ImGui.TextColored(1, 1, 1, 1, "Modified Ratio:")
+                            ImGui.TextColored(1, 1, 1, 1, "New Ratio:")
                             ImGui.SameLine()
                             ImGui.TextColored(r, g, b, a, N(F("%.2f", NEW_KD_RATIO)) or "0.00")
                         end
@@ -1148,6 +1199,21 @@ function Renderer.RenderDevTool()
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Races.Apply)
                         ClickGUI.EndCustomChildWindow()
                     end
+
+                    if ClickGUI.BeginCustomChildWindow("Strippers & Prostitutes") then
+                        local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                        ImGui.TextColored(1, 1, 1, 1, "Current Dances:")
+                        ImGui.SameLine()
+                        ImGui.TextColored(r, g, b, a, PRIVATE_DANCES)
+                        ImGui.TextColored(1, 1, 1, 1, "Current Acts:")
+                        ImGui.SameLine()
+                        ImGui.TextColored(r, g, b, a, SEX_ACTS)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Prostitutes.Dances)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Prostitutes.Acts)
+                        ClickGUI.RenderFeature(eFeature.Dev.Stats.Prostitutes.Apply)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     ImGui.EndColumns()
                 end
                 ImGui.EndTabItem()
@@ -1886,6 +1952,26 @@ function Renderer.RenderListGUI()
 
         local StatsTab = DevToolTab:AddSubTab("Stats", "Stats")
         if StatsTab then
+            local TimesSubTab = StatsTab:AddSubTab("Times", "Times")
+            TimesSubTab:AddFeature(eFeature.Dev.Stats.Times.Time)
+            TimesSubTab:AddFeature(eFeature.Dev.Stats.Times.Days)
+            TimesSubTab:AddFeature(eFeature.Dev.Stats.Times.Hours)
+            TimesSubTab:AddFeature(eFeature.Dev.Stats.Times.Minutes)
+            TimesSubTab:AddFeature(eFeature.Dev.Stats.Times.Seconds)
+            TimesSubTab:AddFeature(eFeature.Dev.Stats.Times.Apply)
+
+            local DatesSubTab = StatsTab:AddSubTab("Dates", "Dates")
+            DatesSubTab:AddFeature(eFeature.Dev.Stats.Dates.Date)
+            DatesSubTab:AddFeature(eFeature.Dev.Stats.Dates.Year)
+            DatesSubTab:AddFeature(eFeature.Dev.Stats.Dates.Month)
+            DatesSubTab:AddFeature(eFeature.Dev.Stats.Dates.Day)
+            DatesSubTab:AddFeature(eFeature.Dev.Stats.Dates.Apply)
+
+            local RacesSubTab = StatsTab:AddSubTab("Races Wins & Losses", "Races Wins & Losses")
+            RacesSubTab:AddFeature(eFeature.Dev.Stats.Races.Wins)
+            RacesSubTab:AddFeature(eFeature.Dev.Stats.Races.Losses)
+            RacesSubTab:AddFeature(eFeature.Dev.Stats.Races.Apply)
+
             local GlobalSubTab = StatsTab:AddSubTab("Global RP", "Global RP")
             GlobalSubTab:AddFeature(eFeature.Dev.Stats.Global.Sync)
 
@@ -1894,10 +1980,10 @@ function Renderer.RenderListGUI()
             KDSubTab:AddFeature(eFeature.Dev.Stats.KD.Deaths)
             KDSubTab:AddFeature(eFeature.Dev.Stats.KD.Apply)
 
-            local RacesSubTab = StatsTab:AddSubTab("Races Wins & Losses", "Races Wins & Losses")
-            RacesSubTab:AddFeature(eFeature.Dev.Stats.Races.Wins)
-            RacesSubTab:AddFeature(eFeature.Dev.Stats.Races.Losses)
-            RacesSubTab:AddFeature(eFeature.Dev.Stats.Races.Apply)
+            local ProstitutesSubTab = StatsTab:AddSubTab("Strippers & Prostitutes", "Strippers & Prostitutes")
+            ProstitutesSubTab:AddFeature(eFeature.Dev.Stats.Prostitutes.Dances)
+            ProstitutesSubTab:AddFeature(eFeature.Dev.Stats.Prostitutes.Acts)
+            ProstitutesSubTab:AddFeature(eFeature.Dev.Stats.Prostitutes.Apply)
         end
     end
 

@@ -726,4 +726,87 @@ FeatureMgr.AddFeature(eFeature.Dev.Stats.Races.Apply, function(f)
     eFeature.Dev.Stats.Races.Apply.func(wins, losses)
 end)
 
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Times.Time, function(f)
+    if f:GetListIndex() ~= 0 then
+        local ftr       = eFeature.Dev.Stats.Times.Time
+        local index     = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+        local totalSecs = math.floor(index:Get() / 1000)
+
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Days):SetIntValue(math.floor(totalSecs / 86400))
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Hours):SetIntValue(math.floor((totalSecs % 86400) / 3600))
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Minutes):SetIntValue(math.floor((totalSecs % 3600) / 60))
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Seconds):SetIntValue(totalSecs % 60)
+    else
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Days):SetIntValue(0)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Hours):SetIntValue(0)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Minutes):SetIntValue(0)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Seconds):SetIntValue(0)
+    end
+
+    eFeature.Dev.Stats.Times.Time.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Times.Days)
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Times.Hours)
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Times.Minutes)
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Times.Seconds)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Times.Apply, function(f)
+    local ftr      = eFeature.Dev.Stats.Times.Time
+    local timeStat = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+    local days     = FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Days):GetIntValue()
+    local hours    = FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Hours):GetIntValue()
+    local minutes  = FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Minutes):GetIntValue()
+    local seconds  = FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Seconds):GetIntValue()
+    eFeature.Dev.Stats.Times.Apply.func(timeStat, days, hours, minutes, seconds)
+end)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Dates.Date, function(f)
+    if f:GetListIndex() ~= 0 then
+        local ftr   = eFeature.Dev.Stats.Dates.Date
+        local index = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+        local date  = index:Get()
+
+        if not date then
+            date = {
+                year  = 2015,
+                month = 1,
+                day   = 1
+            }
+        end
+
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Year):SetIntValue(date.year or 2015)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Month):SetIntValue(date.month or 1)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Day):SetIntValue(date.day or 1)
+    else
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Year):SetIntValue(2015)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Month):SetIntValue(1)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Day):SetIntValue(1)
+    end
+
+    eFeature.Dev.Stats.Dates.Date.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Dates.Year)
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Dates.Month)
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Dates.Day)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Dates.Apply, function(f)
+    local ftr      = eFeature.Dev.Stats.Dates.Date
+    local dateStat = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+    local year     = FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Year):GetIntValue()
+    local month    = FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Month):GetIntValue()
+    local day      = FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Day):GetIntValue()
+    eFeature.Dev.Stats.Dates.Apply.func(dateStat, year, month, day)
+end)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Prostitutes.Dances)
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Prostitutes.Acts)
+
+FeatureMgr.AddFeature(eFeature.Dev.Stats.Prostitutes.Apply, function(f)
+    local dances = FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Dances):GetIntValue()
+    local acts   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Acts):GetIntValue()
+    eFeature.Dev.Stats.Prostitutes.Apply.func(dances, acts)
+end)
+
 --#endregion
