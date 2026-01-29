@@ -561,7 +561,7 @@ Script.RegisterLooped(function()
 
     if toggled then
         for i, ftr in ipairs(soloLaunches) do
-            local temp = CONFIG.logging
+            local temp     = CONFIG.logging
             CONFIG.logging = 0
             FeatureMgr.GetFeature(ftr):Toggle(i == toggled)
             CONFIG.logging = temp

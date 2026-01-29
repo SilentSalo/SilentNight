@@ -249,7 +249,7 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Changes your session to the new one.",
                     func = function()
-                        GTA.StartSession(eTable.Session.Types.NewPublic)
+                        GTA.StartSession(eTable.Session.Types.Invite)
                         SilentLogger.LogInfo("[Change Session (Apartment)] Online session should've been changed ツ")
                     end
                 }
@@ -632,35 +632,112 @@ eFeature = {
                     hash = J("SN_Apartment_Apply"),
                     name = "Apply Cuts",
                     type = eFeatureType.Button,
-                    desc = "ATTENTION: screen «Aspect Ratio» must be «16:9».\nApplies the selected cuts for players.",
-                    func = function(cuts)
-                        GUI.Toggle()
-                        Script.Yield(1000)
+                    desc = "Applies the selected cuts for players.",
+                    func = function(cuts, auto)
+                        local timedOut = false
 
                         local function SetCuts()
+                            if GUI.IsOpen() then GUI.Toggle() end
+                            Script.Yield(1000)
+
                             eGlobal.Heist.Apartment.Cut.Player1.Global:Set(100 - (cuts[1] + cuts[2] + cuts[3] + cuts[4]))
                             eGlobal.Heist.Apartment.Cut.Player2.Global:Set(cuts[2])
                             eGlobal.Heist.Apartment.Cut.Player3.Global:Set(cuts[3])
                             eGlobal.Heist.Apartment.Cut.Player4.Global:Set(cuts[4])
-                            eNative.PAD.SET_CURSOR_POSITION(0.775, 0.175)
-                            GTA.SimulatePlayerControl(237)
-                            GTA.SimulateFrontendControl(202)
+
+                            if auto then
+                                eNative.PAD.SET_CURSOR_POSITION(0.775, 0.175)
+                                GTA.SimulatePlayerControl(237)
+                                GTA.SimulateFrontendControl(202)
+                                Script.Yield(1000)
+                                if not GUI.IsOpen() then GUI.Toggle() end
+                                return
+                            end
+
+                            local toastTime    = 0
+                            local toastCounter = 0
+
+                            while not Utils.IsKeyPressed(eTable.Keys.VK_RETURN) do
+                                local currentTime = Time.GetEpoche()
+
+                                if currentTime - toastTime > 1 then
+                                    toastTime    = currentTime
+                                    toastCounter = toastCounter + 1
+                                    SilentLogger.LogInfo("[Apply Cuts (Apartment)] Please, underline your own cut and press «Enter» ツ")
+                                end
+
+                                if toastCounter == 20 then
+                                    timedOut = true
+                                    SilentLogger.LogError("[Apply Cuts (Apartment)] Timed out waiting for «Enter» press ツ")
+                                    return
+                                end
+
+                                Script.Yield()
+                            end
+
+                            toastTime    = 0
+                            toastCounter = 0
+
+                            while not Utils.IsKeyPressed(eTable.Keys.VK_ESCAPE) and not Utils.IsKeyPressed(eTable.Keys.VK_BACK) do
+                                local currentTime = Time.GetEpoche()
+
+                                if currentTime - toastTime > 1 then
+                                    toastTime    = currentTime
+                                    toastCounter = toastCounter + 1
+                                    SilentLogger.LogInfo("[Apply Cuts (Apartment)] Please, press «Esc» or «Backspace» ツ")
+                                end
+
+                                if toastCounter == 20 then
+                                    timedOut = true
+                                    SilentLogger.LogError("[Apply Cuts (Apartment)] Timed out waiting for «Esc» or «Backspace» ツ")
+                                    return
+                                end
+
+                                Script.Yield()
+                            end
+
+                            Script.Yield(1000)
+                            if not GUI.IsOpen() then GUI.Toggle() end
                         end
 
                         if cuts[1] ~= 0 and (cuts[2] ~= 0 or cuts[3] ~= 0 or cuts[4] ~= 0) then
                             SetCuts()
-                            Script.Yield(1000)
+
+                            if timedOut then
+                                if not GUI.IsOpen() then GUI.Toggle() end
+                                return
+                            end
+
                             eGlobal.Heist.Apartment.Cut.Player1.Local:Set(cuts[1])
-                        elseif cuts[1] == 0 then
+                        elseif cuts[1] == 0 and (cuts[2] ~= 0 or cuts[3] ~= 0 or cuts[4] ~= 0) then
                             SetCuts()
-                            Script.Yield(1000)
+
+                            if timedOut then
+                                if not GUI.IsOpen() then GUI.Toggle() end
+                                return
+                            end
+
                             eGlobal.Heist.Apartment.Cut.Player1.Local:Set(0)
                         else
                             eGlobal.Heist.Apartment.Cut.Player1.Local:Set(cuts[1])
                         end
 
-                        GUI.Toggle()
                         SilentLogger.LogInfo("[Apply Cuts (Apartment)] Cuts should've been applied ツ")
+                    end
+                },
+
+                Auto = {
+                    hash = J("SN_Apartment_Auto"),
+                    name = "Auto",
+                    type = eFeatureType.Toggle,
+                    desc = "ATTENTION: disable only if cuts aren't being applied.\nForces the cuts to change on everyone's screen by emulating user inputs.",
+                    func = function(ftr)
+                        if loggedApartmentAuto then
+                            loggedApartmentAuto = false
+                            return
+                        end
+
+                        SilentLogger.LogInfo(F("[Auto (Apartment)] Auto-forcing cuts should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                     end
                 }
             },
@@ -1421,7 +1498,7 @@ eFeature = {
                         type = eFeatureType.Button,
                         desc = "Connects to GTA Online.",
                         func = function()
-                            GTA.StartSession(eTable.Session.Types.NewPublic)
+                            GTA.StartSession(eTable.Session.Types.Invite)
                             SilentLogger.LogInfo("[Go Online (Cayo Perico)] Online should've been loaded ツ")
                         end
                     }
@@ -2312,7 +2389,7 @@ eFeature = {
                     hash = J("SN_DiamondCasino_Apply"),
                     name = "Apply Cuts",
                     type = eFeatureType.Button,
-                    desc = "ATTENTION: if solo, apply near the planning board. If not solo, apply after you've selected Buyer.\nApplies the selected cuts for players.",
+                    desc = "ATTENTION: if solo, apply near the planning board. If not solo, apply after you've selected «Buyer».\nApplies the selected cuts for players.",
                     func = function(cuts)
                         for i = 1, 4 do
                             eGlobal.Heist.DiamondCasino.Cut[F("Player%d", i)]:Set(cuts[i])
@@ -3596,7 +3673,7 @@ eFeature = {
                     hash = J("SN_Hangar_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "CAUTION: might be unsafe, no bans reported.\nApplies the maximum price for your cargo.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nApplies the maximum price for your cargo.",
                     func = function(ftr)
                         if not GTA.IsScriptRunning(eScript.Hangar.Sell) then
                             if ftr:IsToggled() then

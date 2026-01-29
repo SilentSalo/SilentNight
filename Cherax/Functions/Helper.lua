@@ -212,6 +212,7 @@ function Helper.ApplyApartmentPreset(preps)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player2.Cut):SetIntValue(preps.player2.cut or 0)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player3.Cut):SetIntValue(preps.player3.cut or 0)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player4.Cut):SetIntValue(preps.player4.cut or 0)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Auto):Toggle((preps.auto_force_cuts == nil) and true or preps.auto_force_cuts)
 
     Script.Yield(500)
     CONFIG.logging = temp

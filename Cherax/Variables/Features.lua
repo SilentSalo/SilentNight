@@ -249,6 +249,7 @@ settingsEasyDelays = {
 
 loggedApartmentLaunch   = false
 loggedApartmentBonus    = false
+loggedApartmentAuto     = true
 loggedCayoBag           = false
 loggedCayoCrew          = false
 loggedDiamondLaunch     = false

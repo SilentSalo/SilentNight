@@ -70,7 +70,7 @@ end, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Launch.Reset, function(f)
-    local temp = CONFIG.logging
+    local temp     = CONFIG.logging
     CONFIG.logging = 0
 
     for i = 1, #soloLaunches do
@@ -135,14 +135,17 @@ end
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Apply, function(f)
     local cuts = {}
+    local auto = FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Auto):IsToggled()
 
     for i = 1, #apartmentPlayers.Toggles do
         local ftr = FeatureMgr.GetFeature(apartmentPlayers.Toggles[i])
         I(cuts, (ftr:IsToggled()) and FeatureMgr.GetFeature(apartmentPlayers.Cuts[i]):GetIntValue() or 0)
     end
 
-    eFeature.Heist.Apartment.Cuts.Apply.func(cuts)
+    eFeature.Heist.Apartment.Cuts.Apply.func(cuts, auto)
 end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Auto):Toggle(true)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.File)
 
@@ -194,7 +197,9 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Save, function(f)
         player4 = {
             enabled = FeatureMgr.GetFeatureBool(apartmentPlayers.Toggles[4]),
             cut     = FeatureMgr.GetFeatureInt(apartmentPlayers.Cuts[4])
-        }
+        },
+
+        auto_force_cuts = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Auto)
     }
 
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Presets.Name):SetStringValue("")
@@ -577,7 +582,7 @@ end, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Launch.Reset, function(f)
-    local temp = CONFIG.logging
+    local temp     = CONFIG.logging
     CONFIG.logging = 0
 
     for i = 1, #soloLaunches do
@@ -747,7 +752,7 @@ end, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Launch.Reset, function(f)
-    local temp = CONFIG.logging
+    local temp     = CONFIG.logging
     CONFIG.logging = 0
 
     for i = 1, #soloLaunches do
