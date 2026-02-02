@@ -18,6 +18,12 @@ delayKeys = {
     "_680k"
 }
 
+FeatureMgr.AddFeature(eFeature.Settings.Info.Copy):SetVisible(SCRIPT_EDTN ~= "Standard")
+
+FeatureMgr.AddFeature(eFeature.Settings.Info.Discord)
+
+FeatureMgr.AddFeature(eFeature.Settings.Info.Unload)
+
 FeatureMgr.AddFeature(eFeature.Settings.Config.Open):Toggle(CONFIG.autoopen)
 
 FeatureMgr.AddFeature(eFeature.Settings.Config.Compatibility):Toggle(CONFIG.compatibility_mode)
@@ -54,10 +60,6 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Settings.Config.Copy)
-
-FeatureMgr.AddFeature(eFeature.Settings.Config.Discord)
-
-FeatureMgr.AddFeature(eFeature.Settings.Config.Unload)
 
 FeatureMgr.AddFeature(eFeature.Settings.Translation.File)
 

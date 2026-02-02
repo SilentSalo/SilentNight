@@ -913,9 +913,9 @@ function Renderer.RenderMoneyTool()
                 if ImGui.BeginColumns(1) then
                     if ClickGUI.BeginCustomChildWindow("Acknowledgment") then
                         local r, g, b, a = U(eBtnStyle.RED.Hovered)
-                        ImGui.TextColored(1, 1, 1, 1, "Please, make sure to read all feature descriptions carefully before using them!")
-                        ImGui.TextColored(1, 1, 1, 1, "Remember, any form of feature misuse or abuse can lead to a ban!")
-                        ImGui.TextColored(r, g, b, a, "Use these features responsibly and at your own risk!")
+                        ImGui.TextColored("Please, make sure to read all feature descriptions carefully before using them!")
+                        ImGui.TextColored("Remember, any form of feature misuse or abuse can lead to a ban!")
+                        ImGui.TextColored("Use these features responsibly and at your own risk!", r, g, b, a)
                         ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Acknowledge)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -1104,9 +1104,7 @@ function Renderer.RenderDevTool()
 
                         if FeatureMgr.GetFeatureListIndex(eFeature.Dev.Stats.Times.Time) ~= 0 then
                             local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
-                            ImGui.TextColored(1, 1, 1, 1, "Current Time:")
-                            ImGui.SameLine()
-                            ImGui.TextColored(r, g, b, a, CURRENT_TIME)
+                            ImGui.TextColored("Current Time:", r, g, b, a, CURRENT_TIME)
                         end
 
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Times.Days)
@@ -1116,9 +1114,7 @@ function Renderer.RenderDevTool()
 
                         if CURRENT_TIME ~= NEW_TIME then
                             local r, g, b, a = U(eBtnStyle.PINK.Hovered)
-                            ImGui.TextColored(1, 1, 1, 1, "New Time:")
-                            ImGui.SameLine()
-                            ImGui.TextColored(r, g, b, a, NEW_TIME)
+                            ImGui.TextColored("New Time:", r, g, b, a, NEW_TIME)
                         end
 
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Times.Apply)
@@ -1132,9 +1128,7 @@ function Renderer.RenderDevTool()
                             r, g, b, a = U(eBtnStyle.PINK.Hovered)
                         end
 
-                        ImGui.TextColored(1, 1, 1, 1, "Current State:")
-                        ImGui.SameLine()
-                        ImGui.TextColored(r, g, b, a, (GLOBAL_XP_SYNCED) and "Synced" or "Unsynced")
+                        ImGui.TextColored("Current State:", r, g, b, a, (GLOBAL_XP_SYNCED) and "Synced" or "Unsynced")
 
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Global.Sync)
                         ClickGUI.EndCustomChildWindow()
@@ -1147,9 +1141,7 @@ function Renderer.RenderDevTool()
 
                         if FeatureMgr.GetFeatureListIndex(eFeature.Dev.Stats.Dates.Date) ~= 0 then
                             local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
-                            ImGui.TextColored(1, 1, 1, 1, "Current Date:")
-                            ImGui.SameLine()
-                            ImGui.TextColored(r, g, b, a, CURRENT_DATE)
+                            ImGui.TextColored("Current Date:", r, g, b, a, CURRENT_DATE)
                         end
 
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Dates.Year)
@@ -1158,9 +1150,7 @@ function Renderer.RenderDevTool()
 
                         if CURRENT_DATE ~= NEW_DATE then
                             local r, g, b, a = U(eBtnStyle.PINK.Hovered)
-                            ImGui.TextColored(1, 1, 1, 1, "New Date:")
-                            ImGui.SameLine()
-                            ImGui.TextColored(r, g, b, a, NEW_DATE)
+                            ImGui.TextColored("New Date:", r, g, b, a, NEW_DATE)
                         end
 
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Dates.Apply)
@@ -1169,17 +1159,13 @@ function Renderer.RenderDevTool()
 
                     if ClickGUI.BeginCustomChildWindow("K/D Ratio") then
                         local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
-                        ImGui.TextColored(1, 1, 1, 1, "Current Ratio:")
-                        ImGui.SameLine()
-                        ImGui.TextColored(r, g, b, a, N(F("%.2f", KD_RATIO)) or "0.00")
+                        ImGui.TextColored("Current Ratio:", r, g, b, a, N(F("%.2f", KD_RATIO)) or "0.00")
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.KD.Kills)
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.KD.Deaths)
 
                         if KD_RATIO ~= NEW_KD_RATIO then
                             r, g, b, a = U(eBtnStyle.PINK.Hovered)
-                            ImGui.TextColored(1, 1, 1, 1, "New Ratio:")
-                            ImGui.SameLine()
-                            ImGui.TextColored(r, g, b, a, N(F("%.2f", NEW_KD_RATIO)) or "0.00")
+                            ImGui.TextColored("New Ratio:", r, g, b, a, N(F("%.2f", NEW_KD_RATIO)) or "0.00")
                         end
 
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.KD.Apply)
@@ -1190,12 +1176,8 @@ function Renderer.RenderDevTool()
 
                     if ClickGUI.BeginCustomChildWindow("Races Wins & Losses") then
                         local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
-                        ImGui.TextColored(1, 1, 1, 1, "Current Wins:")
-                        ImGui.SameLine()
-                        ImGui.TextColored(r, g, b, a, RACES_WINS)
-                        ImGui.TextColored(1, 1, 1, 1, "Current Losses:")
-                        ImGui.SameLine()
-                        ImGui.TextColored(r, g, b, a, RACES_LOSSES)
+                        ImGui.TextColored("Current Wins:", r, g, b, a, RACES_WINS)
+                        ImGui.TextColored("Current Losses:", r, g, b, a, RACES_LOSSES)
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Races.Wins)
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Races.Losses)
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Races.Apply)
@@ -1204,12 +1186,8 @@ function Renderer.RenderDevTool()
 
                     if ClickGUI.BeginCustomChildWindow("Strippers & Prostitutes") then
                         local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
-                        ImGui.TextColored(1, 1, 1, 1, "Current Dances:")
-                        ImGui.SameLine()
-                        ImGui.TextColored(r, g, b, a, PRIVATE_DANCES)
-                        ImGui.TextColored(1, 1, 1, 1, "Current Acts:")
-                        ImGui.SameLine()
-                        ImGui.TextColored(r, g, b, a, SEX_ACTS)
+                        ImGui.TextColored("Current Dances:", r, g, b, a, PRIVATE_DANCES)
+                        ImGui.TextColored("Current Acts:", r, g, b, a, SEX_ACTS)
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Prostitutes.Dances)
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Prostitutes.Acts)
                         ClickGUI.RenderFeature(eFeature.Dev.Stats.Prostitutes.Apply)
@@ -1233,16 +1211,14 @@ function Renderer.RenderSettings()
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Information") then
                         local r, g, b, a = U(eBtnStyle.DISCORD.Hovered)
-                        ImGui.TextColored(1, 1, 1, 1, "Script Version:")
-                        ImGui.SameLine()
-                        ImGui.TextColored(r, g, b, a, SCRIPT_VER)
-                        ImGui.TextColored(1, 1, 1, 1, "Script Edition:")
-                        ImGui.SameLine()
-                        ImGui.TextColored(r, g, b, a, (GTA_EDITION == "EE") and "Enhanced" or "Legacy")
+                        ImGui.TextColored("Script Version:", r, g, b, a, SCRIPT_VER)
+                        ImGui.TextColored("Script Module:", r, g, b, a, (GTA_EDITION == "EE") and "Enhanced" or "Legacy")
+                        ImGui.TextColored("Script Edition:", r, g, b, a, SCRIPT_EDTN)
                         ImGui.PushButtonStyle(eBtnStyle.DISCORD)
-                        ClickGUI.RenderFeature(eFeature.Settings.Config.Discord)
+                        ClickGUI.RenderFeature(eFeature.Settings.Info.Discord)
                         ImGui.ResetButtonStyle()
-                        ClickGUI.RenderFeature(eFeature.Settings.Config.Unload)
+                        ClickGUI.RenderFeature(eFeature.Settings.Info.Copy)
+                        ClickGUI.RenderFeature(eFeature.Settings.Info.Unload)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -1993,8 +1969,8 @@ function Renderer.RenderListGUI()
     local SettingsTab = SilentNightTab:AddSubTab("Settings", "Settings")
     if SettingsTab then
         local InfoSubTab = SettingsTab:AddSubTab("Information", "Information")
-        InfoSubTab:AddFeature(eFeature.Settings.Config.Discord)
-        InfoSubTab:AddFeature(eFeature.Settings.Config.Unload)
+        InfoSubTab:AddFeature(eFeature.Settings.Info.Discord)
+        InfoSubTab:AddFeature(eFeature.Settings.Info.Unload)
 
         local ConfigSubTab = SettingsTab:AddSubTab("Configuration", "Configuration")
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Open)

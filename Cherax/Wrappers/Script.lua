@@ -537,6 +537,8 @@ Script.RegisterLooped(function()
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Apply):SetVisible(CURRENT_DATE ~= NEW_DATE)
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Apply):SetVisible(PRIVATE_DANCES ~= dances or SEX_ACTS ~= acts)
 
+    FeatureMgr.GetFeature(eFeature.Settings.Info.Copy):SetVisible(SCRIPT_EDTN == "Standard")
+
     Helper.RegisterAsBoss()
 
     Script.Yield(100)

@@ -352,23 +352,15 @@ function Helper.RenderLaunchSettings(requiredPlayers, resetFeature)
     local reqPlayers = eLocal.Heist.Generic.Launch.Step2:Get()
 
     if reqPlayers ~= 0 and reqPlayers ~= requiredPlayers then
-        ImGui.TextColored(1, 1, 1, 1, "Current State:")
-        ImGui.SameLine()
         local r, g, b, a = U(eBtnStyle.PINK.Hovered)
-        ImGui.TextColored(r, g, b, a, "Modified")
-        ImGui.TextColored(1, 1, 1, 1, "Required Players:")
-        ImGui.SameLine()
-        ImGui.TextColored(r, g, b, a, S(reqPlayers))
+        ImGui.TextColored("Current State:", r, g, b, a, "Modified")
+        ImGui.TextColored("Required Players:", r, g, b, a, S(reqPlayers))
         FeatureMgr.GetFeature(resetFeature):SetVisible(true)
     else
-        ImGui.TextColored(1, 1, 1, 1, "Current State:")
-        ImGui.SameLine()
         local color = (reqPlayers ~= 0) and eBtnStyle.GREEN or eBtnStyle.ORANGE
         local r, g, b, a = U(color.Hovered)
-        ImGui.TextColored(r, g, b, a, (reqPlayers ~= 0) and "Standard" or "Default")
-        ImGui.TextColored(1, 1, 1, 1, "Required Players:")
-        ImGui.SameLine()
-        ImGui.TextColored(r, g, b, a, S((reqPlayers ~= 0) and reqPlayers or "N/A"))
+        ImGui.TextColored("Current State:", r, g, b, a, (reqPlayers ~= 0) and "Standard" or "Default")
+        ImGui.TextColored("Required Players:", r, g, b, a, S((reqPlayers ~= 0) and reqPlayers or "N/A"))
         FeatureMgr.GetFeature(resetFeature):SetVisible(false)
     end
 end

@@ -5416,7 +5416,7 @@ eFeature = {
                     hash = J("SN_EasyMoney_300k"),
                     name = "300k Loop",
                     type = eFeatureType.Toggle,
-                    desc = F("CAUTION: might be unsafe, if overused.\nToggles the 300k dollars loop.%s Has a cooldown.", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
+                    desc = F("CAUTION: might be unsafe, bans reported in the past.\nToggles the 300k dollars loop.%s Has a cooldown.", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
                     func = function(ftr, delay)
                         if not CONFIG.easy_money.acknowledge then
                             if ftr:IsToggled() then
@@ -6484,6 +6484,40 @@ eFeature = {
     },
 
     Settings = {
+        Info = {
+            Discord = {
+                hash = J("SN_Settings_CDiscord"),
+                name = "Copy Discord Invite Link",
+                type = eFeatureType.Button,
+                desc = "Copies Discord server invite link to your clipboard.",
+                func = function()
+                    ImGui.SetClipboardText(DISCORD)
+                    SilentLogger.LogInfo("[Copy Discord Invite Link (Settings)] Discord server invite link should've been copied ツ")
+                end
+            },
+
+            Copy = {
+                hash = J("SN_Settings_ICopy"),
+                name = "Copy Cherax User ID",
+                type = eFeatureType.Button,
+                desc = "Copies your Cherax user ID to your clipboard.",
+                func = function()
+                    ImGui.SetClipboardText(Cherax.GetUID())
+                    SilentLogger.LogInfo("[Copy Cherax User ID (Settings)] Cherax user ID should've been copied ツ")
+                end
+            },
+
+            Unload = {
+                hash = J("SN_Settings_CUnload"),
+                name = F("Unload %s", SCRIPT_NAME),
+                type = eFeatureType.Button,
+                desc = F("Unloads the %s script.", SCRIPT_NAME),
+                func = function()
+                    SetShouldUnload()
+                end
+            }
+        },
+
         Config = {
             Open = {
                 hash = J("SN_Settings_CAutoOpen"),
@@ -6570,27 +6604,6 @@ eFeature = {
                 func = function()
                     ImGui.SetClipboardText(CONFIG_DIR)
                     SilentLogger.LogInfo("[Copy Folder Path (Settings)] Config folder path should've been copied ツ")
-                end
-            },
-
-            Discord = {
-                hash = J("SN_Settings_CDiscord"),
-                name = "Copy Discord Invite Link",
-                type = eFeatureType.Button,
-                desc = "Copies Discord server invite link to your clipboard.",
-                func = function()
-                    ImGui.SetClipboardText(DISCORD)
-                    SilentLogger.LogInfo("[Copy Discord Invite Link (Settings)] Discord server invite link should've been copied ツ")
-                end
-            },
-
-            Unload = {
-                hash = J("SN_Settings_CUnload"),
-                name = F("Unload %s", SCRIPT_NAME),
-                type = eFeatureType.Button,
-                desc = F("Unloads the %s script.", SCRIPT_NAME),
-                func = function()
-                    SetShouldUnload()
                 end
             }
         },

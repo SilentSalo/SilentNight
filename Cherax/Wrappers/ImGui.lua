@@ -1,5 +1,7 @@
 --#region ImGui
 
+_textColored = ImGui.TextColored
+
 function ImGui.BeginColumns(columns)
     if ImGui.BeginTable("main", columns, ImGuiTableFlags.SizingStretchSame) then
         ImGui.TableNextRow()
@@ -89,6 +91,21 @@ end
 
 function ImGui.ResetFrameBgStyle()
     ImGui.PopStyleColor(4)
+end
+
+function ImGui.TextColored(text, color_r, color_g, color_b, color_a, textAfter)
+    color_r = color_r or 1
+    color_g = color_g or 1
+    color_b = color_b or 1
+    color_a = color_a or 1
+
+    if textAfter ~= nil then
+        _textColored(1, 1, 1, 1, text)
+        ImGui.SameLine()
+        _textColored(color_r, color_g, color_b, color_a, S(textAfter))
+    else
+        _textColored(color_r, color_g, color_b, color_a, S(text))
+    end
 end
 
 --#endregion
