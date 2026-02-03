@@ -114,6 +114,7 @@ function Renderer.RenderHeistTool()
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.Bonus)
                         ImGui.ResetFrameBgStyle()
+                        ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.MaxPayout)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.Double)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.Presets)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.Player1.Toggle)
@@ -267,8 +268,9 @@ function Renderer.RenderHeistTool()
                     if ClickGUI.BeginCustomChildWindow("Cuts") then
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.Crew)
-                        ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.Presets)
+                        ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.MaxPayout)
                         ImGui.ResetFrameBgStyle()
+                        ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.Presets)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.Player1.Toggle)
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.Player1.Cut)
@@ -373,6 +375,7 @@ function Renderer.RenderHeistTool()
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Crew)
                         ImGui.ResetFrameBgStyle()
+                        ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.MaxPayout)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Presets)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Player1.Toggle)
                         ImGui.SameLine()
@@ -462,8 +465,9 @@ function Renderer.RenderHeistTool()
 
                     if ClickGUI.BeginCustomChildWindow("Cuts") then
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
-                        ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Cuts.Presets)
+                        ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Cuts.MaxPayout)
                         ImGui.ResetFrameBgStyle()
+                        ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Cuts.Presets)
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Cuts.Player1.Toggle)
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Cuts.Player1.Cut)
@@ -578,9 +582,11 @@ function Renderer.RenderBusinessTool()
             if ImGui.BeginTabItem("Bunker") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.Price)
-                        ImGui.ResetFrameBgStyle()
+                        if CONFIG.yolo_mode then
+                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                            ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.Price)
+                            ImGui.ResetFrameBgStyle()
+                        end
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.NoXp)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.Sell)
                         ClickGUI.EndCustomChildWindow()
@@ -619,9 +625,11 @@ function Renderer.RenderBusinessTool()
             if ImGui.BeginTabItem("Hangar Cargo") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.Price)
-                        ImGui.ResetFrameBgStyle()
+                        if CONFIG.yolo_mode then
+                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                            ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.Price)
+                            ImGui.ResetFrameBgStyle()
+                        end
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.NoXp)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.Sell)
                         ClickGUI.EndCustomChildWindow()
@@ -724,11 +732,13 @@ function Renderer.RenderBusinessTool()
 
             if ImGui.BeginTabItem("Nightclub") then
                 if ImGui.BeginColumns(3) then
-                    if ClickGUI.BeginCustomChildWindow("Sale") then
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Sale.Price)
-                        ImGui.ResetFrameBgStyle()
-                        ClickGUI.EndCustomChildWindow()
+                    if CONFIG.yolo_mode then
+                        if ClickGUI.BeginCustomChildWindow("Sale") then
+                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                            ClickGUI.RenderFeature(eFeature.Business.Nightclub.Sale.Price)
+                            ImGui.ResetFrameBgStyle()
+                            ClickGUI.EndCustomChildWindow()
+                        end
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Safe") then
@@ -783,9 +793,11 @@ function Renderer.RenderBusinessTool()
             if ImGui.BeginTabItem("Special Cargo") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.Price)
-                        ImGui.ResetFrameBgStyle()
+                        if CONFIG.yolo_mode then
+                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                            ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.Price)
+                            ImGui.ResetFrameBgStyle()
+                        end
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.NoXp)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.NoCrateback)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.Sell)
@@ -888,9 +900,11 @@ function Renderer.RenderMoneyTool()
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Slot Machines") then
-                        ImGui.PushButtonStyle(eBtnStyle.RED)
-                        ClickGUI.RenderFeature(eFeature.Money.Casino.Slots.Win)
-                        ImGui.ResetButtonStyle()
+                        if CONFIG.yolo_mode then
+                            ImGui.PushButtonStyle(eBtnStyle.RED)
+                            ClickGUI.RenderFeature(eFeature.Money.Casino.Slots.Win)
+                            ImGui.ResetButtonStyle()
+                        end
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Slots.Lose)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -909,42 +923,44 @@ function Renderer.RenderMoneyTool()
                 ImGui.EndTabItem()
             end
 
-            if ImGui.BeginTabItem("Easy Money") then
-                if ImGui.BeginColumns(1) then
-                    if ClickGUI.BeginCustomChildWindow("Acknowledgment") then
-                        local r, g, b, a = U(eBtnStyle.RED.Hovered)
-                        ImGui.TextColored("Please, make sure to read all feature descriptions carefully before using them!")
-                        ImGui.TextColored("Remember, any form of feature misuse or abuse can lead to a ban!")
-                        ImGui.TextColored("Use these features responsibly and at your own risk!", r, g, b, a)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Acknowledge)
-                        ClickGUI.EndCustomChildWindow()
+            if CONFIG.yolo_mode then
+                if ImGui.BeginTabItem("Easy Money") then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Acknowledgment") then
+                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                            ImGui.TextColored("Please, make sure to read all feature descriptions carefully before using them!")
+                            ImGui.TextColored("Remember, any form of feature misuse or abuse can lead to a ban!")
+                            ImGui.TextColored("Use these features responsibly and at your own risk!", r, g, b, a)
+                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Acknowledge)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
                     end
-                    ImGui.EndColumns()
+
+                    if ImGui.BeginColumns(2) then
+                        if ClickGUI.BeginCustomChildWindow("Freeroam") then
+                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
+                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._50k)
+                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._100k)
+                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._180k)
+                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._680k)
+                            ImGui.ResetFrameBgStyle()
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
+                        if ClickGUI.BeginCustomChildWindow("Property") then
+                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Property._300k)
+                            ImGui.ResetFrameBgStyle()
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                    ImGui.EndTabItem()
                 end
-
-                if ImGui.BeginColumns(2) then
-                    if ClickGUI.BeginCustomChildWindow("Freeroam") then
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._50k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._100k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._180k)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._680k)
-                        ImGui.ResetFrameBgStyle()
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
-                    ImGui.TableNextColumn()
-
-                    if ClickGUI.BeginCustomChildWindow("Property") then
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Property._300k)
-                        ImGui.ResetFrameBgStyle()
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    ImGui.EndColumns()
-                end
-                ImGui.EndTabItem()
             end
 
             if ImGui.BeginTabItem("Misc") then
@@ -1227,6 +1243,9 @@ function Renderer.RenderSettings()
                         ImGui.PushFrameBgStyle(eFrameBgStyle.GREEN)
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Compatibility)
                         ImGui.ResetFrameBgStyle()
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Yolo)
+                        ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Logging)
                         ImGui.PushButtonStyle(eBtnStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Reset)
@@ -1281,19 +1300,21 @@ function Renderer.RenderSettings()
 
                     ImGui.TableNextColumn()
 
-                    if ClickGUI.BeginCustomChildWindow("Easy Money") then
-                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.AutoDeposit)
-                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Allow300k)
-                        ImGui.PushFrameBgStyle(eFrameBgStyle.GREEN)
-                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Prevention)
-                        ImGui.ResetFrameBgStyle()
-                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._5k)
-                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._50k)
-                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._100k)
-                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._180k)
-                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._300k)
-                        ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._680k)
-                        ClickGUI.EndCustomChildWindow()
+                    if CONFIG.yolo_mode then
+                        if ClickGUI.BeginCustomChildWindow("Easy Money") then
+                            ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.AutoDeposit)
+                            ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Allow300k)
+                            ImGui.PushFrameBgStyle(eFrameBgStyle.GREEN)
+                            ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Prevention)
+                            ImGui.ResetFrameBgStyle()
+                            ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._5k)
+                            ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._50k)
+                            ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._100k)
+                            ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._180k)
+                            ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._300k)
+                            ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.Delay._680k)
+                            ClickGUI.EndCustomChildWindow()
+                        end
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Register As Boss") then
@@ -1669,7 +1690,9 @@ function Renderer.RenderListGUI()
         local BunkerTab = BusinessToolTab:AddSubTab("Bunker", "Bunker")
         if BunkerTab then
             local SaleSubTab = BunkerTab:AddSubTab("Sale", "Sale")
-            SaleSubTab:AddFeature(eFeature.Business.Bunker.Sale.Price)
+            if CONFIG.yolo_mode then
+                SaleSubTab:AddFeature(eFeature.Business.Bunker.Sale.Price)
+            end
             SaleSubTab:AddFeature(eFeature.Business.Bunker.Sale.NoXp)
             SaleSubTab:AddFeature(eFeature.Business.Bunker.Sale.Sell)
 
@@ -1693,7 +1716,9 @@ function Renderer.RenderListGUI()
         local HangarCargoTab = BusinessToolTab:AddSubTab("Hangar Cargo", "Hangar Cargo")
         if HangarCargoTab then
             local SaleSubTab = HangarCargoTab:AddSubTab("Sale", "Sale")
-            SaleSubTab:AddFeature(eFeature.Business.Hangar.Sale.Price)
+            if CONFIG.yolo_mode then
+                SaleSubTab:AddFeature(eFeature.Business.Hangar.Sale.Price)
+            end
             SaleSubTab:AddFeature(eFeature.Business.Hangar.Sale.NoXp)
             SaleSubTab:AddFeature(eFeature.Business.Hangar.Sale.Sell)
 
@@ -1752,8 +1777,10 @@ function Renderer.RenderListGUI()
 
         local NightclubTab = BusinessToolTab:AddSubTab("Nightclub", "Nightclub")
         if NightclubTab then
-            local SaleSubTab = NightclubTab:AddSubTab("Sale", "Sale")
-            SaleSubTab:AddFeature(eFeature.Business.Nightclub.Sale.Price)
+            if CONFIG.yolo_mode then
+                local SaleSubTab = NightclubTab:AddSubTab("Sale", "Sale")
+                SaleSubTab:AddFeature(eFeature.Business.Nightclub.Sale.Price)
+            end
 
             local SafeSubTab = NightclubTab:AddSubTab("Safe", "Safe")
             SafeSubTab:AddFeature(eFeature.Business.Nightclub.Safe.Fill)
@@ -1784,7 +1811,9 @@ function Renderer.RenderListGUI()
         local SpecialCargoTab = BusinessToolTab:AddSubTab("Special Cargo", "Special Cargo")
         if SpecialCargoTab then
             local SaleSubTab = SpecialCargoTab:AddSubTab("Sale", "Sale")
-            SaleSubTab:AddFeature(eFeature.Business.CrateWarehouse.Sale.Price)
+            if CONFIG.yolo_mode then
+                SaleSubTab:AddFeature(eFeature.Business.CrateWarehouse.Sale.Price)
+            end
             SaleSubTab:AddFeature(eFeature.Business.CrateWarehouse.Sale.NoXp)
             SaleSubTab:AddFeature(eFeature.Business.CrateWarehouse.Sale.NoCrateback)
             SaleSubTab:AddFeature(eFeature.Business.CrateWarehouse.Sale.Sell)
@@ -1835,7 +1864,9 @@ function Renderer.RenderListGUI()
             LuckyWheelSubTab:AddFeature(eFeature.Money.Casino.LuckyWheel.Give)
 
             local SlotMachinesSubTab = CasinoTab:AddSubTab("Slot Machines", "Slot Machines")
-            SlotMachinesSubTab:AddFeature(eFeature.Money.Casino.Slots.Win)
+            if CONFIG.yolo_mode then
+                SlotMachinesSubTab:AddFeature(eFeature.Money.Casino.Slots.Win)
+            end
             SlotMachinesSubTab:AddFeature(eFeature.Money.Casino.Slots.Lose)
 
             local RouletteSubTab = CasinoTab:AddSubTab("Roulette", "Roulette")
@@ -1849,15 +1880,17 @@ function Renderer.RenderListGUI()
             MiscSubTab:AddFeature(eFeature.Money.Casino.Misc.Limit.Trade)
         end
 
-        local EasyMoneyTab = MoneyToolTab:AddSubTab("Easy Money", "Easy Money")
-        if EasyMoneyTab then
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Acknowledge)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._5k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._50k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._100k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._180k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._680k)
-            EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Property._300k)
+        if CONFIG.yolo_mode then
+            local EasyMoneyTab = MoneyToolTab:AddSubTab("Easy Money", "Easy Money")
+            if EasyMoneyTab then
+                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Acknowledge)
+                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._5k)
+                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._50k)
+                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._100k)
+                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._180k)
+                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._680k)
+                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Property._300k)
+            end
         end
 
         local MiscTab = MoneyToolTab:AddSubTab("Misc", "Misc")
@@ -1970,11 +2003,13 @@ function Renderer.RenderListGUI()
     if SettingsTab then
         local InfoSubTab = SettingsTab:AddSubTab("Information", "Information")
         InfoSubTab:AddFeature(eFeature.Settings.Info.Discord)
+        InfoSubTab:AddFeature(eFeature.Settings.Info.Copy)
         InfoSubTab:AddFeature(eFeature.Settings.Info.Unload)
 
         local ConfigSubTab = SettingsTab:AddSubTab("Configuration", "Configuration")
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Open)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Compatibility)
+        ConfigSubTab:AddFeature(eFeature.Settings.Config.Yolo)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Logging)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Reset)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Copy)
@@ -2004,16 +2039,18 @@ function Renderer.RenderListGUI()
         UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
         UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
 
-        local EasyMoneySubTab = SettingsTab:AddSubTab("Easy Money", "Easy Money")
-        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.AutoDeposit)
-        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Allow300k)
-        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Prevention)
-        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._5k)
-        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._50k)
-        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._100k)
-        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._180k)
-        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._680k)
-        EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._300k)
+        if CONFIG.yolo_mode then
+            local EasyMoneySubTab = SettingsTab:AddSubTab("Easy Money", "Easy Money")
+            EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.AutoDeposit)
+            EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Allow300k)
+            EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Prevention)
+            EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._5k)
+            EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._50k)
+            EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._100k)
+            EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._180k)
+            EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._680k)
+            EasyMoneySubTab:AddFeature(eFeature.Settings.EasyMoney.Delay._300k)
+        end
 
         local RegisterAsBossSubTab = SettingsTab:AddSubTab("Register As Boss", "Register As Boss")
         RegisterAsBossSubTab:AddFeature(eFeature.Settings.RegisterAsBoss.AutoRegister)

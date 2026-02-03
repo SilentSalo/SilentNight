@@ -32,7 +32,7 @@ eFeature = {
                 type = eFeatureType.InputInt,
                 desc = "Select the cut for yourself.",
                 defv = 0,
-                lims = { 0, 999 },
+                lims = { 0, 100 },
                 step = 1,
                 func = function(ftr)
                     SilentLogger.LogInfo("[Self] Self cut should've been changed. Don't forget to apply ツ")
@@ -517,12 +517,27 @@ eFeature = {
                     end
                 },
 
+                MaxPayout = {
+                    hash = J("SN_Apartment_MaxPayout"),
+                    name = "3mil Payout",
+                    type = eFeatureType.Toggle,
+                    desc = "Automatically calculates maximum payout cuts.",
+                    func = function(ftr)
+                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                            SilentLogger.LogInfo("[3mil Payout (Apartment)] Script Edition «Standard» doesn't include this feature ツ")
+                            return
+                        end
+
+                        SilentLogger.LogInfo(F("[3mil Payout (Apartment)] 3mil Payout should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
                 Presets = {
                     hash = J("SN_Apartment_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
                     desc = "Select one of the ready-made presets.",
-                    list = eTable.Heist.Apartment.Presets,
+                    list = eTable.Heist.Generic.Presets,
                     func = function(bool)
                         Helper.SetApartmentMaxPayout(bool)
                     end
@@ -545,7 +560,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 1.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 1 (Apartment)] Player 1 cut should've been changed. Don't forget to apply ツ")
@@ -570,7 +585,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 2.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 2 (Apartment)] Player 2 cut should've been changed. Don't forget to apply ツ")
@@ -595,7 +610,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 3.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 3 (Apartment)] Player 3 cut should've been changed. Don't forget to apply ツ")
@@ -620,7 +635,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 4.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 4 (Apartment)] Player 4 cut should've been changed. Don't forget to apply ツ")
@@ -1529,12 +1544,27 @@ eFeature = {
                     end
                 },
 
+                MaxPayout = {
+                    hash = J("SN_CayoPerico_MaxPayout"),
+                    name = "2.55mil Payout",
+                    type = eFeatureType.Toggle,
+                    desc = "ATTENTION: works only if you've set the «Difficulty» through the script.\nAutomatically calculates maximum payout cuts.",
+                    func = function(ftr)
+                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                            SilentLogger.LogInfo("[2.55mil Payout (Cayo Perico)] Script Edition «Standard» doesn't include this feature ツ")
+                            return
+                        end
+
+                        SilentLogger.LogInfo(F("[2.55mil Payout (Cayo Perico)] 2.55mil Payout should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
                 Presets = {
                     hash = J("SN_CayoPerico_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "ATTENTION: «2.55mil Payout» works only if you've set the «Difficulty» through the script and you don't have any «Secondary Targets».\nSelect one of the ready-made presets.",
-                    list = eTable.Heist.CayoPerico.Presets,
+                    desc = "Select one of the ready-made presets.",
+                    list = eTable.Heist.Generic.Presets,
                     func = function()
                         Helper.SetCayoMaxPayout()
                         Script.Yield()
@@ -1558,7 +1588,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 1.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 1 (Cayo Perico)] Player 1 cut should've been changed. Don't forget to apply ツ")
@@ -1583,7 +1613,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 2.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 2 (Cayo Perico)] Player 2 cut should've been changed. Don't forget to apply ツ")
@@ -1608,7 +1638,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 3.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 3 (Cayo Perico)] Player 3 cut should've been changed. Don't forget to apply ツ")
@@ -1633,7 +1663,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 4.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 4 (Cayo Perico)] Player 4 cut should've been changed. Don't forget to apply ツ")
@@ -2273,12 +2303,27 @@ eFeature = {
                     end
                 },
 
+                MaxPayout = {
+                    hash = J("SN_DiamondCasino_MaxPayout"),
+                    name = "3.6mil Payout",
+                    type = eFeatureType.Toggle,
+                    desc = "Automatically calculates maximum payout cuts.",
+                    func = function(ftr)
+                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                            SilentLogger.LogInfo("[3.6mil Payout (Diamond Casino)] Script Edition «Standard» doesn't include this feature ツ")
+                            return
+                        end
+
+                        SilentLogger.LogInfo(F("[3.6mil Payout (Diamond Casino)] 3.6mil Payout should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
                 Presets = {
                     hash = J("SN_DiamondCasino_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
                     desc = "Select one of the ready-made presets.",
-                    list = eTable.Heist.DiamondCasino.Presets,
+                    list = eTable.Heist.Generic.Presets,
                     func = function()
                         Helper.SetDiamondMaxPayout()
                         Script.Yield()
@@ -2302,7 +2347,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 1.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 1 (Diamond Casino)] Player 1 cut should've been changed. Don't forget to apply ツ")
@@ -2327,7 +2372,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 2.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 2 (Diamond Casino)] Player 2 cut should've been changed. Don't forget to apply ツ")
@@ -2352,7 +2397,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 3.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 3 (Diamond Casino)] Player 3 cut should've been changed. Don't forget to apply ツ")
@@ -2377,7 +2422,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 4.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 4 (Diamond Casino)] Player 4 cut should've been changed. Don't forget to apply ツ")
@@ -2716,12 +2761,27 @@ eFeature = {
             },
 
             Cuts = {
+                MaxPayout = {
+                    hash = J("SN_Doomsday_MaxPayout"),
+                    name = "2.55mil Payout",
+                    type = eFeatureType.Toggle,
+                    desc = "ATTENTION: works only if you've set the «Act» through the script.\nAutomatically calculates maximum payout cuts.",
+                    func = function(ftr)
+                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                            SilentLogger.LogInfo("[2.55mil Payout (Doomsday)] Script Edition «Standard» doesn't include this feature ツ")
+                            return
+                        end
+
+                        SilentLogger.LogInfo(F("[2.55mil Payout (Doomsday)] 2.55mil Payout should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
                 Presets = {
                     hash = J("SN_Doomsday_Presets"),
                     name = "Presets",
                     type = eFeatureType.Combo,
-                    desc = "ATTENTION: «2.55mil Payout» works only if you've set the «Act» through the script.\nSelect one of the ready-made presets.",
-                    list = eTable.Heist.Doomsday.Presets,
+                    desc = "Select one of the ready-made presets.",
+                    list = eTable.Heist.Generic.Presets,
                     func = function()
                         Helper.SetDoomsdayMaxPayout()
                         Script.Yield()
@@ -2745,7 +2805,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 1.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 1 (Doomsday)] Player 1 cut should've been changed. Don't forget to apply ツ")
@@ -2770,7 +2830,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 2.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 2 (Doomsday)] Player 2 cut should've been changed. Don't forget to apply ツ")
@@ -2795,7 +2855,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 3.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 3 (Doomsday)] Player 3 cut should've been changed. Don't forget to apply ツ")
@@ -2820,7 +2880,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 4.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 100 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 4 (Doomsday)] Player 4 cut should've been changed. Don't forget to apply ツ")
@@ -5213,45 +5273,8 @@ eFeature = {
                 type = eFeatureType.Toggle,
                 desc = "Allows using «Easy Money» features.",
                 func = function(ftr)
-                    CONFIG.easy_money.acknowledge = ftr:IsToggled()
-                    FileMgr.SaveConfig(CONFIG)
-                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
-
-                    if loggedAcknowledgment then
-                        loggedAcknowledgment = false
-                        return
-                    end
-
                     SilentLogger.LogInfo(F("[I Acknowledge (Easy Money)] Easy Money should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                 end
-            },
-
-            Instant = {
-                Give30m = {
-                    hash = J("SN_EasyMoney_30m"),
-                    name = "Give 30mil",
-                    type = eFeatureType.Button,
-                    desc = "CAUTION: might be unsafe, bans reported in the past.\nGives 30mil dollars in a few seconds. Has a cooldown.",
-                    func = function()
-                        if not CONFIG.easy_money.acknowledge then
-                            SilentLogger.LogError("[Give 30mil (Easy Money)] You must acknowledge the risks first ツ")
-                            return
-                        end
-
-                        GTA.TriggerTransaction(0xA174F633)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0xED97AFC1)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0x176D9D54)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0x4B6A869C)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0x921FCF3C)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0x314FB8B0)
-                        SilentLogger.LogInfo("[Give 30mil (Easy Money)] 30mil dollars should've been given ツ", eToastPos.BOTTOM_RIGHT)
-                    end
-                }
             },
 
             Freeroam = {
@@ -5260,8 +5283,8 @@ eFeature = {
                     name = "5k Loop",
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 5k chips loop.",
-                    func = function(ftr, delay)
-                        if not CONFIG.easy_money.acknowledge then
+                    func = function(ftrAcknowledge, ftr, delay)
+                        if not ftrAcknowledge:IsToggled() then
                             if ftr:IsToggled() then
                                 SilentLogger.LogError("[5k Loop (Easy Money)] You must acknowledge the risks first ツ")
                             end
@@ -5291,8 +5314,8 @@ eFeature = {
                     name = "50k Loop",
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 50k dollars loop.",
-                    func = function(ftr, delay)
-                        if not CONFIG.easy_money.acknowledge then
+                    func = function(ftrAcknowledge, ftr, delay)
+                        if not ftrAcknowledge:IsToggled() then
                             if ftr:IsToggled() then
                                 SilentLogger.LogError("[50k Loop (Easy Money)] You must acknowledge the risks first ツ")
                             end
@@ -5322,8 +5345,8 @@ eFeature = {
                     name = "100k Loop",
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 100k dollars loop.",
-                    func = function(ftr, delay)
-                        if not CONFIG.easy_money.acknowledge then
+                    func = function(ftrAcknowledge, ftr, delay)
+                        if not ftrAcknowledge:IsToggled() then
                             if ftr:IsToggled() then
                                 SilentLogger.LogError("[100k Loop (Easy Money)] You must acknowledge the risks first ツ")
                             end
@@ -5353,8 +5376,8 @@ eFeature = {
                     name = "180k Loop",
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 180k dollars loop. Has a cooldown.",
-                    func = function(ftr, delay)
-                        if not CONFIG.easy_money.acknowledge then
+                    func = function(ftrAcknowledge, ftr, delay)
+                        if not ftrAcknowledge:IsToggled() then
                             if ftr:IsToggled() then
                                 SilentLogger.LogError("[180k Loop (Easy Money)] You must acknowledge the risks first ツ")
                             end
@@ -5384,8 +5407,8 @@ eFeature = {
                     name = "680k Loop",
                     type = eFeatureType.Toggle,
                     desc = "CAUTION: might be unsafe, bans reported in the past.\nToggles the 680k dollars loop. Has a cooldown.",
-                    func = function(ftr, delay)
-                        if not CONFIG.easy_money.acknowledge then
+                    func = function(ftrAcknowledge, ftr, delay)
+                        if not ftrAcknowledge:IsToggled() then
                             if ftr:IsToggled() then
                                 SilentLogger.LogError("[680k Loop (Easy Money)] You must acknowledge the risks first ツ")
                             end
@@ -5417,8 +5440,8 @@ eFeature = {
                     name = "300k Loop",
                     type = eFeatureType.Toggle,
                     desc = F("CAUTION: might be unsafe, bans reported in the past.\nToggles the 300k dollars loop.%s Has a cooldown.", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
-                    func = function(ftr, delay)
-                        if not CONFIG.easy_money.acknowledge then
+                    func = function(ftrAcknowledge, ftr, delay)
+                        if not ftrAcknowledge:IsToggled() then
                             if ftr:IsToggled() then
                                 SilentLogger.LogError("[300k Loop (Easy Money)] You must acknowledge the risks first ツ")
                             end
@@ -6557,6 +6580,30 @@ eFeature = {
                 end
             },
 
+            Yolo = {
+                hash = J("SN_Settings_CYOLO"),
+                name = "YOLO Mode",
+                type = eFeatureType.Toggle,
+                desc = "CAUTION: enables features that had caused bans in the past.",
+                func = function(ftr)
+                    CONFIG.yolo_mode = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedYolo then
+                        loggedYolo = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[YOLO Mode (Settings)] YOLO Mode should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+
+                    if GUI.GetMode() == eGuiMode.ListGUI then
+                        SilentLogger.LogInfo("[YOLO Mode (Settings)] YOLO Mode change requires a ListGUI restart ツ")
+                        SetShouldUnload()
+                    end
+                end
+            },
+
             Logging = {
                 hash = J("SN_Settings_CLogging"),
                 name = "Logging",
@@ -6579,8 +6626,8 @@ eFeature = {
                 type = eFeatureType.Button,
                 desc = "ATTENTION: cannot be undone.\nResets the config to default.",
                 func = function()
-                    loggedAcknowledgment  = CONFIG.easy_money.acknowledge
                     loggedAutoOpen        = CONFIG.autoopen
+                    loggedYolo            = CONFIG.yolo_mode
                     loggedCompatibility   = CONFIG.compatibility_mode
                     loggedJinxScript      = CONFIG.collab.jinxscript.enabled
                     loggedJinxScriptStop  = CONFIG.collab.jinxscript.autostop

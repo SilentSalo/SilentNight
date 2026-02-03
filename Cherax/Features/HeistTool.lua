@@ -106,6 +106,31 @@ FeatureMgr.AddLoop(eFeature.Heist.Apartment.Cuts.Bonus, nil, function(f)
     eFeature.Heist.Apartment.Cuts.Bonus.func(f)
 end)
 
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.MaxPayout, function(f)
+    if f:IsToggled() then
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+            FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(true)
+            local ftr = FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Presets)
+            ftr:SetListIndex(0)
+            ftr:SetVisible(false)
+        else
+            FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Presets):SetListIndex(0)
+            for i = 1, #apartmentPlayers.Cuts do
+                FeatureMgr.GetFeature(apartmentPlayers.Cuts[i]):SetIntValue(0)
+            end
+            f:SetBoolValue(false)
+        end
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Presets):SetVisible(true)
+        for i = 1, #apartmentPlayers.Cuts do
+            FeatureMgr.GetFeature(apartmentPlayers.Cuts[i]):SetIntValue(0)
+        end
+    end
+
+    eFeature.Heist.Apartment.Cuts.MaxPayout.func(f)
+end)
+
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Presets, function(f)
@@ -115,13 +140,6 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.Presets, function(f)
     local list  = eFeature.Heist.Apartment.Cuts.Presets.list
     local index = list[f:GetListIndex() + 1].index
     SilentLogger.LogInfo(F("[Presets (Apartment)] Selected preset: %s. Don't forget to apply ツ", list:GetName(index)))
-
-    if preset == -1 then
-        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(true)
-        return
-    else
-        FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(false)
-    end
 
     for i = 1, #apartmentPlayers.Cuts do
         FeatureMgr.GetFeature(apartmentPlayers.Cuts[i]):SetIntValue(preset)
@@ -177,6 +195,7 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Save, function(f)
         solo_launch         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Launch.Solo),
         bonus_12mil         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Bonus),
         double_rewards_week = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Double),
+        max_payout          = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.MaxPayout),
         presets             = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Apartment.Cuts.Presets),
 
         player1 = {
@@ -354,6 +373,31 @@ FeatureMgr.AddLoop(eFeature.Heist.CayoPerico.Cuts.Crew, nil, function(f)
     eFeature.Heist.CayoPerico.Cuts.Crew.func(f)
 end)
 
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.MaxPayout, function(f)
+    if f:IsToggled() then
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+            local ftr = FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Presets)
+            ftr:SetListIndex(0)
+            ftr:SetVisible(false)
+        else
+            FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):SetVisible(true)
+            FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Presets):SetListIndex(0)
+            for i = 1, #cayoPlayers.Cuts do
+                FeatureMgr.GetFeature(cayoPlayers.Cuts[i]):SetIntValue(0)
+            end
+            f:SetBoolValue(false)
+        end
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Presets):SetVisible(true)
+        for i = 1, #cayoPlayers.Cuts do
+            FeatureMgr.GetFeature(cayoPlayers.Cuts[i]):SetIntValue(0)
+        end
+    end
+
+    eFeature.Heist.CayoPerico.Cuts.MaxPayout.func(f)
+end)
+
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.Presets, function(f)
     FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):SetVisible(true)
 
@@ -363,8 +407,6 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.Presets, function(f)
     local list  = eFeature.Heist.CayoPerico.Cuts.Presets.list
     local index = list[f:GetListIndex() + 1].index
     SilentLogger.LogInfo(F("[Presets (Cayo Perico)] Selected preset: %s. Don't forget to apply ツ", list:GetName(index)))
-
-    if preset == -1 then return end
 
     for i = 1, #cayoPlayers.Cuts do
         FeatureMgr.GetFeature(cayoPlayers.Cuts[i]):SetIntValue(preset)
@@ -431,6 +473,7 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Save, function(f)
         arts_value       = FeatureMgr.GetFeatureInt(cayoPreps[15]),
         womans_bag       = FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Misc.Bag),
         remove_crew_cuts = FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Cuts.Crew),
+        max_payout       = FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Cuts.MaxPayout),
         presets          = FeatureMgr.GetFeatureListIndex(eFeature.Heist.CayoPerico.Cuts.Presets),
 
         player1 = {
@@ -620,8 +663,33 @@ FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Cuts.Crew, nil, function(f)
     eFeature.Heist.DiamondCasino.Cuts.Crew.func(f)
 end)
 
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.MaxPayout, function(f)
+    if f:IsToggled() then
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+            local ftr = FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Presets)
+            ftr:SetListIndex(0)
+            ftr:SetVisible(false)
+        else
+            FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):SetVisible(true)
+            FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Presets):SetListIndex(0)
+            for i = 1, #diamondPlayers.Cuts do
+                FeatureMgr.GetFeature(diamondPlayers.Cuts[i]):SetIntValue(0)
+            end
+            f:SetBoolValue(false)
+        end
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Presets):SetVisible(true)
+        for i = 1, #diamondPlayers.Cuts do
+            FeatureMgr.GetFeature(diamondPlayers.Cuts[i]):SetIntValue(0)
+        end
+    end
+
+    eFeature.Heist.DiamondCasino.Cuts.MaxPayout.func(f)
+end)
+
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.Presets, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(f:GetListIndex() == 3):SetVisible(true)
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):SetVisible(true)
 
     local ftr    = eFeature.Heist.DiamondCasino.Cuts.Presets
     local preset = ftr.list[f:GetListIndex() + 1].index
@@ -629,8 +697,6 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.Presets, function(f)
     local list  = eFeature.Heist.DiamondCasino.Cuts.Presets.list
     local index = list[f:GetListIndex() + 1].index
     SilentLogger.LogInfo(F("[Presets (Diamond Casino)] Selected preset: %s. Don't forget to apply ツ", list:GetName(index)))
-
-    if preset == -1 then return end
 
     for i = 1, #diamondPlayers.Cuts do
         FeatureMgr.GetFeature(diamondPlayers.Cuts[i]):SetIntValue(preset)
@@ -694,6 +760,7 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Save, function(f)
         solo_launch      = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Launch.Solo),
         autograbber      = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Misc.Autograbber),
         remove_crew_cuts = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Cuts.Crew),
+        max_payout       = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Cuts.MaxPayout),
         presets          = FeatureMgr.GetFeatureListIndex(eFeature.Heist.DiamondCasino.Cuts.Presets),
 
         player1 = {
@@ -776,6 +843,29 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.DataHack)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.DoomsdayHack)
 
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Cuts.MaxPayout, function(f)
+    if f:IsToggled() then
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+            local ftr = FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Presets)
+            ftr:SetListIndex(0)
+            ftr:SetVisible(false)
+        else
+            FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Presets):SetListIndex(0)
+            for i = 1, #doomsdayPlayers.Cuts do
+                FeatureMgr.GetFeature(doomsdayPlayers.Cuts[i]):SetIntValue(0)
+            end
+            f:SetBoolValue(false)
+        end
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Presets):SetVisible(true)
+        for i = 1, #doomsdayPlayers.Cuts do
+            FeatureMgr.GetFeature(doomsdayPlayers.Cuts[i]):SetIntValue(0)
+        end
+    end
+
+    eFeature.Heist.Doomsday.Cuts.MaxPayout.func(f)
+end)
+
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Cuts.Presets, function(f)
     local ftr    = eFeature.Heist.Doomsday.Cuts.Presets
     local preset = ftr.list[f:GetListIndex() + 1].index
@@ -783,8 +873,6 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Cuts.Presets, function(f)
     local list  = eFeature.Heist.Doomsday.Cuts.Presets.list
     local index = list[f:GetListIndex() + 1].index
     SilentLogger.LogInfo(F("[Presets (Doomsday)] Selected preset: %s. Don't forget to apply ツ", list:GetName(index)))
-
-    if preset == -1 then return end
 
     for i = 1, #doomsdayPlayers.Cuts do
         FeatureMgr.GetFeature(doomsdayPlayers.Cuts[i]):SetIntValue(preset)
@@ -836,6 +924,7 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Save, function(f)
     local preps = {
         act         = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Preps.Act),
         solo_launch = FeatureMgr.GetFeatureBool(eFeature.Heist.Doomsday.Launch.Solo),
+        max_payout  = FeatureMgr.GetFeatureBool(eFeature.Heist.Doomsday.Cuts.MaxPayout),
         presets     = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Doomsday.Cuts.Presets),
 
         player1 = {

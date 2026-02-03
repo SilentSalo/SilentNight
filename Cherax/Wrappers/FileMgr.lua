@@ -2,6 +2,7 @@
 
 DEFAULT_CONFIG = {
     autoopen           = false,
+    yolo_mode          = false,
     compatibility_mode = true,
     logging            = 2,
     language           = "EN",
@@ -33,7 +34,6 @@ DEFAULT_CONFIG = {
     },
 
     easy_money = {
-        acknowledge      = false,
         autodeposit      = false,
         dummy_prevention = true,
         allow_300k_loop  = GTA_EDITION == "EE",
@@ -195,8 +195,8 @@ CONFIG = Json.DecodeFromFile(CONFIG_PATH)
 
 FileMgr.EnsureConfigKeys()
 
-loggedAcknowledgment  = CONFIG.easy_money.acknowledge
 loggedAutoOpen        = CONFIG.autoopen
+loggedYolo            = CONFIG.yolo_mode
 loggedCompatibility   = CONFIG.compatibility_mode
 loggedJinxScript      = CONFIG.collab.jinxscript.enabled
 loggedJinxScriptStop  = CONFIG.collab.jinxscript.autostop

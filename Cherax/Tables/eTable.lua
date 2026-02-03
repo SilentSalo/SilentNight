@@ -33,6 +33,15 @@ eTable = {
     },
 
     Heist = {
+        Generic = {
+            Presets = {
+                { name = "All - 0%",    index = 0   },
+                { name = "All - 25%",   index = 25  },
+                { name = "All - 85%",   index = 85  },
+                { name = "All - 100%",  index = 100 }
+            }
+        },
+
         Agency = {
             Contracts = {
                 { name = "None",           index = 3    },
@@ -51,13 +60,6 @@ eTable = {
         },
 
         Apartment = {
-            Presets = {
-                { name = "All - 0%",    index = 0   },
-                { name = "All - 85%",   index = 85  },
-                { name = "All - 100%",  index = 100 },
-                { name = "3mil Payout", index = -1  }
-            },
-
             Heists = {
                 FleecaJob   = "hK5OgJk1BkinXGGXghhTMg",
                 PrisonBreak = "7-w96-PU4kSevhtG5YwUHQ",
@@ -173,13 +175,6 @@ eTable = {
                         { name = "6",     index = 126 }
                     }
                 }
-            },
-
-            Presets = {
-                { name = "All - 0%",       index = 0   },
-                { name = "All - 85%",      index = 85  },
-                { name = "All - 100%",     index = 100 },
-                { name = "2.55mil Payout", index = -1  }
             },
 
             Values = {
@@ -321,13 +316,6 @@ eTable = {
                 { name = "Diamonds", index = 3 }
             },
 
-            Presets = {
-                { name = "All - 0%",      index = 0   },
-                { name = "All - 85%",     index = 85  },
-                { name = "All - 100%",    index = 100 },
-                { name = "3.6mil Payout", index = -1  }
-            },
-
             Files = {}
         },
 
@@ -336,13 +324,6 @@ eTable = {
                 { name = "Data Breaches",     index = 1 },
                 { name = "Bogdan Problem",    index = 2 },
                 { name = "Doomsday Scenario", index = 3 }
-            },
-
-            Presets = {
-                { name = "All - 0%",       index = 0   },
-                { name = "All - 85%",      index = 85  },
-                { name = "All - 100%",     index = 100 },
-                { name = "2.55mil Payout", index = -1  }
             },
 
             Heists = {
@@ -725,6 +706,13 @@ eTable = {
         VK_RETURN = 13,
         VK_ESCAPE = 27,
         VK_BACK   = 8
+    },
+
+    Editions = {
+        Standard    = "Standard",
+        Supporter   = "Supporter",
+        OGSupporter = "OG Supporter",
+        Staff       = "Staff"
     }
 }
 

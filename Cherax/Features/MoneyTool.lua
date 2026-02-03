@@ -41,12 +41,14 @@ end)
 FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Acknowledge):Toggle(CONFIG.easy_money.acknowledge)
 
 for i = 1, #easyLoops do
+    local ftr = FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Acknowledge)
+
     FeatureMgr.AddLoop(easyLoops[i], function(f)
         local delay = FeatureMgr.GetFeature(settingsEasyDelays[i]):GetFloatValue()
-        easyLoops[i].func(f, delay)
+        easyLoops[i].func(ftr, f, delay)
     end, function(f)
         local delay = FeatureMgr.GetFeature(settingsEasyDelays[i]):GetFloatValue()
-        easyLoops[i].func(f, delay)
+        easyLoops[i].func(ftr, f, delay)
     end)
 end
 
