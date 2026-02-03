@@ -19,4 +19,4 @@ Follow the tutorial from [**`Discord`**](https://discord.com/invite/AYpT8cBaVb) 
 2. Why **Kiddion's Modest Menu** version is **discontinued**?
 - The developer of this menu has stopped development.
 3. Why **YimMenu** version is **discontinued**?
-- This version of the script isn't developed by me and its original developer has stopped development. However, an enthusiast updated the script [**`there`**](https://github.com/xnightli06x/Silent-Night/tree/main).
+- This version of the script wasn't developed by me and its original developer has stopped development. However, an enthusiast has updated the script [**`here`**](https://github.com/xnightli06x/Silent-Night/tree/main).
