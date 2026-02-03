@@ -32,7 +32,7 @@ eFeature = {
                 type = eFeatureType.InputInt,
                 desc = "Select the cut for yourself.",
                 defv = 0,
-                lims = { 0, 100 },
+                lims = { 0, 999 },
                 step = 1,
                 func = function(ftr)
                     SilentLogger.LogInfo("[Self] Self cut should've been changed. Don't forget to apply ツ")
@@ -560,7 +560,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 1.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 1 (Apartment)] Player 1 cut should've been changed. Don't forget to apply ツ")
@@ -585,7 +585,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 2.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 2 (Apartment)] Player 2 cut should've been changed. Don't forget to apply ツ")
@@ -610,7 +610,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 3.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 3 (Apartment)] Player 3 cut should've been changed. Don't forget to apply ツ")
@@ -635,7 +635,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 4.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 4 (Apartment)] Player 4 cut should've been changed. Don't forget to apply ツ")
@@ -1588,7 +1588,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 1.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 1 (Cayo Perico)] Player 1 cut should've been changed. Don't forget to apply ツ")
@@ -1613,7 +1613,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 2.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 2 (Cayo Perico)] Player 2 cut should've been changed. Don't forget to apply ツ")
@@ -1638,7 +1638,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 3.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 3 (Cayo Perico)] Player 3 cut should've been changed. Don't forget to apply ツ")
@@ -1663,7 +1663,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 4.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 4 (Cayo Perico)] Player 4 cut should've been changed. Don't forget to apply ツ")
@@ -2347,7 +2347,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 1.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 1 (Diamond Casino)] Player 1 cut should've been changed. Don't forget to apply ツ")
@@ -2372,7 +2372,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 2.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 2 (Diamond Casino)] Player 2 cut should've been changed. Don't forget to apply ツ")
@@ -2397,7 +2397,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 3.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 3 (Diamond Casino)] Player 3 cut should've been changed. Don't forget to apply ツ")
@@ -2422,7 +2422,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 4.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 4 (Diamond Casino)] Player 4 cut should've been changed. Don't forget to apply ツ")
@@ -2805,7 +2805,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 1.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 1 (Doomsday)] Player 1 cut should've been changed. Don't forget to apply ツ")
@@ -2830,7 +2830,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 2.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 2 (Doomsday)] Player 2 cut should've been changed. Don't forget to apply ツ")
@@ -2855,7 +2855,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 3.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 3 (Doomsday)] Player 3 cut should've been changed. Don't forget to apply ツ")
@@ -2880,7 +2880,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 4.",
                         defv = 0,
-                        lims = { 0, 100 },
+                        lims = { 0, 999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 4 (Doomsday)] Player 4 cut should've been changed. Don't forget to apply ツ")
