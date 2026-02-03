@@ -26,11 +26,7 @@ local function GetScriptEdition(uid)
         return "Standard"
     end
 
-    if data.supporter == "OG Supporter" or data.supporter == "Supporter" then
-        return data.supporter
-    else
-        return "Standard"
-    end
+    return data.edition or "Standard"
 end
 
 Script.QueueJob(function()
