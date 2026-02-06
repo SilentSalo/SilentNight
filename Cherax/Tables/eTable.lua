@@ -712,6 +712,7 @@ eTable = {
         Standard    = "Standard",
         Supporter   = "Supporter",
         OGSupporter = "OG Supporter",
+        Special     = "Special",
         Staff       = "Staff"
     }
 }

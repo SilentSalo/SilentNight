@@ -9,7 +9,7 @@ Follow the tutorial from [**`Discord`**](https://discord.com/invite/AYpT8cBaVb) 
 # Supported Menus
 | Menu | Version | Status | 
 |--|--|--|
-| Cherax | 1.8.1 | Updated |
+| Cherax | 1.8.2 | Updated |
 | Kiddion's | 2.6 | Discontinued |
 | Yim | 0.0.5 | Discontinued |
 

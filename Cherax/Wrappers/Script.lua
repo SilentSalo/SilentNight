@@ -480,22 +480,24 @@ Script.RegisterLooped(function()
     FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Setup):SetVisible(not ePackedStat.Business.Nightclub.Setup.DJ:Get())
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.MaxPayout) then
-        local ftr = eFeature.Heist.Apartment.Cuts.Double
-        eFeature.Heist.Apartment.Cuts.Presets.func(FeatureMgr.GetFeature(ftr):IsToggled())
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+            local ftr = eFeature.Heist.Apartment.Cuts.Double
+            eFeature.Heist.Apartment.Cuts.Presets.func(FeatureMgr.GetFeature(ftr):IsToggled())
+        end
     end
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Cuts.MaxPayout) then
         if SCRIPT_EDTN ~= eTable.Editions.Standard then
             FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false):SetVisible(false)
+            eFeature.Heist.CayoPerico.Cuts.Presets.func()
         end
-        eFeature.Heist.CayoPerico.Cuts.Presets.func()
     end
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Cuts.MaxPayout) then
         if SCRIPT_EDTN ~= eTable.Editions.Standard then
             FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(true):SetVisible(false)
+            eFeature.Heist.DiamondCasino.Cuts.Presets.func()
         end
-        eFeature.Heist.DiamondCasino.Cuts.Presets.func()
     end
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.Doomsday.Cuts.MaxPayout) then

@@ -937,7 +937,16 @@ function Renderer.RenderMoneyTool()
                         ImGui.EndColumns()
                     end
 
-                    if ImGui.BeginColumns(2) then
+                    if ImGui.BeginColumns(3) then
+                        if ClickGUI.BeginCustomChildWindow("Instant") then
+                            ImGui.PushButtonStyle(eBtnStyle.RED)
+                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Instant.Give30m)
+                            ImGui.ResetButtonStyle()
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
                         if ClickGUI.BeginCustomChildWindow("Freeroam") then
                             ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
                             ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
@@ -1417,6 +1426,7 @@ function Renderer.RenderListGUI()
 
             local CutsSubTab = ApartmentTab:AddSubTab("Cuts", "Cuts")
             CutsSubTab:AddFeature(eFeature.Heist.Apartment.Cuts.Bonus)
+            CutsSubTab:AddFeature(eFeature.Heist.Apartment.Cuts.MaxPayout)
             CutsSubTab:AddFeature(eFeature.Heist.Apartment.Cuts.Double)
             CutsSubTab:AddFeature(eFeature.Heist.Apartment.Cuts.Presets)
             CutsSubTab:AddFeature(eFeature.Heist.Apartment.Cuts.Player1.Toggle)
@@ -1508,6 +1518,7 @@ function Renderer.RenderListGUI()
 
             local CutsSubTab = CayoPericoTab:AddSubTab("Cuts", "Cuts")
             CutsSubTab:AddFeature(eFeature.Heist.CayoPerico.Cuts.Crew)
+            CutsSubTab:AddFeature(eFeature.Heist.CayoPerico.Cuts.MaxPayout)
             CutsSubTab:AddFeature(eFeature.Heist.CayoPerico.Cuts.Presets)
             CutsSubTab:AddFeature(eFeature.Heist.CayoPerico.Cuts.Player1.Toggle)
             CutsSubTab:AddFeature(eFeature.Heist.CayoPerico.Cuts.Player1.Cut)
@@ -1569,6 +1580,7 @@ function Renderer.RenderListGUI()
 
             local CutsSubTab = CasinoHeistTab:AddSubTab("Cuts", "Cuts")
             CutsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Cuts.Crew)
+            CutsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Cuts.MaxPayout)
             CutsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Cuts.Presets)
             CutsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Cuts.Player1.Toggle)
             CutsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Cuts.Player1.Cut)
@@ -1617,6 +1629,7 @@ function Renderer.RenderListGUI()
             MiscSubTab:AddFeature(eFeature.Heist.Doomsday.Misc.DoomsdayHack)
 
             local CutsSubTab = DoomsdayTab:AddSubTab("Cuts", "Cuts")
+            CutsSubTab:AddFeature(eFeature.Heist.Doomsday.Cuts.MaxPayout)
             CutsSubTab:AddFeature(eFeature.Heist.Doomsday.Cuts.Presets)
             CutsSubTab:AddFeature(eFeature.Heist.Doomsday.Cuts.Player1.Toggle)
             CutsSubTab:AddFeature(eFeature.Heist.Doomsday.Cuts.Player1.Cut)
@@ -1884,6 +1897,7 @@ function Renderer.RenderListGUI()
             local EasyMoneyTab = MoneyToolTab:AddSubTab("Easy Money", "Easy Money")
             if EasyMoneyTab then
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Acknowledge)
+                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Instant.Give30m)
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._5k)
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._50k)
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._100k)

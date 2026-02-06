@@ -40,6 +40,11 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Acknowledge):Toggle(CONFIG.easy_money.acknowledge)
 
+FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Instant.Give30m, function(f)
+    local ftr = FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Acknowledge)
+    eFeature.Money.EasyMoney.Instant.Give30m.func(ftr)
+end)
+
 for i = 1, #easyLoops do
     local ftr = FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Acknowledge)
 
