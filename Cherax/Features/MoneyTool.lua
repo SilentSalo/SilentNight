@@ -38,7 +38,7 @@ end)
 
 --#region Easy Money
 
-FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Acknowledge):Toggle(CONFIG.easy_money.acknowledge)
+FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Acknowledge)
 
 FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Instant.Give30m, function(f)
     local ftr = FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Acknowledge)
