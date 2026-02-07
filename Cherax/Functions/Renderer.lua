@@ -937,16 +937,7 @@ function Renderer.RenderMoneyTool()
                         ImGui.EndColumns()
                     end
 
-                    if ImGui.BeginColumns(3) then
-                        if ClickGUI.BeginCustomChildWindow("Instant") then
-                            ImGui.PushButtonStyle(eBtnStyle.RED)
-                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Instant.Give30m)
-                            ImGui.ResetButtonStyle()
-                            ClickGUI.EndCustomChildWindow()
-                        end
-
-                        ImGui.TableNextColumn()
-
+                    if ImGui.BeginColumns(2) then
                         if ClickGUI.BeginCustomChildWindow("Freeroam") then
                             ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
                             ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
@@ -1897,7 +1888,6 @@ function Renderer.RenderListGUI()
             local EasyMoneyTab = MoneyToolTab:AddSubTab("Easy Money", "Easy Money")
             if EasyMoneyTab then
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Acknowledge)
-                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Instant.Give30m)
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._5k)
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._50k)
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._100k)

@@ -35,7 +35,6 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logg
 FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
     eFeature.Settings.Config.Reset.func()
 
-    FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Acknowledge):Toggle(CONFIG.easy_money.acknowledge)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Open):Toggle(CONFIG.autoopen)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Compatibility):Toggle(CONFIG.compatibility_mode)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Yolo):Toggle(CONFIG.yolo_mode)

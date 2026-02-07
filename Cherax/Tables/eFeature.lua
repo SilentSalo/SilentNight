@@ -5277,34 +5277,6 @@ eFeature = {
                 end
             },
 
-            Instant = {
-                Give30m = {
-                    hash = J("SN_EasyMoney_30m"),
-                    name = "Give 30mil",
-                    type = eFeatureType.Button,
-                    desc = "CAUTION: might be unsafe, bans reported in the past.\nGives 30mil dollars in a few seconds. Has a cooldown.",
-                    func = function(ftrAcknowledge)
-                        if not ftrAcknowledge:IsToggled() then
-                            SilentLogger.LogError("[Give 30mil (Easy Money)] You must acknowledge the risks first ツ")
-                            return
-                        end
-
-                        GTA.TriggerTransaction(0xA174F633)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0xED97AFC1)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0x176D9D54)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0x4B6A869C)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0x921FCF3C)
-                        Script.Yield(3000)
-                        GTA.TriggerTransaction(0x314FB8B0)
-                        SilentLogger.LogInfo("[Give 30mil (Easy Money)] 30mil dollars should've been given ツ", eToastPos.BOTTOM_RIGHT)
-                    end
-                }
-            },
-
             Freeroam = {
                 _5k = {
                     hash = J("SN_EasyMoney_5k"),
