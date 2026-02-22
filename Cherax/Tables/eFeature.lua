@@ -486,7 +486,7 @@ eFeature = {
                     hash = J("SN_Apartment_Bonus"),
                     name = "12mil Bonus",
                     type = eFeatureType.Toggle,
-                    desc = "ATTENTION: works only for you, even if not the host.\nAllows you to get 12 millions bonus for The Pacific Standard Job on hard difficulty. Enable before starting the heist. Has a cooldown.",
+                    desc = "ATTENTION: works only for you, even if not the host.\nAllows you to get 12 millions bonus on hard difficulty. Enable before starting the heist. Has a cooldown.",
                     func = function(ftr)
                         eStat.MPPLY_HEISTFLOWORDERPROGRESS:Set((ftr:IsToggled()) and 268435455 or 134217727)
                         eStat.MPPLY_AWD_HST_ORDER:Set(not ftr:IsToggled())
@@ -650,6 +650,7 @@ eFeature = {
                     desc = "Applies the selected cuts for players.",
                     func = function(cuts, auto)
                         local timedOut = false
+                        local wasOpen  = GUI.IsOpen()
 
                         local function SetCuts()
                             if GUI.IsOpen() then GUI.Toggle() end
@@ -665,7 +666,7 @@ eFeature = {
                                 GTA.SimulatePlayerControl(237)
                                 GTA.SimulateFrontendControl(202)
                                 Script.Yield(1000)
-                                if not GUI.IsOpen() then GUI.Toggle() end
+                                if not GUI.IsOpen() and wasOpen then GUI.Toggle() end
                                 return
                             end
 
@@ -712,14 +713,14 @@ eFeature = {
                             end
 
                             Script.Yield(1000)
-                            if not GUI.IsOpen() then GUI.Toggle() end
+                            if not GUI.IsOpen() and wasOpen then GUI.Toggle() end
                         end
 
                         if cuts[1] ~= 0 and (cuts[2] ~= 0 or cuts[3] ~= 0 or cuts[4] ~= 0) then
                             SetCuts()
 
                             if timedOut then
-                                if not GUI.IsOpen() then GUI.Toggle() end
+                                if not GUI.IsOpen() and wasOpen then GUI.Toggle() end
                                 return
                             end
 
@@ -728,7 +729,7 @@ eFeature = {
                             SetCuts()
 
                             if timedOut then
-                                if not GUI.IsOpen() then GUI.Toggle() end
+                                if not GUI.IsOpen() and wasOpen then GUI.Toggle() end
                                 return
                             end
 

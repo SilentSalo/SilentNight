@@ -475,7 +475,6 @@ Script.RegisterLooped(function()
         FeatureMgr.GetFeature(eFeature.Business.Misc.Garment.Teleport.Computer):SetVisible(false)
     end
 
-    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):SetVisible(eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.PacificJob)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(not ePackedStat.Business.Arcade.Setup:Get())
     FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Setup):SetVisible(not ePackedStat.Business.Nightclub.Setup.DJ:Get())
 
