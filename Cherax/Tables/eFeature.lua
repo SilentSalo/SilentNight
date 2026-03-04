@@ -1549,7 +1549,7 @@ eFeature = {
                     hash = J("SN_CayoPerico_MaxPayout"),
                     name = "2.55mil Payout",
                     type = eFeatureType.Toggle,
-                    desc = "ATTENTION: works only if you've set the «Difficulty» through the script.\nAutomatically calculates maximum payout cuts.",
+                    desc = "Automatically calculates maximum payout cuts.",
                     func = function(ftr)
                         if SCRIPT_EDTN == eTable.Editions.Standard then
                             SilentLogger.LogInfo("[2.55mil Payout (Cayo Perico)] Script Edition «Standard» doesn't include this feature ツ")

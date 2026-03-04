@@ -101,10 +101,6 @@ FeatureMgr.AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico):Toggle(CONFIG.u
 
 FeatureMgr.AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino):Toggle(CONFIG.unlock_all_poi.diamond_casino)
 
-FeatureMgr.AddFeature(eFeature.Settings.RegisterAsBoss.AutoRegister):Toggle(CONFIG.register_as_boss.autoregister)
-
-FeatureMgr.AddFeature(eFeature.Settings.RegisterAsBoss.Type):SetListIndex(CONFIG.register_as_boss.type)
-
 FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.AutoDeposit):Toggle(CONFIG.easy_money.autodeposit)
 
 FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.Allow300k)
@@ -116,5 +112,9 @@ FeatureMgr.AddFeature(eFeature.Settings.EasyMoney.Prevention):Toggle(CONFIG.easy
 for i = 1, #settingsEasyDelays do
     FeatureMgr.AddFeature(settingsEasyDelays[i]):SetFloatValue((CONFIG.easy_money.delay[delayKeys[i]]))
 end
+
+FeatureMgr.AddFeature(eFeature.Settings.RegisterAsBoss.AutoRegister):Toggle(CONFIG.register_as_boss.autoregister)
+
+FeatureMgr.AddFeature(eFeature.Settings.RegisterAsBoss.Type):SetListIndex(CONFIG.register_as_boss.type)
 
 --#endregion

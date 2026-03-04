@@ -49,7 +49,7 @@ end
 
 function Helper.SetCayoMaxPayout()
     local target     = eStat.MPX_H4CNF_TARGET:Get()
-    local difficulty = (eStat.MPX_H4_PROGRESS:Get() == eTable.Heist.CayoPerico.Difficulties[2].index) and 2 or 1
+    local difficulty = ((eStat.MPX_H4_PROGRESS:Get() & 4096) ~= 0) and 2 or 1
 
     local payouts = {
         [0] = { 630000,  693000  },
