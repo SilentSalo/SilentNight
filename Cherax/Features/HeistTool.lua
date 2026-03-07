@@ -51,11 +51,15 @@ end)
 
 --#region Apartment
 
-FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Complete)
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Heist)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Complete, function(f)
+    local ftr   = eFeature.Heist.Apartment.Preps.Heist
+    local heist = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+    eFeature.Heist.Apartment.Preps.Complete.func(heist)
+end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Reload)
-
-FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Change)
 
 FeatureMgr.AddLoop(eFeature.Heist.Apartment.Launch.Solo, function(f)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Launch.Reset):SetVisible(true)
@@ -192,10 +196,11 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Save, function(f)
     end
 
     local preps = {
-        solo_launch         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Launch.Solo),
+        heist               = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Apartment.Preps.Heist),
         bonus_12mil         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Bonus),
-        double_rewards_week = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Double),
+        solo_launch         = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Launch.Solo),
         max_payout          = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.MaxPayout),
+        double_rewards_week = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.Double),
         presets             = FeatureMgr.GetFeatureListIndex(eFeature.Heist.Apartment.Cuts.Presets),
 
         player1 = {

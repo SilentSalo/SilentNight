@@ -109,7 +109,8 @@ function Script.ReAssign()
 
     if GTA_EDITION == "EE" then
         eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 364 + 5 }
-        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877303 + 1 + (PLAYER_ID * 77) + 76             }
+        eGlobal.Heist.Apartment.Cooldown.Step1 = { type = "int", global = 1877303 + 1 + (PLAYER_ID * 77) + 76             }
+        eGlobal.World.Apartment.Id             = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 37      }
         eGlobal.World.Kosatka.Status           = { type = "int", global = 2658294 + 1 + (PLAYER_ID * 468) + 325 + 4       }
 
         eGlobal.Player.Organization = {
@@ -133,7 +134,8 @@ function Script.ReAssign()
         }
     else
         eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 364 + 5 }
-        eGlobal.Heist.Apartment.Cooldown       = { type = "int", global = 1877158 + 1 + (PLAYER_ID * 77) + 76             }
+        eGlobal.Heist.Apartment.Cooldown.Step1 = { type = "int", global = 1877158 + 1 + (PLAYER_ID * 77) + 76             }
+        eGlobal.World.Apartment.Id             = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 37      }
         eGlobal.World.Kosatka.Status           = { type = "int", global = 2658291 + 1 + (PLAYER_ID * 468) + 325 + 4       }
 
         eGlobal.Player.Organization = {
@@ -297,6 +299,7 @@ Script.RegisterLooped(function()
     Script.Yield()
 end)
 
+IS_FLEECA_ACTIVE = false
 GLOBAL_XP_SYNCED = false
 KD_RATIO         = 0.0
 NEW_KD_RATIO     = 0.0
@@ -517,6 +520,7 @@ Script.RegisterLooped(function()
     local dances = FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Dances):GetIntValue()
     local acts   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Acts):GetIntValue()
 
+    IS_FLEECA_ACTIVE = eStat.MPX_HEIST_MISSION_RCONT_ID_0:Get() == eTable.Heist.Apartment.Data.FleecaJob.RcontIDs[1]
     GLOBAL_XP_SYNCED = eStat.MPPLY_GLOBALXP:Get() == eGlobal.Player.RP:Get()
     KD_RATIO         = eStat.MPPLY_KILLS_PLAYERS:Get() / ((eStat.MPPLY_DEATHS_PLAYER:Get() == 0) and 1.0 or eStat.MPPLY_DEATHS_PLAYER:Get())
     NEW_KD_RATIO     = kills / ((deaths == 0) and 1.0 or deaths)

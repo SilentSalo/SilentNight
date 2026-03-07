@@ -25,15 +25,16 @@ function Helper.NewInstantFinishHeist()
 end
 
 function Helper.SetApartmentMaxPayout(bool)
-    local heist      = eStat.HEIST_MISSION_RCONT_ID_1:Get()
+    local heist      = eStat.MPX_HEIST_MISSION_RCONT_ID_0:Get()
     local difficulty = eGlobal.Heist.Generic.Difficulty:Get() + 1
+    local heists     = eTable.Heist.Apartment.Data
 
     local payouts = {
-        [eTable.Heist.Apartment.Heists.FleecaJob]   = { 100625, 201250,  251563  },
-        [eTable.Heist.Apartment.Heists.PrisonBreak] = { 350000, 700000,  875000  },
-        [eTable.Heist.Apartment.Heists.HumaneLabs]  = { 472500, 945000,  1181250 },
-        [eTable.Heist.Apartment.Heists.SeriesA]     = { 353500, 707000,  883750  },
-        [eTable.Heist.Apartment.Heists.PacificJob]  = { 750000, 1500000, 1875000 }
+        [heists.FleecaJob.RcontIDs[1]]   = { 100625, 201250,  251563  },
+        [heists.PrisonBreak.RcontIDs[1]] = { 350000, 700000,  875000  },
+        [heists.HumaneLabs.RcontIDs[1]]  = { 472500, 945000,  1181250 },
+        [heists.SeriesA.RcontIDs[1]]     = { 353500, 707000,  883750  },
+        [heists.PacificJob.RcontIDs[1]]  = { 750000, 1500000, 1875000 }
     }
 
     if payouts[heist] == nil then return end
@@ -200,10 +201,11 @@ function Helper.ApplyApartmentPreset(preps)
     local temp     = CONFIG.logging
     CONFIG.logging = 0
 
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Preps.Heist):SetListIndex(preps.heist or 0)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Launch.Solo):Toggle(preps.solo_launch or false)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Bonus):Toggle(preps.bonus_12mil or false)
-    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):Toggle(preps.double_rewards_week or false)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.MaxPayout):Toggle(preps.max_payout or false)
+    FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):Toggle(preps.double_rewards_week or false)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Presets):SetListIndex(preps.presets or 0):OnClick()
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player1.Toggle):Toggle(preps.player1.enabled or false)
     FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Player2.Toggle):Toggle(preps.player2.enabled or false)

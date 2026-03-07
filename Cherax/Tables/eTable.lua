@@ -61,11 +61,53 @@ eTable = {
 
         Apartment = {
             Heists = {
-                FleecaJob   = "hK5OgJk1BkinXGGXghhTMg",
-                PrisonBreak = "7-w96-PU4kSevhtG5YwUHQ",
-                HumaneLabs  = "BWsCWtmnvEWXBrprK9hDHA",
-                SeriesA     = "20Lu41Px20OJMPdZ6wXG3g",
-                PacificJob  = "zCxFg29teE2ReKGnr0L4Bg"
+                { name = "The Fleeca Job",       index = "FleecaJob"   },
+                { name = "The Prison Break",     index = "PrisonBreak" },
+                { name = "The Humane Labs", index = "HumaneLabs"  },
+                { name = "Series A Funding",     index = "SeriesA"     },
+                { name = "The Pacific Job",      index = "PacificJob"  }
+            },
+
+            Data = {
+                FleecaJob = {
+                    RcontIDs       = { -1072870761, "hK5OgJk1BkinXGGXghhTMg", "V7yEdnL6TEyU3i-U1Rv_pQ" },
+                    DepthLVs       = { -1, 0, 1 },
+                    ProgressHash   = -836352461,
+                    RewardCosmetic = 25,
+                    RootContentId  = "33TxqLipLUintwlU_YDzMg"
+                },
+
+                PrisonBreak = {
+                    RcontIDs       = { 979654579, "7-w96-PU4kSevhtG5YwUHQ", "oSXhVwaHH0KDOzg0rfIj3Q", "QS6WYcjJFk2YxqYDMN8mjQ", "JJ9OzPbPo02eQbaniO8E3g" },
+                    DepthLVs       = { -1, 0, 0, 0, 1 },
+                    ProgressHash   = 137052480,
+                    RewardCosmetic = 22,
+                    RootContentId  = "A6UBSyF61kiveglc58lm2Q"
+                },
+
+                HumaneLabs = {
+                    RcontIDs       = { -1096986654, "BWsCWtmnvEWXBrprK9hDHA", "6k6LOpnf2E-GG38OhjS-TA", "nSWwSwAf3EaHZWsk449lBg", "ciWN4gwmakid4lW-nSllcA", "v-8OOQYzxE-Zvqj5xO03DQ" },
+                    DepthLVs       = { -1, 0, 0, 1, 2, 2},
+                    ProgressHash   = 496643418,
+                    RewardCosmetic = 23,
+                    RootContentId  = "a_hWnpMUz0-7Yd_Rc5pJ4w"
+                },
+
+                SeriesA = {
+                    RcontIDs       = { 164435858, "20Lu41Px20OJMPdZ6wXG3g", "6UzZkstFeEeCkvs2lrF_6A", "PPnsIR0v2U2COyRbED87gw", "z49DSS9db0i_vh6A2e-Q-g", "Fo168mMjCUCeN_IKmL4VnA" },
+                    DepthLVs       = { -1, 0, 0, 0, 1, 2 },
+                    ProgressHash   = 1585746186,
+                    RewardCosmetic = 24,
+                    RootContentId  = "7r5AKL5aB0qe9HiDy3nW8w"
+                },
+
+                PacificJob = {
+                    RcontIDs       = { -231973569, "zCxFg29teE2ReKGnr0L4Bg", "6ClY8ZA_DkuBUdZ_fPn6Rw", "OiSO3Z0YdkCaEqVHhhkj4Q", "Cy2OZSwCt0-mSXY00o4SNw", "Y4zpRQDfvkawfFDR1Uxi2A" },
+                    DepthLVs       = { -1, 0, 1, 2, 2, 2 },
+                    ProgressHash   = 911181645,
+                    RewardCosmetic = 21,
+                    RootContentId  = "hKSf9RCT8UiaZlykyGrMwg"
+                }
             },
 
             Files = {}

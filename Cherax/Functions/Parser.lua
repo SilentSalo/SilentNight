@@ -73,6 +73,8 @@ function Parser.ParseGlobals(tbl)
                     return ScriptGlobal.GetFloat(self.global)
                 elseif self.type == "bool" then
                     return ScriptGlobal.GetBool(self.global)
+                elseif self.type == "string" then
+                    return ScriptGlobal.GetString(self.global)
                 end
                 SilentLogger.LogError(F("No type for global! %s", S(self.global)))
                 return nil
@@ -85,6 +87,8 @@ function Parser.ParseGlobals(tbl)
                     ScriptGlobal.SetFloat(self.global, value)
                 elseif self.type == "bool" then
                     ScriptGlobal.SetBool(self.global, value)
+                elseif self.type == "string" then
+                    ScriptGlobal.SetString(self.global, value)
                 else
                     SilentLogger.LogError(F("No type for global! %s", S(self.global)))
                 end

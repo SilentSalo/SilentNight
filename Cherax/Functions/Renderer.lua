@@ -51,9 +51,9 @@ function Renderer.RenderHeistTool()
             if ImGui.BeginTabItem("Apartment") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Preps") then
+                        ClickGUI.RenderFeature(eFeature.Heist.Apartment.Preps.Heist)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Preps.Complete)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Preps.Reload)
-                        ClickGUI.RenderFeature(eFeature.Heist.Apartment.Preps.Change)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -77,12 +77,11 @@ function Renderer.RenderHeistTool()
 
                     if ClickGUI.BeginCustomChildWindow("Launch Control") then
                         local reqPlayers = eLocal.Heist.Generic.Launch.Step2:Get()
-                        local isFleeca   = eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.FleecaJob
 
-                        Helper.RenderLaunchSettings((isFleeca) and 2 or 4, eFeature.Heist.Apartment.Launch.Reset)
+                        Helper.RenderLaunchSettings((IS_FLEECA_ACTIVE) and 2 or 4, eFeature.Heist.Apartment.Launch.Reset)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Launch.Solo)
 
-                        if reqPlayers ~= 0 and reqPlayers ~= ((isFleeca) and 2 or 4) then
+                        if reqPlayers ~= 0 and reqPlayers ~= ((IS_FLEECA_ACTIVE) and 2 or 4) then
                             ImGui.SameLine()
                         end
 
@@ -1384,9 +1383,9 @@ function Renderer.RenderListGUI()
         local ApartmentTab = HeistToolTab:AddSubTab("Apartment", "Apartment")
         if ApartmentTab then
             local PrepsSubTab = ApartmentTab:AddSubTab("Preps", "Preps")
+            PrepsSubTab:AddFeature(eFeature.Heist.Apartment.Preps.Heist)
             PrepsSubTab:AddFeature(eFeature.Heist.Apartment.Preps.Complete)
             PrepsSubTab:AddFeature(eFeature.Heist.Apartment.Preps.Reload)
-            PrepsSubTab:AddFeature(eFeature.Heist.Apartment.Preps.Change)
 
             local PresetsSubTab = ApartmentTab:AddSubTab("Presets", "Presets")
             PresetsSubTab:AddFeature(eFeature.Heist.Apartment.Presets.File)

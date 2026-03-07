@@ -204,29 +204,48 @@ eFeature = {
 
         Apartment = {
             Preps = {
+                Heist = {
+                    hash = J("SN_Apartment_Heist"),
+                    name = "Heist",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired heist.",
+                    list = eTable.Heist.Apartment.Heists,
+                    func = function(ftr)
+                        local list  = eTable.Heist.Apartment.Heists
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Heist (Apartment)] Selected heist: %s ツ", list:GetName(index)))
+                    end
+                },
+
                 Complete = {
                     hash = J("SN_Apartment_Complete"),
-                    name = "Complete Preps",
+                    name = "Apply & Complete Preps",
                     type = eFeatureType.Button,
-                    desc = "Completes all preparations.",
-                    func = function()
+                    desc = "Applies all changes and completes all preparations. Also, redraws the planning board.",
+                    func = function(heist)
+                        local heistData = eTable.Heist.Apartment.Data[heist]
+
                         eStat.MPX_HEIST_PLANNING_STAGE:Set(-1)
+                        eStat.MPX_BITSET_HEIST_VS_MISSIONS:Set(-17809409)
+                        eStat.MPX_HEIST_SESSION_ID_MACADDR:Set(183381814)
+                        eStat.MPX_HEIST_LEADER_APART_ID:Set(eGlobal.World.Apartment.Id:Get())
+                        eStat.MPPLY_HEIST_PROGRESS_HASH:Set(heistData.ProgressHash)
+                        eStat.MPX_HEIST_TOTAL_REWARD_COSMETIC:Set(heistData.RewardCosmetic)
 
-                        if CONFIG.collab.jinxscript.enabled then
-                            Script.LoadSubscribedScript("JinxScript")
-
-                            if FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode) then
-                                SilentLogger.LogInfo("[Complete Preps (Apartment)] Restarting freemode using JinxScript ツ")
-                                FeatureMgr.GetFeatureByHash(eTable.JinxScript.Features.RestartFreemode):OnClick()
-                                SilentLogger.LogInfo("[Complete Preps (Apartment)] Freemode should've been restarted by JinxScript ツ")
-                            else
-                                SilentLogger.LogError("[Complete Preps (Apartment)] JinxScript collab is enabled, but the script isn't running ツ")
-                            end
-
-                            if CONFIG.collab.jinxscript.autostop then
-                                Script.LoadSubscribedScript("JinxScript", true)
-                            end
+                        for i = 0, 7 do
+                            eStat[F("MPX_HEIST_MISSION_RCONT_ID_%d", i)]:Set(heistData.RcontIDs[i + 1] or "")
+                            eStat[F("MPX_HEIST_MISSION_DEPTH_LV_%d", i)]:Set(heistData.DepthLVs[i + 1] or -1)
                         end
+
+                        eGlobal.Heist.Apartment.RootContentId.Step1:Set(heistData.RootContentId)
+                        eGlobal.Heist.Apartment.RootContentId.Step2:Set(heistData.RootContentId)
+                        eGlobal.Heist.Apartment.RootContentId.Step3:Set(heistData.RootContentId)
+
+                        eGlobal.Heist.Apartment.Cooldown.Step1:Set(1)
+                        eGlobal.Heist.Apartment.Reload.Step1:Set(0)
+                        Script.Yield(1000)
+                        eGlobal.Heist.Apartment.Reload.Step1:Set(5)
+                        eGlobal.Heist.Apartment.Reload.Step2:Set(10)
 
                         SilentLogger.LogInfo("[Complete Preps (Apartment)] Preps should've been completed ツ")
                     end
@@ -238,19 +257,11 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Redraws the planning board.",
                     func = function()
-                        eGlobal.Heist.Apartment.Reload:Set(22)
+                        eGlobal.Heist.Apartment.Reload.Step1:Set(0)
+                        Script.Yield(1000)
+                        eGlobal.Heist.Apartment.Reload.Step1:Set(5)
+                        eGlobal.Heist.Apartment.Reload.Step2:Set(10)
                         SilentLogger.LogInfo("[Redraw Board (Apartment)] Board should've been redrawn ツ")
-                    end
-                },
-
-                Change = {
-                    hash = J("SN_Apartment_Change"),
-                    name = "Change Session",
-                    type = eFeatureType.Button,
-                    desc = "Changes your session to the new one.",
-                    func = function()
-                        GTA.StartSession(eTable.Session.Types.Invite)
-                        SilentLogger.LogInfo("[Change Session (Apartment)] Online session should've been changed ツ")
                     end
                 }
             },
@@ -263,6 +274,8 @@ eFeature = {
                     desc = "Allows launching the current heist alone.",
                     func = function(ftr)
                         if ftr:IsToggled() then
+                            --ScriptGlobal.SetInt(2635125 + 1, 0)
+
                             if GTA.IsScriptRunning(eScript.Heist.Launcher) then
                                 local value = eLocal.Heist.Generic.Launch.Step1:Get()
 
@@ -290,12 +303,10 @@ eFeature = {
                                 loggedApartmentLaunch = true
                             end
                         else
-                            local isFleeca = eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.FleecaJob
-
-                            ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, (isFleeca) and 2 or 4)
-                            eLocal.Heist.Generic.Launch.Step2:Set((isFleeca) and 2 or 4)
-                            eGlobal.Heist.Generic.Launch.Step1:Set((isFleeca) and 2 or 4)
-                            eGlobal.Heist.Generic.Launch.Step2:Set((isFleeca) and 2 or 4)
+                            ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, (IS_FLEECA_ACTIVE) and 2 or 4)
+                            eLocal.Heist.Generic.Launch.Step2:Set((IS_FLEECA_ACTIVE) and 2 or 4)
+                            eGlobal.Heist.Generic.Launch.Step1:Set((IS_FLEECA_ACTIVE) and 2 or 4)
+                            eGlobal.Heist.Generic.Launch.Step2:Set((IS_FLEECA_ACTIVE) and 2 or 4)
                             eGlobal.Heist.Generic.Launch.Step3:Set(1)
                             eGlobal.Heist.Generic.Launch.Step4:Set(0)
 
@@ -311,12 +322,10 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Resets the launch settings for the current heist.",
                     func = function()
-                        local isFleeca = eStat.HEIST_MISSION_RCONT_ID_1:Get() == eTable.Heist.Apartment.Heists.FleecaJob
-
-                        ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, (isFleeca) and 2 or 4)
-                        eLocal.Heist.Generic.Launch.Step2:Set((isFleeca) and 2 or 4)
-                        eGlobal.Heist.Generic.Launch.Step1:Set((isFleeca) and 2 or 4)
-                        eGlobal.Heist.Generic.Launch.Step2:Set((isFleeca) and 2 or 4)
+                        ScriptGlobal.SetInt(794954 + 4 + 1 + (eLocal.Heist.Generic.Launch.Step1:Get() * 95) + 75, (IS_FLEECA_ACTIVE) and 2 or 4)
+                        eLocal.Heist.Generic.Launch.Step2:Set((IS_FLEECA_ACTIVE) and 2 or 4)
+                        eGlobal.Heist.Generic.Launch.Step1:Set((IS_FLEECA_ACTIVE) and 2 or 4)
+                        eGlobal.Heist.Generic.Launch.Step2:Set((IS_FLEECA_ACTIVE) and 2 or 4)
                         eGlobal.Heist.Generic.Launch.Step3:Set(1)
                         eGlobal.Heist.Generic.Launch.Step4:Set(0)
                         eLocal.Heist.Generic.Launch.Step3:Set(0)
@@ -385,9 +394,9 @@ eFeature = {
                         GTA.ForceScriptHost(eScript.Heist.Old)
                         Script.Yield(1000)
 
-                        local heist = eStat.HEIST_MISSION_RCONT_ID_1:Get()
+                        local heist = eStat.MPX_HEIST_MISSION_RCONT_ID_0:Get()
 
-                        if heist == eTable.Heist.Apartment.Heists.PacificJob then
+                        if heist == eTable.Heist.Apartment.Data.PacificJob.RcontIDs[1] then
                             eLocal.Heist.Apartment.Finish.Step2:Set(5)
                             eLocal.Heist.Apartment.Finish.Step3:Set(80)
                             eLocal.Heist.Apartment.Finish.Step4:Set(10000000)
@@ -443,7 +452,8 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Skips the heist's setup cooldown.",
                     func = function()
-                        eGlobal.Heist.Apartment.Cooldown:Set(-1)
+                        eGlobal.Heist.Apartment.Cooldown.Step1:Set(-1)
+                        eGlobal.Heist.Apartment.Cooldown.Step2:Set(0)
                         SilentLogger.LogInfo("[Kill Cooldown (Apartment)] Cooldown should've been killed ツ")
                     end
                 },
@@ -454,7 +464,8 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = "Allows you to play unavailable jobs temporarily.",
                     func = function()
-                        eGlobal.Heist.Apartment.Cooldown:Set(-1)
+                        eGlobal.Heist.Apartment.Cooldown.Step1:Set(-1)
+                        eGlobal.Heist.Apartment.Cooldown.Step2:Set(0)
                         SilentLogger.LogInfo("[Play Unavailable Jobs (Apartment)] Unavailable jobs should've been made playable ツ")
                     end
                 },
@@ -507,16 +518,6 @@ eFeature = {
                     end
                 },
 
-                Double = {
-                    hash = J("SN_Apartment_Double"),
-                    name = "Double Rewards Week",
-                    type = eFeatureType.Toggle,
-                    desc = "Enable this during double rewards week.",
-                    func = function(ftr)
-                        SilentLogger.LogInfo(F("[Double Rewards Week (Apartment)] Cuts should've been %s ツ", (ftr:IsToggled()) and "decreased" or "increased"))
-                    end
-                },
-
                 MaxPayout = {
                     hash = J("SN_Apartment_MaxPayout"),
                     name = "3mil Payout",
@@ -529,6 +530,16 @@ eFeature = {
                         end
 
                         SilentLogger.LogInfo(F("[3mil Payout (Apartment)] 3mil Payout should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
+                Double = {
+                    hash = J("SN_Apartment_Double"),
+                    name = "Double Rewards Week",
+                    type = eFeatureType.Toggle,
+                    desc = "Enable this during double rewards week.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Double Rewards Week (Apartment)] Cuts should've been %s ツ", (ftr:IsToggled()) and "decreased" or "increased"))
                     end
                 },
 

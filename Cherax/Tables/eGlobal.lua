@@ -49,8 +49,21 @@ if GTA_EDITION == "EE" then
                     Player4 = { type = "int", global = 2658294 + 1 + (3 * 468) + 270 }
                 },
 
-                Reload   = { type = "int", global = 1936048                             },
-                Cooldown = { type = "int", global = 1877303 + 1 + (PLAYER_ID * 77) + 76 }
+                RootContentId = {
+                    Step1 = { type = "string", global = 1941591 + 10   },
+                    Step2 = { type = "string", global = 2635125 + 2    },
+                    Step3 = { type = "string", global = 1936048 + 1787 }
+                },
+
+                Reload = {
+                    Step1 = { type = "int", global = 2635124        },
+                    Step2 = { type = "int", global = 1937981 + 2768 }
+                },
+
+                Cooldown = {
+                    Step1 = { type = "int", global = 1877303 + 1 + (PLAYER_ID * 77) + 76 },
+                    Step2 = { type = "int", global = 2635125 + 1                         },
+                }
             },
 
             CayoPerico = {
@@ -184,6 +197,10 @@ if GTA_EDITION == "EE" then
         },
 
         World = {
+            Apartment = {
+                Id = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 37 }
+            },
+
             Casino = {
                 Chips = {
                     Bonus = { type = "bool", global = 1972794 }
@@ -245,8 +262,21 @@ else
                     Player4 = { type = "int", global = 2658291 + 1 + (3 * 468) + 270 }
                 },
 
-                Reload     = { type = "int", global = 1935571                             },
-                Cooldown   = { type = "int", global = 1877158 + 1 + (PLAYER_ID * 77) + 76 }
+                RootContentId = {
+                    Step1 = { type = "string", global = 1941114 + 10   },
+                    Step2 = { type = "string", global = 2635125 + 2    },
+                    Step3 = { type = "string", global = 1935571 + 1787 }
+                },
+
+                Reload = {
+                    Step1 = { type = "int", global = 2635124        },
+                    Step2 = { type = "int", global = 1937504 + 2768 }
+                },
+
+                Cooldown = {
+                    Step1 = { type = "int", global = 1877158 + 1 + (PLAYER_ID * 77) + 76 },
+                    Step2 = { type = "int", global = 2635125 + 1                         }
+                }
             },
 
             CayoPerico = {
@@ -378,6 +408,10 @@ else
         },
 
         World = {
+            Apartment = {
+                Id = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 37 }
+            },
+
             Casino = {
                 Chips = {
                     Bonus = { type = "bool", global = 1971515 }
