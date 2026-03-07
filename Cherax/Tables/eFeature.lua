@@ -7130,7 +7130,9 @@ eFeature = {
                         return
                     end
 
-                    SilentLogger.LogInfo(F("[Auto-Register (Settings)] Auto-Register should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    if not CONFIG.compatibility_mode then
+                        SilentLogger.LogInfo(F("[Auto-Register (Settings)] Auto-Register should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
                 end
             },
 

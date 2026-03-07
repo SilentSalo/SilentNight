@@ -506,6 +506,13 @@ Script.RegisterLooped(function()
         eFeature.Heist.Doomsday.Cuts.Presets.func()
     end
 
+    if CONFIG.compatibility_mode then
+        if CONFIG.register_as_boss.autoregister then
+            FeatureMgr.GetFeature(eFeature.Settings.RegisterAsBoss.AutoRegister):Toggle(false)
+            SilentLogger.LogInfo("[Auto-Register (Settings)] Disable Compatibility Mode to keep Auto-Register enabled ツ")
+        end
+    end
+
     local kills  = FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Kills):GetIntValue()
     local deaths = FeatureMgr.GetFeature(eFeature.Dev.Stats.KD.Deaths):GetIntValue()
     local wins   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Wins):GetIntValue()
