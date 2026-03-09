@@ -67,15 +67,19 @@ eNative = {
     },
 
     STATS = {
-        GET_PACKED_STAT_INT_CODE  = Natives.Invoke(eNativeType.Int, 0x0BC900A6FE73770C),
-        GET_PACKED_STAT_BOOL_CODE = Natives.Invoke(eNativeType.Bool, 0xDA7EBFC49AE3F1B0),
-        SET_PACKED_STAT_INT_CODE  = Natives.Invoke(eNativeType.Void, 0x1581503AE529CD2E),
-        SET_PACKED_STAT_BOOL_CODE = Natives.Invoke(eNativeType.Void, 0xDB8A58AEAA67CD07),
-        STAT_INCREMENT            = Natives.Invoke(eNativeType.Void, 0x9B5A68C6489E9909),
-        STAT_GET_STRING           = Natives.Invoke(eNativeType.String, 0xE50384ACC2C3DB74),
-        STAT_SET_STRING           = Natives.Invoke(eNativeType.Bool, 0xA87B2335D12531D7),
-        STAT_GET_DATE             = Natives.Invoke(eNativeType.Bool, 0x8B0FACEFC36C824B),
-	    STAT_SET_DATE             = Natives.Invoke(eNativeType.Bool, 0x2C29BFB64F4FCBE4)
+        GET_PACKED_STAT_INT_CODE   = Natives.Invoke(eNativeType.Int, 0x0BC900A6FE73770C),
+        GET_PACKED_STAT_BOOL_CODE  = Natives.Invoke(eNativeType.Bool, 0xDA7EBFC49AE3F1B0),
+        SET_PACKED_STAT_INT_CODE   = Natives.Invoke(eNativeType.Void, 0x1581503AE529CD2E),
+        SET_PACKED_STAT_BOOL_CODE  = Natives.Invoke(eNativeType.Void, 0xDB8A58AEAA67CD07),
+        STAT_INCREMENT             = Natives.Invoke(eNativeType.Void, 0x9B5A68C6489E9909),
+        STAT_GET_NUMBER_OF_DAYS    = Natives.Invoke(eNativeType.Int, 0xE0E854F5280FB769),
+        STAT_GET_NUMBER_OF_HOURS   = Natives.Invoke(eNativeType.Int, 0xF2D4B2FE415AAFC3),
+        STAT_GET_NUMBER_OF_MINUTES = Natives.Invoke(eNativeType.Int, 0x7583B4BE4C5A41B5),
+        STAT_GET_NUMBER_OF_SECONDS = Natives.Invoke(eNativeType.Int, 0x2CE056FF3723F00B),
+        STAT_GET_STRING            = Natives.Invoke(eNativeType.String, 0xE50384ACC2C3DB74),
+        STAT_SET_STRING            = Natives.Invoke(eNativeType.Bool, 0xA87B2335D12531D7),
+        STAT_GET_DATE              = Natives.Invoke(eNativeType.Bool, 0x8B0FACEFC36C824B),
+	    STAT_SET_DATE              = Natives.Invoke(eNativeType.Bool, 0x2C29BFB64F4FCBE4)
     },
 
     SYSTEM = {

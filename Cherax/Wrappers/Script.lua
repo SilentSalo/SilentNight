@@ -226,9 +226,11 @@ function Script.ReloadFeatures()
 
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Time)
         :SetListIndex(0)
+        :OnClick()
 
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Date)
         :SetListIndex(0)
+        :OnClick()
 
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Races.Wins)
         :SetIntValue(eStat.MPPLY_TOTAL_RACES_WON:Get())
@@ -469,6 +471,14 @@ Script.RegisterLooped(function()
     end
 
     FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Warehouse):SetVisible(Helper.IsPropertyOwned(eTable.Properties.Warehouse))
+
+    if Helper.IsPropertyOwned(eTable.Properties.BailOffice) then
+        FeatureMgr.GetFeature(eFeature.Business.Misc.BailOffice.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Misc.BailOffice.Teleport.Computer):SetVisible(GTA.IsScriptRunning(eScript.BailOffice.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Business.Misc.BailOffice.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Misc.BailOffice.Teleport.Computer):SetVisible(false)
+    end
 
     if Helper.IsPropertyOwned(eTable.Properties.Garment) then
         FeatureMgr.GetFeature(eFeature.Business.Misc.Garment.Teleport.Entrance):SetVisible(true)

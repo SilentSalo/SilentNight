@@ -72,6 +72,10 @@ eScript = {
         Interior = { name = "am_mp_warehouse",    stack = 0,    hash = J("am_mp_crate_warehouse") }
     },
 
+    BailOffice = {
+        Interior = { name = "am_mp_bail_office", stack = 0, hash = J("am_mp_bail_office") }
+    },
+
     Garment = {
         Interior = { name = "am_mp_hacker_den", stack = 0, hash = J("am_mp_hacker_den") }
     },

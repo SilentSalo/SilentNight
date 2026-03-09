@@ -87,6 +87,43 @@ function Utils.FillDynamicTables()
         I(eTable.Editor.Stats.Files, { name = "", index = -1 })
     end
 
+    -- eTable.Business.Safes
+    Utils.ClearTable(eTable.Business.Safes)
+
+    if eStat.MPX_FIXER_HQ_OWNED:Get() ~= 0 then
+        I(eTable.Business.Safes, { name = "Agency", index = 0 })
+    end
+
+    if eStat.MPX_ARCADE_OWNED:Get() ~= 0 then
+        I(eTable.Business.Safes, { name = "Arcade", index = 1 })
+    end
+
+    if eStat.MPX_BAIL_OFFICE_OWNED:Get() ~= 0 then
+        I(eTable.Business.Safes, { name = "Bail Office", index = 2 })
+    end
+
+    if eStat.MPX_SB_CAR_WASH_OWNED:Get() ~= 0 then
+        I(eTable.Business.Safes, { name = "Car Wash", index = 3 })
+    end
+
+    if eStat.MPX_HACKER_DEN_OWNED:Get() ~= 0 then
+        I(eTable.Business.Safes, { name = "Garment Fact.", index = 4 })
+    end
+
+    if eStat.MPX_NIGHTCLUB_OWNED:Get() ~= 0 then
+        I(eTable.Business.Safes, { name = "Nightclub", index = 5 })
+    end
+
+    if eStat.MPX_SALVAGE_YARD_OWNED:Get() ~= 0 then
+        I(eTable.Business.Safes, { name = "Salvage Yard", index = 6 })
+    end
+
+    if #eTable.Business.Safes == 0 then
+        I(eTable.Business.Safes, { name = "None", index = -1 })
+    else
+        I(eTable.Business.Safes, 1, { name = "All", index = 7 })
+    end
+
     -- eTable.Business.Supplies
     Utils.ClearTable(eTable.Business.Supplies)
 

@@ -130,6 +130,8 @@ for i = 1, #moneyFrontsBusinesses do
     FeatureMgr.AddFeature(moneyFrontsBusinesses[i].Heat.Select)
 end
 
+FeatureMgr.AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Collect):SetVisible(GTA_EDITION == "EE")
+
 FeatureMgr.AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Lock, function(f)
     for i = 1, #moneyFrontsBusinesses do
         FeatureMgr.GetFeature(moneyFrontsBusinesses[i].Heat.Lock):Toggle(f:IsToggled())
@@ -290,6 +292,16 @@ end)
 
 --#region Misc
 
+FeatureMgr.AddFeature(eFeature.Business.Misc.Safes.Business)
+
+FeatureMgr.AddFeature(eFeature.Business.Misc.Safes.Collect, function(f)
+    local ftr      = eFeature.Business.Misc.Safes.Business
+    local business = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+    eFeature.Business.Misc.Safes.Collect.func(business)
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.Misc.Safes.Refresh)
+
 FeatureMgr.AddFeature(eFeature.Business.Misc.Supplies.Business)
 
 FeatureMgr.AddFeature(eFeature.Business.Misc.Supplies.Resupply, function(f)
@@ -300,11 +312,19 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Business.Misc.Supplies.Refresh)
 
+FeatureMgr.AddFeature(eFeature.Business.Misc.BailOffice.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Misc.BailOffice.Teleport.Computer):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Misc.BailOffice.Collect):SetVisible(GTA_EDITION == "EE")
+
 FeatureMgr.AddFeature(eFeature.Business.Misc.Garment.Teleport.Entrance):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Misc.Garment.Teleport.Computer):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Misc.Garment.Unbrick)
+
+FeatureMgr.AddFeature(eFeature.Business.Misc.Garment.Collect):SetVisible(GTA_EDITION == "EE")
 
 --#endregion
 

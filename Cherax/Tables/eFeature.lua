@@ -162,6 +162,21 @@ eFeature = {
                         eStat.MPX_FIXER_STORY_COOLDOWN:Set(-1)
                         SilentLogger.LogInfo("[Kill Cooldowns (Agency)] Cooldowns should've been killed ツ")
                     end
+                },
+
+                Collect = {
+                    hash = J("SN_Agency_Collect"),
+                    name = "Collect Safe",
+                    type = eFeatureType.Button,
+                    desc = "Collects money from your Agency safe.",
+                    func = function()
+                        if eStat.MPX_FIXER_SAFE_CASH_VALUE:Get() ~= 0 then
+                            eGlobal.Business.Agency.Safe.Collect:Set(true)
+                            SilentLogger.LogInfo("[Collect Safe (Agency)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                        else
+                            SilentLogger.LogInfo("[Collect Safe (Agency)] Agency safe is empty ツ")
+                        end
+                    end
                 }
             },
 
@@ -2277,6 +2292,21 @@ eFeature = {
                         eStat.MPPLY_H3_COOLDOWN:Set(-1)
                         SilentLogger.LogInfo("[Kill Cooldown (Diamond Casino)] Cooldown should've been killed ツ")
                     end
+                },
+
+                Collect = {
+                    hash = J("SN_DiamondCasino_Collect"),
+                    name = "Collect Safe",
+                    type = eFeatureType.Button,
+                    desc = "Collects money from your Arcade safe.",
+                    func = function()
+                        if eStat.MPX_ARCADE_SAFE_CASH_VALUE:Get() ~= 0 then
+                            eGlobal.Business.Arcade.Safe.Collect:Set(true)
+                            SilentLogger.LogInfo("[Collect Safe (Arcade)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                        else
+                            SilentLogger.LogInfo("[Collect Safe (Arcade)] Arcade safe is empty ツ")
+                        end
+                    end
                 }
             },
 
@@ -3434,6 +3464,21 @@ eFeature = {
                         eLocal.Heist.SalvageYard.Reload:Set(2)
                         SilentLogger.LogInfo("[Skip Weekly Cooldown (Salvage Yard)] Cooldown should've been skipped ツ")
                     end
+                },
+
+                Collect = {
+                    hash = J("SN_SalvageYard_Collect"),
+                    name = "Collect Safe",
+                    type = eFeatureType.Button,
+                    desc = "Collects money from your Salvage Yard safe.",
+                    func = function()
+                        if eStat.MPX_SALVAGE_SAFE_CASH_VALUE:Get() ~= 0 then
+                            eGlobal.Business.SalvageYard.Safe.Collect:Set(true)
+                            SilentLogger.LogInfo("[Collect Safe (Salvage Yard)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                        else
+                            SilentLogger.LogInfo("[Collect Safe (Salvage Yard)] Salvage Yard safe is empty ツ")
+                        end
+                    end
                 }
             },
 
@@ -4050,6 +4095,21 @@ eFeature = {
                     }
                 },
 
+                Collect = {
+                    hash = J("SN_HandsOnCarWash_Collect"),
+                    name = "Collect Safe",
+                    type = eFeatureType.Button,
+                    desc = "Collects money from your Car Wash safe.",
+                    func = function()
+                        if eStat.MPX_CWASH_SAFE_CASH_VALUE:Get() ~= 0 then
+                            eGlobal.Business.CarWash.Safe.Collect:Set(true)
+                            SilentLogger.LogInfo("[Collect Safe (Hands On Car Wash)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                        else
+                            SilentLogger.LogInfo("[Collect Safe (Hands On Car Wash)] Car Wash safe is empty ツ")
+                        end
+                    end
+                },
+
                 Heat = {
                     Lock = {
                         hash = J("SN_HandsOnCarWash_Lock"),
@@ -4541,7 +4601,7 @@ eFeature = {
                         end
 
                         eStat.MPX_CLUB_PAY_TIME_LEFT:Set(-1)
-                        SilentLogger.LogInfo("[Fill Safe (Nightclub)] Safe should've been filled ツ")
+                        SilentLogger.LogInfo("[Fill (Nightclub)] Safe should've been filled ツ")
                     end
                 },
 
@@ -4551,14 +4611,16 @@ eFeature = {
                     type = eFeatureType.Button,
                     desc = F("ATTENTION: might be unsafe, if overused.\nCollects money from your Nightclub safe.%s", (GTA_EDITION == "LE") and " Use inside your Nightclub." or ""),
                     func = function()
-                        if eGlobal.Business.Nightclub.Safe.Value:Get() > 0 then
+                        if eGlobal.Business.Nightclub.Safe.Value:Get() ~= 0 then
                             if GTA_EDITION == "EE" then
                                 eGlobal.Business.Nightclub.Safe.Collect:Set(true)
                             else
                                 eLocal.Business.Nightclub.Safe.Type:Set(3)
                                 eLocal.Business.Nightclub.Safe.Collect:Set(1)
                             end
-                            SilentLogger.LogInfo("[Collect Safe (Nightclub)] Safe should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                            SilentLogger.LogInfo("[Collect (Nightclub)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                        else
+                            SilentLogger.LogInfo("[Collect (Nightclub)] Nightclub safe is empty ツ")
                         end
                     end
                 },
@@ -4586,7 +4648,7 @@ eFeature = {
                             eLocal.Business.Nightclub.Safe.Collect:Set(1)
                         end
 
-                        SilentLogger.LogInfo("[Unbrick Safe (Nightclub)] Safe should've been unbricked ツ")
+                        SilentLogger.LogInfo("[Unbrick (Nightclub)] Safe should've been unbricked ツ")
                     end
                 }
             },
@@ -4998,6 +5060,78 @@ eFeature = {
         },
 
         Misc = {
+            Safes = {
+                Business = {
+                    hash = J("SN_Misc_SafeBusiness"),
+                    name = "Business",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired business.",
+                    list = eTable.Business.Safes,
+                    func = function(ftr)
+                        local list  = eTable.Business.Safes
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Business (Misc)] Selected business: %s ツ", list:GetName(index)))
+                    end
+                },
+
+                Collect = {
+                    hash = J("SN_Misc_SafeCollect"),
+                    name = "Collect",
+                    type = eFeatureType.Button,
+                    desc = "Collects money from the selected business safe.",
+                    func = function(business)
+                        if business == -1 then
+                            SilentLogger.LogError("[Collect (Safes)] You must get a business first ツ")
+                            return
+                        end
+
+                        local businesses = {
+                            [0] = { value = eStat.MPX_FIXER_SAFE_CASH_VALUE,   collect = eGlobal.Business.Agency.Safe.Collect      },
+                            [1] = { value = eStat.MPX_ARCADE_SAFE_CASH_VALUE,  collect = eGlobal.Business.Arcade.Safe.Collect      },
+                            [2] = { value = eStat.MPX_BAIL_SAFE_CASH_VALUE,    collect = eGlobal.Business.BailOffice.Safe.Collect  },
+                            [3] = { value = eStat.MPX_CWASH_SAFE_CASH_VALUE,   collect = eGlobal.Business.CarWash.Safe.Collect     },
+                            [4] = { value = eStat.MPX_HDEN24_SAFE_CASH_VALUE,  collect = eGlobal.Business.Garment.Safe.Collect     },
+                            [5] = { value = eStat.MPX_CLUB_SAFE_CASH_VALUE,    collect = eGlobal.Business.Nightclub.Safe.Collect   },
+                            [6] = { value = eStat.MPX_SALVAGE_SAFE_CASH_VALUE, collect = eGlobal.Business.SalvageYard.Safe.Collect }
+                        }
+
+                        if business == 7 then
+                            for _, index in ipairs(eTable.Business.Safes:GetIndexes()) do
+                                if index ~= 7 then
+                                    if businesses[index].value:Get() ~= 0 then
+                                        businesses[index].collect:Set(true)
+                                        Script.Yield(3000)
+                                    end
+                                end
+                            end
+
+                            SilentLogger.LogInfo("[Collect (Safes)] Safes money should've been collected ツ")
+                            return
+                        end
+
+                        if businesses[business].value:Get() ~= 0 then
+                            businesses[business].collect:Set(true)
+                            SilentLogger.LogInfo("[Collect (Safes)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                        else
+                            SilentLogger.LogInfo(F("[Collect (Safes)] %s safe is empty ツ", eTable.Business.Safes:GetName(business)))
+                        end
+                    end
+                },
+
+                Refresh = {
+                    hash = J("SN_Misc_SafesRefresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the list of the businesses.",
+                    func = function()
+                        Utils.FillDynamicTables()
+                        Parser.ParseTables(eTable)
+                        Script.ReloadFeatures()
+                        SilentLogger.LogInfo("[Refresh (Safes)] Business list should've been refreshed ツ")
+                    end
+                }
+            },
+
             Supplies = {
                 Business = {
                     hash = J("SN_Misc_SuppliesBusiness"),
@@ -5008,7 +5142,7 @@ eFeature = {
                     func = function(ftr)
                         local list  = eTable.Business.Supplies
                         local index = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Business (Misc)] Selected business: %s ツ", list:GetName(index)))
+                        SilentLogger.LogInfo(F("[Business (Supplies)] Selected business: %s ツ", list:GetName(index)))
                     end
                 },
 
@@ -5019,7 +5153,7 @@ eFeature = {
                     desc = "Resupplies the selected business.",
                     func = function(business)
                         if business == -1 then
-                            SilentLogger.LogError("[Resupply (Misc)] You must get a business first ツ")
+                            SilentLogger.LogError("[Resupply (Supplies)] You must get a business first ツ")
                             return
                         end
 
@@ -5037,15 +5171,16 @@ eFeature = {
                             for _, index in ipairs(eTable.Business.Supplies:GetIndexes()) do
                                 if index ~= 7 then
                                     businesses[index]:Set(1)
+                                    Script.Yield(3000)
                                 end
                             end
 
-                            SilentLogger.LogInfo("[Resupply (Misc)] All businesses should've been resupplied ツ")
+                            SilentLogger.LogInfo("[Resupply (Supplies)] Supplies for business stocks should've been resupplied ツ")
                             return
                         end
 
                         businesses[business]:Set(1)
-                        SilentLogger.LogInfo("[Resupply (Misc)] Business should've been resupplied ツ")
+                        SilentLogger.LogInfo("[Resupply (Supplies)] Supplies for business stock should've been resupplied ツ")
                     end
                 },
 
@@ -5057,8 +5192,49 @@ eFeature = {
                     func = function()
                         Utils.FillDynamicTables()
                         Parser.ParseTables(eTable)
-                        Script.ReAssign()
-                        SilentLogger.LogInfo("[Refresh (Misc)] Businesses list should've been refreshed ツ")
+                        Script.ReloadFeatures()
+                        SilentLogger.LogInfo("[Refresh (Supplies)] Business list should've been refreshed ツ")
+                    end
+                }
+            },
+
+            BailOffice = {
+                Teleport = {
+                    Entrance = {
+                        hash = J("SN_BailOffice_Entrance"),
+                        name = "Teleport to Entrance",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Bail Office's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.BailOffice)
+                            SilentLogger.LogInfo("[Teleport to Entrance (Bail Office)] You should've been teleported to the entrance ツ")
+                        end
+                    },
+
+                    Computer = {
+                        hash = J("SN_BailOffice_Computer"),
+                        name = "Teleport to Computer",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Bail Office's computer.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.BailOffice))
+                            SilentLogger.LogInfo("[Teleport to Computer (Bail Office)] You should've been teleported to the computer ツ")
+                        end
+                    }
+                },
+
+                Collect = {
+                    hash = J("SN_BailOffice_Collect"),
+                    name = "Collect Safe",
+                    type = eFeatureType.Button,
+                    desc = "Collects money from your Bail Office safe.",
+                    func = function()
+                        if eStat.MPX_BAIL_SAFE_CASH_VALUE:Get() ~= 0 then
+                            eGlobal.Business.BailOffice.Safe.Collect:Set(true)
+                            SilentLogger.LogInfo("[Collect Safe (Bail Office)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                        else
+                            SilentLogger.LogInfo("[Collect Safe (Bail Office)] Bail Office safe is empty ツ")
+                        end
                     end
                 }
             },
@@ -5083,19 +5259,34 @@ eFeature = {
                         desc = "Teleports you to the Garment Factory's computer.",
                         func = function()
                             GTA.TeleportXYZ(U(eTable.Teleports.Garment))
-                            SilentLogger.LogInfo("[Open Computer (Garment Factory)] Computer screen should've been opened ツ")
+                            SilentLogger.LogInfo("[Teleport to Computer (Garment Factory)] You should've been teleported to the computer ツ")
                         end
                     }
                 },
 
                 Unbrick = {
-                    hash = J("SN_Misc_GarmentUnbrick"),
+                    hash = J("SN_Garment_Unbrick"),
                     name = "Unbrick Computer",
                     type = eFeatureType.Button,
-                    desc = "Unbricks your Garment Factory computer after using features like «Unlock All Awards».",
+                    desc = "Unbricks your computer after using features like «Unlock All Awards».",
                     func = function()
                         eStat.MPX_HACKER24_GEN_BS:Set(-24607)
-                        SilentLogger.LogInfo("[Unbrick Computer (Misc)] Garment Factory computer should've been unbricked ツ")
+                        SilentLogger.LogInfo("[Unbrick Computer (Garment Factory)] Computer should've been unbricked ツ")
+                    end
+                },
+
+                Collect = {
+                    hash = J("SN_Garment_Collect"),
+                    name = "Collect Safe",
+                    type = eFeatureType.Button,
+                    desc = "Collects money from your Garment Factory safe.",
+                    func = function()
+                        if eStat.MPX_HDEN24_SAFE_CASH_VALUE:Get() ~= 0 then
+                            eGlobal.Business.Garment.Safe.Collect:Set(true)
+                            SilentLogger.LogInfo("[Collect Safe (Garment Factory)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                        else
+                            SilentLogger.LogInfo("[Collect Safe (Garment Factory)] Garment Factory safe is empty ツ")
+                        end
                     end
                 }
             }
@@ -5933,24 +6124,7 @@ eFeature = {
                             ["string"] = Stats.SetString
                         }
 
-                        if type == "int" then
-                            if math.abs(value) <= INT32_MAX then
-                                SetValue[type](hash, value)
-                            else
-                                local loops     = math.floor(math.abs(value) / INT32_MAX)
-                                local remainder = math.abs(value) - (loops * INT32_MAX)
-                                local sign      = (value < 0) and -1 or 1
-
-                                for i = 1, loops do
-                                    eNative.STATS.STAT_INCREMENT(hash, sign * INT32_MAX + .0)
-                                end
-
-                                eNative.STATS.STAT_INCREMENT(hash, sign * remainder + .0)
-                            end
-                        else
-                            SetValue[type](hash, value)
-                        end
-
+                        SetValue[type](hash, value)
                         SilentLogger.LogInfo("[Write (Editor)] Value should've been written to stat ツ")
                     end
                 },
@@ -6293,13 +6467,12 @@ eFeature = {
                         local index = list[ftr:GetListIndex() + 1].index
 
                         if index ~= 0 then
-                            local totalSecs = math.floor(index:Get() / 1000)
-                            local days      = math.floor(totalSecs / 86400)
-                            local hours     = math.floor((totalSecs % 86400) / 3600)
-                            local minutes   = math.floor((totalSecs % 3600) / 60)
-                            local seconds   = totalSecs % 60
+                            local days  = eNative.STATS.STAT_GET_NUMBER_OF_DAYS(index.hash)
+                            local hours = eNative.STATS.STAT_GET_NUMBER_OF_HOURS(index.hash)
+                            local mins  = eNative.STATS.STAT_GET_NUMBER_OF_MINUTES(index.hash)
+                            local secs  = eNative.STATS.STAT_GET_NUMBER_OF_SECONDS(index.hash)
 
-                            CURRENT_TIME = F("%dd %dh %dm %d", days or 0, hours or 0, minutes or 0, seconds or 0)
+                            CURRENT_TIME = F("%dd %dh %dm %d", days or 0, hours or 0, mins or 0, secs or 0)
                             NEW_TIME     = CURRENT_TIME
                         end
 
@@ -6367,12 +6540,6 @@ eFeature = {
                         end
 
                         timeStat:Set(((days * 86400) + (hours * 3600) + (minutes * 60) + seconds) * 1000)
-
-                        local totalSecs = math.floor(timeStat:Get() / 1000)
-                        local days      = math.floor(totalSecs / 86400)
-                        local hours     = math.floor((totalSecs % 86400) / 3600)
-                        local minutes   = math.floor((totalSecs % 3600) / 60)
-                        local seconds   = totalSecs % 60
 
                         CURRENT_TIME = F("%dd %dh %dm %d", days or 0, hours or 0, minutes or 0, seconds or 0)
                         SilentLogger.LogInfo("[Apply Time (Stats)] Time should've been applied ツ")
@@ -6465,12 +6632,6 @@ eFeature = {
                         }
 
                         dateStat:Set(date)
-                        local date = dateStat:Get()
-
-                        if not date then
-                            SilentLogger.LogError("[Apply Date (Stats)] Unable to retrieve the selected date ツ")
-                            return
-                        end
 
                         CURRENT_DATE = F("%04d / %02d / %02d", date.year, date.month, date.day)
                         SilentLogger.LogInfo("[Apply Date (Stats)] Date should've been applied ツ")
@@ -6577,7 +6738,7 @@ eFeature = {
                 hash = J("SN_Settings_CCompatibility"),
                 name = "Compatibility Mode",
                 type = eFeatureType.Toggle,
-                desc = "RECOMMENDED: it's better to leave this enabled.\nAutomatically adjusts certain Cherax features to prevent issues when playing missions while the script is running and restores them upon script unload.",
+                desc = "RECOMMENDED: it's better to leave this enabled.\nAutomatically adjusts certain features to prevent issues when playing missions while the script is running and restores them upon script unload.",
                 func = function(ftr)
                     CONFIG.compatibility_mode = ftr:IsToggled()
                     FileMgr.SaveConfig(CONFIG)

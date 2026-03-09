@@ -728,14 +728,18 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Dev.Stats.Times.Time, function(f)
     if f:GetListIndex() ~= 0 then
-        local ftr       = eFeature.Dev.Stats.Times.Time
-        local index     = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-        local totalSecs = math.floor(index:Get() / 1000)
+        local ftr   = eFeature.Dev.Stats.Times.Time
+        local index = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
 
-        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Days):SetIntValue(math.floor(totalSecs / 86400))
-        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Hours):SetIntValue(math.floor((totalSecs % 86400) / 3600))
-        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Minutes):SetIntValue(math.floor((totalSecs % 3600) / 60))
-        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Seconds):SetIntValue(totalSecs % 60)
+        local days  = eNative.STATS.STAT_GET_NUMBER_OF_DAYS(index.hash)
+        local hours = eNative.STATS.STAT_GET_NUMBER_OF_HOURS(index.hash)
+        local mins  = eNative.STATS.STAT_GET_NUMBER_OF_MINUTES(index.hash)
+        local secs  = eNative.STATS.STAT_GET_NUMBER_OF_SECONDS(index.hash)
+
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Days):SetIntValue(days)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Hours):SetIntValue(hours)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Minutes):SetIntValue(mins)
+        FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Seconds):SetIntValue(secs)
     else
         FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Days):SetIntValue(0)
         FeatureMgr.GetFeature(eFeature.Dev.Stats.Times.Hours):SetIntValue(0)

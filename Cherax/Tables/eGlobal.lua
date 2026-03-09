@@ -146,10 +146,40 @@ if GTA_EDITION == "EE" then
         },
 
         Business = {
+            Agency = {
+                Safe = {
+                    Collect = { type = "bool", global = 2708850 }
+                }
+            },
+
+            Arcade = {
+                Safe = {
+                    Collect = { type = "bool", global = 2708841 }
+                }
+            },
+
+            BailOffice = {
+                Safe = {
+                    Collect = { type = "bool", global = 2708868 }
+                }
+            },
+
             Bunker = {
                 Production = {
                     Trigger1 = { type = "int",  global = 2708925 + 1 + 5 * 2     },
                     Trigger2 = { type = "bool", global = 2708925 + 1 + 5 * 2 + 1 }
+                }
+            },
+
+            CarWash = {
+                Safe = {
+                    Collect = { type = "bool", global = 2708890 }
+                }
+            },
+
+            Garment = {
+                Safe = {
+                    Collect = { type = "bool", global = 2708883 }
                 }
             },
 
@@ -163,6 +193,12 @@ if GTA_EDITION == "EE" then
                     },
 
                     Value = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 364 + 5 }
+                }
+            },
+
+            SalvageYard = {
+                Safe = {
+                    Collect = { type = "bool", global = 2708859 }
                 }
             },
 

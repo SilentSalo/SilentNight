@@ -29,6 +29,7 @@ eTable = {
             }
         },
 
+        Safes    = {},
         Supplies = {}
     },
 
@@ -61,11 +62,11 @@ eTable = {
 
         Apartment = {
             Heists = {
-                { name = "The Fleeca Job",       index = "FleecaJob"   },
-                { name = "The Prison Break",     index = "PrisonBreak" },
-                { name = "The Humane Labs", index = "HumaneLabs"  },
-                { name = "Series A Funding",     index = "SeriesA"     },
-                { name = "The Pacific Job",      index = "PacificJob"  }
+                { name = "The Fleeca Job",   index = "FleecaJob"   },
+                { name = "The Prison Break", index = "PrisonBreak" },
+                { name = "The Humane Labs",  index = "HumaneLabs"  },
+                { name = "Series A Funding", index = "SeriesA"     },
+                { name = "The Pacific Job",  index = "PacificJob"  }
             },
 
             Data = {
@@ -685,7 +686,8 @@ eTable = {
         TourCompany  = 928,
         TourCompanyH = 930,
         CarWash      = 931,
-        CarWashH     = 933
+        CarWashH     = 933,
+        BailOffice   = 893
     },
 
     BlipColors = {
@@ -708,7 +710,8 @@ eTable = {
         Garment     = eStat.MPX_HACKER_DEN_OWNED,
         CarWash     = eStat.MPX_SB_CAR_WASH_OWNED,
         WeedShop    = eStat.MPX_SB_WEED_SHOP_OWNED,
-        TourCompany = eStat.MPX_SB_HELI_TOURS_OWNED
+        TourCompany = eStat.MPX_SB_HELI_TOURS_OWNED,
+        BailOffice  = eStat.MPX_BAIL_OFFICE_OWNED
     },
 
     Stats = {
@@ -741,7 +744,8 @@ eTable = {
         Terminal    = { 1169.749,  -2973.535, 5.902,   271.204 },
         CarWash     = { 23.684,    -1400.633, -73.999, 357.518 },
         WeedShop    = { -1160.636, -1535.462, -48.994, 180.271 },
-        TourCompany = { -1160.599, -1535.585, -48.999, 177.268 }
+        TourCompany = { -1160.599, -1535.585, -48.999, 177.268 },
+        BailOffice  = { 562.959,   -2705.590, -48.997, 31.983  }
     },
 
     Keys = {

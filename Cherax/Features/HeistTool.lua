@@ -35,6 +35,8 @@ FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Finish)
 
 FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
 
+FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Collect):SetVisible(GTA_EDITION == "EE")
+
 FeatureMgr.AddFeature(eFeature.Heist.Agency.Payout.Select)
 
 FeatureMgr.AddFeature(eFeature.Heist.Agency.Payout.Max, function(f)
@@ -664,6 +666,8 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Cooldown)
 
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Collect):SetVisible(GTA_EDITION == "EE")
+
 FeatureMgr.AddLoop(eFeature.Heist.DiamondCasino.Cuts.Crew, nil, function(f)
     eFeature.Heist.DiamondCasino.Cuts.Crew.func(f)
 end)
@@ -1025,6 +1029,8 @@ FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Sell)
 FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Force)
 
 FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Cooldown)
+
+FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Misc.Collect):SetVisible(GTA_EDITION == "EE")
 
 FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Payout.Salvage)
 

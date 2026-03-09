@@ -181,7 +181,23 @@ function Parser.ParseStats(tbl)
 
             v.Set = function(self, value)
                 if self.type == "int" then
-                    Stats.SetInt(self.hash, value)
+                    if math.abs(value) <= INT32_MAX then
+                        Stats.SetInt(self.hash, value)
+                    else
+                        Stats.SetInt(self.hash, 0)
+
+                        local loops     = math.floor(math.abs(value) / INT32_MAX)
+                        local remainder = math.abs(value) - (loops * INT32_MAX)
+                        local sign      = (value < 0) and -1 or 1
+
+                        for i = 1, loops do
+                            eNative.STATS.STAT_INCREMENT(self.hash, sign * INT32_MAX + .0)
+                        end
+
+                        if remainder > 0 then
+                            eNative.STATS.STAT_INCREMENT(self.hash, sign * remainder + .0)
+                        end
+                    end
                 elseif self.type == "float" then
                     Stats.SetFloat(self.hash, value)
                 elseif self.type == "bool" then

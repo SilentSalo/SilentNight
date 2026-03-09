@@ -31,6 +31,7 @@ function Renderer.RenderHeistTool()
                         ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
                         ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Finish)
                         ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Cooldown)
+                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Collect)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -365,6 +366,7 @@ function Renderer.RenderHeistTool()
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Autograbber)
                         ImGui.ResetFrameBgStyle()
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Cooldown)
+                        ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Collect)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -537,7 +539,7 @@ function Renderer.RenderHeistTool()
                         ClickGUI.RenderFeature(eFeature.Heist.SalvageYard.Misc.Sell)
                         ClickGUI.RenderFeature(eFeature.Heist.SalvageYard.Misc.Force)
                         ClickGUI.RenderFeature(eFeature.Heist.SalvageYard.Misc.Cooldown)
-
+                        ClickGUI.RenderFeature(eFeature.Heist.SalvageYard.Misc.Collect)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -674,6 +676,7 @@ function Renderer.RenderBusinessTool()
                         ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Entrance)
                         ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Laptop)
                         ImGui.ResetButtonStyle()
+                        ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Collect)
                         ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Lock)
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Max)
@@ -842,11 +845,32 @@ function Renderer.RenderBusinessTool()
 
             if ImGui.BeginTabItem("Misc") then
                 if ImGui.BeginColumns(3) then
+                    if GTA_EDITION == "EE" then
+                        if ClickGUI.BeginCustomChildWindow("Safes") then
+                            ClickGUI.RenderFeature(eFeature.Business.Misc.Safes.Business)
+                            ClickGUI.RenderFeature(eFeature.Business.Misc.Safes.Collect)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Business.Misc.Safes.Refresh)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                    end
+
                     if ClickGUI.BeginCustomChildWindow("Supplies") then
                         ClickGUI.RenderFeature(eFeature.Business.Misc.Supplies.Business)
                         ClickGUI.RenderFeature(eFeature.Business.Misc.Supplies.Resupply)
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Business.Misc.Supplies.Refresh)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("Bail Office") then
+                        ImGui.PushButtonStyle(eBtnStyle.PINK)
+                        ClickGUI.RenderFeature(eFeature.Business.Misc.BailOffice.Teleport.Entrance)
+                        ClickGUI.RenderFeature(eFeature.Business.Misc.BailOffice.Teleport.Computer)
+                        ImGui.ResetButtonStyle()
+                        ClickGUI.RenderFeature(eFeature.Business.Misc.BailOffice.Collect)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -858,6 +882,7 @@ function Renderer.RenderBusinessTool()
                         ClickGUI.RenderFeature(eFeature.Business.Misc.Garment.Teleport.Computer)
                         ImGui.ResetButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Business.Misc.Garment.Unbrick)
+                        ClickGUI.RenderFeature(eFeature.Business.Misc.Garment.Collect)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -1373,6 +1398,7 @@ function Renderer.RenderListGUI()
             MiscSubTab:AddFeature(eFeature.Heist.Generic.Skip)
             MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Finish)
             MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
+            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Collect)
 
             local PayoutSubTab = AgencyTab:AddSubTab("Payout", "Payout")
             PayoutSubTab:AddFeature(eFeature.Heist.Agency.Payout.Select)
@@ -1567,6 +1593,7 @@ function Renderer.RenderListGUI()
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.VaultDoorDrill)
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Autograbber)
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Cooldown)
+            MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Collect)
 
             local CutsSubTab = CasinoHeistTab:AddSubTab("Cuts", "Cuts")
             CutsSubTab:AddFeature(eFeature.Heist.DiamondCasino.Cuts.Crew)
@@ -1678,6 +1705,7 @@ function Renderer.RenderListGUI()
             MiscSubTab:AddFeature(eFeature.Heist.SalvageYard.Misc.Sell)
             MiscSubTab:AddFeature(eFeature.Heist.SalvageYard.Misc.Force)
             MiscSubTab:AddFeature(eFeature.Heist.SalvageYard.Misc.Cooldown)
+            MiscSubTab:AddFeature(eFeature.Heist.SalvageYard.Misc.Collect)
 
             local PayoutSubTab = SalvageYardTab:AddSubTab("Payout", "Payout")
             PayoutSubTab:AddFeature(eFeature.Heist.SalvageYard.Payout.Salvage)
@@ -1750,6 +1778,7 @@ function Renderer.RenderListGUI()
             local CarWashSubTab = MoneyFrontsTab:AddSubTab("Hands On Car Wash")
             CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Entrance)
             CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Teleport.Laptop)
+            CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Collect)
             CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Lock)
             CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Max)
             CarWashSubTab:AddFeature(eFeature.Business.MoneyFronts.HandsOnCarWash.Heat.Min)
@@ -1846,15 +1875,28 @@ function Renderer.RenderListGUI()
 
         local MiscTab = BusinessToolTab:AddSubTab("Misc", "Misc")
         if MiscTab then
+            if GTA_EDITION == "EE" then
+                local SafesSubTab = MiscTab:AddSubTab("Safes", "Safes")
+                SafesSubTab:AddFeature(eFeature.Business.Misc.Safes.Business)
+                SafesSubTab:AddFeature(eFeature.Business.Misc.Safes.Collect)
+                SafesSubTab:AddFeature(eFeature.Business.Misc.Safes.Refresh)
+            end
+
             local SuppliesSubTab = MiscTab:AddSubTab("Supplies", "Supplies")
             SuppliesSubTab:AddFeature(eFeature.Business.Misc.Supplies.Business)
             SuppliesSubTab:AddFeature(eFeature.Business.Misc.Supplies.Resupply)
             SuppliesSubTab:AddFeature(eFeature.Business.Misc.Supplies.Refresh)
 
+            local BailOfficeSubTab = MiscTab:AddSubTab("Bail Office", "Bail Office")
+            BailOfficeSubTab:AddFeature(eFeature.Business.Misc.BailOffice.Teleport.Entrance)
+            BailOfficeSubTab:AddFeature(eFeature.Business.Misc.BailOffice.Teleport.Computer)
+            BailOfficeSubTab:AddFeature(eFeature.Business.Misc.BailOffice.Collect)
+
             local GarmentSubTab = MiscTab:AddSubTab("Garment Factory", "Garment Factory")
             GarmentSubTab:AddFeature(eFeature.Business.Misc.Garment.Teleport.Entrance)
             GarmentSubTab:AddFeature(eFeature.Business.Misc.Garment.Teleport.Computer)
             GarmentSubTab:AddFeature(eFeature.Business.Misc.Garment.Unbrick)
+            GarmentSubTab:AddFeature(eFeature.Business.Misc.Garment.Collect)
         end
     end
 
