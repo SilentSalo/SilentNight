@@ -32,7 +32,7 @@ eFeature = {
                 type = eFeatureType.InputInt,
                 desc = "Select the cut for yourself.",
                 defv = 0,
-                lims = { 0, 999 },
+                lims = { 0, 9999 },
                 step = 1,
                 func = function(ftr)
                     SilentLogger.LogInfo("[Self] Self cut should've been changed. Don't forget to apply ツ")
@@ -257,6 +257,7 @@ eFeature = {
                         eGlobal.Heist.Apartment.RootContentId.Step3:Set(heistData.RootContentId)
 
                         eGlobal.Heist.Apartment.Cooldown.Step1:Set(1)
+                        eGlobal.Heist.Apartment.Cooldown.Step2:Set(0)
                         eGlobal.Heist.Apartment.Reload.Step1:Set(0)
                         Script.Yield(1000)
                         eGlobal.Heist.Apartment.Reload.Step1:Set(5)
@@ -586,7 +587,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 1.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 9999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 1 (Apartment)] Player 1 cut should've been changed. Don't forget to apply ツ")
@@ -611,7 +612,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 2.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 9999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 2 (Apartment)] Player 2 cut should've been changed. Don't forget to apply ツ")
@@ -636,7 +637,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 3.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 9999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 3 (Apartment)] Player 3 cut should've been changed. Don't forget to apply ツ")
@@ -661,7 +662,7 @@ eFeature = {
                         type = eFeatureType.InputInt,
                         desc = "Select the cut for Player 4.",
                         defv = 0,
-                        lims = { 0, 999 },
+                        lims = { 0, 9999 },
                         step = 1,
                         func = function(ftr)
                             SilentLogger.LogInfo("[Player 4 (Apartment)] Player 4 cut should've been changed. Don't forget to apply ツ")
