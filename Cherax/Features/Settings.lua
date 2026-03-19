@@ -18,7 +18,7 @@ delayKeys = {
     "_680k"
 }
 
-FeatureMgr.AddFeature(eFeature.Settings.Info.Copy):SetVisible(SCRIPT_EDTN ~= eTable.Editions.Basic)
+FeatureMgr.AddFeature(eFeature.Settings.Info.Copy):SetVisible(SCRIPT_EDTN ~= eTable.Editions.Standard)
 
 FeatureMgr.AddFeature(eFeature.Settings.Info.Discord)
 

@@ -444,7 +444,7 @@ eFeature = {
                     hash = J("SN_Apartment_FleecaDrill"),
                     name = "Bypass Fleeca Drill",
                     type = eFeatureType.Button,
-                    desc = "Skips the drilling process of The Fleeca Job heist.",
+                    desc = "Skips the drilling process of The Fleeca Job.",
                     func = function()
                         eLocal.Heist.Apartment.Bypass.Fleeca.Drill:Set(100)
                         SilentLogger.LogInfo("[Bypass Fleeca Drill (Apartment)] Drilling process should've been skipped ツ")
@@ -540,8 +540,8 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Automatically calculates maximum payout cuts.",
                     func = function(ftr)
-                        if SCRIPT_EDTN == eTable.Editions.Basic then
-                            SilentLogger.LogInfo("[3mil Payout (Apartment)] Script Edition «Basic» doesn't include this feature ツ")
+                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                            SilentLogger.LogInfo("[3mil Payout (Apartment)] This feature requires «Supporter» Script Edition ツ")
                             return
                         end
 
@@ -1578,8 +1578,8 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Automatically calculates maximum payout cuts.",
                     func = function(ftr)
-                        if SCRIPT_EDTN == eTable.Editions.Basic then
-                            SilentLogger.LogInfo("[2.55mil Payout (Cayo Perico)] Script Edition «Basic» doesn't include this feature ツ")
+                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                            SilentLogger.LogInfo("[2.55mil Payout (Cayo Perico)] This feature requires «Supporter» Script Edition ツ")
                             return
                         end
 
@@ -2352,8 +2352,8 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Automatically calculates maximum payout cuts.",
                     func = function(ftr)
-                        if SCRIPT_EDTN == eTable.Editions.Basic then
-                            SilentLogger.LogInfo("[3.6mil Payout (Diamond Casino)] Script Edition «Basic» doesn't include this feature ツ")
+                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                            SilentLogger.LogInfo("[3.6mil Payout (Diamond Casino)] This feature requires «Supporter» Script Edition ツ")
                             return
                         end
 
@@ -2810,8 +2810,8 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "ATTENTION: works only if you've set the «Act» through the script.\nAutomatically calculates maximum payout cuts.",
                     func = function(ftr)
-                        if SCRIPT_EDTN == eTable.Editions.Basic then
-                            SilentLogger.LogInfo("[2.55mil Payout (Doomsday)] Script Edition «Basic» doesn't include this feature ツ")
+                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                            SilentLogger.LogInfo("[2.55mil Payout (Doomsday)] This feature requires «Supporter» Script Edition ツ")
                             return
                         end
 

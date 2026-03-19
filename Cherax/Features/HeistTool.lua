@@ -114,7 +114,7 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.MaxPayout, function(f)
     if f:IsToggled() then
-        if SCRIPT_EDTN ~= eTable.Editions.Basic then
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
             FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(true)
             local ftr = FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Presets)
             ftr:SetListIndex(0)
@@ -382,7 +382,7 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.MaxPayout, function(f)
     if f:IsToggled() then
-        if SCRIPT_EDTN ~= eTable.Editions.Basic then
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
             local ftr = FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Presets)
             ftr:SetListIndex(0)
             ftr:SetVisible(false)
@@ -674,7 +674,7 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.MaxPayout, function(f)
     if f:IsToggled() then
-        if SCRIPT_EDTN ~= eTable.Editions.Basic then
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
             local ftr = FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Presets)
             ftr:SetListIndex(0)
             ftr:SetVisible(false)
@@ -854,7 +854,7 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.DoomsdayHack)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Cuts.MaxPayout, function(f)
     if f:IsToggled() then
-        if SCRIPT_EDTN ~= eTable.Editions.Basic then
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
             local ftr = FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Presets)
             ftr:SetListIndex(0)
             ftr:SetVisible(false)
