@@ -135,13 +135,13 @@ eTable = {
             },
 
             Approaches = {
-                { name = "Kosatka",        index = 65283 },
-                { name = "Alkonost",       index = 65413 },
-                { name = "Velum",          index = 65289 },
-                { name = "Stealth Annih.", index = 65425 },
-                { name = "Patrol Boat",    index = 65313 },
-                { name = "Longfin",        index = 65345 },
-                { name = "All Ways",       index = 65535 }
+                { name = "Kosatka",       index = 65283 },
+                { name = "Alkonost",      index = 65413 },
+                { name = "Velum",         index = 65289 },
+                { name = "Stealth Anni.", index = 65425 },
+                { name = "Patrol Boat",   index = 65313 },
+                { name = "Longfin",       index = 65345 },
+                { name = "All Ways",      index = 65535 }
             },
 
             Loadouts = {
@@ -755,7 +755,7 @@ eTable = {
     },
 
     Editions = {
-        Standard    = "Standard",
+        Basic       = "Basic",
         Supporter   = "Supporter",
         OGSupporter = "OG Supporter",
         Special     = "Special",

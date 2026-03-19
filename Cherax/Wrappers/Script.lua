@@ -257,6 +257,10 @@ HAS_PARSED         = false
 LAST_SESSION_STATE = false
 
 function Script.ReParse()
+    while not ScriptGlobal.AreValid() do
+        Script.Yield(1000)
+    end
+
     if not GTA.IsInSession() then
         if HAS_PARSED then
             HAS_PARSED = false
@@ -492,21 +496,21 @@ Script.RegisterLooped(function()
     FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Setup):SetVisible(not ePackedStat.Business.Nightclub.Setup.DJ:Get())
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.MaxPayout) then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if SCRIPT_EDTN ~= eTable.Editions.Basic then
             local ftr = eFeature.Heist.Apartment.Cuts.Double
             eFeature.Heist.Apartment.Cuts.Presets.func(FeatureMgr.GetFeature(ftr):IsToggled())
         end
     end
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Cuts.MaxPayout) then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if SCRIPT_EDTN ~= eTable.Editions.Basic then
             FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false):SetVisible(false)
             eFeature.Heist.CayoPerico.Cuts.Presets.func()
         end
     end
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Cuts.MaxPayout) then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if SCRIPT_EDTN ~= eTable.Editions.Basic then
             FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(true):SetVisible(false)
             eFeature.Heist.DiamondCasino.Cuts.Presets.func()
         end
@@ -563,7 +567,7 @@ Script.RegisterLooped(function()
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Apply):SetVisible(CURRENT_DATE ~= NEW_DATE)
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Apply):SetVisible(PRIVATE_DANCES ~= dances or SEX_ACTS ~= acts)
 
-    FeatureMgr.GetFeature(eFeature.Settings.Info.Copy):SetVisible(SCRIPT_EDTN == "Standard")
+    FeatureMgr.GetFeature(eFeature.Settings.Info.Copy):SetVisible(SCRIPT_EDTN == eTable.Editions.Basic)
 
     Helper.RegisterAsBoss()
 
