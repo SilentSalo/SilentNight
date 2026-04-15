@@ -709,7 +709,7 @@ eFeature = {
                                     SilentLogger.LogInfo("[Apply Cuts (Apartment)] Please, underline your own cut and press «Enter» ツ")
                                 end
 
-                                if toastCounter == 20 then
+                                if toastCounter == CONFIG.timeout_duration then
                                     timedOut = true
                                     SilentLogger.LogError("[Apply Cuts (Apartment)] Timed out waiting for «Enter» press ツ")
                                     return
@@ -730,7 +730,7 @@ eFeature = {
                                     SilentLogger.LogInfo("[Apply Cuts (Apartment)] Please, press «Esc» or «Backspace» ツ")
                                 end
 
-                                if toastCounter == 20 then
+                                if toastCounter == CONFIG.timeout_duration then
                                     timedOut = true
                                     SilentLogger.LogError("[Apply Cuts (Apartment)] Timed out waiting for «Esc» or «Backspace» ツ")
                                     return
@@ -1390,8 +1390,15 @@ eFeature = {
 
                         GTA.TeleportXYZ(U(eTable.Teleports.Kosatka))
 
+                        timeout = 0
+
                         while eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(eTable.BlipSprites.Heist) == 0 do
-                            Script.Yield()
+                            Script.Yield(1000)
+                            timeout = timeout + 1
+                            if timeout == CONFIG.timeout_duration then
+                                SilentLogger.LogError("[Teleport to Kosatka (Cayo Perico)] Timed out waiting for «H» blip ツ")
+                                break
+                            end
                         end
 
                         eNative.ENTITY.FREEZE_ENTITY_POSITION(entity, false)
@@ -3489,7 +3496,7 @@ eFeature = {
                     name = "Salvage Value Multiplier",
                     type = eFeatureType.InputFloat,
                     desc = "ATTENTION: the transaction limit is 2.1mil.\nSelect the desired salvage value multiplier.",
-                    defv = eTunable.Heist.SalvageYard.Vehicle.SalvageValueMultiplier:Get(),
+                    defv = eTunable.Heist.SalvageYard.Vehicle.SalvageValueMultiplier.defaultValue,
                     lims = { 0.0, 5.0 },
                     step = 0.1,
                     func = function(ftr)
@@ -3502,7 +3509,7 @@ eFeature = {
                     name = "Sell Value Slot 1",
                     type = eFeatureType.InputInt,
                     desc = "Select the desired sell value for the vehicle in slot 1.",
-                    defv = eTunable.Heist.SalvageYard.Vehicle.Slot1.Value:Get(),
+                    defv = eTunable.Heist.SalvageYard.Vehicle.Slot1.Value.defaultValue,
                     lims = { 0, 2100000 },
                     step = 100000,
                     func = function(ftr)
@@ -3515,7 +3522,7 @@ eFeature = {
                     name = "Sell Value Slot 2",
                     type = eFeatureType.InputInt,
                     desc = "Select the desired sell value for the vehicle in slot 2.",
-                    defv = eTunable.Heist.SalvageYard.Vehicle.Slot2.Value:Get(),
+                    defv = eTunable.Heist.SalvageYard.Vehicle.Slot2.Value.defaultValue,
                     lims = { 0, 2100000 },
                     step = 100000,
                     func = function(ftr)
@@ -3528,7 +3535,7 @@ eFeature = {
                     name = "Sell Value Slot 3",
                     type = eFeatureType.InputInt,
                     desc = "Select the desired sell value for the vehicle in slot 3.",
-                    defv = eTunable.Heist.SalvageYard.Vehicle.Slot3.Value:Get(),
+                    defv = eTunable.Heist.SalvageYard.Vehicle.Slot3.Value.defaultValue,
                     lims = { 0, 2100000 },
                     step = 100000,
                     func = function(ftr)
@@ -6775,6 +6782,21 @@ eFeature = {
                         SilentLogger.LogInfo("[YOLO Mode (Settings)] YOLO Mode change requires a ListGUI restart ツ")
                         SetShouldUnload()
                     end
+                end
+            },
+
+            Timeout = {
+                hash = J("SN_Settings_CTimeout"),
+                name = "Timeout Duration",
+                type = eFeatureType.SliderInt,
+                desc = "Controls the duration of timeouts in seconds for certain features that require waiting for something to happen in the game. Increasing this might help with features that aren't working properly on some systems.",
+                defv = 20,
+                lims = { 5, 60 },
+                func = function(ftr)
+                    CONFIG.timeout_duration = ftr:GetIntValue()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                    SilentLogger.LogInfo("[Timeout Duration (Settings)] Timeout duration should've been changed ツ")
                 end
             },
 

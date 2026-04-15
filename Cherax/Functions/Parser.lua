@@ -333,7 +333,6 @@ function Parser.ParseTables(tbl)
     tbl.HAS_PARSED = true
 end
 
-Parser.ParseTunables(eTunable)
 Parser.ParseGlobals(eGlobal)
 Parser.ParseLocals(eLocal)
 Parser.ParseStats(eStat)
@@ -342,7 +341,15 @@ Utils.FillDynamicTables()
 Parser.ParseTables(eTable)
 
 Script.QueueJob(function()
-    while not eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedStat.HAS_PARSED and eTable.HAS_PARSED do
+    while not ScriptGlobal.AreValid() do
+        Script.Yield()
+    end
+
+    Parser.ParseTunables(eTunable)
+end)
+
+Script.QueueJob(function()
+    while not (eTunable.HAS_PARSED and eGlobal.HAS_PARSED and eLocal.HAS_PARSED and eStat.HAS_PARSED and ePackedStat.HAS_PARSED and eTable.HAS_PARSED) do
         Script.Yield()
     end
 

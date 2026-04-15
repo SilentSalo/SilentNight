@@ -5,6 +5,7 @@ DEFAULT_CONFIG = {
     yolo_mode          = false,
     compatibility_mode = true,
     logging            = 2,
+    timeout_duration   = 20,
     language           = "EN",
 
     collab = {

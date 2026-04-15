@@ -32,6 +32,8 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Yolo):Toggle(CONFIG.yolo_mode)
 
 FeatureMgr.AddFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logging)
 
+FeatureMgr.AddFeature(eFeature.Settings.Config.Timeout):SetIntValue(CONFIG.timeout_duration)
+
 FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
     eFeature.Settings.Config.Reset.func()
 
@@ -39,6 +41,7 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Compatibility):Toggle(CONFIG.compatibility_mode)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Yolo):Toggle(CONFIG.yolo_mode)
     FeatureMgr.GetFeature(eFeature.Settings.Config.Logging):SetListIndex(CONFIG.logging)
+    FeatureMgr.GetFeature(eFeature.Settings.Config.Timeout):SetIntValue(CONFIG.timeout_duration)
     FeatureMgr.GetFeature(eFeature.Settings.Translation.File):SetListIndex(0)
     FeatureMgr.GetFeature(eFeature.Settings.Collab.JinxScript.Toggle):Toggle(CONFIG.collab.jinxscript.enabled)
     FeatureMgr.GetFeature(eFeature.Settings.Collab.JinxScript.Stop):Toggle(CONFIG.collab.jinxscript.autostop)
