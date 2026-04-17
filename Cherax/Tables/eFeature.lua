@@ -3921,17 +3921,18 @@ eFeature = {
                     name = "Start",
                     type = eFeatureType.Toggle,
                     desc = "Starts filling your Hangar stock repeatedly.",
-                    func = function(ftr, limitToggled, limit, delay)
+                    func = function(ftr, limitToggled, limit, type, delay)
                         if ftr:IsToggled() then
                             if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
                                 if limitToggled and eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() >= limit then
-                                    eGlobal.Business.Hangar.Cargo.Limit:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
+                                    eGlobal.Business.Hangar.Cargo.Total:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
                                     SilentLogger.LogInfo("[Pocket Dimension (Hangar)] Cargo limit should've been reached ツ")
                                     ftr:Toggle(false)
                                     return
                                 end
 
-                                eGlobal.Business.Hangar.Cargo.Limit:Set(0)
+                                eGlobal.Business.Hangar.Cargo.Type:Set(type)
+                                eGlobal.Business.Hangar.Cargo.Total:Set(0)
                                 ePackedStat.Business.Hangar.Cargo:Set(true)
 
                                 if not loggedHangarStart then
@@ -3946,16 +3947,16 @@ eFeature = {
                         else
                             ftr:SetName("Start")
                             ftr:SetDesc("Starts filling your Hangar stock repeatedly.")
-                            eGlobal.Business.Hangar.Cargo.Limit:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
+                            eGlobal.Business.Hangar.Cargo.Total:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
                             SilentLogger.LogInfo("[Stop (Hangar)] Deeper supplier should've been disabled ツ")
                             loggedHangarStart = false
                         end
                     end
                 },
 
-                CustomCargoLimit = {
-                    hash = J("SN_Hangar_CustomCargoLimit"),
-                    name = "Custom Cargo Limit",
+                CustomLimit = {
+                    hash = J("SN_Hangar_CustomLimit"),
+                    name = "Custom Limit",
                     type = eFeatureType.Button,
                     desc = "Set a custom cargo limit for the Pocket Dimension supplier. The default limit is unlimited.",
                     func = function()
@@ -3967,7 +3968,7 @@ eFeature = {
                     hash = J("SN_Hangar_StopAt"),
                     name = "Stop At",
                     type = eFeatureType.InputInt,
-                    desc = "Select the desired amount of cargo at which the deeper supplier should stop filling your Hangar stock. Set to 0 to disable.",
+                    desc = "Select the desired amount of cargo at which the deeper supplier should stop. Set to 0 to use the default.",
                     defv = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50,
                     lims = { 0, INT32_MAX },
                     step = 50,
@@ -3985,7 +3986,7 @@ eFeature = {
                     hash = J("SN_Hangar_CustomDelay"),
                     name = "Custom Delay",
                     type = eFeatureType.Button,
-                    desc = "Set a custom delay for the Pocket Dimension supplier. The default delay is 1 second.",
+                    desc = "Set a custom cargo delay for the Pocket Dimension supplier. The default delay is 1 second.",
                     func = function()
                         SilentLogger.LogInfo("[Custom Delay (Hangar)] Custom delay should've been enabled ツ")
                     end
@@ -3995,7 +3996,7 @@ eFeature = {
                     hash = J("SN_Hangar_Delay"),
                     name = "Delay",
                     type = eFeatureType.SliderFloat,
-                    desc = "Select the desired delay between each supply of cargo for your Hangar stock. Lower values might cause instability. Set to 0.000 to disable.",
+                    desc = "Select the desired delay between each supply of cargo. Instability may occur with values lower than the default. Set to 0.000 to use the default.",
                     defv = 1.0,
                     lims = { 0.0, 5.0 },
                     func = function(ftr)
@@ -4005,6 +4006,29 @@ eFeature = {
                         else
                             SilentLogger.LogInfo("[Delay (Hangar)] Delay should've been changed ツ")
                         end
+                    end
+                },
+
+                CustomType = {
+                    hash = J("SN_Hangar_CustomType"),
+                    name = "Custom Type",
+                    type = eFeatureType.Button,
+                    desc = "Set a custom cargo type for the Pocket Dimension supplier. The default type is Animal Materials.",
+                    func = function()
+                        SilentLogger.LogInfo("[Custom Type (Hangar)] Custom cargo type should've been enabled ツ")
+                    end
+                },
+
+                Type = {
+                    hash = J("SN_Hangar_Type"),
+                    name = "Type",
+                    type = eFeatureType.Combo,
+                    desc = "Select the desired cargo type for the deeper supplier to source. Set to Animal Materials to use the default.",
+                    list = eTable.Business.Hangar.Cargoes,
+                    func = function(ftr)
+                        local list  = eTable.Business.Hangar.Cargoes
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Type (Hangar)] Selected cargo type: %s ツ", list:GetName(index)))
                     end
                 }
             },

@@ -6,26 +6,14 @@ eTable = {
     Business = {
         Hangar = {
             Cargoes = {
-                { name = "Animal Materials",  index = 1 },
-                { name = "Art n Antiques",    index = 2 },
-                { name = "Chemicals",         index = 3 },
-                { name = "Counterfeit Goods", index = 4 },
-                { name = "Jewel n Gems",      index = 5 },
-                { name = "Medical Supplies",  index = 6 },
-                { name = "Narcotics",         index = 7 },
-                { name = "Tabacco n Alcohol", index = 8 },
-            }
-        },
-
-        Nightclub = {
-            Cargoes = {
-                { name = "Cargo n Shipments",  index = "HUB_PROD_TOTAL_0" },
-                { name = "Sporting Goods",     index = "HUB_PROD_TOTAL_1" },
-                { name = "S.A. Imports",       index = "HUB_PROD_TOTAL_2" },
-                { name = "Pharmac. Research",  index = "HUB_PROD_TOTAL_3" },
-                { name = "Organic Produce",    index = "HUB_PROD_TOTAL_4" },
-                { name = "Printing n Copying", index = "HUB_PROD_TOTAL_5" },
-                { name = "Cash Creation",      index = "HUB_PROD_TOTAL_6" },
+                { name = "Animal Materials",  index = 0 },
+                { name = "Art n Antiques",    index = 1 },
+                { name = "Chemicals",         index = 2 },
+                { name = "Counterfeit Goods", index = 3 },
+                { name = "Jewel n Gems",      index = 4 },
+                { name = "Medical Supplies",  index = 5 },
+                { name = "Narcotics",         index = 6 },
+                { name = "Tabacco n Alcohol", index = 7 },
             }
         },
 
@@ -36,10 +24,10 @@ eTable = {
     Heist = {
         Generic = {
             Presets = {
-                { name = "All - 0%",    index = 0   },
-                { name = "All - 25%",   index = 25  },
-                { name = "All - 85%",   index = 85  },
-                { name = "All - 100%",  index = 100 }
+                { name = "All - 0%",   index = 0   },
+                { name = "All - 25%",  index = 25  },
+                { name = "All - 85%",  index = 85  },
+                { name = "All - 100%", index = 100 }
             }
         },
 

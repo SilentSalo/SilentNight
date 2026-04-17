@@ -185,7 +185,8 @@ if GTA_EDITION == "EE" then
 
             Hangar = {
                 Cargo = {
-                    Limit = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 304 + 3 }
+                    Type  = { type = "int", global = 1882707 + 8                                     },
+                    Total = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 304 + 3 }
                 }
             },
 
@@ -410,7 +411,8 @@ else
 
             Hangar = {
                 Cargo = {
-                    Limit = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 304 + 3 }
+                    Type  = { type = "int", global = 1882562 + 8                                     },
+                    Total = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 304 + 3 }
                 }
             },
 
