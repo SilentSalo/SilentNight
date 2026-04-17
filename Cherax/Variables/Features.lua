@@ -262,6 +262,7 @@ loggedBunkerPrice       = false
 loggedHangarPrice       = false
 loggedHangarSupplier    = false
 loggedHangarCooldown    = false
+loggedHangarStart       = false
 loggedNightclubPrice    = false
 loggedNightclubCooldown = false
 loggedNightclubLock     = false

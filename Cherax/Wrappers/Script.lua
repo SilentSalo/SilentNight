@@ -185,6 +185,9 @@ function Script.ReloadFeatures()
     FeatureMgr.GetFeature(eFeature.Business.Bunker.Stats.Earnings)
         :SetIntValue(eStat.MPX_LIFETIME_BKR_SELL_EARNINGS5:Get())
 
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StopAt)
+        :SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
+
     FeatureMgr.GetFeature(eFeature.Business.Hangar.Stats.BuyMade)
         :SetIntValue(eStat.MPX_LFETIME_HANGAR_BUY_COMPLET:Get())
 
@@ -302,6 +305,7 @@ Script.RegisterLooped(function()
 end)
 
 IS_FLEECA_ACTIVE = false
+HANGAR_STOCK     = 0
 GLOBAL_XP_SYNCED = false
 KD_RATIO         = 0.0
 NEW_KD_RATIO     = 0.0
@@ -538,6 +542,7 @@ Script.RegisterLooped(function()
     local acts   = FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Acts):GetIntValue()
 
     IS_FLEECA_ACTIVE = eStat.MPX_HEIST_MISSION_RCONT_ID_0:Get() == eTable.Heist.Apartment.Data.FleecaJob.RcontIDs[1]
+    HANGAR_STOCK     = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()
     GLOBAL_XP_SYNCED = eStat.MPPLY_GLOBALXP:Get() == eGlobal.Player.RP:Get()
     KD_RATIO         = eStat.MPPLY_KILLS_PLAYERS:Get() / ((eStat.MPPLY_DEATHS_PLAYER:Get() == 0) and 1.0 or eStat.MPPLY_DEATHS_PLAYER:Get())
     NEW_KD_RATIO     = kills / ((deaths == 0) and 1.0 or deaths)

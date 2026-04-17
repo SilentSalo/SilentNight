@@ -595,21 +595,26 @@ function Renderer.RenderBusinessTool()
 
                     ImGui.TableNextColumn()
 
+                    if ClickGUI.BeginCustomChildWindow("Supplies") then
+                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Supplies.Trigger)
+                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Supplies.Supply)
+                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Supplies.Supplier)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     if ClickGUI.BeginCustomChildWindow("Misc") then
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Misc.Teleport.Entrance)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Misc.Teleport.Laptop)
                         ImGui.ResetButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Misc.Open)
-                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Misc.Supply)
-                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Misc.Trigger)
-                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Misc.Supplier)
                         ClickGUI.EndCustomChildWindow()
                     end
 
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Stats") then
+                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Stats.Refresh)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Stats.SellMade)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Stats.SellUndertaken)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Stats.Earnings)
@@ -638,14 +643,28 @@ function Renderer.RenderBusinessTool()
 
                     ImGui.TableNextColumn()
 
+                    if ClickGUI.BeginCustomChildWindow("Supplies") then
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Supply)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Supplier)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension)
+                        if FeatureMgr.GetFeatureBool(eFeature.Business.Hangar.Supplies.PocketDimension) then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Current Stock:", r, g, b, a, HANGAR_STOCK or "N/A")
+                        end
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.StartStop)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.CustomCargoLimit)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.StopAt)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.CustomDelay)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Delay)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     if ClickGUI.BeginCustomChildWindow("Misc") then
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Misc.Teleport.Laptop)
                         ImGui.ResetButtonStyle()
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Misc.Open)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Misc.Supply)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Misc.Supplier)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Misc.Cooldown)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -653,6 +672,7 @@ function Renderer.RenderBusinessTool()
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Stats") then
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Stats.Refresh)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Stats.BuyMade)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Stats.BuyUndertaken)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Stats.SellMade)
@@ -756,6 +776,16 @@ function Renderer.RenderBusinessTool()
 
                     ImGui.TableNextColumn()
 
+                    if ClickGUI.BeginCustomChildWindow("Popularity") then
+                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Lock)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Max)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Min)
+                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Select)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     if ClickGUI.BeginCustomChildWindow("Misc") then
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Misc.Setup)
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
@@ -767,19 +797,10 @@ function Renderer.RenderBusinessTool()
                         ClickGUI.EndCustomChildWindow()
                     end
 
-                    if ClickGUI.BeginCustomChildWindow("Popularity") then
-                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Lock)
-                        ImGui.SameLine()
-                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Max)
-                        ImGui.SameLine()
-                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Min)
-                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Popularity.Select)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Stats") then
+                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Stats.Refresh)
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Stats.SellMade)
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Stats.Earnings)
                         ClickGUI.RenderFeature(eFeature.Business.Nightclub.Stats.NoSell)
@@ -808,18 +829,22 @@ function Renderer.RenderBusinessTool()
 
                     ImGui.TableNextColumn()
 
+                    if ClickGUI.BeginCustomChildWindow("Supplies") then
+                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Supplies.Supply)
+                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Supplies.Supplier)
+                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Supplies.Select)
+                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Supplies.Max)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Supplies.Buy)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
                     if ClickGUI.BeginCustomChildWindow("Misc") then
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Office)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Warehouse)
                         ImGui.ResetButtonStyle()
-                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Misc.Supply)
-                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Misc.Select)
-                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Misc.Max)
-                        ImGui.SameLine()
-                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Misc.Buy)
-                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Misc.Supplier)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Misc.Cooldown)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -827,6 +852,7 @@ function Renderer.RenderBusinessTool()
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Stats") then
+                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Stats.Refresh)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Stats.BuyMade)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Stats.BuyUndertaken)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Stats.SellMade)
@@ -1270,8 +1296,8 @@ function Renderer.RenderSettings()
                         ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Yolo)
                         ImGui.ResetFrameBgStyle()
-                        ClickGUI.RenderFeature(eFeature.Settings.Config.Timeout)
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Logging)
+                        ClickGUI.RenderFeature(eFeature.Settings.Config.Timeout)
                         ImGui.PushButtonStyle(eBtnStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Settings.Config.Reset)
                         ImGui.ResetButtonStyle()
@@ -1728,15 +1754,18 @@ function Renderer.RenderListGUI()
             SaleSubTab:AddFeature(eFeature.Business.Bunker.Sale.NoXp)
             SaleSubTab:AddFeature(eFeature.Business.Bunker.Sale.Sell)
 
+            local SuppliesSubTab = BunkerTab:AddSubTab("Supplies", "Supplies")
+            SuppliesSubTab:AddFeature(eFeature.Business.Bunker.Supplies.Trigger)
+            SuppliesSubTab:AddFeature(eFeature.Business.Bunker.Supplies.Supply)
+            SuppliesSubTab:AddFeature(eFeature.Business.Bunker.Supplies.Supplier)
+
             local MiscSubTab = BunkerTab:AddSubTab("Misc", "Misc")
             MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Teleport.Entrance)
             MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Teleport.Laptop)
             MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Open)
-            MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Supply)
-            MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Trigger)
-            MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Supplier)
 
             local StatsSubTab = BunkerTab:AddSubTab("Stats", "Stats")
+            StatsSubTab:AddFeature(eFeature.Business.Bunker.Stats.Refresh)
             StatsSubTab:AddFeature(eFeature.Business.Bunker.Stats.SellMade)
             StatsSubTab:AddFeature(eFeature.Business.Bunker.Stats.SellUndertaken)
             StatsSubTab:AddFeature(eFeature.Business.Bunker.Stats.Earnings)
@@ -1754,15 +1783,24 @@ function Renderer.RenderListGUI()
             SaleSubTab:AddFeature(eFeature.Business.Hangar.Sale.NoXp)
             SaleSubTab:AddFeature(eFeature.Business.Hangar.Sale.Sell)
 
+            local SuppliesSubTab = HangarCargoTab:AddSubTab("Supplies", "Supplies")
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Supply)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Supplier)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.StartStop)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.CustomCargoLimit)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.StopAt)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.CustomDelay)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Delay)
+
             local MiscSubTab = HangarCargoTab:AddSubTab("Misc", "Misc")
             MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance)
             MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Teleport.Laptop)
             MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Open)
-            MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Supply)
-            MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Supplier)
             MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Cooldown)
 
             local StatsSubTab = HangarCargoTab:AddSubTab("Stats", "Stats")
+            StatsSubTab:AddFeature(eFeature.Business.Hangar.Stats.Refresh)
             StatsSubTab:AddFeature(eFeature.Business.Hangar.Stats.BuyMade)
             StatsSubTab:AddFeature(eFeature.Business.Hangar.Stats.BuyUndertaken)
             StatsSubTab:AddFeature(eFeature.Business.Hangar.Stats.SellMade)
@@ -1820,6 +1858,12 @@ function Renderer.RenderListGUI()
             SafeSubTab:AddFeature(eFeature.Business.Nightclub.Safe.Collect)
             SafeSubTab:AddFeature(eFeature.Business.Nightclub.Safe.Unbrick)
 
+            local PopularitySubTab = NightclubTab:AddSubTab("Popularity", "Popularity")
+            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Lock)
+            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Max)
+            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Min)
+            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Select)
+
             local MiscSubTab = NightclubTab:AddSubTab("Misc", "Misc")
             MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Setup)
             MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Teleport.Entrance)
@@ -1827,13 +1871,8 @@ function Renderer.RenderListGUI()
             MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Open)
             MiscSubTab:AddFeature(eFeature.Business.Nightclub.Misc.Cooldown)
 
-            local PopularitySubTab = NightclubTab:AddSubTab("Popularity", "Popularity")
-            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Lock)
-            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Max)
-            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Min)
-            PopularitySubTab:AddFeature(eFeature.Business.Nightclub.Popularity.Select)
-
             local StatsSubTab = NightclubTab:AddSubTab("Stats", "Stats")
+            StatsSubTab:AddFeature(eFeature.Business.Nightclub.Stats.Refresh)
             StatsSubTab:AddFeature(eFeature.Business.Nightclub.Stats.SellMade)
             StatsSubTab:AddFeature(eFeature.Business.Nightclub.Stats.Earnings)
             StatsSubTab:AddFeature(eFeature.Business.Nightclub.Stats.NoSell)
@@ -1851,18 +1890,21 @@ function Renderer.RenderListGUI()
             SaleSubTab:AddFeature(eFeature.Business.CrateWarehouse.Sale.NoCrateback)
             SaleSubTab:AddFeature(eFeature.Business.CrateWarehouse.Sale.Sell)
 
+            local SuppliesSubTab = SpecialCargoTab:AddSubTab("Supplies", "Supplies")
+            SuppliesSubTab:AddFeature(eFeature.Business.CrateWarehouse.Supplies.Supply)
+            SuppliesSubTab:AddFeature(eFeature.Business.CrateWarehouse.Supplies.Supplier)
+            SuppliesSubTab:AddFeature(eFeature.Business.CrateWarehouse.Supplies.Select)
+            SuppliesSubTab:AddFeature(eFeature.Business.CrateWarehouse.Supplies.Max)
+            SuppliesSubTab:AddFeature(eFeature.Business.CrateWarehouse.Supplies.Buy)
+
             local MiscSubTab = SpecialCargoTab:AddSubTab("Misc", "Misc")
             MiscSubTab:AddFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Office)
             MiscSubTab:AddFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer)
             MiscSubTab:AddFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Warehouse)
-            MiscSubTab:AddFeature(eFeature.Business.CrateWarehouse.Misc.Supply)
-            MiscSubTab:AddFeature(eFeature.Business.CrateWarehouse.Misc.Select)
-            MiscSubTab:AddFeature(eFeature.Business.CrateWarehouse.Misc.Max)
-            MiscSubTab:AddFeature(eFeature.Business.CrateWarehouse.Misc.Buy)
-            MiscSubTab:AddFeature(eFeature.Business.CrateWarehouse.Misc.Supplier)
             MiscSubTab:AddFeature(eFeature.Business.CrateWarehouse.Misc.Cooldown)
 
             local StatsSubTab = SpecialCargoTab:AddSubTab("Stats", "Stats")
+            StatsSubTab:AddFeature(eFeature.Business.CrateWarehouse.Stats.Refresh)
             StatsSubTab:AddFeature(eFeature.Business.CrateWarehouse.Stats.BuyMade)
             StatsSubTab:AddFeature(eFeature.Business.CrateWarehouse.Stats.BuyUndertaken)
             StatsSubTab:AddFeature(eFeature.Business.CrateWarehouse.Stats.SellMade)
@@ -2056,8 +2098,8 @@ function Renderer.RenderListGUI()
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Open)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Compatibility)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Yolo)
-        ConfigSubTab:AddFeature(eFeature.Settings.Config.Timeout)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Logging)
+        ConfigSubTab:AddFeature(eFeature.Settings.Config.Timeout)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Reset)
         ConfigSubTab:AddFeature(eFeature.Settings.Config.Copy)
 

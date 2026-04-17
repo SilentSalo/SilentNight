@@ -13,18 +13,25 @@ FeatureMgr.AddFeature(eFeature.Business.Bunker.Sale.Sell, function(f)
     eFeature.Business.Bunker.Sale.Sell.func(bool)
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.Bunker.Supplies.Trigger)
+
+FeatureMgr.AddFeature(eFeature.Business.Bunker.Supplies.Supply)
+
+FeatureMgr.AddLoop(eFeature.Business.Bunker.Supplies.Supplier, nil, function(f)
+    eFeature.Business.Bunker.Supplies.Supplier.func(f)
+end)
+
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Teleport.Entrance):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Teleport.Laptop):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Open)
 
-FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Supply)
-
-FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Trigger)
-
-FeatureMgr.AddLoop(eFeature.Business.Bunker.Misc.Supplier, nil, function(f)
-    eFeature.Business.Bunker.Misc.Supplier.func(f)
+FeatureMgr.AddFeature(eFeature.Business.Bunker.Stats.Refresh, function(f)
+    local stats = eFeature.Business.Bunker.Stats
+    FeatureMgr.GetFeature(stats.SellMade):SetIntValue(eStat.MPX_LIFETIME_BKR_SEL_COMPLETBC5:Get())
+    FeatureMgr.GetFeature(stats.SellUndertaken):SetIntValue(eStat.MPX_LIFETIME_BKR_SEL_UNDERTABC5:Get())
+    FeatureMgr.GetFeature(stats.Earnings):SetIntValue(eStat.MPX_LIFETIME_BKR_SELL_EARNINGS5:Get())
 end)
 
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Stats.SellMade)
@@ -66,20 +73,96 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Sale.Sell, function(f)
     eFeature.Business.Hangar.Sale.Sell.func(bool)
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Supply)
+
+FeatureMgr.AddLoop(eFeature.Business.Hangar.Supplies.Supplier, nil, function(f)
+    eFeature.Business.Hangar.Supplies.Supplier.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension, function(f)
+    eFeature.Business.Hangar.Supplies.PocketDimension.func(f)
+    if SCRIPT_EDTN == eTable.Editions.Standard then return end
+
+    if f:IsToggled() then
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supply):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supplier):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supplier):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StartStop):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomCargoLimit):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(true)
+    else
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supply):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supplier):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StartStop):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StartStop):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomCargoLimit):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StopAt):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay):SetVisible(false)
+    end
+end)
+
+FeatureMgr.AddLoop(eFeature.Business.Hangar.Supplies.StartStop, function(f)
+    local limitToggled = not FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomCargoLimit):IsVisible()
+    local limit        = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StopAt):GetIntValue()
+    local delay        = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay):GetFloatValue()
+    eFeature.Business.Hangar.Supplies.StartStop.func(f, limitToggled, limit, delay)
+end, function(f)
+    eFeature.Business.Hangar.Supplies.StartStop.func(f, false, 0, 0)
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.CustomCargoLimit, function(f)
+    f:SetVisible(false)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StopAt):SetVisible(true)
+    eFeature.Business.Hangar.Supplies.CustomCargoLimit.func(f)
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.StopAt, function(f)
+    if f:GetIntValue() == 0 then
+        f:SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomCargoLimit):SetVisible(true)
+    end
+
+    eFeature.Business.Hangar.Supplies.StopAt.func(f)
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.CustomDelay, function(f)
+    f:SetVisible(false)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay):SetVisible(true)
+    eFeature.Business.Hangar.Supplies.CustomDelay.func(f)
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Delay, function(f)
+    if f:GetFloatValue() == 0.0 then
+        f:SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(true)
+    end
+
+    eFeature.Business.Hangar.Supplies.Delay.func(f)
+end)
+    :SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Teleport.Laptop):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Open)
 
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Supply)
-
-FeatureMgr.AddLoop(eFeature.Business.Hangar.Misc.Supplier, nil, function(f)
-    eFeature.Business.Hangar.Misc.Supplier.func(f)
-end)
-
 FeatureMgr.AddLoop(eFeature.Business.Hangar.Misc.Cooldown, nil, function(f)
     eFeature.Business.Hangar.Misc.Cooldown.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Stats.Refresh, function(f)
+    local stats = eFeature.Business.Hangar.Stats
+    FeatureMgr.GetFeature(stats.BuyMade):SetIntValue(eStat.MPX_LFETIME_HANGAR_BUY_COMPLET:Get())
+    FeatureMgr.GetFeature(stats.BuyUndertaken):SetIntValue(eStat.MPX_LFETIME_HANGAR_BUY_UNDETAK:Get())
+    FeatureMgr.GetFeature(stats.SellMade):SetIntValue(eStat.MPX_LFETIME_HANGAR_SEL_COMPLET:Get())
+    FeatureMgr.GetFeature(stats.SellUndertaken):SetIntValue(eStat.MPX_LFETIME_HANGAR_SEL_UNDETAK:Get())
+    FeatureMgr.GetFeature(stats.Earnings):SetIntValue(eStat.MPX_LFETIME_HANGAR_EARNINGS:Get())
 end)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Stats.BuyMade)
@@ -172,6 +255,12 @@ FeatureMgr.AddLoop(eFeature.Business.Nightclub.Misc.Cooldown, nil, function(f)
     eFeature.Business.Nightclub.Misc.Cooldown.func(f)
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.Nightclub.Stats.Refresh, function(f)
+    local stats = eFeature.Business.Nightclub.Stats
+    FeatureMgr.GetFeature(stats.SellMade):SetIntValue(eStat.MPX_HUB_SALES_COMPLETED:Get())
+    FeatureMgr.GetFeature(stats.Earnings):SetIntValue(eStat.MPX_HUB_EARNINGS:Get())
+end)
+
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Stats.SellMade)
 
 FeatureMgr.AddFeature(eFeature.Business.Nightclub.Stats.Earnings)
@@ -232,32 +321,41 @@ FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Sale.Sell, function(f)
     eFeature.Business.CrateWarehouse.Sale.Sell.func(U(bools))
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Supplies.Supply)
+
+FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Supplies.Supplier, nil, function(f)
+    eFeature.Business.CrateWarehouse.Supplies.Supplier.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Supplies.Select)
+
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Supplies.Max, function(f)
+    FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Supplies.Select):SetIntValue(111)
+    eFeature.Business.CrateWarehouse.Supplies.Max.func()
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Supplies.Buy, function(f)
+    local amount = FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Supplies.Select):GetIntValue()
+    eFeature.Business.CrateWarehouse.Supplies.Buy.func(amount)
+end)
+
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Office):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Computer):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Teleport.Warehouse):SetVisible(false)
 
-FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Supply)
-
-FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Misc.Supplier, nil, function(f)
-    eFeature.Business.CrateWarehouse.Misc.Supplier.func(f)
-end)
-
-FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Select)
-
-FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Max, function(f)
-    FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Select):SetIntValue(111)
-    eFeature.Business.CrateWarehouse.Misc.Max.func()
-end)
-
-FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Misc.Buy, function(f)
-    local amount = FeatureMgr.GetFeature(eFeature.Business.CrateWarehouse.Misc.Select):GetIntValue()
-    eFeature.Business.CrateWarehouse.Misc.Buy.func(amount)
-end)
-
 FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Misc.Cooldown, nil, function(f)
     eFeature.Business.CrateWarehouse.Misc.Cooldown.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Stats.Refresh, function(f)
+    local stats = eFeature.Business.CrateWarehouse.Stats
+    FeatureMgr.GetFeature(stats.BuyMade):SetIntValue(eStat.MPX_LIFETIME_BUY_COMPLETE:Get())
+    FeatureMgr.GetFeature(stats.BuyUndertaken):SetIntValue(eStat.MPX_LIFETIME_BUY_UNDERTAKEN:Get())
+    FeatureMgr.GetFeature(stats.SellMade):SetIntValue(eStat.MPX_LIFETIME_SELL_COMPLETE:Get())
+    FeatureMgr.GetFeature(stats.SellUndertaken):SetIntValue(eStat.MPX_LIFETIME_SELL_UNDERTAKEN:Get())
+    FeatureMgr.GetFeature(stats.Earnings):SetIntValue(eStat.MPX_LIFETIME_CONTRA_EARNINGS:Get())
 end)
 
 FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Stats.BuyMade)

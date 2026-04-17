@@ -3623,6 +3623,59 @@ eFeature = {
                 }
             },
 
+            Supplies = {
+                Supply = {
+                    hash = J("SN_Bunker_Supply"),
+                    name = "Get Supplies",
+                    type = eFeatureType.Button,
+                    desc = "Gets supplies for your Bunker.",
+                    func = function()
+                        eGlobal.Business.Supplies.Bunker:Set(1)
+                        SilentLogger.LogInfo("[Get Supplies (Bunker)] Supplies should've been received ツ")
+                    end
+                },
+
+                Trigger = {
+                    hash = J("SN_Bunker_Trigger"),
+                    name = "Trigger Production",
+                    type = eFeatureType.Button,
+                    desc = "Triggers production of your stock.",
+                    func = function()
+                        if not GTA.IsScriptRunning(eScript.Bunker.Laptop) then
+                            eGlobal.Business.Bunker.Production.Trigger1:Set(0)
+                            eGlobal.Business.Bunker.Production.Trigger2:Set(true)
+                            SilentLogger.LogInfo("[Trigger Production (Bunker)] Production should've been triggered ツ")
+                        end
+                    end
+                },
+
+                Supplier = {
+                    hash = J("SN_Bunker_Supplier"),
+                    name = "Turkish Supplier",
+                    type = eFeatureType.Toggle,
+                    desc = "Fills your Bunker stock. Also, gets supplies for your Bunker repeatedly.",
+                    func = function(ftr)
+                        if ftr:IsToggled() then
+                            if not GTA.IsScriptRunning(eScript.Bunker.Laptop) then
+                                eGlobal.Business.Supplies.Bunker:Set(1)
+                                eGlobal.Business.Bunker.Production.Trigger1:Set(0)
+                                eGlobal.Business.Bunker.Production.Trigger2:Set(true)
+
+                                if not loggedBunkerSupplier then
+                                    SilentLogger.LogInfo("[Turkish Supplier (Bunker)] Supplier should've been enabled ツ")
+                                    loggedBunkerSupplier = true
+                                end
+
+                                Script.Yield(1000)
+                            end
+                        else
+                            eGlobal.Business.Supplies.Bunker:Set(0)
+                            SilentLogger.LogInfo("[Turkish Supplier (Bunker)] Supplier should've been disabled ツ")
+                        end
+                    end
+                }
+            },
+
             Misc = {
                 Teleport = {
                     Entrance = {
@@ -3657,62 +3710,20 @@ eFeature = {
                         GTA.StartScript(eScript.Bunker.Laptop)
                         SilentLogger.LogInfo("[Open Laptop (Bunker)] Laptop screen should've been opened ツ")
                     end
-                },
-
-                Supply = {
-                    hash = J("SN_Bunker_Supply"),
-                    name = "Get Supplies",
-                    type = eFeatureType.Button,
-                    desc = "Gets supplies for your Bunker.",
-                    func = function()
-                        eGlobal.Business.Supplies.Bunker:Set(1)
-                        SilentLogger.LogInfo("[Get Supplies (Bunker)] Supplies should've been received ツ")
-                    end
-                },
-
-                Trigger = {
-                    hash = J("SN_Bunker_Trigger"),
-                    name = "Trigger Production",
-                    type = eFeatureType.Button,
-                    desc = "Triggers production of your stock.",
-                    func = function()
-                        if not GTA.IsScriptRunning(eScript.Bunker.Laptop) then
-                            eGlobal.Business.Bunker.Production.Trigger1:Set(0)
-                            eGlobal.Business.Bunker.Production.Trigger2:Set(true)
-                            SilentLogger.LogInfo("[Trigger Production (Bunker)] Production should've been triggered ツ")
-                        end
-                    end
-                },
-
-                Supplier = {
-                    hash = J("SN_Bunker_Supplier"),
-                    name = "Turkish Supplier",
-                    type = eFeatureType.Toggle,
-                    desc = "Fills your Bunker stock. Also, gets supplies for your Bunker repeatedly.",
-                    func = function(ftr)
-                        if not GTA.IsScriptRunning(eScript.Bunker.Laptop) then
-                            if ftr:IsToggled() then
-                                eGlobal.Business.Supplies.Bunker:Set(1)
-                                eGlobal.Business.Bunker.Production.Trigger1:Set(0)
-                                eGlobal.Business.Bunker.Production.Trigger2:Set(true)
-
-                                if not loggedBunkerSupplier then
-                                    SilentLogger.LogInfo("[Turkish Supplier (Bunker)] Supplier should've been enabled ツ")
-                                    loggedBunkerSupplier = true
-                                end
-
-                                Script.Yield(1000)
-                            else
-                                eGlobal.Business.Supplies.Bunker:Set(0)
-                                SilentLogger.LogInfo("[Turkish Supplier (Bunker)] Supplier should've been disabled ツ")
-                            end
-
-                        end
-                    end
                 }
             },
 
             Stats = {
+                Refresh = {
+                    hash = J("SN_Bunker_RefreshStats"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the Bunker stats to the current ones.",
+                    func = function()
+                        SilentLogger.LogInfo("[Refresh (Bunker)] Stats should've been refreshed ツ")
+                    end
+                },
+
                 SellMade = {
                     hash = J("SN_Bunker_SellMade"),
                     name = "Sell Made",
@@ -3851,6 +3862,153 @@ eFeature = {
                 }
             },
 
+            Supplies = {
+                Supply = {
+                    hash = J("SN_Hangar_Supply"),
+                    name = "Get Cargo",
+                    type = eFeatureType.Button,
+                    desc = "Gets cargo for your Hangar.",
+                    func = function()
+                        if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
+                            ePackedStat.Business.Hangar.Cargo:Set(true)
+                            SilentLogger.LogInfo("[Get Cargo (Hangar)] Cargo should've been received ツ")
+                        end
+                    end
+                },
+
+                Supplier = {
+                    hash = J("SN_Hangar_Supplier"),
+                    name = "Turkish Supplier",
+                    type = eFeatureType.Toggle,
+                    desc = "Fills your Hangar stock repeatedly.",
+                    func = function(ftr)
+                        if ftr:IsToggled() then
+                            if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
+                                ePackedStat.Business.Hangar.Cargo:Set(true)
+
+                                if not loggedHangarSupplier then
+                                    SilentLogger.LogInfo("[Turkish Supplier (Hangar)] Supplier should've been enabled ツ")
+                                    loggedHangarSupplier = true
+                                end
+
+                                Script.Yield(1000)
+                            end
+                        else
+                            SilentLogger.LogInfo("[Turkish Supplier (Hangar)] Supplier should've been disabled ツ")
+                            loggedHangarSupplier = false
+                        end
+                    end
+                },
+
+                PocketDimension = {
+                    hash = J("SN_Hangar_PocketDimension"),
+                    name = "Pocket Dimension",
+                    type = eFeatureType.Toggle,
+                    desc = "Enables deeper cargo management for your Hangar.",
+                    func = function(ftr)
+                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                            SilentLogger.LogInfo("[Pocket Dimension (Hangar)] This feature requires «Supporter» Script Edition ツ")
+                            ftr:Toggle(false)
+                            return
+                        end
+
+                        SilentLogger.LogInfo(F("[Pocket Dimension (Hangar)] Pocket Dimension should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
+                StartStop = {
+                    hash = J("SN_Hangar_Start"),
+                    name = "Start",
+                    type = eFeatureType.Toggle,
+                    desc = "Starts filling your Hangar stock repeatedly.",
+                    func = function(ftr, limitToggled, limit, delay)
+                        if ftr:IsToggled() then
+                            if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
+                                if limitToggled and eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() >= limit then
+                                    eGlobal.Business.Hangar.Cargo.Limit:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
+                                    SilentLogger.LogInfo("[Pocket Dimension (Hangar)] Cargo limit should've been reached ツ")
+                                    ftr:Toggle(false)
+                                    return
+                                end
+
+                                eGlobal.Business.Hangar.Cargo.Limit:Set(0)
+                                ePackedStat.Business.Hangar.Cargo:Set(true)
+
+                                if not loggedHangarStart then
+                                    ftr:SetName("Stop")
+                                    ftr:SetDesc("Stops filling your Hangar stock repeatedly.")
+                                    SilentLogger.LogInfo("[Start (Hangar)] Deeper supplier should've been enabled ツ")
+                                    loggedHangarStart = true
+                                end
+
+                                Script.Yield(math.floor(delay * 1000))
+                            end
+                        else
+                            ftr:SetName("Start")
+                            ftr:SetDesc("Starts filling your Hangar stock repeatedly.")
+                            eGlobal.Business.Hangar.Cargo.Limit:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
+                            SilentLogger.LogInfo("[Stop (Hangar)] Deeper supplier should've been disabled ツ")
+                            loggedHangarStart = false
+                        end
+                    end
+                },
+
+                CustomCargoLimit = {
+                    hash = J("SN_Hangar_CustomCargoLimit"),
+                    name = "Custom Cargo Limit",
+                    type = eFeatureType.Button,
+                    desc = "Set a custom cargo limit for the Pocket Dimension supplier. The default limit is unlimited.",
+                    func = function()
+                        SilentLogger.LogInfo("[Custom Cargo Limit (Hangar)] Custom cargo limit should've been enabled ツ")
+                    end
+                },
+
+                StopAt = {
+                    hash = J("SN_Hangar_StopAt"),
+                    name = "Stop At",
+                    type = eFeatureType.InputInt,
+                    desc = "Select the desired amount of cargo at which the deeper supplier should stop filling your Hangar stock. Set to 0 to disable.",
+                    defv = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50,
+                    lims = { 0, INT32_MAX },
+                    step = 50,
+                    func = function(ftr)
+                        if ftr:GetIntValue() == 0 then
+                            ftr:SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
+                            SilentLogger.LogInfo("[Stop At (Hangar)] Cargo limit should've been disabled ツ")
+                        else
+                            SilentLogger.LogInfo("[Stop At (Hangar)] Cargo limit should've been changed ツ")
+                        end
+                    end
+                },
+
+                CustomDelay = {
+                    hash = J("SN_Hangar_CustomDelay"),
+                    name = "Custom Delay",
+                    type = eFeatureType.Button,
+                    desc = "Set a custom delay for the Pocket Dimension supplier. The default delay is 1 second.",
+                    func = function()
+                        SilentLogger.LogInfo("[Custom Delay (Hangar)] Custom delay should've been enabled ツ")
+                    end
+                },
+
+                Delay = {
+                    hash = J("SN_Hangar_Delay"),
+                    name = "Delay",
+                    type = eFeatureType.SliderFloat,
+                    desc = "Select the desired delay between each supply of cargo for your Hangar stock. Lower values might cause instability. Set to 0.000 to disable.",
+                    defv = 1.0,
+                    lims = { 0.0, 5.0 },
+                    func = function(ftr)
+                        if ftr:GetFloatValue() == 0.0 then
+                            ftr:SetFloatValue(1.0)
+                            SilentLogger.LogInfo("[Delay (Hangar)] Custom delay should've been disabled ツ")
+                        else
+                            SilentLogger.LogInfo("[Delay (Hangar)] Delay should've been changed ツ")
+                        end
+                    end
+                }
+            },
+
             Misc = {
                 Teleport = {
                     Entrance = {
@@ -3887,43 +4045,6 @@ eFeature = {
                     end
                 },
 
-                Supply = {
-                    hash = J("SN_Hangar_Supply"),
-                    name = "Get Cargo",
-                    type = eFeatureType.Button,
-                    desc = "Gets cargo for your Hangar.",
-                    func = function()
-                        if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
-                            ePackedStat.Business.Hangar.Cargo:Set(true)
-                            SilentLogger.LogInfo("[Get Cargo (Hangar)] Cargo should've been received ツ")
-                        end
-                    end
-                },
-
-                Supplier = {
-                    hash = J("SN_Hangar_Supplier"),
-                    name = "Turkish Supplier",
-                    type = eFeatureType.Toggle,
-                    desc = "Fills your Hangar stock repeatedly.",
-                    func = function(ftr)
-                        if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
-                            if ftr:IsToggled() then
-                                ePackedStat.Business.Hangar.Cargo:Set(true)
-
-                                if not loggedHangarSupplier then
-                                    SilentLogger.LogInfo("[Turkish Supplier (Hangar)] Supplier should've been enabled ツ")
-                                    loggedHangarSupplier = true
-                                end
-
-                                Script.Yield(1000)
-                            else
-                                SilentLogger.LogInfo("[Turkish Supplier (Hangar)] Supplier should've been disabled ツ")
-                                loggedHangarSupplier = false
-                            end
-                        end
-                    end
-                },
-
                 Cooldown = {
                     hash = J("SN_Hangar_Cooldown"),
                     name = "Kill Cooldowns",
@@ -3955,6 +4076,16 @@ eFeature = {
             },
 
             Stats = {
+                Refresh = {
+                    hash = J("SN_Hangar_Refresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the Hangar stats to the current ones.",
+                    func = function()
+                        SilentLogger.LogInfo("[Refresh (Hangar)] Stats should've been refreshed ツ")
+                    end
+                },
+
                 BuyMade = {
                     hash = J("SN_Hangar_BuyMade"),
                     name = "Buy Made",
@@ -4528,6 +4659,16 @@ eFeature = {
             },
 
             Stats = {
+                Refresh = {
+                    hash = J("SN_Nightclub_Refresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the Nightclub stats to the current ones.",
+                    func = function()
+                        SilentLogger.LogInfo("[Refresh (Nightclub)] Stats should've been refreshed ツ")
+                    end
+                },
+
                 SellMade = {
                     hash = J("SN_Nightclub_SellMade"),
                     name = "Sell Made",
@@ -4818,42 +4959,7 @@ eFeature = {
                 }
             },
 
-            Misc = {
-                Teleport = {
-                    Office = {
-                        hash = J("SN_CrateWarehouse_Office"),
-                        name = "Teleport to Office",
-                        type = eFeatureType.Button,
-                        desc = "Teleports you to the Office's entrance.",
-                        func = function()
-                            GTA.TeleportToBlip(eTable.BlipSprites.Office)
-                            SilentLogger.LogInfo("[Teleport to Office (Special Cargo)] You should've been teleported to the Office ツ")
-                        end
-                    },
-
-                    Computer = {
-                        hash = J("SN_CrateWarehouse_Computer"),
-                        name = "Teleport to Computer",
-                        type = eFeatureType.Button,
-                        desc = "Teleports you to the Office's computer.",
-                        func = function()
-                            GTA.TeleportXYZ(U(eTable.Teleports.Office))
-                            SilentLogger.LogInfo("[Teleport to Computer (Special Cargo)] You should've been teleported to the computer ツ")
-                        end
-                    },
-
-                    Warehouse = {
-                        hash = J("SN_CrateWarehouse_Warehouse"),
-                        name = "Teleport to Warehouse",
-                        type = eFeatureType.Button,
-                        desc = "Teleports you to the closest Crate Warehouse's entrance.",
-                        func = function()
-                            GTA.TeleportToBlip(eTable.BlipSprites.Warehouse)
-                            SilentLogger.LogInfo("[Teleport to Warehouse (Special Cargo)] You should've been teleported to the warehouse ツ")
-                        end
-                    }
-                },
-
+            Supplies = {
                 Supply = {
                     hash = J("SN_CrateWarehouse_Supply"),
                     name = "Get Crates",
@@ -4922,6 +5028,43 @@ eFeature = {
                             loggedSpecialSupplier = false
                         end
                     end
+                }
+            },
+
+            Misc = {
+                Teleport = {
+                    Office = {
+                        hash = J("SN_CrateWarehouse_Office"),
+                        name = "Teleport to Office",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Office's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Office)
+                            SilentLogger.LogInfo("[Teleport to Office (Special Cargo)] You should've been teleported to the Office ツ")
+                        end
+                    },
+
+                    Computer = {
+                        hash = J("SN_CrateWarehouse_Computer"),
+                        name = "Teleport to Computer",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the Office's computer.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.Office))
+                            SilentLogger.LogInfo("[Teleport to Computer (Special Cargo)] You should've been teleported to the computer ツ")
+                        end
+                    },
+
+                    Warehouse = {
+                        hash = J("SN_CrateWarehouse_Warehouse"),
+                        name = "Teleport to Warehouse",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to the closest Crate Warehouse's entrance.",
+                        func = function()
+                            GTA.TeleportToBlip(eTable.BlipSprites.Warehouse)
+                            SilentLogger.LogInfo("[Teleport to Warehouse (Special Cargo)] You should've been teleported to the warehouse ツ")
+                        end
+                    }
                 },
 
                 Cooldown = {
@@ -4949,6 +5092,16 @@ eFeature = {
             },
 
             Stats = {
+                Refresh = {
+                    hash = J("SN_CrateWarehouse_Refresh"),
+                    name = "Refresh",
+                    type = eFeatureType.Button,
+                    desc = "Refreshes the Crate Warehouse stats to the current ones.",
+                    func = function()
+                        SilentLogger.LogInfo("[Refresh (Special Cargo)] Stats should've been refreshed ツ")
+                    end
+                },
+
                 BuyMade = {
                     hash = J("SN_CrateWarehouse_BuyMade"),
                     name = "Buy Made",

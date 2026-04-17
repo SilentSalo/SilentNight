@@ -183,6 +183,12 @@ if GTA_EDITION == "EE" then
                 }
             },
 
+            Hangar = {
+                Cargo = {
+                    Limit = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 304 + 3 }
+                }
+            },
+
             Nightclub = {
                 Safe = {
                     Collect = { type = "bool", global = 2708832 },
@@ -400,6 +406,12 @@ else
                     Trigger1 = { type = "int",  global = 2708790 + 1 + 5 * 2     },
                     Trigger2 = { type = "bool", global = 2708790 + 1 + 5 * 2 + 1 }
                 },
+            },
+
+            Hangar = {
+                Cargo = {
+                    Limit = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 304 + 3 }
+                }
             },
 
             Nightclub = {
