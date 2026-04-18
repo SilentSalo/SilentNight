@@ -311,6 +311,147 @@ function Helper.ApplyDoomsdayPreset(preps)
     CONFIG.logging = temp
 end
 
+function Helper.GetHangarWarehouseValue()
+    local function GetCargoTypeFromCrateType(crateType)
+        if crateType == -1 then
+            return -1
+        end
+
+        local cargoTypes = {
+            [11] = 0, [12] = 0,
+            [5]  = 1, [6]  = 1,
+            [15] = 2, [16] = 2,
+            [13] = 3, [14] = 3,
+            [9]  = 4, [10] = 4,
+            [1]  = 5, [2]  = 5,
+            [7]  = 6, [8]  = 6,
+            [3]  = 7, [4]  = 7
+        }
+
+        return cargoTypes[crateType] or -1
+    end
+
+    local function GetAmountForCargoType(cargoType)
+        if cargoType == 8 then
+            return eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()
+        end
+
+        local amount   = 0
+        local charSlot = eStat.MPPLY_LAST_MP_CHAR:Get()
+        local startIdx = ePackedStat.Business.Hangar.Crate.First.index[1]
+        local endIdx   = ePackedStat.Business.Hangar.Crate.Last.index[1]
+
+        for i = startIdx, endIdx do
+            local crateType = eNative.STATS.GET_PACKED_STAT_INT_CODE(i, charSlot)
+
+            if GetCargoTypeFromCrateType(crateType) == cargoType then
+                amount = amount + 1
+            end
+        end
+
+        return amount
+    end
+
+    local function GetPriceForCargoType(cargoType)
+        local price = {
+            [0] = eTunable.Business.Hangar.Price.Animal:Get(),
+            [1] = eTunable.Business.Hangar.Price.Art:Get(),
+            [2] = eTunable.Business.Hangar.Price.Chemicals:Get(),
+            [3] = eTunable.Business.Hangar.Price.Goods:Get(),
+            [4] = eTunable.Business.Hangar.Price.Gems:Get(),
+            [5] = eTunable.Business.Hangar.Price.Meds:Get(),
+            [6] = eTunable.Business.Hangar.Price.Narcotics:Get(),
+            [7] = eTunable.Business.Hangar.Price.Tabacco:Get(),
+            [8] = eTunable.Business.Hangar.Price.Mixed:Get(),
+        }
+
+        local multiplier = 1.0
+
+        if Bits.IsBitSet(eGlobal.Business.Hangar.Bit:Get(), 2) then
+            multiplier = eTunable.Business.Hangar.Multiplier:Get()
+        end
+
+        return price[cargoType] * multiplier or 0
+    end
+
+    local function GetBonusPercentageForCargoType(cargoType, amount)
+        if cargoType == 8 then
+            return 0.0
+        end
+
+        local percentage = {
+            [0] = eTunable.Business.Hangar.Bonus.Percentage.Animal:Get(),
+            [1] = eTunable.Business.Hangar.Bonus.Percentage.Art:Get(),
+            [2] = eTunable.Business.Hangar.Bonus.Percentage.Chemicals:Get(),
+            [3] = eTunable.Business.Hangar.Bonus.Percentage.Goods:Get(),
+            [4] = eTunable.Business.Hangar.Bonus.Percentage.Gems:Get(),
+            [5] = eTunable.Business.Hangar.Bonus.Percentage.Meds:Get(),
+            [6] = eTunable.Business.Hangar.Bonus.Percentage.Narcotics:Get(),
+            [7] = eTunable.Business.Hangar.Bonus.Percentage.Tabacco:Get(),
+        }
+
+        local threshold = {
+            [0] = eTunable.Business.Hangar.Bonus.Threshhold.Animal:Get(),
+            [1] = eTunable.Business.Hangar.Bonus.Threshhold.Art:Get(),
+            [2] = eTunable.Business.Hangar.Bonus.Threshhold.Chemicals:Get(),
+            [3] = eTunable.Business.Hangar.Bonus.Threshhold.Goods:Get(),
+            [4] = eTunable.Business.Hangar.Bonus.Threshhold.Gems:Get(),
+            [5] = eTunable.Business.Hangar.Bonus.Threshhold.Meds:Get(),
+            [6] = eTunable.Business.Hangar.Bonus.Threshhold.Narcotics:Get(),
+            [7] = eTunable.Business.Hangar.Bonus.Threshhold.Tabacco:Get(),
+        }
+
+        return math.floor((amount + .0) / threshold[cargoType]) * percentage[cargoType]
+    end
+
+    local mixed       = 8
+    local totalCrates = GetAmountForCargoType(mixed)
+
+    if totalCrates <= 50 then
+        local value            = 0
+        local uniqueTypesCount = 0
+        local lastFoundType    = -1
+
+        for i = 0, 7 do
+            local amount = GetAmountForCargoType(i)
+
+            if amount > 0 then
+                uniqueTypesCount = uniqueTypesCount + 1
+                lastFoundType    = i
+            end
+        end
+
+        if uniqueTypesCount == 1 then
+            local amount     = GetAmountForCargoType(lastFoundType)
+            local basePrice  = GetPriceForCargoType(lastFoundType) * amount
+            local bonusPct   = GetBonusPercentageForCargoType(lastFoundType, amount)
+            local bonusValue = math.floor((basePrice * bonusPct) + 0.5)
+
+            value = basePrice + bonusValue
+        elseif uniqueTypesCount > 1 then
+            for i = 0, 7 do
+                local amount = GetAmountForCargoType(i)
+
+                if amount > 0 then
+                    local basePrice = GetPriceForCargoType(i) * amount
+
+                    value = value + basePrice
+                end
+            end
+        end
+
+        return math.floor(value)
+    end
+
+    return GetPriceForCargoType(mixed) * totalCrates
+end
+
+function Helper.FormatMoney(amount)
+    local n = S(math.floor(math.abs(amount)))
+    local f = n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
+    return F("%s%s", (amount < 0) and "-" or "", f)
+end
+
 function Helper.RefreshFiles()
     Utils.FillDynamicTables()
     Parser.ParseTables(eTable)

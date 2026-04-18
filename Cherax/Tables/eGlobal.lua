@@ -187,7 +187,9 @@ if GTA_EDITION == "EE" then
                 Cargo = {
                     Type  = { type = "int", global = 1882707 + 8                                     },
                     Total = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 304 + 3 }
-                }
+                },
+
+                Bit = { type = "int", global = 1882717 + 1 + (PLAYER_ID * 315) + 158 + 27 }
             },
 
             Nightclub = {
@@ -413,7 +415,9 @@ else
                 Cargo = {
                     Type  = { type = "int", global = 1882562 + 8                                     },
                     Total = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 304 + 3 }
-                }
+                },
+
+                Bit = { type = "int", global = 1882572 + 1 + (PLAYER_ID * 315) + 158 + 27 }
             },
 
             Nightclub = {

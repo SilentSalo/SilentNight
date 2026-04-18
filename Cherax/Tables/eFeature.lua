@@ -3921,36 +3921,50 @@ eFeature = {
                     name = "Start",
                     type = eFeatureType.Toggle,
                     desc = "Starts filling your Hangar stock repeatedly.",
-                    func = function(ftr, limitToggled, limit, type, delay)
-                        if ftr:IsToggled() then
-                            if not GTA.IsScriptRunning(eScript.Hangar.Laptop) then
-                                if limitToggled and eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() >= limit then
-                                    eGlobal.Business.Hangar.Cargo.Total:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
-                                    SilentLogger.LogInfo("[Pocket Dimension (Hangar)] Cargo limit should've been reached ツ")
-                                    ftr:Toggle(false)
-                                    return
-                                end
-
-                                eGlobal.Business.Hangar.Cargo.Type:Set(type)
-                                eGlobal.Business.Hangar.Cargo.Total:Set(0)
-                                ePackedStat.Business.Hangar.Cargo:Set(true)
-
-                                if not loggedHangarStart then
-                                    ftr:SetName("Stop")
-                                    ftr:SetDesc("Stops filling your Hangar stock repeatedly.")
-                                    SilentLogger.LogInfo("[Start (Hangar)] Deeper supplier should've been enabled ツ")
-                                    loggedHangarStart = true
-                                end
-
-                                Script.Yield(math.floor(delay * 1000))
-                            end
-                        else
+                    func = function(ftr, limitToggled, limitByAmount, limit, type, delay)
+                        if not ftr:IsToggled() then
                             ftr:SetName("Start")
                             ftr:SetDesc("Starts filling your Hangar stock repeatedly.")
                             eGlobal.Business.Hangar.Cargo.Total:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
-                            SilentLogger.LogInfo("[Stop (Hangar)] Deeper supplier should've been disabled ツ")
-                            loggedHangarStart = false
+                            if loggedHangarStart then
+                                SilentLogger.LogInfo("[Stop (Hangar)] Deeper supplier should've been disabled ツ")
+                                loggedHangarStart = false
+                            end
+                            return
                         end
+
+                        if GTA.IsScriptRunning(eScript.Hangar.Laptop) then return end
+
+                        if limitToggled then
+                            local currentAmount  = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()
+                            local isLimitReached = false
+
+                            if limitByAmount then
+                                isLimitReached = currentAmount >= limit
+                            else
+                                isLimitReached = Helper.GetHangarWarehouseValue() >= limit
+                            end
+
+                            if isLimitReached then
+                                eGlobal.Business.Hangar.Cargo.Total:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
+                                SilentLogger.LogInfo("[Pocket Dimension (Hangar)] Cargo limit should've been reached ツ")
+                                ftr:Toggle(false)
+                                return
+                            end
+                        end
+
+                        eGlobal.Business.Hangar.Cargo.Type:Set(type)
+                        eGlobal.Business.Hangar.Cargo.Total:Set(0)
+                        ePackedStat.Business.Hangar.Cargo:Set(true)
+
+                        if not loggedHangarStart then
+                            ftr:SetName("Stop")
+                            ftr:SetDesc("Stops filling your Hangar stock repeatedly.")
+                            SilentLogger.LogInfo("[Start (Hangar)] Deeper supplier should've been enabled ツ")
+                            loggedHangarStart = true
+                        end
+
+                        Script.Yield(math.floor(delay * 1000))
                     end
                 },
 
@@ -3964,20 +3978,33 @@ eFeature = {
                     end
                 },
 
-                StopAt = {
-                    hash = J("SN_Hangar_StopAt"),
-                    name = "Stop At",
+                Filter = {
+                    hash = J("SN_Hangar_Filter"),
+                    name = "",
+                    type = eFeatureType.Combo,
+                    desc = "Controls how the cargo limit is applied.",
+                    list = eTable.Business.Hangar.Limits,
+                    func = function(ftr)
+                        local list  = eTable.Business.Hangar.Limits
+                        local index = list[ftr:GetListIndex() + 1].index
+                        SilentLogger.LogInfo(F("[Cargo Limit Type (Hangar)] Selected cargo limit type: %s ツ", list:GetName(index)))
+                    end
+                },
+
+                Limit = {
+                    hash = J("SN_Hangar_Limit"),
+                    name = "Limit",
                     type = eFeatureType.InputInt,
-                    desc = "Select the desired amount of cargo at which the deeper supplier should stop. Set to 0 to use the default.",
+                    desc = "Select the desired cargo limit at which the deeper supplier should stop. Set to 0 to use the default.",
                     defv = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50,
                     lims = { 0, INT32_MAX },
                     step = 50,
                     func = function(ftr)
                         if ftr:GetIntValue() == 0 then
                             ftr:SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
-                            SilentLogger.LogInfo("[Stop At (Hangar)] Cargo limit should've been disabled ツ")
+                            SilentLogger.LogInfo("[Limit (Hangar)] Cargo limit should've been disabled ツ")
                         else
-                            SilentLogger.LogInfo("[Stop At (Hangar)] Cargo limit should've been changed ツ")
+                            SilentLogger.LogInfo("[Limit (Hangar)] Cargo limit should've been changed ツ")
                         end
                     end
                 },

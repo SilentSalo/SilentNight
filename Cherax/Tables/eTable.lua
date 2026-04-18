@@ -6,14 +6,19 @@ eTable = {
     Business = {
         Hangar = {
             Cargoes = {
-                { name = "Animal Materials",  index = 0 },
-                { name = "Art n Antiques",    index = 1 },
-                { name = "Chemicals",         index = 2 },
-                { name = "Counterfeit Goods", index = 3 },
-                { name = "Jewel n Gems",      index = 4 },
-                { name = "Medical Supplies",  index = 5 },
-                { name = "Narcotics",         index = 6 },
-                { name = "Tabacco n Alcohol", index = 7 },
+                { name = "Animal Materials",  index = 3 },
+                { name = "Art n Antiques",    index = 4 },
+                { name = "Chemicals",         index = 1 },
+                { name = "Counterfeit Goods", index = 7 },
+                { name = "Jewelry n Gems",    index = 5 },
+                { name = "Medical Supplies",  index = 2 },
+                { name = "Narcotics",         index = 0 },
+                { name = "Tabacco n Alcohol", index = 6 },
+            },
+
+            Limits = {
+                { name = "Stock", index = 0 },
+                { name = "Value", index = 1 }
             }
         },
 

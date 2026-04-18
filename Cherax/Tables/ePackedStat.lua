@@ -13,7 +13,12 @@ ePackedStat = {
         },
 
         Hangar = {
-            Cargo = { type = "bool", index = 36828 }
+            Cargo = { type = "bool", index = 36828 },
+
+            Crate = {
+                First = { type = "int", index = 16011 },
+                Last  = { type = "int", index = 16060 }
+            }
         },
 
         Nightclub = {

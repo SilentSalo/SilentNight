@@ -66,8 +66,44 @@ eTunable = {
         },
 
         Hangar = {
-            Price    = { type = "int",   tunable = "SMUG_SELL_PRICE_PER_CRATE_MIXED", defaultValue = 30000 },
-            RonsCut  = { type = "float", tunable = "SMUG_SELL_RONS_CUT",              defaultValue = 0.025 },
+            Price = {
+                Mixed     = { type = "int", tunable = "SMUG_SELL_PRICE_PER_CRATE_MIXED",                 defaultValue = 30000 },
+                Animal    = { type = "int", tunable = "SMUG_SELL_PRICE_PER_CRATE_ANIMAL_MATERIALS",      defaultValue = 30000 },
+                Art       = { type = "int", tunable = "SMUG_SELL_PRICE_PER_CRATE_ART_AND_ANTIQUES",      defaultValue = 30000 },
+                Chemicals = { type = "int", tunable = "SMUG_SELL_PRICE_PER_CRATE_CHEMICALS",             defaultValue = 30000 },
+                Goods     = { type = "int", tunable = "SMUG_SELL_PRICE_PER_CRATE_COUNTERFEIT_GOODS",     defaultValue = 30000 },
+                Gems      = { type = "int", tunable = "SMUG_SELL_PRICE_PER_CRATE_JEWELRY_AND_GEMSTONES", defaultValue = 30000 },
+                Meds      = { type = "int", tunable = "SMUG_SELL_PRICE_PER_CRATE_MEDICAL_SUPPLIES",      defaultValue = 30000 },
+                Narcotics = { type = "int", tunable = "SMUG_SELL_PRICE_PER_CRATE_NARCOTICS",             defaultValue = 30000 },
+                Tabacco   = { type = "int", tunable = "SMUG_SELL_PRICE_PER_CRATE_TOBACCO_AND_ALCOHOL",   defaultValue = 30000 }
+            },
+
+            RonsCut    = { type = "float", tunable = "SMUG_SELL_RONS_CUT", defaultValue = 0.025 },
+            Multiplier = { type = "float", tunable = -720640289,           defaultValue = 1.1   },
+
+            Bonus = {
+                Percentage = {
+                    Animal    = { type = "float", tunable = "SMUG_SELL_CRATE_BONUS_PERCENTAGE_MEDIUM", defaultValue = 0.12 },
+                    Art       = { type = "float", tunable = "SMUG_SELL_CRATE_BONUS_PERCENTAGE_MEDIUM", defaultValue = 0.12 },
+                    Chemicals = { type = "float", tunable = "SMUG_SELL_CRATE_BONUS_PERCENTAGE_HIGH",   defaultValue = 0.35 },
+                    Goods     = { type = "float", tunable = "SMUG_SELL_CRATE_BONUS_PERCENTAGE_LOW",    defaultValue = 0.05 },
+                    Gems      = { type = "float", tunable = "SMUG_SELL_CRATE_BONUS_PERCENTAGE_MEDIUM", defaultValue = 0.12 },
+                    Meds      = { type = "float", tunable = "SMUG_SELL_CRATE_BONUS_PERCENTAGE_HIGH",   defaultValue = 0.35 },
+                    Narcotics = { type = "float", tunable = "SMUG_SELL_CRATE_BONUS_PERCENTAGE_HIGH",   defaultValue = 0.35 },
+                    Tabacco   = { type = "float", tunable = "SMUG_SELL_CRATE_BONUS_PERCENTAGE_LOW",    defaultValue = 0.05 }
+                },
+
+                Threshhold = {
+                    Animal    = { type = "int", tunable = "SMUG_SELL_CRATE_BONUS_THRESHOLD_MEDIUM", defaultValue = 10 },
+                    Art       = { type = "int", tunable = "SMUG_SELL_CRATE_BONUS_THRESHOLD_MEDIUM", defaultValue = 10 },
+                    Chemicals = { type = "int", tunable = "SMUG_SELL_CRATE_BONUS_THRESHOLD_HIGH",   defaultValue = 25 },
+                    Goods     = { type = "int", tunable = "SMUG_SELL_CRATE_BONUS_THRESHOLD_LOW",    defaultValue = 5  },
+                    Gems      = { type = "int", tunable = "SMUG_SELL_CRATE_BONUS_THRESHOLD_MEDIUM", defaultValue = 10 },
+                    Meds      = { type = "int", tunable = "SMUG_SELL_CRATE_BONUS_THRESHOLD_HIGH",   defaultValue = 25 },
+                    Narcotics = { type = "int", tunable = "SMUG_SELL_CRATE_BONUS_THRESHOLD_HIGH",   defaultValue = 25 },
+                    Tabacco   = { type = "int", tunable = "SMUG_SELL_CRATE_BONUS_THRESHOLD_LOW",    defaultValue = 5  }
+                }
+            },
 
             Cooldown = {
                 Steal = {

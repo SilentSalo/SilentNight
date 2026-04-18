@@ -649,11 +649,18 @@ function Renderer.RenderBusinessTool()
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension)
                         if FeatureMgr.GetFeatureBool(eFeature.Business.Hangar.Supplies.PocketDimension) then
                             local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
-                            ImGui.TextColored("Current Stock:", r, g, b, a, HANGAR_STOCK or "N/A")
+                            ImGui.TextColored("Total Stock:", r, g, b, a, HANGAR_STOCK or "N/A")
+                            ImGui.TextColored("Total Value:", r, g, b, a, F("$%s", Helper.FormatMoney(HANGAR_VALUE)) or "N/A")
                         end
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.StartStop)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.CustomLimit)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.StopAt)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Filter)
+
+                        if FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter):IsVisible() then
+                            ImGui.SameLine()
+                        end
+
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Limit)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.CustomDelay)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Delay)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.CustomType)
@@ -1791,7 +1798,8 @@ function Renderer.RenderListGUI()
             SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension)
             SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.StartStop)
             SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.CustomLimit)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.StopAt)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Filter)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Limit)
             SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.CustomDelay)
             SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Delay)
             SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.CustomType)

@@ -85,8 +85,9 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension, functio
 
     if f:IsToggled() then
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supply):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supplier):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supplier):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supplier)
+            :SetVisible(false)
+            :Toggle(false)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StartStop):SetVisible(true)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomLimit):SetVisible(true)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(true)
@@ -94,11 +95,15 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension, functio
     else
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supply):SetVisible(true)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supplier):SetVisible(true)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StartStop):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StartStop):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StartStop)
+            :SetVisible(false)
+            :Toggle(false)
 
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomLimit):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StopAt)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter)
+            :SetVisible(false)
+            :SetListIndex(0)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit)
             :SetVisible(false)
             :SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
 
@@ -115,31 +120,51 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension, functio
 end)
 
 FeatureMgr.AddLoop(eFeature.Business.Hangar.Supplies.StartStop, function(f)
-    local limitToggled = not FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomLimit):IsVisible()
-    local limit        = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StopAt):GetIntValue()
-    local type         = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Type):GetListIndex()
-    local delay        = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay):GetFloatValue()
-    eFeature.Business.Hangar.Supplies.StartStop.func(f, limitToggled, limit, type, delay)
+    local limitToggled  = not FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomLimit):IsVisible()
+    local limitByAmount = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter):GetListIndex() == 0
+    local limit         = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit):GetIntValue()
+    local type          = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Type):GetListIndex()
+    local delay         = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay):GetFloatValue()
+    eFeature.Business.Hangar.Supplies.StartStop.func(f, limitToggled, limitByAmount,limit, type, delay)
 end, function(f)
-    eFeature.Business.Hangar.Supplies.StartStop.func(f, false, 0, 0, 0)
+    eFeature.Business.Hangar.Supplies.StartStop.func(f, false, false, 0, 0, 0)
 end)
     :SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.CustomLimit, function(f)
     f:SetVisible(false)
-    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StopAt):SetVisible(true)
-    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StopAt):SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter)
+        :SetVisible(true)
+        :SetListIndex(0)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit)
+        :SetVisible(true)
+        :SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
+        :SetStepSize(50)
     eFeature.Business.Hangar.Supplies.CustomLimit.func(f)
 end)
     :SetVisible(false)
 
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.StopAt, function(f)
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Filter, function(f)
+    if f:GetListIndex() == 0 then
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit)
+            :SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
+            :SetStepSize(50)
+    else
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit)
+            :SetIntValue(Helper.GetHangarWarehouseValue() + 1000000)
+            :SetStepSize(1000000)
+    end
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Limit, function(f)
     if f:GetIntValue() == 0 then
         f:SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter):SetVisible(false)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomLimit):SetVisible(true)
     end
 
-    eFeature.Business.Hangar.Supplies.StopAt.func(f)
+    eFeature.Business.Hangar.Supplies.Limit.func(f)
 end)
     :SetVisible(false)
 
