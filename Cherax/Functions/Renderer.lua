@@ -646,25 +646,25 @@ function Renderer.RenderBusinessTool()
                     if ClickGUI.BeginCustomChildWindow("Supplies") then
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Supply)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Supplier)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension)
-                        if FeatureMgr.GetFeatureBool(eFeature.Business.Hangar.Supplies.PocketDimension) then
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle)
+
+                        if FeatureMgr.GetFeatureBool(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle) then
                             local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
                             ImGui.TextColored("Total Stock:", r, g, b, a, HANGAR_STOCK or "N/A")
-                            ImGui.TextColored("Total Value:", r, g, b, a, F("$%s", Helper.FormatMoney(HANGAR_VALUE)) or "N/A")
+                            ImGui.TextColored("Total Value:", r, g, b, a, Helper.FormatMoney(HANGAR_VALUE) or "N/A")
                         end
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.StartStop)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.CustomLimit)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Filter)
 
-                        if FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter):IsVisible() then
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.StartStop)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter)
+
+                        if FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter):IsVisible() then
                             ImGui.SameLine()
                         end
 
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Limit)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.CustomDelay)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Delay)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.CustomType)
-                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Type)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomType)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type)
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -1360,6 +1360,14 @@ function Renderer.RenderSettings()
 
                     ImGui.TableNextColumn()
 
+                    if SCRIPT_EDTN ~= eTable.Editions.Standard then
+                        if ClickGUI.BeginCustomChildWindow("Pocket Dimension") then
+                            ClickGUI.RenderFeature(eFeature.Settings.PocketDimension.Validation)
+                            ClickGUI.RenderFeature(eFeature.Settings.PocketDimension.Delay)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                    end
+
                     if CONFIG.yolo_mode then
                         if ClickGUI.BeginCustomChildWindow("Easy Money") then
                             ClickGUI.RenderFeature(eFeature.Settings.EasyMoney.AutoDeposit)
@@ -1795,15 +1803,13 @@ function Renderer.RenderListGUI()
             local SuppliesSubTab = HangarCargoTab:AddSubTab("Supplies", "Supplies")
             SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Supply)
             SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Supplier)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.StartStop)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.CustomLimit)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Filter)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Limit)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.CustomDelay)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Delay)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.CustomType)
-            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.Type)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.StartStop)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomType)
+            SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type)
 
             local MiscSubTab = HangarCargoTab:AddSubTab("Misc", "Misc")
             MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance)
@@ -2139,6 +2145,12 @@ function Renderer.RenderListGUI()
         local UnlockAllPOISubTab = SettingsTab:AddSubTab("Unlock All POI", "Unlock All POI")
         UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
         UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
+
+        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+            local PocketDimensionSubTab = SettingsTab:AddSubTab("Pocket Dimension", "Pocket Dimension")
+            PocketDimensionSubTab:AddFeature(eFeature.Settings.PocketDimension.Validation)
+            PocketDimensionSubTab:AddFeature(eFeature.Settings.PocketDimension.Delay)
+        end
 
         if CONFIG.yolo_mode then
             local EasyMoneySubTab = SettingsTab:AddSubTab("Easy Money", "Easy Money")

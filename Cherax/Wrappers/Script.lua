@@ -108,6 +108,8 @@ function Script.ReAssign()
     PLAYER_ID = GTA.GetLocalPlayerId()
 
     if GTA_EDITION == "EE" then
+        eGlobal.Business.Hangar.Cargo.Total    = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 304 + 3 }
+        eGlobal.Business.Hangar.Bit            = { type = "int", global = 1882717 + 1 + (PLAYER_ID * 315) + 158 + 27      }
         eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 364 + 5 }
         eGlobal.Heist.Apartment.Cooldown.Step1 = { type = "int", global = 1877303 + 1 + (PLAYER_ID * 77) + 76             }
         eGlobal.World.Apartment.Id             = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 260 + 37      }
@@ -119,20 +121,9 @@ function Script.ReAssign()
         }
 
         eGlobal.Player.RP = { type = "int", global = 1845299 + 1 + (PLAYER_ID * 883) + 198 + 1 }
-
-        eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 773 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
-
-        eLocal.World.Casino.Blackjack = {
-            Dealer = {
-                FirstCard  = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1, script = "blackjack" },
-                SecondCard = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2, script = "blackjack" },
-                ThirdCard  = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3, script = "blackjack" }
-            },
-
-            CurrentTable = { type = "int", vLocal = 1800 + 1 + (PLAYER_ID * 8) + 4,                                                                 script = "blackjack" },
-            VisibleCards = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
-        }
     else
+        eGlobal.Business.Hangar.Cargo.Total    = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 304 + 3 }
+        eGlobal.Business.Hangar.Bit            = { type = "int", global = 1882572 + 1 + (PLAYER_ID * 315) + 158 + 27      }
         eGlobal.Business.Nightclub.Safe.Value  = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 364 + 5 }
         eGlobal.Heist.Apartment.Cooldown.Step1 = { type = "int", global = 1877158 + 1 + (PLAYER_ID * 77) + 76             }
         eGlobal.World.Apartment.Id             = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 260 + 37      }
@@ -144,19 +135,6 @@ function Script.ReAssign()
         }
 
         eGlobal.Player.RP = { type = "int", global = 1845250 + 1 + (PLAYER_ID * 880) + 198 + 1 }
-
-        eLocal.World.Casino.Poker.CurrentTable = { type = "int", vLocal = 771 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" }
-
-        eLocal.World.Casino.Blackjack = {
-            Dealer = {
-                FirstCard  = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 1,  script = "blackjack" },
-                SecondCard = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 2,  script = "blackjack" },
-                ThirdCard  = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 3,  script = "blackjack" }
-            },
-
-            CurrentTable = { type = "int", vLocal = 1798 + 1 + (PLAYER_ID * 8) + 4,                                                                 script = "blackjack" },
-            VisibleCards = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4) * 13) + 12, script = "blackjack" }
-        }
     end
 end
 
@@ -185,8 +163,11 @@ function Script.ReloadFeatures()
     FeatureMgr.GetFeature(eFeature.Business.Bunker.Stats.Earnings)
         :SetIntValue(eStat.MPX_LIFETIME_BKR_SELL_EARNINGS5:Get())
 
-    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit)
-        :SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
+    local ftr  = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter)
+    local step = (ftr:GetListIndex() == 0) and eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50 or Helper.GetHangarWarehouseValue() + 1000000
+
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit)
+        :SetIntValue(step)
 
     FeatureMgr.GetFeature(eFeature.Business.Hangar.Stats.BuyMade)
         :SetIntValue(eStat.MPX_LFETIME_HANGAR_BUY_COMPLET:Get())

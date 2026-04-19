@@ -29,6 +29,11 @@ DEFAULT_CONFIG = {
         diamond_casino = true
     },
 
+    pocket_dimension = {
+        validation = true,
+        delay      = 1.0
+    },
+
     register_as_boss = {
         autoregister = false,
         type         = 0
@@ -203,6 +208,7 @@ loggedJinxScript      = CONFIG.collab.jinxscript.enabled
 loggedJinxScriptStop  = CONFIG.collab.jinxscript.autostop
 loggedUCayoPerico     = CONFIG.unlock_all_poi.cayo_perico
 loggedUDiamondCasino  = CONFIG.unlock_all_poi.diamond_casino
+loggedValidation      = CONFIG.pocket_dimension.validation
 loggedAutoRegister    = CONFIG.register_as_boss.autoregister
 loggedAutoDeposit     = CONFIG.easy_money.autodeposit
 loggedDummyPrevention = CONFIG.easy_money.dummy_prevention

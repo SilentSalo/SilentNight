@@ -446,7 +446,7 @@ end
 function Helper.FormatMoney(amount)
     local n = S(math.floor(math.abs(amount)))
     local f = n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
-    return F("%s%s", (amount < 0) and "-" or "", f)
+    return F("$%s%s", (amount < 0) and "-" or "", f)
 end
 
 function Helper.RefreshFiles()

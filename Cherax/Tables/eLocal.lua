@@ -198,31 +198,9 @@ if GTA_EDITION == "EE" then
 
         World = {
             Casino = {
-                Blackjack = {
-                    Dealer = {
-                        FirstCard  = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4)) * 13 + 1, script = "blackjack" },
-                        SecondCard = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4)) * 13 + 2, script = "blackjack" },
-                        ThirdCard  = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4)) * 13 + 3, script = "blackjack" }
-                    },
-
-                    CurrentTable = { type = "int", vLocal = 1800 + 1 + (PLAYER_ID * 8) + 4,                                                                 script = "blackjack" },
-                    VisibleCards = { type = "int", vLocal = 140 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1800 + 1 + (PLAYER_ID * 8) + 4)) * 13 + 12, script = "blackjack" }
-                },
-
                 LuckyWheel = {
                     WinState    = { type = "int", vLocal = 304 + 14, script = "casino_lucky_wheel" },
                     PrizeState  = { type = "int", vLocal = 304 + 45, script = "casino_lucky_wheel" }
-                },
-
-                Poker = {
-                    CurrentTable  = { type = "int", vLocal = 773 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" },
-                    Table         = { type = "int", vLocal = 773,                           script = "three_card_poker" },
-                    TableSize     = { type = "int", vLocal = 9,                             script = "three_card_poker" },
-                    Cards         = { type = "int", vLocal = 136,                           script = "three_card_poker" },
-                    CurrentDeck   = { type = "int", vLocal = 168,                           script = "three_card_poker" },
-                    AntiCheat     = { type = "int", vLocal = 1058,                          script = "three_card_poker" },
-                    AntiCheatDeck = { type = "int", vLocal = 799,                           script = "three_card_poker" },
-                    DeckSize      = { type = "int", vLocal = 55,                            script = "three_card_poker" }
                 },
 
                 Roulette = {
@@ -435,31 +413,9 @@ else
 
         World = {
             Casino = {
-                Blackjack = {
-                    Dealer = {
-                        FirstCard  = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4)) * 13 + 1,  script = "blackjack" },
-                        SecondCard = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4)) * 13 + 2,  script = "blackjack" },
-                        ThirdCard  = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4)) * 13 + 3,  script = "blackjack" }
-                    },
-
-                    CurrentTable = { type = "int", vLocal = 1798 + 1 + (PLAYER_ID * 8) + 4,                                                                 script = "blackjack" },
-                    VisibleCards = { type = "int", vLocal = 138 + 846 + 1 + (ScriptLocal.GetInt(J("blackjack"), 1798 + 1 + (PLAYER_ID * 8) + 4)) * 13 + 12, script = "blackjack" }
-                },
-
                 LuckyWheel = {
                     WinState    = { type = "int", vLocal = 302 + 14, script = "casino_lucky_wheel" },
                     PrizeState  = { type = "int", vLocal = 302 + 45, script = "casino_lucky_wheel" }
-                },
-
-                Poker = {
-                    CurrentTable  = { type = "int", vLocal = 771 + 1 + (PLAYER_ID * 9) + 2, script = "three_card_poker" },
-                    Table         = { type = "int", vLocal = 771,                           script = "three_card_poker" },
-                    TableSize     = { type = "int", vLocal = 9,                             script = "three_card_poker" },
-                    Cards         = { type = "int", vLocal = 138,                           script = "three_card_poker" },
-                    CurrentDeck   = { type = "int", vLocal = 168,                           script = "three_card_poker" },
-                    AntiCheat     = { type = "int", vLocal = 1060,                          script = "three_card_poker" },
-                    AntiCheatDeck = { type = "int", vLocal = 799,                           script = "three_card_poker" },
-                    DeckSize      = { type = "int", vLocal = 55,                            script = "three_card_poker" }
                 },
 
                 Roulette = {

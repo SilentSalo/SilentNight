@@ -79,8 +79,8 @@ FeatureMgr.AddLoop(eFeature.Business.Hangar.Supplies.Supplier, nil, function(f)
     eFeature.Business.Hangar.Supplies.Supplier.func(f)
 end)
 
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension, function(f)
-    eFeature.Business.Hangar.Supplies.PocketDimension.func(f)
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle, function(f)
+    eFeature.Business.Hangar.Supplies.PocketDimension.Toggle.func(f)
     if SCRIPT_EDTN == eTable.Editions.Standard then return end
 
     if f:IsToggled() then
@@ -88,122 +88,96 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension, functio
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supplier)
             :SetVisible(false)
             :Toggle(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StartStop):SetVisible(true)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomLimit):SetVisible(true)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(true)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomType):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.StartStop):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomType):SetVisible(true)
     else
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supply):SetVisible(true)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supplier):SetVisible(true)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.StartStop)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.StartStop)
             :SetVisible(false)
             :Toggle(false)
 
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomLimit):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter)
             :SetVisible(false)
             :SetListIndex(0)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit)
             :SetVisible(false)
             :SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
 
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay)
-            :SetVisible(false)
-            :SetFloatValue(0.5)
-
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomType):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Type)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomType):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type)
             :SetVisible(false)
             :SetListIndex(0)
     end
 end)
 
-FeatureMgr.AddLoop(eFeature.Business.Hangar.Supplies.StartStop, function(f)
-    local limitToggled  = not FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomLimit):IsVisible()
-    local limitByAmount = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter):GetListIndex() == 0
-    local limit         = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit):GetIntValue()
-    local type          = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Type):GetListIndex()
-    local delay         = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay):GetFloatValue()
-    eFeature.Business.Hangar.Supplies.StartStop.func(f, limitToggled, limitByAmount,limit, type, delay)
+FeatureMgr.AddLoop(eFeature.Business.Hangar.Supplies.PocketDimension.StartStop, function(f)
+    local limitToggled  = not FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit):IsVisible()
+    local limitByAmount = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter):GetListIndex() == 0
+    local limit         = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit):GetIntValue()
+    local type          = FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type):GetListIndex()
+    local delay         = FeatureMgr.GetFeature(eFeature.Settings.PocketDimension.Delay):GetFloatValue()
+    eFeature.Business.Hangar.Supplies.PocketDimension.StartStop.func(f, limitToggled, limitByAmount,limit, type, delay)
 end, function(f)
-    eFeature.Business.Hangar.Supplies.StartStop.func(f, false, false, 0, 0, 0)
+    eFeature.Business.Hangar.Supplies.PocketDimension.StartStop.func(f, false, false, 0, 0, 0)
 end)
     :SetVisible(false)
 
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.CustomLimit, function(f)
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit, function(f)
     f:SetVisible(false)
-    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter)
         :SetVisible(true)
         :SetListIndex(0)
-    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit)
         :SetVisible(true)
         :SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
         :SetStepSize(50)
-    eFeature.Business.Hangar.Supplies.CustomLimit.func(f)
+    eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit.func(f)
 end)
     :SetVisible(false)
 
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Filter, function(f)
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter, function(f)
     if f:GetListIndex() == 0 then
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit)
             :SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
             :SetStepSize(50)
     else
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Limit)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit)
             :SetIntValue(Helper.GetHangarWarehouseValue() + 1000000)
             :SetStepSize(1000000)
     end
 end)
     :SetVisible(false)
 
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Limit, function(f)
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit, function(f)
     if f:GetIntValue() == 0 then
         f:SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Filter):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomLimit):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit):SetVisible(true)
     end
 
-    eFeature.Business.Hangar.Supplies.Limit.func(f)
+    eFeature.Business.Hangar.Supplies.PocketDimension.Limit.func(f)
 end)
     :SetVisible(false)
 
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.CustomDelay, function(f)
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomType, function(f)
     f:SetVisible(false)
-    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay)
-        :SetVisible(true)
-        :SetFloatValue(0.5)
-    eFeature.Business.Hangar.Supplies.CustomDelay.func(f)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type):SetVisible(true)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type):SetListIndex(1)
+    eFeature.Business.Hangar.Supplies.PocketDimension.CustomType.func(f)
 end)
     :SetVisible(false)
 
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Delay, function(f)
-    if f:GetFloatValue() == 0.0 then
-        f:SetVisible(false)
-        f:SetFloatValue(0.5)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(true)
-    end
-
-    eFeature.Business.Hangar.Supplies.Delay.func(f)
-end)
-    :SetVisible(false)
-
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.CustomType, function(f)
-    f:SetVisible(false)
-    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Type):SetVisible(true)
-    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Type):SetListIndex(1)
-    eFeature.Business.Hangar.Supplies.CustomType.func(f)
-end)
-    :SetVisible(false)
-
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Type, function(f)
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type, function(f)
     if f:GetListIndex() == 0 then
         f:SetVisible(false)
         f:SetListIndex(0)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomType):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomType):SetVisible(true)
     end
 
-    eFeature.Business.Hangar.Supplies.Type.func(f)
+    eFeature.Business.Hangar.Supplies.PocketDimension.Type.func(f)
 end)
     :SetVisible(false)
 

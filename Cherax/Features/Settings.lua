@@ -47,6 +47,8 @@ FeatureMgr.AddFeature(eFeature.Settings.Config.Reset, function(f)
     FeatureMgr.GetFeature(eFeature.Settings.Collab.JinxScript.Stop):Toggle(CONFIG.collab.jinxscript.autostop)
     FeatureMgr.GetFeature(eFeature.Settings.UnlockAllPoi.CayoPerico):Toggle(CONFIG.unlock_all_poi.cayo_perico)
     FeatureMgr.GetFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino):Toggle(CONFIG.unlock_all_poi.diamond_casino)
+    FeatureMgr.GetFeature(eFeature.Settings.PocketDimension.Validation):Toggle(CONFIG.pocket_dimension.validate)
+    FeatureMgr.GetFeature(eFeature.Settings.PocketDimension.Delay):SetFloatValue(CONFIG.pocket_dimension.delay)
     FeatureMgr.GetFeature(eFeature.Settings.RegisterAsBoss.AutoRegister):Toggle(CONFIG.register_as_boss.autoregister)
     FeatureMgr.GetFeature(eFeature.Settings.RegisterAsBoss.Type):SetListIndex(CONFIG.register_as_boss.type)
     FeatureMgr.GetFeature(eFeature.Settings.EasyMoney.AutoDeposit):Toggle(CONFIG.easy_money.autodeposit)
@@ -99,6 +101,10 @@ FeatureMgr.AddFeature(eFeature.Settings.Collab.JinxScript.Stop):Toggle(CONFIG.co
 for i = 1, #settingsInstantFinishes do
     FeatureMgr.AddFeature(settingsInstantFinishes[i]):SetListIndex(CONFIG.instant_finish[methodKeys[i]])
 end
+
+FeatureMgr.AddFeature(eFeature.Settings.PocketDimension.Validation):Toggle(CONFIG.pocket_dimension.validation)
+
+FeatureMgr.AddFeature(eFeature.Settings.PocketDimension.Delay):SetFloatValue(CONFIG.pocket_dimension.delay)
 
 FeatureMgr.AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico):Toggle(CONFIG.unlock_all_poi.cayo_perico)
 

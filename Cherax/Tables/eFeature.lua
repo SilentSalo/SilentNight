@@ -3901,166 +3901,143 @@ eFeature = {
                 },
 
                 PocketDimension = {
-                    hash = J("SN_Hangar_PocketDimension"),
-                    name = "Pocket Dimension",
-                    type = eFeatureType.Toggle,
-                    desc = "Enables deeper cargo management for your Hangar.",
-                    func = function(ftr)
-                        if SCRIPT_EDTN == eTable.Editions.Standard then
-                            SilentLogger.LogInfo("[Pocket Dimension (Hangar)] This feature requires «Supporter» Script Edition ツ")
-                            ftr:Toggle(false)
-                            return
-                        end
-
-                        SilentLogger.LogInfo(F("[Pocket Dimension (Hangar)] Pocket Dimension should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
-                    end
-                },
-
-                StartStop = {
-                    hash = J("SN_Hangar_Start"),
-                    name = "Start",
-                    type = eFeatureType.Toggle,
-                    desc = "Starts filling your Hangar stock repeatedly.",
-                    func = function(ftr, limitToggled, limitByAmount, limit, type, delay)
-                        if not ftr:IsToggled() then
-                            ftr:SetName("Start")
-                            ftr:SetDesc("Starts filling your Hangar stock repeatedly.")
-                            eGlobal.Business.Hangar.Cargo.Total:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
-                            if loggedHangarStart then
-                                SilentLogger.LogInfo("[Stop (Hangar)] Deeper supplier should've been disabled ツ")
-                                loggedHangarStart = false
-                            end
-                            return
-                        end
-
-                        if GTA.IsScriptRunning(eScript.Hangar.Laptop) then return end
-
-                        if limitToggled then
-                            local currentAmount  = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()
-                            local isLimitReached = false
-
-                            if limitByAmount then
-                                isLimitReached = currentAmount >= limit
-                            else
-                                isLimitReached = Helper.GetHangarWarehouseValue() >= limit
-                            end
-
-                            if isLimitReached then
-                                eGlobal.Business.Hangar.Cargo.Total:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
-                                SilentLogger.LogInfo("[Pocket Dimension (Hangar)] Cargo limit should've been reached ツ")
+                    Toggle = {
+                        hash = J("SN_Hangar_PocketDimension"),
+                        name = "Pocket Dimension",
+                        type = eFeatureType.Toggle,
+                        desc = "Enables deeper cargo management for your Hangar.",
+                        func = function(ftr)
+                            if SCRIPT_EDTN == eTable.Editions.Standard then
+                                SilentLogger.LogInfo("[Pocket Dimension (Hangar)] This feature requires «Supporter» Script Edition ツ")
                                 ftr:Toggle(false)
                                 return
                             end
+
+                            SilentLogger.LogInfo(F("[Pocket Dimension (Hangar)] Pocket Dimension should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                         end
+                    },
 
-                        eGlobal.Business.Hangar.Cargo.Type:Set(type)
-                        eGlobal.Business.Hangar.Cargo.Total:Set(0)
-                        ePackedStat.Business.Hangar.Cargo:Set(true)
+                    StartStop = {
+                        hash = J("SN_Hangar_Start"),
+                        name = "Start",
+                        type = eFeatureType.Toggle,
+                        desc = "Starts filling your Hangar stock repeatedly.",
+                        func = function(ftr, limitToggled, limitByAmount, limit, type, delay)
+                            if not ftr:IsToggled() then
+                                ftr:SetName("Start")
+                                ftr:SetDesc("Starts filling your Hangar stock repeatedly.")
+                                eGlobal.Business.Hangar.Cargo.Total:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
+                                if loggedHangarStart then
+                                    SilentLogger.LogInfo("[Stop (Hangar)] Deeper supplier should've been disabled ツ")
+                                    loggedHangarStart = false
+                                end
+                                return
+                            end
 
-                        if not loggedHangarStart then
-                            ftr:SetName("Stop")
-                            ftr:SetDesc("Stops filling your Hangar stock repeatedly.")
-                            SilentLogger.LogInfo("[Start (Hangar)] Deeper supplier should've been enabled ツ")
-                            loggedHangarStart = true
+                            if GTA.IsScriptRunning(eScript.Hangar.Laptop) then return end
+
+                            if limitToggled then
+                                local currentAmount  = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()
+                                local isLimitReached = false
+
+                                if limitByAmount then
+                                    isLimitReached = currentAmount >= limit
+                                else
+                                    isLimitReached = Helper.GetHangarWarehouseValue() >= limit
+                                end
+
+                                if isLimitReached then
+                                    eGlobal.Business.Hangar.Cargo.Total:Set(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get())
+                                    SilentLogger.LogInfo("[Pocket Dimension (Hangar)] Cargo limit should've been reached ツ")
+                                    ftr:Toggle(false)
+                                    return
+                                end
+                            end
+
+                            eGlobal.Business.Hangar.Cargo.Type:Set(type)
+                            eGlobal.Business.Hangar.Cargo.Total:Set(0)
+                            ePackedStat.Business.Hangar.Cargo:Set(true)
+
+                            if not loggedHangarStart then
+                                ftr:SetName("Stop")
+                                ftr:SetDesc("Stops filling your Hangar stock repeatedly.")
+                                SilentLogger.LogInfo("[Start (Hangar)] Deeper supplier should've been enabled ツ")
+                                loggedHangarStart = true
+                            end
+
+                            Script.Yield(math.floor(delay * 1000))
+
+                            if not CONFIG.pocket_dimension.validation then return end
+
+                            while eNative.NETSHOPPING.NET_GAMESERVER_TRANSACTION_IN_PROGRESS() do
+                                Script.Yield()
+                            end
                         end
+                    },
 
-                        Script.Yield(math.floor(delay * 1000))
-
-                        while eNative.NETSHOPPING.NET_GAMESERVER_TRANSACTION_IN_PROGRESS() do
-                            Script.Yield()
+                    CustomLimit = {
+                        hash = J("SN_Hangar_CustomLimit"),
+                        name = "Custom Limit",
+                        type = eFeatureType.Button,
+                        desc = "Set a custom cargo limit for the Pocket Dimension supplier. The default limit is unlimited.",
+                        func = function()
+                            SilentLogger.LogInfo("[Custom Cargo Limit (Hangar)] Custom cargo limit should've been enabled ツ")
                         end
-                    end
-                },
+                    },
 
-                CustomLimit = {
-                    hash = J("SN_Hangar_CustomLimit"),
-                    name = "Custom Limit",
-                    type = eFeatureType.Button,
-                    desc = "Set a custom cargo limit for the Pocket Dimension supplier. The default limit is unlimited.",
-                    func = function()
-                        SilentLogger.LogInfo("[Custom Cargo Limit (Hangar)] Custom cargo limit should've been enabled ツ")
-                    end
-                },
-
-                Filter = {
-                    hash = J("SN_Hangar_Filter"),
-                    name = "",
-                    type = eFeatureType.Combo,
-                    desc = "Controls how the cargo limit is applied.",
-                    list = eTable.Business.Hangar.Limits,
-                    func = function(ftr)
-                        local list  = eTable.Business.Hangar.Limits
-                        local index = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Cargo Limit Type (Hangar)] Selected cargo limit type: %s ツ", list:GetName(index)))
-                    end
-                },
-
-                Limit = {
-                    hash = J("SN_Hangar_Limit"),
-                    name = "Limit",
-                    type = eFeatureType.InputInt,
-                    desc = "Select the desired cargo limit at which the deeper supplier should stop. Set to 0 to use the default.",
-                    defv = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50,
-                    lims = { 0, INT32_MAX },
-                    step = 50,
-                    func = function(ftr)
-                        if ftr:GetIntValue() == 0 then
-                            ftr:SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
-                            SilentLogger.LogInfo("[Limit (Hangar)] Cargo limit should've been disabled ツ")
-                        else
-                            SilentLogger.LogInfo("[Limit (Hangar)] Cargo limit should've been changed ツ")
+                    Filter = {
+                        hash = J("SN_Hangar_Filter"),
+                        name = "",
+                        type = eFeatureType.Combo,
+                        desc = "Controls how the cargo limit is applied.",
+                        list = eTable.Business.Hangar.Limits,
+                        func = function(ftr)
+                            local list  = eTable.Business.Hangar.Limits
+                            local index = list[ftr:GetListIndex() + 1].index
+                            SilentLogger.LogInfo(F("[Cargo Limit Type (Hangar)] Selected cargo limit type: %s ツ", list:GetName(index)))
                         end
-                    end
-                },
+                    },
 
-                CustomDelay = {
-                    hash = J("SN_Hangar_CustomDelay"),
-                    name = "Custom Delay",
-                    type = eFeatureType.Button,
-                    desc = "Set a custom cargo delay for the Pocket Dimension supplier. Instability may occur with values lower than the default. The default delay is 0.500 seconds.",
-                    func = function()
-                        SilentLogger.LogInfo("[Custom Delay (Hangar)] Custom delay should've been enabled ツ")
-                    end
-                },
-
-                Delay = {
-                    hash = J("SN_Hangar_Delay"),
-                    name = "Delay",
-                    type = eFeatureType.SliderFloat,
-                    desc = "Select the desired delay between each supply of cargo. Set to 0.000 to use the default.",
-                    defv = 0.5,
-                    lims = { 0.0, 5.0 },
-                    func = function(ftr)
-                        if ftr:GetFloatValue() == 0.0 then
-                            ftr:SetFloatValue(0.5)
-                            SilentLogger.LogInfo("[Delay (Hangar)] Custom delay should've been disabled ツ")
-                        else
-                            SilentLogger.LogInfo("[Delay (Hangar)] Delay should've been changed ツ")
+                    Limit = {
+                        hash = J("SN_Hangar_Limit"),
+                        name = "Limit",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the desired cargo limit at which the deeper supplier should stop. Set to 0 to use the default.",
+                        defv = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50,
+                        lims = { 0, INT32_MAX },
+                        step = 50,
+                        func = function(ftr)
+                            if ftr:GetIntValue() == 0 then
+                                ftr:SetIntValue(eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50)
+                                SilentLogger.LogInfo("[Limit (Hangar)] Cargo limit should've been disabled ツ")
+                            else
+                                SilentLogger.LogInfo("[Limit (Hangar)] Cargo limit should've been changed ツ")
+                            end
                         end
-                    end
-                },
+                    },
 
-                CustomType = {
-                    hash = J("SN_Hangar_CustomType"),
-                    name = "Custom Type",
-                    type = eFeatureType.Button,
-                    desc = "Set a custom cargo type for the Pocket Dimension supplier. The default type is Animal Materials.",
-                    func = function()
-                        SilentLogger.LogInfo("[Custom Type (Hangar)] Custom cargo type should've been enabled ツ")
-                    end
-                },
+                    CustomType = {
+                        hash = J("SN_Hangar_CustomType"),
+                        name = "Custom Type",
+                        type = eFeatureType.Button,
+                        desc = "Set a custom cargo type for the Pocket Dimension supplier. The default type is Animal Materials.",
+                        func = function()
+                            SilentLogger.LogInfo("[Custom Type (Hangar)] Custom cargo type should've been enabled ツ")
+                        end
+                    },
 
-                Type = {
-                    hash = J("SN_Hangar_Type"),
-                    name = "Type",
-                    type = eFeatureType.Combo,
-                    desc = "Select the desired cargo type for the deeper supplier to source. Set to Animal Materials to use the default.",
-                    list = eTable.Business.Hangar.Cargoes,
-                    func = function(ftr)
-                        local list  = eTable.Business.Hangar.Cargoes
-                        local index = list[ftr:GetListIndex() + 1].index
-                        SilentLogger.LogInfo(F("[Type (Hangar)] Selected cargo type: %s ツ", list:GetName(index)))
-                    end
+                    Type = {
+                        hash = J("SN_Hangar_Type"),
+                        name = "Type",
+                        type = eFeatureType.Combo,
+                        desc = "Select the desired cargo type for the deeper supplier to source. Set to Animal Materials to use the default.",
+                        list = eTable.Business.Hangar.Cargoes,
+                        func = function(ftr)
+                            local list  = eTable.Business.Hangar.Cargoes
+                            local index = list[ftr:GetListIndex() + 1].index
+                            SilentLogger.LogInfo(F("[Type (Hangar)] Selected cargo type: %s ツ", list:GetName(index)))
+                        end
+                    }
                 }
             },
 
@@ -7037,6 +7014,7 @@ eFeature = {
                     loggedJinxScriptStop  = CONFIG.collab.jinxscript.autostop
                     loggedUCayoPerico     = CONFIG.unlock_all_poi.cayo_perico
                     loggedUDiamondCasino  = CONFIG.unlock_all_poi.diamond_casino
+                    loggedValidation      = CONFIG.pocket_dimension.validation
                     loggedAutoRegister    = CONFIG.register_as_boss.autoregister
                     loggedAutoDeposit     = CONFIG.easy_money.autodeposit
                     loggedDummyPrevention = CONFIG.easy_money.dummy_prevention
@@ -7357,6 +7335,41 @@ eFeature = {
                     end
 
                     SilentLogger.LogInfo(F("[Diamond Casino (Settings)] Unlock All POI should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            }
+        },
+
+        PocketDimension = {
+            Validation = {
+                hash = J("SN_Settings_PDValidation"),
+                name = "Validate Transactions",
+                type = eFeatureType.Toggle,
+                desc = "Waits till the transaction is completed before doing the next one. Disabling this might fasten the supplier, but can cause instability on some systems.",
+                func = function(ftr)
+                    CONFIG.pocket_dimension.validation = ftr:IsToggled()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+
+                    if loggedValidation then
+                        loggedValidation = false
+                        return
+                    end
+
+                    SilentLogger.LogInfo(F("[Validate Transactions (Settings)] Validate Transactions should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                end
+            },
+
+            Delay = {
+                hash = J("SN_Settings_PDDelay"),
+                name = "Delay",
+                type = eFeatureType.SliderFloat,
+                desc = "Changes the delay between each supply of cargo. Lowering this might fasten the supplier, but can cause instability on some systems.",
+                lims = { 0.1, 5.0 },
+                func = function(ftr)
+                    CONFIG.pocket_dimension.delay = ftr:GetFloatValue()
+                    FileMgr.SaveConfig(CONFIG)
+                    CONFIG = Json.DecodeFromFile(CONFIG_PATH)
+                    SilentLogger.LogInfo("[Delay (Settings)] Delay should've been changed ツ")
                 end
             }
         },
