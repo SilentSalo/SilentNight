@@ -3965,6 +3965,10 @@ eFeature = {
                         end
 
                         Script.Yield(math.floor(delay * 1000))
+
+                        while eNative.NETSHOPPING.NET_GAMESERVER_TRANSACTION_IN_PROGRESS() do
+                            Script.Yield()
+                        end
                     end
                 },
 
@@ -4013,7 +4017,7 @@ eFeature = {
                     hash = J("SN_Hangar_CustomDelay"),
                     name = "Custom Delay",
                     type = eFeatureType.Button,
-                    desc = "Set a custom cargo delay for the Pocket Dimension supplier. The default delay is 1 second.",
+                    desc = "Set a custom cargo delay for the Pocket Dimension supplier. Instability may occur with values lower than the default. The default delay is 0.500 seconds.",
                     func = function()
                         SilentLogger.LogInfo("[Custom Delay (Hangar)] Custom delay should've been enabled ツ")
                     end
@@ -4023,12 +4027,12 @@ eFeature = {
                     hash = J("SN_Hangar_Delay"),
                     name = "Delay",
                     type = eFeatureType.SliderFloat,
-                    desc = "Select the desired delay between each supply of cargo. Instability may occur with values lower than the default. Set to 0.000 to use the default.",
-                    defv = 1.0,
+                    desc = "Select the desired delay between each supply of cargo. Set to 0.000 to use the default.",
+                    defv = 0.5,
                     lims = { 0.0, 5.0 },
                     func = function(ftr)
                         if ftr:GetFloatValue() == 0.0 then
-                            ftr:SetFloatValue(1.0)
+                            ftr:SetFloatValue(0.5)
                             SilentLogger.LogInfo("[Delay (Hangar)] Custom delay should've been disabled ツ")
                         else
                             SilentLogger.LogInfo("[Delay (Hangar)] Delay should've been changed ツ")

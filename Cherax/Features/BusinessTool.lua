@@ -110,7 +110,7 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension, functio
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(false)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay)
             :SetVisible(false)
-            :SetFloatValue(1.0)
+            :SetFloatValue(0.5)
 
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomType):SetVisible(false)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Type)
@@ -168,6 +168,26 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Limit, function(f)
 end)
     :SetVisible(false)
 
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.CustomDelay, function(f)
+    f:SetVisible(false)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay)
+        :SetVisible(true)
+        :SetFloatValue(0.5)
+    eFeature.Business.Hangar.Supplies.CustomDelay.func(f)
+end)
+    :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Delay, function(f)
+    if f:GetFloatValue() == 0.0 then
+        f:SetVisible(false)
+        f:SetFloatValue(0.5)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(true)
+    end
+
+    eFeature.Business.Hangar.Supplies.Delay.func(f)
+end)
+    :SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.CustomType, function(f)
     f:SetVisible(false)
     FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Type):SetVisible(true)
@@ -184,23 +204,6 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Type, function(f)
     end
 
     eFeature.Business.Hangar.Supplies.Type.func(f)
-end)
-    :SetVisible(false)
-
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.CustomDelay, function(f)
-    f:SetVisible(false)
-    FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Delay):SetVisible(true)
-    eFeature.Business.Hangar.Supplies.CustomDelay.func(f)
-end)
-    :SetVisible(false)
-
-FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.Delay, function(f)
-    if f:GetFloatValue() == 0.0 then
-        f:SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.CustomDelay):SetVisible(true)
-    end
-
-    eFeature.Business.Hangar.Supplies.Delay.func(f)
 end)
     :SetVisible(false)
 

@@ -38,7 +38,8 @@ eNative = {
         NET_GAMESERVER_BASKET_IS_ACTIVE        = Natives.Invoke(eNativeType.Bool, 0xA65568121DF2EA26),
         NET_GAMESERVER_BASKET_END              = Natives.Invoke(eNativeType.Bool, 0xFA336E7F40C0A0D0),
         NET_GAMESERVER_TRANSFER_BANK_TO_WALLET = Natives.Invoke(eNativeType.Bool, 0xD47A2C1BA117471D),
-        NET_GAMESERVER_TRANSFER_WALLET_TO_BANK = Natives.Invoke(eNativeType.Bool, 0xC2F7FE5309181C7D)
+        NET_GAMESERVER_TRANSFER_WALLET_TO_BANK = Natives.Invoke(eNativeType.Bool, 0xC2F7FE5309181C7D),
+        NET_GAMESERVER_TRANSACTION_IN_PROGRESS = Natives.Invoke(eNativeType.Bool, 0x613F125BA3BD2EB9)
     },
 
     NETWORK = {

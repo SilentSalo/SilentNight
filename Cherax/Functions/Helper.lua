@@ -407,43 +407,40 @@ function Helper.GetHangarWarehouseValue()
     local mixed       = 8
     local totalCrates = GetAmountForCargoType(mixed)
 
-    if totalCrates <= 50 then
-        local value            = 0
-        local uniqueTypesCount = 0
-        local lastFoundType    = -1
+    local value            = 0
+    local uniqueTypesCount = 0
+    local lastFoundType    = -1
+
+    for i = 0, 7 do
+        local amount = GetAmountForCargoType(i)
+        if amount > 0 then
+            uniqueTypesCount = uniqueTypesCount + 1
+            lastFoundType = i
+        end
+    end
+
+    if uniqueTypesCount == 1 then
+        local amount     = totalCrates
+        local basePrice  = GetPriceForCargoType(lastFoundType) * amount
+        local bonusPct   = GetBonusPercentageForCargoType(lastFoundType, amount)
+        local bonusValue = math.floor((basePrice * bonusPct) + 0.5)
+
+        value = basePrice + bonusValue
+    elseif uniqueTypesCount > 1 then
+        if totalCrates > 50 then
+            return GetPriceForCargoType(mixed) * totalCrates
+        end
 
         for i = 0, 7 do
             local amount = GetAmountForCargoType(i)
 
             if amount > 0 then
-                uniqueTypesCount = uniqueTypesCount + 1
-                lastFoundType    = i
+                value = value + (GetPriceForCargoType(i) * amount)
             end
         end
-
-        if uniqueTypesCount == 1 then
-            local amount     = GetAmountForCargoType(lastFoundType)
-            local basePrice  = GetPriceForCargoType(lastFoundType) * amount
-            local bonusPct   = GetBonusPercentageForCargoType(lastFoundType, amount)
-            local bonusValue = math.floor((basePrice * bonusPct) + 0.5)
-
-            value = basePrice + bonusValue
-        elseif uniqueTypesCount > 1 then
-            for i = 0, 7 do
-                local amount = GetAmountForCargoType(i)
-
-                if amount > 0 then
-                    local basePrice = GetPriceForCargoType(i) * amount
-
-                    value = value + basePrice
-                end
-            end
-        end
-
-        return math.floor(value)
     end
 
-    return GetPriceForCargoType(mixed) * totalCrates
+    return value
 end
 
 function Helper.FormatMoney(amount)
