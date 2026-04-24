@@ -491,7 +491,7 @@ function Renderer.RenderHeistTool()
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Toggles.AutoShop)
                         ImGui.SameLine()
-                        ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell)
+                        ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Toggles.CluckinBell)
                         ImGui.SameLine()
                         ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies)
                         ClickGUI.EndCustomChildWindow()
@@ -585,12 +585,12 @@ function Renderer.RenderHeistTool()
                     end
                 end
 
-                if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.ChuckinBell) then
+                if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.CluckinBell) then
                     if ImGui.BeginColumns(3) then
                         if ClickGUI.BeginCustomChildWindow("Preps") then
-                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Stage)
-                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Complete)
-                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Reset)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Stage)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Complete)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Reset)
                             ClickGUI.EndCustomChildWindow()
                         end
 
@@ -598,12 +598,12 @@ function Renderer.RenderHeistTool()
 
                         if ClickGUI.BeginCustomChildWindow("Misc") then
                             ImGui.PushButtonStyle(eBtnStyle.PINK)
-                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Teleport)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Teleport)
                             ImGui.ResetButtonStyle()
                             ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
                             ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
-                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Finish)
-                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Cooldown)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Finish)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Cooldown)
                             ClickGUI.EndCustomChildWindow()
                         end
 
@@ -1843,21 +1843,21 @@ function Renderer.RenderListGUI()
                 PayoutSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Apply)
             end
 
-            local ChuckinBellTab = HeistToolTab:AddSubTab("Chuckin Bell", "Chuckin Bell")
-            if ChuckinBellTab then
-                local PrepsSubTab = ChuckinBellTab:AddSubTab("Preps", "Preps")
-                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Stage)
-                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Complete)
-                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Reset)
+            local CluckinBellTab = HeistToolTab:AddSubTab("Chuckin Bell", "Chuckin Bell")
+            if CluckinBellTab then
+                local PrepsSubTab = CluckinBellTab:AddSubTab("Preps", "Preps")
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Stage)
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Complete)
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Reset)
 
-                local MiscSubTab = ChuckinBellTab:AddSubTab("Misc", "Misc")
-                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Teleport)
+                local MiscSubTab = CluckinBellTab:AddSubTab("Misc", "Misc")
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Teleport)
                 MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
                 MiscSubTab:AddFeature(eFeature.Heist.Generic.Skip)
-                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Finish)
-                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Cooldown)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Finish)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Cooldown)
 
-                local LaunchSubTab = ChuckinBellTab:AddSubTab("Launch Control", "Launch Control")
+                local LaunchSubTab = CluckinBellTab:AddSubTab("Launch Control", "Launch Control")
                 LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
             end
         end

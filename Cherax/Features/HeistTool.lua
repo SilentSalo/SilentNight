@@ -984,7 +984,7 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Toggles.Agency, function(f)
     if f:IsToggled() then
         FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.AutoShop):Toggle(false)
-        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.CluckinBell):Toggle(false)
         FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies):Toggle(false)
     end
 
@@ -995,28 +995,28 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Toggles.AutoShop, function(f)
     if f:IsToggled() then
         FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.Agency):Toggle(false)
-        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.CluckinBell):Toggle(false)
         FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies):Toggle(false)
     end
 
     eFeature.Heist.FlashOps.Toggles.AutoShop.func(f)
 end)
 
-FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell, function(f)
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Toggles.CluckinBell, function(f)
     if f:IsToggled() then
         FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.Agency):Toggle(false)
         FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.AutoShop):Toggle(false)
         FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies):Toggle(false)
     end
 
-    eFeature.Heist.FlashOps.Toggles.ChuckinBell.func(f)
+    eFeature.Heist.FlashOps.Toggles.CluckinBell.func(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies, function(f)
     if f:IsToggled() then
         FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.Agency):Toggle(false)
         FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.AutoShop):Toggle(false)
-        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.CluckinBell):Toggle(false)
     end
 
     eFeature.Heist.FlashOps.Toggles.GuzmanFlies.func(f)
@@ -1094,23 +1094,23 @@ end)
 
 --#endregion
 
---#region Chuckin' Bell
+--#region Cluckin' Bell
 
-FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Stage)
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Stage)
 
-FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Complete, function(f)
-    local ftr   = eFeature.Heist.FlashOps.ChuckinBell.Preps.Stage
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Complete, function(f)
+    local ftr   = eFeature.Heist.FlashOps.CluckinBell.Preps.Stage
     local stage = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-    eFeature.Heist.FlashOps.ChuckinBell.Preps.Complete.func(stage)
+    eFeature.Heist.FlashOps.CluckinBell.Preps.Complete.func(stage)
 end)
 
-FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Reset)
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Reset)
 
-FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Teleport)
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Teleport)
 
-FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Finish)
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Finish)
 
-FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Cooldown)
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Cooldown)
 
 --#endregion
 

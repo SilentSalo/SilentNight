@@ -2750,13 +2750,13 @@ eFeature = {
                     end
                 },
 
-                ChuckinBell = {
-                    hash = J("SN_FlashOps_ChuckinBell"),
-                    name = "Chuckin' Bell",
+                CluckinBell = {
+                    hash = J("SN_FlashOps_CluckinBell"),
+                    name = "Cluckin' Bell",
                     type = eFeatureType.Toggle,
-                    desc = "Enables Chuckin' Bell features in Flash Operations tab.",
+                    desc = "Enables Cluckin' Bell features in Flash Operations tab.",
                     func = function(ftr)
-                        SilentLogger.LogInfo(F("[Chuckin' Bell (Flash Ops)] Chuckin' Bell features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                        SilentLogger.LogInfo(F("[Cluckin' Bell (Flash Ops)] Cluckin' Bell features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                     end
                 },
 
@@ -3098,34 +3098,34 @@ eFeature = {
                 }
             },
 
-            ChuckinBell = {
+            CluckinBell = {
                 Preps = {
                     Stage = {
-                        hash = J("SN_ChuckinBell_Stage"),
+                        hash = J("SN_CluckinBell_Stage"),
                         name = "Stage",
                         type = eFeatureType.Combo,
                         desc = "Select the desired stage.",
-                        list = eTable.Heist.ChuckinBell.Stages,
+                        list = eTable.Heist.CluckinBell.Stages,
                         func = function(ftr)
-                            local list  = eTable.Heist.ChuckinBell.Stages
+                            local list  = eTable.Heist.CluckinBell.Stages
                             local index = list[ftr:GetListIndex() + 1].index
-                            SilentLogger.LogInfo(F("[Stage (Chuckin' Bell)] Selected stage: %s ツ", list:GetName(index)))
+                            SilentLogger.LogInfo(F("[Stage (Cluckin' Bell)] Selected stage: %s ツ", list:GetName(index)))
                         end
                     },
 
                     Complete = {
-                        hash = J("SN_ChuckinBell_Complete"),
+                        hash = J("SN_CluckinBell_Complete"),
                         name = "Apply & Complete Preps",
                         type = eFeatureType.Button,
                         desc = "Applies all changes and completes all preparations.",
                         func = function(stage)
                             eStat.MPX_SALV23_INST_PROG:Set(stage)
-                            SilentLogger.LogInfo(F("[Apply & Complete Preps (Chuckin' Bell)] Preps should've been completed ツ"))
+                            SilentLogger.LogInfo(F("[Apply & Complete Preps (Cluckin' Bell)] Preps should've been completed ツ"))
                         end
                     },
 
                     Reset = {
-                        hash = J("SN_ChuckinBell_Reset"),
+                        hash = J("SN_CluckinBell_Reset"),
                         name = "Reset Preps",
                         type = eFeatureType.Button,
                         desc = "Resets all preparations.",
@@ -3138,35 +3138,35 @@ eFeature = {
 
                 Misc = {
                     Teleport = {
-                        hash = J("SN_ChuckinBell_Teleport"),
+                        hash = J("SN_CluckinBell_Teleport"),
                         name = "Teleport to Mission",
                         type = eFeatureType.Button,
-                        desc = "Teleports you to The Chuckin' Bell Farm Raid mission.",
+                        desc = "Teleports you to The Cluckin' Bell Farm Raid mission.",
                         func = function()
-                            GTA.TeleportXYZ(U(eTable.Teleports.ChuckinBell))
-                            SilentLogger.LogInfo("[Teleport to Mission (Chuckin' Bell)] You should've been teleported to the mission ツ")
+                            GTA.TeleportXYZ(U(eTable.Teleports.CluckinBell))
+                            SilentLogger.LogInfo("[Teleport to Mission (Cluckin' Bell)] You should've been teleported to the mission ツ")
                         end
                     },
 
                     Finish = {
-                        hash = Utils.Joaat("SN_ChuckinBell_Finish"),
+                        hash = Utils.Joaat("SN_CluckinBell_Finish"),
                         name = "Instant Finish",
                         type = eFeatureType.Button,
                         desc = "Finishes the heist instantly. Use after you can see the minimap.",
                         func = function()
                             Helper.NewInstantFinishHeist()
-                            SilentLogger.LogInfo("[Instant Finish (Chuckin' Bell)] Heist should've been finished ツ")
+                            SilentLogger.LogInfo("[Instant Finish (Cluckin' Bell)] Heist should've been finished ツ")
                         end
                     },
 
                     Cooldown = {
-                        hash = J("SN_ChuckinBell_Cooldown"),
+                        hash = J("SN_CluckinBell_Cooldown"),
                         name = "Kill Cooldown",
                         type = eFeatureType.Button,
                         desc = "Skips the mission's setup cooldown. Doesn't skip the cooldown between transactions (20 mins).",
                         func = function()
                             eStat.MPX_SALV23_CFR_COOLDOWN:Set(-1)
-                            SilentLogger.LogInfo("[Kill Cooldown (Chuckin' Bell)] Cooldown should've been killed ツ")
+                            SilentLogger.LogInfo("[Kill Cooldown (Cluckin' Bell)] Cooldown should've been killed ツ")
                         end
                     }
                 }

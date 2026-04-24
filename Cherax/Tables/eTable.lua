@@ -224,7 +224,7 @@ eTable = {
             Files = {}
         },
 
-        ChuckinBell = {
+        CluckinBell = {
             Stages = {
                 { name = "Slush Fund",      index = 0  },
                 { name = "Break. n Enter.", index = 1  },
@@ -763,7 +763,7 @@ eTable = {
         WeedShop    = { -1160.636, -1535.462, -48.994, 180.271 },
         TourCompany = { -1160.599, -1535.585, -48.999, 177.268 },
         BailOffice  = { 562.959,   -2705.590, -48.997, 31.983  },
-        ChuckinBell = { -1093.296, -807.027,  19.284,  220.639 },
+        CluckinBell = { -1093.296, -807.027,  19.284,  220.639 },
         FieldHangar = { 2147.685,  4785.257,  -46.374, 270.519 }
     },
 
