@@ -5,50 +5,6 @@ Renderer = {}
 function Renderer.RenderHeistTool()
     if ImGui.BeginTabItem("Heist Tool") then
         if ImGui.BeginTabBar("Heist Tabs") then
-            if ImGui.BeginTabItem("Agency") then
-                if ImGui.BeginColumns(3) then
-                    if ClickGUI.BeginCustomChildWindow("Preps") then
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Preps.Contract)
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Preps.Complete)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
-                    ImGui.TableNextColumn()
-
-                    if ClickGUI.BeginCustomChildWindow("Launch Control") then
-                        Helper.RenderLaunchSettings(1, eFeature.Heist.CayoPerico.Launch.Reset)
-                        ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Launch.Reset)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
-                    if ClickGUI.BeginCustomChildWindow("Misc") then
-                        ImGui.PushButtonStyle(eBtnStyle.PINK)
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance)
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Teleport.Computer)
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Teleport.Mission)
-                        ImGui.ResetButtonStyle()
-                        ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
-                        ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Finish)
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Cooldown)
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Misc.Collect)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
-                    ImGui.TableNextColumn()
-
-                    if ClickGUI.BeginCustomChildWindow("Payout") then
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Payout.Select)
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Payout.Max)
-                        ImGui.SameLine()
-                        ClickGUI.RenderFeature(eFeature.Heist.Agency.Payout.Apply)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    ImGui.EndColumns()
-                end
-                ImGui.EndTabItem()
-            end
-
             if ImGui.BeginTabItem("Apartment") then
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Preps") then
@@ -134,50 +90,6 @@ function Renderer.RenderHeistTool()
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.Auto)
                         ImGui.ResetFrameBgStyle()
-                        ClickGUI.EndCustomChildWindow()
-                    end
-                    ImGui.EndColumns()
-                end
-                ImGui.EndTabItem()
-            end
-
-            if ImGui.BeginTabItem("Auto Shop") then
-                if ImGui.BeginColumns(3) then
-                    if ClickGUI.BeginCustomChildWindow("Preps") then
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Preps.Contract)
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Preps.Complete)
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Preps.Reset)
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Preps.Reload)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
-                    ImGui.TableNextColumn()
-
-                    if ClickGUI.BeginCustomChildWindow("Launch Control") then
-                        Helper.RenderLaunchSettings(1, eFeature.Heist.CayoPerico.Launch.Reset)
-                        ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Launch.Reset)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
-                    if ClickGUI.BeginCustomChildWindow("Misc") then
-                        ImGui.PushButtonStyle(eBtnStyle.PINK)
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance)
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Misc.Teleport.Board)
-                        ImGui.ResetButtonStyle()
-                        ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
-                        ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Misc.Finish)
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Misc.Cooldown)
-                        ClickGUI.EndCustomChildWindow()
-                    end
-
-                    ImGui.TableNextColumn()
-
-                    if ClickGUI.BeginCustomChildWindow("Payout") then
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Payout.Select)
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Payout.Max)
-                        ImGui.SameLine()
-                        ClickGUI.RenderFeature(eFeature.Heist.AutoShop.Payout.Apply)
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
@@ -568,6 +480,176 @@ function Renderer.RenderHeistTool()
                         ClickGUI.EndCustomChildWindow()
                     end
                     ImGui.EndColumns()
+                end
+                ImGui.EndTabItem()
+            end
+
+            if ImGui.BeginTabItem("Flash Ops") then
+                if ImGui.BeginColumns(1) then
+                    if ClickGUI.BeginCustomChildWindow("Flash Operations") then
+                        ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Toggles.Agency)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Toggles.AutoShop)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell)
+                        ImGui.SameLine()
+                        ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies)
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.EndColumns()
+                end
+
+                if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.Agency) then
+                    if ImGui.BeginColumns(3) then
+                        if ClickGUI.BeginCustomChildWindow("Preps") then
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Preps.Contract)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Preps.Complete)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
+                        if ClickGUI.BeginCustomChildWindow("Launch Control") then
+                            Helper.RenderLaunchSettings(1, eFeature.Heist.CayoPerico.Launch.Reset)
+                            ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Launch.Reset)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        if ClickGUI.BeginCustomChildWindow("Misc") then
+                            ImGui.PushButtonStyle(eBtnStyle.PINK)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Entrance)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Computer)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Mission)
+                            ImGui.ResetButtonStyle()
+                            ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
+                            ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Misc.Finish)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Misc.Cooldown)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Misc.Collect)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
+                        if ClickGUI.BeginCustomChildWindow("Payout") then
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Payout.Select)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Payout.Max)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Payout.Apply)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
+                if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.AutoShop) then
+                    if ImGui.BeginColumns(3) then
+                        if ClickGUI.BeginCustomChildWindow("Preps") then
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Contract)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Complete)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Reset)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Reload)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
+                        if ClickGUI.BeginCustomChildWindow("Launch Control") then
+                            Helper.RenderLaunchSettings(1, eFeature.Heist.CayoPerico.Launch.Reset)
+                            ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Launch.Reset)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        if ClickGUI.BeginCustomChildWindow("Misc") then
+                            ImGui.PushButtonStyle(eBtnStyle.PINK)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Entrance)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Board)
+                            ImGui.ResetButtonStyle()
+                            ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
+                            ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Finish)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Cooldown)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
+                        if ClickGUI.BeginCustomChildWindow("Payout") then
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Select)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Max)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Apply)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
+                if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.ChuckinBell) then
+                    if ImGui.BeginColumns(3) then
+                        if ClickGUI.BeginCustomChildWindow("Preps") then
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Stage)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Complete)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Reset)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
+                        if ClickGUI.BeginCustomChildWindow("Misc") then
+                            ImGui.PushButtonStyle(eBtnStyle.PINK)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Teleport)
+                            ImGui.ResetButtonStyle()
+                            ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
+                            ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Finish)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Cooldown)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
+                        if ClickGUI.BeginCustomChildWindow("Launch Control") then
+                            Helper.RenderLaunchSettings(1, eFeature.Heist.CayoPerico.Launch.Reset)
+                            ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Launch.Reset)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
+                if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.GuzmanFlies) then
+                    if ImGui.BeginColumns(3) then
+                        if ClickGUI.BeginCustomChildWindow("Preps") then
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Preps.Stage)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Preps.Complete)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Preps.Reset)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
+                        if ClickGUI.BeginCustomChildWindow("Misc") then
+                            ImGui.PushButtonStyle(eBtnStyle.PINK)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Teleport.Entrance)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Teleport.Laptop)
+                            ImGui.ResetButtonStyle()
+                            ClickGUI.RenderFeature(eFeature.Heist.Generic.Cutscene)
+                            ClickGUI.RenderFeature(eFeature.Heist.Generic.Skip)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Finish)
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Cooldown)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+
+                        ImGui.TableNextColumn()
+
+                        if ClickGUI.BeginCustomChildWindow("Launch Control") then
+                            Helper.RenderLaunchSettings(1, eFeature.Heist.CayoPerico.Launch.Reset)
+                            ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Launch.Reset)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
                 end
                 ImGui.EndTabItem()
             end
@@ -1424,32 +1506,6 @@ function Renderer.RenderListGUI()
 
     local HeistToolTab = SilentNightTab:AddSubTab("Heist Tool", "Heist Tool")
     if HeistToolTab then
-        local AgencyTab = HeistToolTab:AddSubTab("Agency", "Agency")
-        if AgencyTab then
-            local PrepsSubTab = AgencyTab:AddSubTab("Preps", "Preps")
-
-            PrepsSubTab:AddFeature(eFeature.Heist.Agency.Preps.Contract)
-            PrepsSubTab:AddFeature(eFeature.Heist.Agency.Preps.Complete)
-
-            local LaunchSubTab = AgencyTab:AddSubTab("Launch Control", "Launch Control")
-            LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
-
-            local MiscSubTab = AgencyTab:AddSubTab("Misc", "Misc")
-            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance)
-            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Teleport.Computer)
-            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Teleport.Mission)
-            MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
-            MiscSubTab:AddFeature(eFeature.Heist.Generic.Skip)
-            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Finish)
-            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
-            MiscSubTab:AddFeature(eFeature.Heist.Agency.Misc.Collect)
-
-            local PayoutSubTab = AgencyTab:AddSubTab("Payout", "Payout")
-            PayoutSubTab:AddFeature(eFeature.Heist.Agency.Payout.Select)
-            PayoutSubTab:AddFeature(eFeature.Heist.Agency.Payout.Max)
-            PayoutSubTab:AddFeature(eFeature.Heist.Agency.Payout.Apply)
-        end
-
         local ApartmentTab = HeistToolTab:AddSubTab("Apartment", "Apartment")
         if ApartmentTab then
             local PrepsSubTab = ApartmentTab:AddSubTab("Preps", "Preps")
@@ -1499,31 +1555,6 @@ function Renderer.RenderListGUI()
             CutsSubTab:AddFeature(eFeature.Heist.Apartment.Cuts.Player4.Cut)
             CutsSubTab:AddFeature(eFeature.Heist.Apartment.Cuts.Apply)
             CutsSubTab:AddFeature(eFeature.Heist.Apartment.Cuts.Auto)
-        end
-
-        local AutoShopTab = HeistToolTab:AddSubTab("Auto Shop", "Auto Shop")
-        if AutoShopTab then
-            local PrepsSubTab = AutoShopTab:AddSubTab("Preps", "Preps")
-            PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Contract)
-            PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Complete)
-            PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Reset)
-            PrepsSubTab:AddFeature(eFeature.Heist.AutoShop.Preps.Reload)
-
-            local LaunchSubTab = AutoShopTab:AddSubTab("Launch Control", "Launch Control")
-            LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
-
-            local MiscSubTab = AutoShopTab:AddSubTab("Misc", "Misc")
-            MiscSubTab:AddFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance)
-            MiscSubTab:AddFeature(eFeature.Heist.AutoShop.Misc.Teleport.Board)
-            MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
-            MiscSubTab:AddFeature(eFeature.Heist.Generic.Skip)
-            MiscSubTab:AddFeature(eFeature.Heist.AutoShop.Misc.Finish)
-            MiscSubTab:AddFeature(eFeature.Heist.AutoShop.Misc.Cooldown)
-
-            local PayoutSubTab = AutoShopTab:AddSubTab("Payout", "Payout")
-            PayoutSubTab:AddFeature(eFeature.Heist.AutoShop.Payout.Select)
-            PayoutSubTab:AddFeature(eFeature.Heist.AutoShop.Payout.Max)
-            PayoutSubTab:AddFeature(eFeature.Heist.AutoShop.Payout.Apply)
         end
 
         local CayoPericoTab = HeistToolTab:AddSubTab("Cayo Perico", "Cayo Perico")
@@ -1757,6 +1788,78 @@ function Renderer.RenderListGUI()
             PayoutSubTab:AddFeature(eFeature.Heist.SalvageYard.Payout.Slot2)
             PayoutSubTab:AddFeature(eFeature.Heist.SalvageYard.Payout.Slot3)
             PayoutSubTab:AddFeature(eFeature.Heist.SalvageYard.Payout.Apply)
+        end
+
+        local FlashOpsTab = HeistToolTab:AddSubTab("Flash Ops", "Flash Ops")
+        if FlashOpsTab then
+            local AgencyTab = HeistToolTab:AddSubTab("Agency", "Agency")
+            if AgencyTab then
+                local PrepsSubTab = AgencyTab:AddSubTab("Preps", "Preps")
+
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Preps.Contract)
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Preps.Complete)
+
+                local LaunchSubTab = AgencyTab:AddSubTab("Launch Control", "Launch Control")
+                LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
+
+                local MiscSubTab = AgencyTab:AddSubTab("Misc", "Misc")
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Entrance)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Computer)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Mission)
+                MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
+                MiscSubTab:AddFeature(eFeature.Heist.Generic.Skip)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Finish)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Cooldown)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Collect)
+
+                local PayoutSubTab = AgencyTab:AddSubTab("Payout", "Payout")
+                PayoutSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Payout.Select)
+                PayoutSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Payout.Max)
+                PayoutSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Payout.Apply)
+            end
+
+            local AutoShopTab = HeistToolTab:AddSubTab("Auto Shop", "Auto Shop")
+            if AutoShopTab then
+                local PrepsSubTab = AutoShopTab:AddSubTab("Preps", "Preps")
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Contract)
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Complete)
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Reset)
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Reload)
+
+                local LaunchSubTab = AutoShopTab:AddSubTab("Launch Control", "Launch Control")
+                LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
+
+                local MiscSubTab = AutoShopTab:AddSubTab("Misc", "Misc")
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Entrance)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Board)
+                MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
+                MiscSubTab:AddFeature(eFeature.Heist.Generic.Skip)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Finish)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Cooldown)
+
+                local PayoutSubTab = AutoShopTab:AddSubTab("Payout", "Payout")
+                PayoutSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Select)
+                PayoutSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Max)
+                PayoutSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Apply)
+            end
+
+            local ChuckinBellTab = HeistToolTab:AddSubTab("Chuckin Bell", "Chuckin Bell")
+            if ChuckinBellTab then
+                local PrepsSubTab = ChuckinBellTab:AddSubTab("Preps", "Preps")
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Stage)
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Complete)
+                PrepsSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Reset)
+
+                local MiscSubTab = ChuckinBellTab:AddSubTab("Misc", "Misc")
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Teleport)
+                MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
+                MiscSubTab:AddFeature(eFeature.Heist.Generic.Skip)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Finish)
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Cooldown)
+
+                local LaunchSubTab = ChuckinBellTab:AddSubTab("Launch Control", "Launch Control")
+                LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
+            end
         end
     end
 

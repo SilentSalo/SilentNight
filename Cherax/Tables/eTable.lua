@@ -224,6 +224,28 @@ eTable = {
             Files = {}
         },
 
+        ChuckinBell = {
+            Stages = {
+                { name = "Slush Fund",      index = 0  },
+                { name = "Break. n Enter.", index = 1  },
+                { name = "Conceal. Weap.",  index = 3  },
+                { name = "Hit n Run",       index = 7  },
+                { name = "Disorgan. Crime", index = 15 },
+                { name = "Scene of Crime",  index = 31 }
+            }
+        },
+
+        GuzmanFlies = {
+            Stages = {
+                { name = "Up n Running", index = 0  },
+                { name = "Mogul",        index = 1  },
+                { name = "Intel",        index = 3  },
+                { name = "Iron Mule",    index = 7  },
+                { name = "Ammunation",   index = 15 },
+                { name = "Titan Job",    index = 31 }
+            }
+        },
+
         DiamondCasino = {
             Difficulties = {
                 { name = "Normal", index = 0 },
@@ -680,7 +702,8 @@ eTable = {
         TourCompanyH = 930,
         CarWash      = 931,
         CarWashH     = 933,
-        BailOffice   = 893
+        BailOffice   = 893,
+        FieldHangar  = 903
     },
 
     BlipColors = {
@@ -704,7 +727,8 @@ eTable = {
         CarWash     = eStat.MPX_SB_CAR_WASH_OWNED,
         WeedShop    = eStat.MPX_SB_WEED_SHOP_OWNED,
         TourCompany = eStat.MPX_SB_HELI_TOURS_OWNED,
-        BailOffice  = eStat.MPX_BAIL_OFFICE_OWNED
+        BailOffice  = eStat.MPX_BAIL_OFFICE_OWNED,
+        FieldHangar  = eStat.MPX_FIELD_HANGAR_OWNED
     },
 
     Stats = {
@@ -738,7 +762,9 @@ eTable = {
         CarWash     = { 23.684,    -1400.633, -73.999, 357.518 },
         WeedShop    = { -1160.636, -1535.462, -48.994, 180.271 },
         TourCompany = { -1160.599, -1535.585, -48.999, 177.268 },
-        BailOffice  = { 562.959,   -2705.590, -48.997, 31.983  }
+        BailOffice  = { 562.959,   -2705.590, -48.997, 31.983  },
+        ChuckinBell = { -1093.296, -807.027,  19.284,  220.639 },
+        FieldHangar = { 2147.685,  4785.257,  -46.374, 270.519 }
     },
 
     Keys = {

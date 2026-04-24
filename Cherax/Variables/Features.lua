@@ -258,6 +258,7 @@ loggedDiamondCrew       = false
 loggedDoomsdayLaunch    = false
 loggedSalvageSetup      = false
 loggedSalvageClaim      = false
+loggedAgencyToggled     = false
 loggedBunkerPrice       = false
 loggedHangarPrice       = false
 loggedHangarSupplier    = false

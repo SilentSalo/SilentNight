@@ -310,27 +310,6 @@ Script.RegisterLooped(function()
             and not GTA.IsScriptRunning(eScript.Facility.Interior)
     end
 
-    if Helper.IsPropertyOwned(eTable.Properties.Agency) then
-        FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance):SetVisible(true)
-
-        if GTA.IsScriptRunning(eScript.Agency.Interior) then
-            FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Computer):SetVisible(true)
-
-            if eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(eTable.BlipSprites.Franklin) ~= 0 then
-                FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(true)
-            else
-                FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(false)
-            end
-        else
-            FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Computer):SetVisible(false)
-            FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(false)
-        end
-    else
-        FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Computer):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(false)
-    end
-
     if Helper.IsPropertyOwned(eTable.Properties.Apartment) then
         FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Teleport.Entrance):SetVisible(true)
 
@@ -346,14 +325,6 @@ Script.RegisterLooped(function()
     else
         FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Teleport.Entrance):SetVisible(false)
         FeatureMgr.GetFeature(eFeature.Heist.Apartment.Misc.Teleport.Board):SetVisible(false)
-    end
-
-    if Helper.IsPropertyOwned(eTable.Properties.AutoShop) then
-        FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance):SetVisible(true)
-        FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Misc.Teleport.Board):SetVisible(GTA.IsScriptRunning(eScript.AutoShop.Interior))
-    else
-        FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance):SetVisible(false)
-        FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Misc.Teleport.Board):SetVisible(false)
     end
 
     if Helper.IsPropertyOwned(eTable.Properties.Kosatka) then
@@ -384,6 +355,43 @@ Script.RegisterLooped(function()
     else
         FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Misc.Teleport.Entrance):SetVisible(false)
         FeatureMgr.GetFeature(eFeature.Heist.SalvageYard.Misc.Teleport.Board):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.Agency) then
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Entrance):SetVisible(true)
+
+        if GTA.IsScriptRunning(eScript.Agency.Interior) then
+            FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Computer):SetVisible(true)
+
+            if eNative.HUD.GET_CLOSEST_BLIP_INFO_ID(eTable.BlipSprites.Franklin) ~= 0 then
+                FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Mission):SetVisible(true)
+            else
+                FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Mission):SetVisible(false)
+            end
+        else
+            FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Computer):SetVisible(false)
+            FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Mission):SetVisible(false)
+        end
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Computer):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Mission):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.AutoShop) then
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Board):SetVisible(GTA.IsScriptRunning(eScript.AutoShop.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Board):SetVisible(false)
+    end
+
+    if Helper.IsPropertyOwned(eTable.Properties.FieldHangar) then
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Teleport.Entrance):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Teleport.Laptop):SetVisible(GTA.IsScriptRunning(eScript.FieldHangar.Interior))
+    else
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Teleport.Entrance):SetVisible(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Teleport.Laptop):SetVisible(false)
     end
 
     if Helper.IsPropertyOwned(eTable.Properties.Bunker) then

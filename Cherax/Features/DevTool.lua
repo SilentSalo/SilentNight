@@ -177,7 +177,7 @@ FeatureMgr.AddFeature(eFeature.Dev.Editor.Locals.Read, function(f)
         return
     end
 
-    if not scriptString:match("^[A-Za-z_]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") or localString:match("%d+%s+%d+") then
+    if not scriptString:match("^[A-Za-z_%d]+$") or not localString:match("^[%d%s%+%-*/%%%(%)]+$") or localString:match("%d+%s+%d+") then
         FeatureMgr.GetFeature(eFeature.Dev.Editor.Locals.Value):SetStringValue("invalid")
         SilentLogger.LogError("[Read (Editor)] Failed to read local. Script or local is invalid ツ")
         return

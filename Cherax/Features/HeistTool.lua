@@ -15,42 +15,6 @@ end)
 
 --#endregion
 
---#region Agency
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Preps.Contract)
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Preps.Complete, function(f)
-    local ftr      = eFeature.Heist.Agency.Preps.Contract
-    local contract = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-    eFeature.Heist.Agency.Preps.Complete.func(contract)
-end)
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Teleport.Entrance):SetVisible(false)
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Teleport.Computer):SetVisible(false)
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Teleport.Mission):SetVisible(false)
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Finish)
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Cooldown)
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Misc.Collect):SetVisible(GTA_EDITION == "EE")
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Payout.Select)
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Payout.Max, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.Agency.Payout.Select):SetIntValue(2500000)
-    eFeature.Heist.Agency.Payout.Max.func()
-end)
-
-FeatureMgr.AddFeature(eFeature.Heist.Agency.Payout.Apply, function(f)
-    local payout = FeatureMgr.GetFeature(eFeature.Heist.Agency.Payout.Select):GetIntValue()
-    eFeature.Heist.Agency.Payout.Apply.func(payout)
-end)
-
---#endregion
-
 --#region Apartment
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Heist)
@@ -233,42 +197,6 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Save, function(f)
 end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Copy)
-
---#endregion
-
---#region Auto Shop
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Preps.Contract)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Preps.Complete, function(f)
-    local ftr      = eFeature.Heist.AutoShop.Preps.Contract
-    local contract = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
-    eFeature.Heist.AutoShop.Preps.Complete.func(contract)
-end)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Preps.Reset)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Preps.Reload)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Teleport.Entrance):SetVisible(false)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Teleport.Board):SetVisible(false)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Finish)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Misc.Cooldown)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Select)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Max, function(f)
-    FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Payout.Select):SetIntValue(2000000)
-    eFeature.Heist.AutoShop.Payout.Max.func()
-end)
-
-FeatureMgr.AddFeature(eFeature.Heist.AutoShop.Payout.Apply, function(f)
-    local payout = FeatureMgr.GetFeature(eFeature.Heist.AutoShop.Payout.Select):GetIntValue()
-    eFeature.Heist.AutoShop.Payout.Apply.func(payout)
-end)
 
 --#endregion
 
@@ -1048,6 +976,165 @@ FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Payout.Apply, function(f)
 
     eFeature.Heist.SalvageYard.Payout.Apply.func(salvageMultiplier, U(sellValues))
 end)
+
+--#endregion
+
+--#region Flash Ops
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Toggles.Agency, function(f)
+    if f:IsToggled() then
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.AutoShop):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies):Toggle(false)
+    end
+
+    eFeature.Heist.FlashOps.Toggles.Agency.func(f)
+end)
+    :Toggle(true)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Toggles.AutoShop, function(f)
+    if f:IsToggled() then
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.Agency):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies):Toggle(false)
+    end
+
+    eFeature.Heist.FlashOps.Toggles.AutoShop.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell, function(f)
+    if f:IsToggled() then
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.Agency):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.AutoShop):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies):Toggle(false)
+    end
+
+    eFeature.Heist.FlashOps.Toggles.ChuckinBell.func(f)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Toggles.GuzmanFlies, function(f)
+    if f:IsToggled() then
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.Agency):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.AutoShop):Toggle(false)
+        FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Toggles.ChuckinBell):Toggle(false)
+    end
+
+    eFeature.Heist.FlashOps.Toggles.GuzmanFlies.func(f)
+end)
+
+--#region Agency
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Preps.Contract)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Preps.Complete, function(f)
+    local ftr      = eFeature.Heist.FlashOps.Agency.Preps.Contract
+    local contract = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+    eFeature.Heist.FlashOps.Agency.Preps.Complete.func(contract)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Computer):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Mission):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Finish)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Cooldown)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Collect):SetVisible(GTA_EDITION == "EE")
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Payout.Select)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Payout.Max, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Payout.Select):SetIntValue(2500000)
+    eFeature.Heist.FlashOps.Agency.Payout.Max.func()
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Payout.Apply, function(f)
+    local payout = FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Payout.Select):GetIntValue()
+    eFeature.Heist.FlashOps.Agency.Payout.Apply.func(payout)
+end)
+
+--#endregion
+
+--#region Auto Shop
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Contract)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Complete, function(f)
+    local ftr      = eFeature.Heist.FlashOps.AutoShop.Preps.Contract
+    local contract = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+    eFeature.Heist.FlashOps.AutoShop.Preps.Complete.func(contract)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Reset)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Reload)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Board):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Finish)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Cooldown)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Select)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Max, function(f)
+    FeatureMgr.GetFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Select):SetIntValue(2000000)
+    eFeature.Heist.FlashOps.AutoShop.Payout.Max.func()
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Apply, function(f)
+    local payout = FeatureMgr.GetFeature(eFeature.Heist.FlashOps.AutoShop.Payout.Select):GetIntValue()
+    eFeature.Heist.FlashOps.AutoShop.Payout.Apply.func(payout)
+end)
+
+--#endregion
+
+--#region Chuckin' Bell
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Stage)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Complete, function(f)
+    local ftr   = eFeature.Heist.FlashOps.ChuckinBell.Preps.Stage
+    local stage = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+    eFeature.Heist.FlashOps.ChuckinBell.Preps.Complete.func(stage)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Preps.Reset)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Teleport)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Finish)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.ChuckinBell.Misc.Cooldown)
+
+--#endregion
+
+--#region Guzman Files
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Preps.Stage)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Preps.Complete, function(f)
+    local ftr   = eFeature.Heist.FlashOps.GuzmanFlies.Preps.Stage
+    local stage = ftr.list[FeatureMgr.GetFeatureListIndex(ftr) + 1].index
+    eFeature.Heist.FlashOps.GuzmanFlies.Preps.Complete.func(stage)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Preps.Reset)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Teleport.Entrance):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Teleport.Laptop):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Finish)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Misc.Cooldown)
+
+--#endregion
 
 --#endregion
 
