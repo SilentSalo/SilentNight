@@ -280,6 +280,10 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Launch.Reset, function(f)
 end)
     :SetVisible(false)
 
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.SkipMeeting):SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Setup):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Teleport):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Misc.Force)
@@ -572,6 +576,8 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Launch.Reset, function(f)
 end)
     :SetVisible(false)
 
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.SkipMeeting):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance):SetVisible(false)
@@ -767,6 +773,8 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Launch.Reset, function(f)
     eFeature.Heist.Doomsday.Launch.Reset.func()
 end)
     :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Setup):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.Teleport.Entrance):SetVisible(false)
 
@@ -1032,6 +1040,8 @@ FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Preps.Complete, function(f)
     eFeature.Heist.FlashOps.Agency.Preps.Complete.func(contract)
 end)
 
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Setup):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Entrance):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Computer):SetVisible(false)
@@ -1071,6 +1081,8 @@ end)
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Reset)
 
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Reload)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Setup):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Entrance):SetVisible(false)
 

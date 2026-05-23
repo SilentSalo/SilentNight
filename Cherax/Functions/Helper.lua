@@ -404,6 +404,8 @@ function Helper.GetHangarWarehouseValue()
         return math.floor((amount + .0) / threshold[cargoType]) * percentage[cargoType]
     end
 
+    if not ScriptGlobal.AreValid() then return 0 end
+
     local mixed       = 8
     local totalCrates = GetAmountForCargoType(mixed)
 

@@ -21,6 +21,8 @@ FeatureMgr.AddLoop(eFeature.Business.Bunker.Supplies.Supplier, nil, function(f)
     eFeature.Business.Bunker.Supplies.Supplier.func(f)
 end)
 
+FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Setup):SetVisible(false)
+
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Teleport.Entrance):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Bunker.Misc.Teleport.Laptop):SetVisible(false)
@@ -180,6 +182,8 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type, fu
     eFeature.Business.Hangar.Supplies.PocketDimension.Type.func(f)
 end)
     :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Setup):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance):SetVisible(false)
 

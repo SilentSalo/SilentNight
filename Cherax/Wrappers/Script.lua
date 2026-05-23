@@ -482,7 +482,15 @@ Script.RegisterLooped(function()
         FeatureMgr.GetFeature(eFeature.Business.Misc.Garment.Teleport.Computer):SetVisible(false)
     end
 
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Misc.SkipMeeting):SetVisible(not ePackedStat.Business.Kosatka.MeetMiguel:Get())
+    FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Misc.Setup):SetVisible(not ePackedStat.Business.Kosatka.Setup:Get())
+    FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.SkipMeeting):SetVisible(eStat.MPX_CAS_HEIST_FLOW:Get() == 512)
     FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Misc.Setup):SetVisible(not ePackedStat.Business.Arcade.Setup:Get())
+    FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Misc.Setup):SetVisible(not ePackedStat.Business.Facility.Setup:Get())
+    FeatureMgr.GetFeature(eFeature.Heist.FlashOps.Agency.Misc.Setup):SetVisible(not ePackedStat.Business.Agency.Setup:Get())
+    FeatureMgr.GetFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Setup):SetVisible(not ePackedStat.Business.AutoShop.Setup:Get())
+    FeatureMgr.GetFeature(eFeature.Business.Bunker.Misc.Setup):SetVisible(eStat.MPX_FACTORYSETUP5:Get() == 0)
+    FeatureMgr.GetFeature(eFeature.Business.Hangar.Misc.Setup):SetVisible(not ePackedStat.Business.Hangar.Setup:Get())
     FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Setup):SetVisible(not ePackedStat.Business.Nightclub.Setup.DJ:Get())
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.MaxPayout) then

@@ -1035,6 +1035,28 @@ eFeature = {
             },
 
             Misc = {
+                SkipMeeting = {
+                    hash = J("SN_CayoPerico_SkipMeeting"),
+                    name = "Skip Meeting",
+                    type = eFeatureType.Button,
+                    desc = "Skips the meeting with Miguel Madrazzo inside The Music Locker.",
+                    func = function()
+                        ePackedStat.Business.Kosatka.MeetMiguel:Set(true)
+                        SilentLogger.LogInfo("[Skip Meeting (Kosatka)] Meeting should've been skipped ツ")
+                    end
+                },
+
+                Setup = {
+                    hash = J("SN_CayoPerico_Setup"),
+                    name = "Skip Setup",
+                    type = eFeatureType.Button,
+                    desc = "Skips the setup mission for your Kosatka.",
+                    func = function()
+                        ePackedStat.Business.Kosatka.Setup:Set(true)
+                        SilentLogger.LogInfo("[Skip Setup (Kosatka)] Setup should've been skipped ツ")
+                    end
+                },
+
                 Teleport = {
                     hash = J("SN_CayoPerico_Teleport"),
                     name = "Teleport to Kosatka",
@@ -1689,19 +1711,11 @@ eFeature = {
                         eStat.MPX_H3OPT_MASKS:Set(0)
                         eStat.MPX_H3OPT_TARGET:Set(0)
                         eStat.MPX_H3OPT_DISRUPTSHIP:Set(0)
-                        eStat.MPX_H3OPT_BODYARMORLVL:Set(01)
+                        eStat.MPX_H3OPT_BODYARMORLVL:Set(0)
                         eStat.MPX_H3OPT_KEYLEVELS:Set(0)
                         eStat.MPX_H3OPT_BITSET0:Set(0)
                         eStat.MPX_H3OPT_BITSET1:Set(0)
-                        eStat.MPX_H3OPT_POI:Set(0)
-                        eStat.MPX_H3OPT_ACCESSPOINTS:Set(0)
-                        eStat.MPX_CAS_HEIST_NOTS:Set(0)
-                        eStat.MPX_CAS_HEIST_FLOW:Set(0)
-                        eStat.MPX_H3_BOARD_DIALOGUE0:Set(0)
-                        eStat.MPX_H3_BOARD_DIALOGUE1:Set(0)
-                        eStat.MPX_H3_BOARD_DIALOGUE2:Set(0)
                         eStat.MPPLY_H3_COOLDOWN:Set(0)
-                        eStat.MPX_H3OPT_COMPLETEDPOSIX:Set(0)
                         eLocal.Heist.DiamondCasino.Reload:Set(2)
                         SilentLogger.LogInfo("[Reset Preps (Diamond Casino)] Preps should've been reset ツ")
                     end
@@ -1820,14 +1834,25 @@ eFeature = {
             },
 
             Misc = {
+                SkipMeeting = {
+                    hash = J("SN_DiamondCasino_SkipMeeting"),
+                    name = "Skip Meeting",
+                    type = eFeatureType.Button,
+                    desc = "Skips the meeting with Lester at Mirror Park.",
+                    func = function()
+                        eStat.MPX_CAS_HEIST_FLOW:Set(1)
+                        SilentLogger.LogInfo("[Skip Meeting (Kosatka)] Meeting should've been skipped ツ")
+                    end
+                },
+
                 Setup = {
                     hash = J("SN_DiamondCasino_Setup"),
                     name = "Skip Setup",
                     type = eFeatureType.Button,
-                    desc = "Skips the setup mission for your Arcade. Change the session to apply.",
+                    desc = "Skips the setup mission for your Arcade.",
                     func = function()
                         ePackedStat.Business.Arcade.Setup:Set(true)
-                        SilentLogger.LogInfo("[Skip Setup (Diamond Casino)] Setups should've been skipped. Don't forget to change the session ツ")
+                        SilentLogger.LogInfo("[Skip Setup (Diamond Casino)] Setup should've been skipped ツ")
                     end
                 },
 
@@ -2395,6 +2420,17 @@ eFeature = {
             },
 
             Misc = {
+                Setup = {
+                    hash = J("SN_Doomsday_Setup"),
+                    name = "Skip Setup",
+                    type = eFeatureType.Button,
+                    desc = "Skips the setup mission for your Facility and skips the meeting with Lester.",
+                    func = function()
+                        ePackedStat.Business.Facility.Setup:Set(true)
+                        SilentLogger.LogInfo("[Skip Setup (Doomsday)] Setup should've been skipped ツ")
+                    end
+                },
+
                 Teleport = {
                     Entrance = {
                         hash = J("SN_Doomsday_Entrance"),
@@ -2813,6 +2849,17 @@ eFeature = {
                 },
 
                 Misc = {
+                    Setup = {
+                        hash = J("SN_Agency_Setup"),
+                        name = "Skip Setup",
+                        type = eFeatureType.Button,
+                        desc = "Skips the setup mission for your Agency.",
+                        func = function()
+                            ePackedStat.Business.Agency.Setup:Set(true)
+                            SilentLogger.LogInfo("[Skip Setup (Agency)] Setup should've been skipped ツ")
+                        end
+                    },
+
                     Teleport = {
                         Entrance = {
                             hash = J("SN_Agency_Entrance"),
@@ -2990,6 +3037,17 @@ eFeature = {
                 },
 
                 Misc = {
+                    Setup = {
+                        hash = J("SN_AutoShop_Setup"),
+                        name = "Skip Setup",
+                        type = eFeatureType.Button,
+                        desc = "Skips the setup mission for your Auto Shop.",
+                        func = function()
+                            ePackedStat.Business.AutoShop.Setup:Set(true)
+                            SilentLogger.LogInfo("[Skip Setup (Auto Shop)] Setup should've been skipped ツ")
+                        end
+                    },
+
                     Teleport = {
                         Entrance = {
                             hash = J("SN_AutoShop_Entrance"),
@@ -3887,6 +3945,17 @@ eFeature = {
             },
 
             Misc = {
+                Setup = {
+                    hash = J("SN_Bunker_Setup"),
+                    name = "Skip Setup",
+                    type = eFeatureType.Button,
+                    desc = "Skips the setup mission for your Bunker.",
+                    func = function()
+                        eStat.MPX_FACTORYSETUP5:Set(1)
+                        SilentLogger.LogInfo("[Skip Setup (Bunker)] Setup should've been skipped ツ")
+                    end
+                },
+
                 Teleport = {
                     Entrance = {
                         hash = J("SN_Bunker_Entrance"),
@@ -4032,7 +4101,7 @@ eFeature = {
                                     Script.Yield(1000)
                                 end
 
-                                eTunable.Business.Hangar.Price:Set(math.floor(4000000 / eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()))
+                                eTunable.Business.Hangar.Price.Mixed:Set(math.floor(4000000 / eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()))
                                 eTunable.Business.Hangar.RonsCut:Set(0.0)
 
                                 if not loggedHangarPrice then
@@ -4252,6 +4321,17 @@ eFeature = {
             },
 
             Misc = {
+                Setup = {
+                    hash = J("SN_Hangar_Setup"),
+                    name = "Skip Setup",
+                    type = eFeatureType.Button,
+                    desc = "Skips the setup mission for your Hangar.",
+                    func = function()
+                        ePackedStat.Business.Hangar.Setup:Set(true)
+                        SilentLogger.LogInfo("[Skip Setup (Hangar)] Setup should've been skipped ツ")
+                    end
+                },
+
                 Teleport = {
                     Entrance = {
                         hash = J("SN_Hangar_Entrance"),
@@ -4830,12 +4910,12 @@ eFeature = {
                     hash = J("SN_Nightclub_Setup"),
                     name = "Skip Setups",
                     type = eFeatureType.Button,
-                    desc = "Skips the setup missions for your Nightclub. Change the session to apply.",
+                    desc = "Skips the setup missions for your Nightclub.",
                     func = function()
                         ePackedStat.Business.Nightclub.Setup.Staff:Set(true)
                         ePackedStat.Business.Nightclub.Setup.Equipment:Set(true)
                         ePackedStat.Business.Nightclub.Setup.DJ:Set(true)
-                        SilentLogger.LogInfo("[Skip Setup (Nightclub)] Setups should've been skipped. Don't forget to change the session ツ")
+                        SilentLogger.LogInfo("[Skip Setup (Nightclub)] Setups should've been skipped ツ")
                     end
                 },
 

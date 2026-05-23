@@ -193,6 +193,7 @@ eStat = {
     MPX_SB_HELI_TOURS_OWNED         = { type = "int",    stat = "SB_HELI_TOURS_OWNED"            },
     MPX_BAIL_OFFICE_OWNED           = { type = "int",    stat = "BAIL_OFFICE_OWNED"              },
     MPX_MCKENZIE_HANGAR_OWNED       = { type = "int",    stat = "MCKENZIE_HANGAR_OWNED"          },
+    MPX_FACTORYSETUP5               = { type = "int",    stat = "FACTORYSETUP5"                  },
     MPX_FIXER_SAFE_CASH_VALUE       = { type = "int",    stat = "FIXER_SAFE_CASH_VALUE"          },
     MPX_ARCADE_SAFE_CASH_VALUE      = { type = "int",    stat = "ARCADE_SAFE_CASH_VALUE"         },
     MPX_BAIL_SAFE_CASH_VALUE        = { type = "int",    stat = "BAIL_SAFE_CASH_VALUE"           },

@@ -154,6 +154,8 @@ function Renderer.RenderHeistTool()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.SkipMeeting)
+                        ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.Setup)
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Misc.Teleport)
                         ImGui.ResetButtonStyle()
@@ -262,6 +264,7 @@ function Renderer.RenderHeistTool()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.SkipMeeting)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Setup)
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance)
@@ -361,6 +364,7 @@ function Renderer.RenderHeistTool()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Misc.Setup)
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Misc.Teleport.Entrance)
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Misc.Teleport.Screen)
@@ -516,6 +520,7 @@ function Renderer.RenderHeistTool()
                         end
 
                         if ClickGUI.BeginCustomChildWindow("Misc") then
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Misc.Setup)
                             ImGui.PushButtonStyle(eBtnStyle.PINK)
                             ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Entrance)
                             ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Computer)
@@ -561,6 +566,7 @@ function Renderer.RenderHeistTool()
                         end
 
                         if ClickGUI.BeginCustomChildWindow("Misc") then
+                            ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Setup)
                             ImGui.PushButtonStyle(eBtnStyle.PINK)
                             ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Entrance)
                             ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Board)
@@ -685,6 +691,7 @@ function Renderer.RenderBusinessTool()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Misc.Setup)
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Misc.Teleport.Entrance)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Misc.Teleport.Laptop)
@@ -751,6 +758,7 @@ function Renderer.RenderBusinessTool()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Misc") then
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Misc.Setup)
                         ImGui.PushButtonStyle(eBtnStyle.PINK)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Misc.Teleport.Laptop)
@@ -1593,6 +1601,8 @@ function Renderer.RenderListGUI()
             LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
 
             local MiscSubTab = CayoPericoTab:AddSubTab("Misc", "Misc")
+            MiscSubTab:AddFeature(eFeature.Heist.CayoPerico.Misc.SkipMeeting)
+            MiscSubTab:AddFeature(eFeature.Heist.CayoPerico.Misc.Setup)
             MiscSubTab:AddFeature(eFeature.Heist.CayoPerico.Misc.Teleport)
             MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
             MiscSubTab:AddFeature(eFeature.Heist.Generic.Skip)
@@ -1656,6 +1666,7 @@ function Renderer.RenderListGUI()
             LaunchSubTab:AddFeature(eFeature.Heist.DiamondCasino.Launch.Reset)
 
             local MiscSubTab = CasinoHeistTab:AddSubTab("Misc", "Misc")
+            MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.SkipMeeting)
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Setup)
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Entrance)
             MiscSubTab:AddFeature(eFeature.Heist.DiamondCasino.Misc.Teleport.Board)
@@ -1711,6 +1722,7 @@ function Renderer.RenderListGUI()
             LaunchSubTab:AddFeature(eFeature.Heist.Doomsday.Launch.Reset)
 
             local MiscSubTab = DoomsdayTab:AddSubTab("Misc", "Misc")
+            MiscSubTab:AddFeature(eFeature.Heist.Doomsday.Misc.Setup)
             MiscSubTab:AddFeature(eFeature.Heist.Doomsday.Misc.Teleport.Entrance)
             MiscSubTab:AddFeature(eFeature.Heist.Doomsday.Misc.Teleport.Screen)
             MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
@@ -1803,6 +1815,7 @@ function Renderer.RenderListGUI()
                 LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
 
                 local MiscSubTab = AgencyTab:AddSubTab("Misc", "Misc")
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Setup)
                 MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Entrance)
                 MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Computer)
                 MiscSubTab:AddFeature(eFeature.Heist.FlashOps.Agency.Misc.Teleport.Mission)
@@ -1830,6 +1843,7 @@ function Renderer.RenderListGUI()
                 LaunchSubTab:AddFeature(eFeature.Heist.CayoPerico.Launch.Reset)
 
                 local MiscSubTab = AutoShopTab:AddSubTab("Misc", "Misc")
+                MiscSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Setup)
                 MiscSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Entrance)
                 MiscSubTab:AddFeature(eFeature.Heist.FlashOps.AutoShop.Misc.Teleport.Board)
                 MiscSubTab:AddFeature(eFeature.Heist.Generic.Cutscene)
@@ -1880,6 +1894,7 @@ function Renderer.RenderListGUI()
             SuppliesSubTab:AddFeature(eFeature.Business.Bunker.Supplies.Supplier)
 
             local MiscSubTab = BunkerTab:AddSubTab("Misc", "Misc")
+            MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Setup)
             MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Teleport.Entrance)
             MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Teleport.Laptop)
             MiscSubTab:AddFeature(eFeature.Business.Bunker.Misc.Open)
@@ -1915,6 +1930,7 @@ function Renderer.RenderListGUI()
             SuppliesSubTab:AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type)
 
             local MiscSubTab = HangarCargoTab:AddSubTab("Misc", "Misc")
+            MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Setup)
             MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Teleport.Entrance)
             MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Teleport.Laptop)
             MiscSubTab:AddFeature(eFeature.Business.Hangar.Misc.Open)
