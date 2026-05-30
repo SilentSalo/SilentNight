@@ -52,6 +52,34 @@ eFeature = {
         },
 
         Apartment = {
+            Info = {
+                Hide = {
+                    hash = J("SN_Apartment_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.apartment = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_APARTMENT_INFO = true
+                        SilentLogger.LogInfo("[Hide (Apartment)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_Apartment_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Always hides this information. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Apartment)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             Preps = {
                 Heist = {
                     hash = J("SN_Apartment_Heist"),
@@ -374,7 +402,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Automatically calculates maximum payout cuts.",
                     func = function(ftr)
-                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                        if Script.IsStandardEdition() then
                             SilentLogger.LogInfo("[3mil Payout (Apartment)] This feature requires «Supporter» Script Edition ツ")
                             return
                         end
@@ -718,6 +746,34 @@ eFeature = {
         },
 
         CayoPerico = {
+            Info = {
+                Hide = {
+                    hash = J("SN_CayoPerico_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.cayo_perico = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_CAYO_PERICO_INFO = true
+                        SilentLogger.LogInfo("[Hide (Cayo Perico)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_CayoPerico_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Always hides this information. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Cayo Perico)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             Preps = {
                 Difficulty = {
                     hash = J("SN_CayoPerico_Difficulty"),
@@ -1280,7 +1336,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Automatically calculates maximum payout cuts.",
                     func = function(ftr)
-                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                        if Script.IsStandardEdition() then
                             SilentLogger.LogInfo("[2.55mil Payout (Cayo Perico)] This feature requires «Supporter» Script Edition ツ")
                             return
                         end
@@ -1514,6 +1570,34 @@ eFeature = {
         },
 
         DiamondCasino = {
+            Info = {
+                Hide = {
+                    hash = J("SN_DiamondCasino_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.diamond_casino = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_DIAMOND_CASINO_INFO = true
+                        SilentLogger.LogInfo("[Hide (Diamond Casino)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_DiamondCasino_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Diamond Casino)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             Preps = {
                 Difficulty = {
                     hash = J("SN_DiamondCasino_Difficulty"),
@@ -2057,7 +2141,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "Automatically calculates maximum payout cuts.",
                     func = function(ftr)
-                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                        if Script.IsStandardEdition() then
                             SilentLogger.LogInfo("[3.6mil Payout (Diamond Casino)] This feature requires «Supporter» Script Edition ツ")
                             return
                         end
@@ -2291,6 +2375,34 @@ eFeature = {
         },
 
         Doomsday = {
+            Info = {
+                Hide = {
+                    hash = J("SN_Doomsday_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.doomsday = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_DOOMSDAY_INFO = true
+                        SilentLogger.LogInfo("[Hide (Doomsday)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_Doomsday_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Doomsday)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             Preps = {
                 Act = {
                     hash = J("SN_Doomsday_Act"),
@@ -2526,7 +2638,7 @@ eFeature = {
                     type = eFeatureType.Toggle,
                     desc = "ATTENTION: works only if you've set the «Act» through the script.\nAutomatically calculates maximum payout cuts.",
                     func = function(ftr)
-                        if SCRIPT_EDTN == eTable.Editions.Standard then
+                        if Script.IsStandardEdition() then
                             SilentLogger.LogInfo("[2.55mil Payout (Doomsday)] This feature requires «Supporter» Script Edition ツ")
                             return
                         end
@@ -2759,566 +2871,35 @@ eFeature = {
             }
         },
 
-        FlashOps = {
-            Toggles = {
-                Agency = {
-                    hash = J("SN_FlashOps_Agency"),
-                    name = "Agency",
-                    type = eFeatureType.Toggle,
-                    desc = "Enables Agency features in Flash Operations tab.",
-                    func = function(ftr)
-                        if not loggedAgencyToggled then
-                            loggedAgencyToggled = true
-                            return
-                        end
-
-                        SilentLogger.LogInfo(F("[Agency (Flash Ops)] Agency features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
-                    end
-                },
-
-                AutoShop = {
-                    hash = J("SN_FlashOps_AutoShop"),
-                    name = "Auto Shop",
-                    type = eFeatureType.Toggle,
-                    desc = "Enables Auto Shop features in Flash Operations tab.",
-                    func = function(ftr)
-                        SilentLogger.LogInfo(F("[Auto Shop (Flash Ops)] Auto Shop features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
-                    end
-                },
-
-                CluckinBell = {
-                    hash = J("SN_FlashOps_CluckinBell"),
-                    name = "Cluckin' Bell",
-                    type = eFeatureType.Toggle,
-                    desc = "Enables Cluckin' Bell features in Flash Operations tab.",
-                    func = function(ftr)
-                        SilentLogger.LogInfo(F("[Cluckin' Bell (Flash Ops)] Cluckin' Bell features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
-                    end
-                },
-
-                GuzmanFlies = {
-                    hash = J("SN_FlashOps_GuzmanFlies"),
-                    name = "Guzman Flies",
-                    type = eFeatureType.Toggle,
-                    desc = "Enables Guzman Flies features in Flash Operations tab.",
-                    func = function(ftr)
-                        SilentLogger.LogInfo(F("[Guzman Flies (Flash Ops)] Guzman Flies features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
-                    end
-                }
-            },
-
-            Agency = {
-                Preps = {
-                    Contract = {
-                        hash = J("SN_Agency_Contract"),
-                        name = "Contract",
-                        type = eFeatureType.Combo,
-                        desc = "Select the desired VIP contract.",
-                        list = eTable.Heist.Agency.Contracts,
-                        func = function(ftr)
-                            local list  = eTable.Heist.Agency.Contracts
-                            local index = list[ftr:GetListIndex() + 1].index
-                            SilentLogger.LogInfo(F("[Contract (Agency)] Selected contract: %s ツ", list:GetName(index)))
-                        end
-                    },
-
-                    Complete = {
-                        hash = J("SN_Agency_Complete"),
-                        name = "Apply & Complete Preps",
-                        type = eFeatureType.Button,
-                        desc = "Applies all changes and completes all preparations.",
-                        func = function(contract)
-                            eStat.MPX_FIXER_STORY_BS:Set(contract)
-
-                            if contract < 18 then
-                                eStat.MPX_FIXER_STORY_STRAND:Set(0)
-                            elseif contract < 128 then
-                                eStat.MPX_FIXER_STORY_STRAND:Set(1)
-                            elseif contract < 2044 then
-                                eStat.MPX_FIXER_STORY_STRAND:Set(2)
-                            else
-                                eStat.MPX_FIXER_STORY_STRAND:Set(-1)
-                            end
-
-                            eStat.MPX_FIXER_GENERAL_BS:Set(-1)
-                            eStat.MPX_FIXER_COMPLETED_BS:Set(-1)
-
-                            SilentLogger.LogInfo("[Apply & Complete Preps (Agency)] Preps should've been completed ツ")
-                        end
-                    }
-                },
-
-                Misc = {
-                    Setup = {
-                        hash = J("SN_Agency_Setup"),
-                        name = "Skip Setup",
-                        type = eFeatureType.Button,
-                        desc = "Skips the setup mission for your Agency.",
-                        func = function()
-                            ePackedStat.Business.Agency.Setup:Set(true)
-                            SilentLogger.LogInfo("[Skip Setup (Agency)] Setup should've been skipped ツ")
-                        end
-                    },
-
-                    Teleport = {
-                        Entrance = {
-                            hash = J("SN_Agency_Entrance"),
-                            name = "Teleport to Entrance",
-                            type = eFeatureType.Button,
-                            desc = "Teleports you to the Agency's entrance.",
-                            func = function()
-                                GTA.TeleportToBlip(eTable.BlipSprites.Agency)
-                                SilentLogger.LogInfo("[Teleport to Entrance (Agency)] You should've been teleported to the entrance ツ")
-                            end
-                        },
-
-                        Computer = {
-                            hash = J("SN_Agency_Computer"),
-                            name = "Teleport to Computer",
-                            type = eFeatureType.Button,
-                            desc = "Teleports you to the Agency's computer.",
-                            func = function()
-                                GTA.TeleportXYZ(U(eTable.Teleports.Agency))
-                                SilentLogger.LogInfo("[Teleport to Computer (Agency)] You should've been teleported to the computer ツ")
-                            end
-                        },
-
-                        Mission = {
-                            hash = J("SN_Agency_Board"),
-                            name = "Teleport to Mission",
-                            type = eFeatureType.Button,
-                            desc = "Teleports you to the Agency's mission.",
-                            func = function()
-                                GTA.TeleportToBlip(eTable.BlipSprites.Franklin, nil, true)
-                                SilentLogger.LogInfo("[Teleport to Board (Agency)] You should've been teleported to the mission ツ")
-                            end
-                        }
-                    },
-
-                    Finish = {
-                        hash = Utils.Joaat("SN_Agency_Finish"),
-                        name = "Instant Finish",
-                        type = eFeatureType.Button,
-                        desc = "Finishes the heist instantly. Use after you can see the minimap.",
-                        func = function()
-                            if CONFIG.instant_finish.agency == 1 then
-                                Helper.NewInstantFinishHeist()
-
-                                SilentLogger.LogInfo("[Instant Finish] Heist should've been finished. Method used: New ツ")
-                                return
-                            end
-
-                            GTA.ForceScriptHost(eScript.Heist.New)
-                            Script.Yield(1000)
-                            eLocal.Heist.Agency.Finish.Step1:Set(51338752)
-                            eLocal.Heist.Agency.Finish.Step2:Set(50)
-
-                            SilentLogger.LogInfo("[Instant Finish (Agency)] Heist should've been finished. Method used: Old ツ")
-                        end
-                    },
-
-                    Cooldown = {
-                        hash = J("SN_Agency_Cooldown"),
-                        name = "Kill Cooldowns",
-                        type = eFeatureType.Button,
-                        desc = "Skips the heist's cooldowns. Doesn't skip the cooldown between transactions (20 min).",
-                        func = function()
-                            eTunable.Heist.Agency.Cooldown.Story:Set(0)
-                            eTunable.Heist.Agency.Cooldown.Security:Set(0)
-                            eTunable.Heist.Agency.Cooldown.Payphone:Set(0)
-                            eStat.MPX_FIXER_STORY_COOLDOWN:Set(-1)
-                            SilentLogger.LogInfo("[Kill Cooldowns (Agency)] Cooldowns should've been killed ツ")
-                        end
-                    },
-
-                    Collect = {
-                        hash = J("SN_Agency_Collect"),
-                        name = "Collect Safe",
-                        type = eFeatureType.Button,
-                        desc = "Collects money from your Agency safe.",
-                        func = function()
-                            if eStat.MPX_FIXER_SAFE_CASH_VALUE:Get() ~= 0 then
-                                eGlobal.Business.Agency.Safe.Collect:Set(true)
-                                SilentLogger.LogInfo("[Collect Safe (Agency)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
-                            else
-                                SilentLogger.LogInfo("[Collect Safe (Agency)] Agency safe is empty ツ")
-                            end
-                        end
-                    }
-                },
-
-                Payout = {
-                    Select = {
-                        hash = J("SN_Agency_Select"),
-                        name = "Payout",
-                        type = eFeatureType.InputInt,
-                        desc = "Select the desired payout.",
-                        defv = 0,
-                        lims = { 0, 2500000 },
-                        step = 100000,
-                        func = function(ftr)
-                            SilentLogger.LogInfo("[Payout (Agency)] Payout should've been changed. Don't forget to apply ツ")
-                        end
-                    },
-
-                    Max = {
-                        hash = J("SN_Agency_Max"),
-                        name = "Max",
-                        type = eFeatureType.Button,
-                        desc = "Maximizes the payout, but doesn't apply it.",
-                        func = function()
-                            SilentLogger.LogInfo("[Max (Agency)] Payout should've been maximized. Don't forget to apply ツ")
-                        end
-                    },
-
-                    Apply = {
-                        hash = J("SN_Agency_Apply"),
-                        name = "Apply Payout",
-                        type = eFeatureType.Button,
-                        desc = "Applies the selected payout. Use after you can see the minimap.",
-                        func = function(payout)
-                            eTunable.Heist.Agency.Payout:Set(payout)
-                            SilentLogger.LogInfo("[Apply Payout (Agency)] Payout should've been applied ツ")
-                        end
-                    }
-                }
-            },
-
-            AutoShop = {
-                Preps = {
-                    Contract = {
-                        hash = J("SN_AutoShop_Contract"),
-                        name = "Contract",
-                        type = eFeatureType.Combo,
-                        desc = "Select the desired contract.",
-                        list = eTable.Heist.AutoShop.Contracts,
-                        func = function(ftr)
-                            local list  = eTable.Heist.AutoShop.Contracts
-                            local index = list[ftr:GetListIndex() + 1].index
-                            SilentLogger.LogInfo(F("[Contract (Auto Shop)] Selected contract: %s ツ", list:GetName(index)))
-                        end
-                    },
-
-                    Complete = {
-                        hash = J("SN_AutoShop_Complete"),
-                        name = "Apply & Complete Preps",
-                        type = eFeatureType.Button,
-                        desc = "Applies all changes and completes all preparations. Also, redraws the planning board.",
-                        func = function(contract)
-                            eStat.MPX_TUNER_CURRENT:Set(contract)
-                            eStat.MPX_TUNER_GEN_BS:Set((contract == 1) and 4351 or 12543)
-                            eLocal.Heist.AutoShop.Reload:Set(2)
-                            SilentLogger.LogInfo("[Apply & Complete Preps (Auto Shop)] Preps should've been completed ツ")
-                        end
-                    },
-
-                    Reset = {
-                        hash = J("SN_AutoShop_Reset"),
-                        name = "Reset Preps",
-                        type = eFeatureType.Button,
-                        desc = "Resets all preparations. Also, redraws the planning board.",
-                        func = function()
-                            eStat.MPX_TUNER_GEN_BS:Set(12467)
-                            eLocal.Heist.AutoShop.Reload:Set(2)
-                            SilentLogger.LogInfo("[Reset Preps (Auto Shop)] Preps should've been reset ツ")
-                        end
-                    },
-
-                    Reload = {
-                        hash = J("SN_AutoShop_Reload"),
-                        name = "Redraw Board",
-                        type = eFeatureType.Button,
-                        desc = "Redraws the planning board.",
-                        func = function()
-                            eLocal.Heist.AutoShop.Reload:Set(2)
-                            SilentLogger.LogInfo("[Redraw Board (Auto Shop)] Board should've been redrawn ツ")
-                        end
-                    }
-                },
-
-                Misc = {
-                    Setup = {
-                        hash = J("SN_AutoShop_Setup"),
-                        name = "Skip Setup",
-                        type = eFeatureType.Button,
-                        desc = "Skips the setup mission for your Auto Shop.",
-                        func = function()
-                            ePackedStat.Business.AutoShop.Setup:Set(true)
-                            SilentLogger.LogInfo("[Skip Setup (Auto Shop)] Setup should've been skipped ツ")
-                        end
-                    },
-
-                    Teleport = {
-                        Entrance = {
-                            hash = J("SN_AutoShop_Entrance"),
-                            name = "Teleport to Entrance",
-                            type = eFeatureType.Button,
-                            desc = "Teleports you to the Auto Shop's entrance.",
-                            func = function()
-                                GTA.TeleportToBlip(eTable.BlipSprites.AutoShop)
-                                SilentLogger.LogInfo("[Teleport to Entrance (Auto Shop)] You should've been teleported to the entrance ツ")
-                            end
-                        },
-
-                        Board = {
-                            hash = J("SN_AutoShop_Board"),
-                            name = "Teleport to Board",
-                            type = eFeatureType.Button,
-                            desc = "Teleports you to the Auto Shop's planning board.",
-                            func = function()
-                                GTA.TeleportXYZ(U(eTable.Teleports.AutoShop))
-                                SilentLogger.LogInfo("[Teleport to Board (Auto Shop)] You should've been teleported to the board ツ")
-                            end
-                        }
-                    },
-
-                    Finish = {
-                        hash = Utils.Joaat("SN_AutoShop_Finish"),
-                        name = "Instant Finish",
-                        type = eFeatureType.Button,
-                        desc = "Finishes the heist instantly. Use after you can see the minimap.",
-                        func = function()
-                            if CONFIG.instant_finish.auto_shop == 1 then
-                                Helper.NewInstantFinishHeist()
-
-                                SilentLogger.LogInfo("[Instant Finish (Auto Shop)] Heist should've been finished. Method used: New ツ")
-                                return
-                            end
-
-                            GTA.ForceScriptHost(eScript.Heist.New)
-                            Script.Yield(1000)
-                            eLocal.Heist.AutoShop.Finish.Step1:Set(51338977)
-                            eLocal.Heist.AutoShop.Finish.Step2:Set(101)
-
-                            SilentLogger.LogInfo("[Instant Finish (Auto Shop)] Heist should've been finished. Method used: Old ツ")
-                        end
-                    },
-
-                    Cooldown = {
-                        hash = J("SN_AutoShop_Cooldown"),
-                        name = "Kill Cooldown",
-                        type = eFeatureType.Button,
-                        desc = "Skips the heist's setup cooldown. Doesn't skip the cooldown between transactions (20 mins).",
-                        func = function()
-                            for i = 0, 7 do
-                                eStat[F("MPX_TUNER_CONTRACT%d_POSIX", i)]:Set(0)
-                            end
-
-                            eTunable.Heist.AutoShop.Cooldown:Set(0)
-
-                            SilentLogger.LogInfo("[Kill Cooldown (Auto Shop)] Cooldowns should've been killed ツ")
-                        end
-                    }
-                },
-
-                Payout = {
-                    Select = {
-                        hash = J("SN_AutoShop_Select"),
-                        name = "Payout",
-                        type = eFeatureType.InputInt,
-                        desc = "Select the desired payout.",
-                        defv = 0,
-                        lims = { 0, 2000000 },
-                        step = 100000,
-                        func = function(ftr)
-                            SilentLogger.LogInfo("[Payout (Auto Shop)] Payout should've been changed. Don't forget to apply ツ")
-                        end
-                    },
-
-                    Max = {
-                        hash = J("SN_AutoShop_Max"),
-                        name = "Max",
-                        type = eFeatureType.Button,
-                        desc = "Maximizes the payout, but doesn't apply it.",
-                        func = function()
-                            SilentLogger.LogInfo("[Max (Auto Shop)] Payout should've been maximized. Don't forget to apply ツ")
-                        end
-                    },
-
-                    Apply = {
-                        hash = J("SN_AutoShop_Apply"),
-                        name = "Apply Payout",
-                        type = eFeatureType.Button,
-                        desc = "Applies the selected payout. Use after you can see the minimap.",
-                        func = function(payout)
-                            eTunable.Heist.AutoShop.Payout.First:Set(payout)
-                            eTunable.Heist.AutoShop.Payout.Second:Set(payout)
-                            eTunable.Heist.AutoShop.Payout.Third:Set(payout)
-                            eTunable.Heist.AutoShop.Payout.Fourth:Set(payout)
-                            eTunable.Heist.AutoShop.Payout.Fifth:Set(payout)
-                            eTunable.Heist.AutoShop.Payout.Sixth:Set(payout)
-                            eTunable.Heist.AutoShop.Payout.Seventh:Set(payout)
-                            eTunable.Heist.AutoShop.Payout.Eight:Set(payout)
-                            eTunable.Heist.AutoShop.Payout.Fee:Set(0.0)
-                            SilentLogger.LogInfo("[Apply Payout (Auto Shop)] Payout should've been applied ツ")
-                        end
-                    }
-                }
-            },
-
-            CluckinBell = {
-                Preps = {
-                    Stage = {
-                        hash = J("SN_CluckinBell_Stage"),
-                        name = "Stage",
-                        type = eFeatureType.Combo,
-                        desc = "Select the desired stage.",
-                        list = eTable.Heist.CluckinBell.Stages,
-                        func = function(ftr)
-                            local list  = eTable.Heist.CluckinBell.Stages
-                            local index = list[ftr:GetListIndex() + 1].index
-                            SilentLogger.LogInfo(F("[Stage (Cluckin' Bell)] Selected stage: %s ツ", list:GetName(index)))
-                        end
-                    },
-
-                    Complete = {
-                        hash = J("SN_CluckinBell_Complete"),
-                        name = "Apply & Complete Preps",
-                        type = eFeatureType.Button,
-                        desc = "Applies all changes and completes all preparations.",
-                        func = function(stage)
-                            eStat.MPX_SALV23_INST_PROG:Set(stage)
-                            SilentLogger.LogInfo(F("[Apply & Complete Preps (Cluckin' Bell)] Preps should've been completed ツ"))
-                        end
-                    },
-
-                    Reset = {
-                        hash = J("SN_CluckinBell_Reset"),
-                        name = "Reset Preps",
-                        type = eFeatureType.Button,
-                        desc = "Resets all preparations.",
-                        func = function()
-                            eStat.MPX_SALV23_INST_PROG:Set(0)
-                            SilentLogger.LogInfo("[Reset Preps (Doomsday)] Preps should've been reset ツ")
-                        end
-                    }
-                },
-
-                Misc = {
-                    Teleport = {
-                        hash = J("SN_CluckinBell_Teleport"),
-                        name = "Teleport to Mission",
-                        type = eFeatureType.Button,
-                        desc = "Teleports you to The Cluckin' Bell Farm Raid mission.",
-                        func = function()
-                            GTA.TeleportXYZ(U(eTable.Teleports.CluckinBell))
-                            SilentLogger.LogInfo("[Teleport to Mission (Cluckin' Bell)] You should've been teleported to the mission ツ")
-                        end
-                    },
-
-                    Finish = {
-                        hash = Utils.Joaat("SN_CluckinBell_Finish"),
-                        name = "Instant Finish",
-                        type = eFeatureType.Button,
-                        desc = "Finishes the heist instantly. Use after you can see the minimap.",
-                        func = function()
-                            Helper.NewInstantFinishHeist()
-                            SilentLogger.LogInfo("[Instant Finish (Cluckin' Bell)] Heist should've been finished ツ")
-                        end
-                    },
-
-                    Cooldown = {
-                        hash = J("SN_CluckinBell_Cooldown"),
-                        name = "Kill Cooldown",
-                        type = eFeatureType.Button,
-                        desc = "Skips the mission's setup cooldown. Doesn't skip the cooldown between transactions (20 mins).",
-                        func = function()
-                            eStat.MPX_SALV23_CFR_COOLDOWN:Set(-1)
-                            SilentLogger.LogInfo("[Kill Cooldown (Cluckin' Bell)] Cooldown should've been killed ツ")
-                        end
-                    }
-                }
-            },
-
-            GuzmanFlies = {
-                Preps = {
-                    Stage = {
-                        hash = J("SN_GuzmanFlies_Stage"),
-                        name = "Stage",
-                        type = eFeatureType.Combo,
-                        desc = "Select the desired stage.",
-                        list = eTable.Heist.GuzmanFlies.Stages,
-                        func = function(ftr)
-                            local list  = eTable.Heist.GuzmanFlies.Stages
-                            local index = list[ftr:GetListIndex() + 1].index
-                            SilentLogger.LogInfo(F("[Stage (Guzman)] Selected stage: %s ツ", list:GetName(index)))
-                        end
-                    },
-
-                    Complete = {
-                        hash = J("SN_GuzmanFlies_Complete"),
-                        name = "Apply & Complete Preps",
-                        type = eFeatureType.Button,
-                        desc = "Applies all changes and completes all preparations.",
-                        func = function(stage)
-                            eStat.MPX_HACKER24_INST_BS:Set(stage)
-                            SilentLogger.LogInfo(F("[Apply & Complete Preps (Guzman)] Preps should've been completed ツ"))
-                        end
-                    },
-
-                    Reset = {
-                        hash = J("SN_GuzmanFlies_Reset"),
-                        name = "Reset Preps",
-                        type = eFeatureType.Button,
-                        desc = "Resets all preparations.",
-                        func = function()
-                            eStat.MPX_HACKER24_INST_BS:Set(0)
-                            SilentLogger.LogInfo("[Reset Preps (Guzman)] Preps should've been reset ツ")
-                        end
-                    }
-                },
-
-                Misc = {
-                    Teleport = {
-                        Entrance = {
-                            hash = J("SN_GuzmanFlies_Teleport"),
-                            name = "Teleport to Entrance",
-                            type = eFeatureType.Button,
-                            desc = "Teleports you to the McKenzie Field Hangar's entrance.",
-                            func = function()
-                                GTA.TeleportToBlip(eTable.BlipSprites.FieldHangar)
-                                SilentLogger.LogInfo("[Teleport to Entrance (Guzman)] You should've been teleported to the entrance ツ")
-                            end
-                        },
-
-                        Laptop = {
-                            hash = J("SN_GuzmanFlies_Laptop"),
-                            name = "Teleport to Laptop",
-                            type = eFeatureType.Button,
-                            desc = "Teleports you to the McKenzie Field Hangar's laptop.",
-                            func = function()
-                                GTA.TeleportXYZ(U(eTable.Teleports.FieldHangar))
-                                SilentLogger.LogInfo("[Teleport to Laptop (Guzman)] You should've been teleported to the laptop ツ")
-                            end
-                        }
-                    },
-
-                    Finish = {
-                        hash = Utils.Joaat("SN_GuzmanFlies_Finish"),
-                        name = "Instant Finish",
-                        type = eFeatureType.Button,
-                        desc = "Finishes the heist instantly. Use after you can see the minimap.",
-                        func = function()
-                            Helper.NewInstantFinishHeist()
-                            SilentLogger.LogInfo("[Instant Finish (Guzman)] Heist should've been finished ツ")
-                        end
-                    },
-
-                    Cooldown = {
-                        hash = J("SN_GuzmanFlies_Cooldown"),
-                        name = "Kill Cooldown",
-                        type = eFeatureType.Button,
-                        desc = "Skips the mission's setup cooldown. Doesn't skip the cooldown between transactions (20 mins).",
-                        func = function()
-                            eStat.MPX_HACKER24_MFM_COOLDOWN:Set(-1)
-                            SilentLogger.LogInfo("[Kill Cooldown (Guzman)] Cooldown should've been killed ツ")
-                        end
-                    }
-                }
-            }
-        },
-
         SalvageYard = {
+            Info = {
+                Hide = {
+                    hash = J("SN_SalvageYard_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.salvage_yard = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_SALVAGE_YARD_INFO = true
+                        SilentLogger.LogInfo("[Hide (Salvage Yard)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_SalvageYard_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Salvage Yard)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             Slot1 = {
                 Available = {
                     hash = J("SN_SalvageYard_AvailableSlot1"),
@@ -3826,11 +3407,710 @@ eFeature = {
                     end
                 }
             }
+        },
+
+        FlashOps = {
+            Toggles = {
+                Agency = {
+                    hash = J("SN_FlashOps_Agency"),
+                    name = "Agency",
+                    type = eFeatureType.Toggle,
+                    desc = "Enables Agency features in Flash Operations tab.",
+                    func = function(ftr)
+                        if not loggedAgencyToggled then
+                            loggedAgencyToggled = true
+                            return
+                        end
+
+                        SilentLogger.LogInfo(F("[Agency (Flash Ops)] Agency features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
+                AutoShop = {
+                    hash = J("SN_FlashOps_AutoShop"),
+                    name = "Auto Shop",
+                    type = eFeatureType.Toggle,
+                    desc = "Enables Auto Shop features in Flash Operations tab.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Auto Shop (Flash Ops)] Auto Shop features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
+                CluckinBell = {
+                    hash = J("SN_FlashOps_CluckinBell"),
+                    name = "Cluckin' Bell",
+                    type = eFeatureType.Toggle,
+                    desc = "Enables Cluckin' Bell features in Flash Operations tab.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Cluckin' Bell (Flash Ops)] Cluckin' Bell features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                },
+
+                GuzmanFlies = {
+                    hash = J("SN_FlashOps_GuzmanFlies"),
+                    name = "Guzman Flies",
+                    type = eFeatureType.Toggle,
+                    desc = "Enables Guzman Flies features in Flash Operations tab.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Guzman Flies (Flash Ops)] Guzman Flies features should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
+                    end
+                }
+            },
+
+            Agency = {
+                Info = {
+                    Hide = {
+                        hash = J("SN_Agency_Hide"),
+                        name = "Hide",
+                        type = eFeatureType.Button,
+                        desc = "Hides this information.",
+                        func = function(dontShowAgain)
+                            if dontShowAgain then
+                                CONFIG.info.agency = true
+                                FileMgr.SaveConfig(CONFIG)
+                            end
+
+                            HIDE_AGENCY_INFO = true
+                            SilentLogger.LogInfo("[Hide (Agency)] Information should've been hidden ツ")
+                        end
+                    },
+
+                    DontShowAgain = {
+                        hash = J("SN_Agency_DontShowAgain"),
+                        name = "Don't Show Again",
+                        type = eFeatureType.Toggle,
+                        desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Don't Show Again (Agency)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                        end
+                    }
+                },
+
+                Preps = {
+                    Contract = {
+                        hash = J("SN_Agency_Contract"),
+                        name = "Contract",
+                        type = eFeatureType.Combo,
+                        desc = "Select the desired VIP contract.",
+                        list = eTable.Heist.Agency.Contracts,
+                        func = function(ftr)
+                            local list  = eTable.Heist.Agency.Contracts
+                            local index = list[ftr:GetListIndex() + 1].index
+                            SilentLogger.LogInfo(F("[Contract (Agency)] Selected contract: %s ツ", list:GetName(index)))
+                        end
+                    },
+
+                    Complete = {
+                        hash = J("SN_Agency_Complete"),
+                        name = "Apply & Complete Preps",
+                        type = eFeatureType.Button,
+                        desc = "Applies all changes and completes all preparations.",
+                        func = function(contract)
+                            eStat.MPX_FIXER_STORY_BS:Set(contract)
+
+                            if contract < 18 then
+                                eStat.MPX_FIXER_STORY_STRAND:Set(0)
+                            elseif contract < 128 then
+                                eStat.MPX_FIXER_STORY_STRAND:Set(1)
+                            elseif contract < 2044 then
+                                eStat.MPX_FIXER_STORY_STRAND:Set(2)
+                            else
+                                eStat.MPX_FIXER_STORY_STRAND:Set(-1)
+                            end
+
+                            eStat.MPX_FIXER_GENERAL_BS:Set(-1)
+                            eStat.MPX_FIXER_COMPLETED_BS:Set(-1)
+
+                            SilentLogger.LogInfo("[Apply & Complete Preps (Agency)] Preps should've been completed ツ")
+                        end
+                    }
+                },
+
+                Misc = {
+                    Setup = {
+                        hash = J("SN_Agency_Setup"),
+                        name = "Skip Setup",
+                        type = eFeatureType.Button,
+                        desc = "Skips the setup mission for your Agency.",
+                        func = function()
+                            ePackedStat.Business.Agency.Setup:Set(true)
+                            SilentLogger.LogInfo("[Skip Setup (Agency)] Setup should've been skipped ツ")
+                        end
+                    },
+
+                    Teleport = {
+                        Entrance = {
+                            hash = J("SN_Agency_Entrance"),
+                            name = "Teleport to Entrance",
+                            type = eFeatureType.Button,
+                            desc = "Teleports you to the Agency's entrance.",
+                            func = function()
+                                GTA.TeleportToBlip(eTable.BlipSprites.Agency)
+                                SilentLogger.LogInfo("[Teleport to Entrance (Agency)] You should've been teleported to the entrance ツ")
+                            end
+                        },
+
+                        Computer = {
+                            hash = J("SN_Agency_Computer"),
+                            name = "Teleport to Computer",
+                            type = eFeatureType.Button,
+                            desc = "Teleports you to the Agency's computer.",
+                            func = function()
+                                GTA.TeleportXYZ(U(eTable.Teleports.Agency))
+                                SilentLogger.LogInfo("[Teleport to Computer (Agency)] You should've been teleported to the computer ツ")
+                            end
+                        },
+
+                        Mission = {
+                            hash = J("SN_Agency_Board"),
+                            name = "Teleport to Mission",
+                            type = eFeatureType.Button,
+                            desc = "Teleports you to the Agency's mission.",
+                            func = function()
+                                GTA.TeleportToBlip(eTable.BlipSprites.Franklin, nil, true)
+                                SilentLogger.LogInfo("[Teleport to Board (Agency)] You should've been teleported to the mission ツ")
+                            end
+                        }
+                    },
+
+                    Finish = {
+                        hash = Utils.Joaat("SN_Agency_Finish"),
+                        name = "Instant Finish",
+                        type = eFeatureType.Button,
+                        desc = "Finishes the heist instantly. Use after you can see the minimap.",
+                        func = function()
+                            if CONFIG.instant_finish.agency == 1 then
+                                Helper.NewInstantFinishHeist()
+
+                                SilentLogger.LogInfo("[Instant Finish] Heist should've been finished. Method used: New ツ")
+                                return
+                            end
+
+                            GTA.ForceScriptHost(eScript.Heist.New)
+                            Script.Yield(1000)
+                            eLocal.Heist.Agency.Finish.Step1:Set(51338752)
+                            eLocal.Heist.Agency.Finish.Step2:Set(50)
+
+                            SilentLogger.LogInfo("[Instant Finish (Agency)] Heist should've been finished. Method used: Old ツ")
+                        end
+                    },
+
+                    Cooldown = {
+                        hash = J("SN_Agency_Cooldown"),
+                        name = "Kill Cooldowns",
+                        type = eFeatureType.Button,
+                        desc = "Skips the heist's cooldowns. Doesn't skip the cooldown between transactions (20 min).",
+                        func = function()
+                            eTunable.Heist.Agency.Cooldown.Story:Set(0)
+                            eTunable.Heist.Agency.Cooldown.Security:Set(0)
+                            eTunable.Heist.Agency.Cooldown.Payphone:Set(0)
+                            eStat.MPX_FIXER_STORY_COOLDOWN:Set(-1)
+                            SilentLogger.LogInfo("[Kill Cooldowns (Agency)] Cooldowns should've been killed ツ")
+                        end
+                    },
+
+                    Collect = {
+                        hash = J("SN_Agency_Collect"),
+                        name = "Collect Safe",
+                        type = eFeatureType.Button,
+                        desc = "Collects money from your Agency safe.",
+                        func = function()
+                            if eStat.MPX_FIXER_SAFE_CASH_VALUE:Get() ~= 0 then
+                                eGlobal.Business.Agency.Safe.Collect:Set(true)
+                                SilentLogger.LogInfo("[Collect Safe (Agency)] Safe money should've been collected ツ", eToastPos.BOTTOM_RIGHT)
+                            else
+                                SilentLogger.LogInfo("[Collect Safe (Agency)] Agency safe is empty ツ")
+                            end
+                        end
+                    }
+                },
+
+                Payout = {
+                    Select = {
+                        hash = J("SN_Agency_Select"),
+                        name = "Payout",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the desired payout.",
+                        defv = 0,
+                        lims = { 0, 2500000 },
+                        step = 100000,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Payout (Agency)] Payout should've been changed. Don't forget to apply ツ")
+                        end
+                    },
+
+                    Max = {
+                        hash = J("SN_Agency_Max"),
+                        name = "Max",
+                        type = eFeatureType.Button,
+                        desc = "Maximizes the payout, but doesn't apply it.",
+                        func = function()
+                            SilentLogger.LogInfo("[Max (Agency)] Payout should've been maximized. Don't forget to apply ツ")
+                        end
+                    },
+
+                    Apply = {
+                        hash = J("SN_Agency_Apply"),
+                        name = "Apply Payout",
+                        type = eFeatureType.Button,
+                        desc = "Applies the selected payout. Use after you can see the minimap.",
+                        func = function(payout)
+                            eTunable.Heist.Agency.Payout:Set(payout)
+                            SilentLogger.LogInfo("[Apply Payout (Agency)] Payout should've been applied ツ")
+                        end
+                    }
+                }
+            },
+
+            AutoShop = {
+                Info = {
+                    Hide = {
+                        hash = J("SN_AutoShop_Hide"),
+                        name = "Hide",
+                        type = eFeatureType.Button,
+                        desc = "Hides this information.",
+                        func = function(dontShowAgain)
+                            if dontShowAgain then
+                                CONFIG.info.auto_shop = true
+                                FileMgr.SaveConfig(CONFIG)
+                            end
+
+                            HIDE_AUTO_SHOP_INFO = true
+                            SilentLogger.LogInfo("[Hide (Auto Shop)] Information should've been hidden ツ")
+                        end
+                    },
+
+                    DontShowAgain = {
+                        hash = J("SN_AutoShop_DontShowAgain"),
+                        name = "Don't Show Again",
+                        type = eFeatureType.Toggle,
+                        desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Don't Show Again (Auto Shop)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                        end
+                    }
+                },
+
+                Preps = {
+                    Contract = {
+                        hash = J("SN_AutoShop_Contract"),
+                        name = "Contract",
+                        type = eFeatureType.Combo,
+                        desc = "Select the desired contract.",
+                        list = eTable.Heist.AutoShop.Contracts,
+                        func = function(ftr)
+                            local list  = eTable.Heist.AutoShop.Contracts
+                            local index = list[ftr:GetListIndex() + 1].index
+                            SilentLogger.LogInfo(F("[Contract (Auto Shop)] Selected contract: %s ツ", list:GetName(index)))
+                        end
+                    },
+
+                    Complete = {
+                        hash = J("SN_AutoShop_Complete"),
+                        name = "Apply & Complete Preps",
+                        type = eFeatureType.Button,
+                        desc = "Applies all changes and completes all preparations. Also, redraws the planning board.",
+                        func = function(contract)
+                            eStat.MPX_TUNER_CURRENT:Set(contract)
+                            eStat.MPX_TUNER_GEN_BS:Set((contract == 1) and 4351 or 12543)
+                            eLocal.Heist.AutoShop.Reload:Set(2)
+                            SilentLogger.LogInfo("[Apply & Complete Preps (Auto Shop)] Preps should've been completed ツ")
+                        end
+                    },
+
+                    Reset = {
+                        hash = J("SN_AutoShop_Reset"),
+                        name = "Reset Preps",
+                        type = eFeatureType.Button,
+                        desc = "Resets all preparations. Also, redraws the planning board.",
+                        func = function()
+                            eStat.MPX_TUNER_GEN_BS:Set(12467)
+                            eLocal.Heist.AutoShop.Reload:Set(2)
+                            SilentLogger.LogInfo("[Reset Preps (Auto Shop)] Preps should've been reset ツ")
+                        end
+                    },
+
+                    Reload = {
+                        hash = J("SN_AutoShop_Reload"),
+                        name = "Redraw Board",
+                        type = eFeatureType.Button,
+                        desc = "Redraws the planning board.",
+                        func = function()
+                            eLocal.Heist.AutoShop.Reload:Set(2)
+                            SilentLogger.LogInfo("[Redraw Board (Auto Shop)] Board should've been redrawn ツ")
+                        end
+                    }
+                },
+
+                Misc = {
+                    Setup = {
+                        hash = J("SN_AutoShop_Setup"),
+                        name = "Skip Setup",
+                        type = eFeatureType.Button,
+                        desc = "Skips the setup mission for your Auto Shop.",
+                        func = function()
+                            ePackedStat.Business.AutoShop.Setup:Set(true)
+                            SilentLogger.LogInfo("[Skip Setup (Auto Shop)] Setup should've been skipped ツ")
+                        end
+                    },
+
+                    Teleport = {
+                        Entrance = {
+                            hash = J("SN_AutoShop_Entrance"),
+                            name = "Teleport to Entrance",
+                            type = eFeatureType.Button,
+                            desc = "Teleports you to the Auto Shop's entrance.",
+                            func = function()
+                                GTA.TeleportToBlip(eTable.BlipSprites.AutoShop)
+                                SilentLogger.LogInfo("[Teleport to Entrance (Auto Shop)] You should've been teleported to the entrance ツ")
+                            end
+                        },
+
+                        Board = {
+                            hash = J("SN_AutoShop_Board"),
+                            name = "Teleport to Board",
+                            type = eFeatureType.Button,
+                            desc = "Teleports you to the Auto Shop's planning board.",
+                            func = function()
+                                GTA.TeleportXYZ(U(eTable.Teleports.AutoShop))
+                                SilentLogger.LogInfo("[Teleport to Board (Auto Shop)] You should've been teleported to the board ツ")
+                            end
+                        }
+                    },
+
+                    Finish = {
+                        hash = Utils.Joaat("SN_AutoShop_Finish"),
+                        name = "Instant Finish",
+                        type = eFeatureType.Button,
+                        desc = "Finishes the heist instantly. Use after you can see the minimap.",
+                        func = function()
+                            if CONFIG.instant_finish.auto_shop == 1 then
+                                Helper.NewInstantFinishHeist()
+
+                                SilentLogger.LogInfo("[Instant Finish (Auto Shop)] Heist should've been finished. Method used: New ツ")
+                                return
+                            end
+
+                            GTA.ForceScriptHost(eScript.Heist.New)
+                            Script.Yield(1000)
+                            eLocal.Heist.AutoShop.Finish.Step1:Set(51338977)
+                            eLocal.Heist.AutoShop.Finish.Step2:Set(101)
+
+                            SilentLogger.LogInfo("[Instant Finish (Auto Shop)] Heist should've been finished. Method used: Old ツ")
+                        end
+                    },
+
+                    Cooldown = {
+                        hash = J("SN_AutoShop_Cooldown"),
+                        name = "Kill Cooldown",
+                        type = eFeatureType.Button,
+                        desc = "Skips the heist's setup cooldown. Doesn't skip the cooldown between transactions (20 mins).",
+                        func = function()
+                            for i = 0, 7 do
+                                eStat[F("MPX_TUNER_CONTRACT%d_POSIX", i)]:Set(0)
+                            end
+
+                            eTunable.Heist.AutoShop.Cooldown:Set(0)
+
+                            SilentLogger.LogInfo("[Kill Cooldown (Auto Shop)] Cooldowns should've been killed ツ")
+                        end
+                    }
+                },
+
+                Payout = {
+                    Select = {
+                        hash = J("SN_AutoShop_Select"),
+                        name = "Payout",
+                        type = eFeatureType.InputInt,
+                        desc = "Select the desired payout.",
+                        defv = 0,
+                        lims = { 0, 2000000 },
+                        step = 100000,
+                        func = function(ftr)
+                            SilentLogger.LogInfo("[Payout (Auto Shop)] Payout should've been changed. Don't forget to apply ツ")
+                        end
+                    },
+
+                    Max = {
+                        hash = J("SN_AutoShop_Max"),
+                        name = "Max",
+                        type = eFeatureType.Button,
+                        desc = "Maximizes the payout, but doesn't apply it.",
+                        func = function()
+                            SilentLogger.LogInfo("[Max (Auto Shop)] Payout should've been maximized. Don't forget to apply ツ")
+                        end
+                    },
+
+                    Apply = {
+                        hash = J("SN_AutoShop_Apply"),
+                        name = "Apply Payout",
+                        type = eFeatureType.Button,
+                        desc = "Applies the selected payout. Use after you can see the minimap.",
+                        func = function(payout)
+                            eTunable.Heist.AutoShop.Payout.First:Set(payout)
+                            eTunable.Heist.AutoShop.Payout.Second:Set(payout)
+                            eTunable.Heist.AutoShop.Payout.Third:Set(payout)
+                            eTunable.Heist.AutoShop.Payout.Fourth:Set(payout)
+                            eTunable.Heist.AutoShop.Payout.Fifth:Set(payout)
+                            eTunable.Heist.AutoShop.Payout.Sixth:Set(payout)
+                            eTunable.Heist.AutoShop.Payout.Seventh:Set(payout)
+                            eTunable.Heist.AutoShop.Payout.Eight:Set(payout)
+                            eTunable.Heist.AutoShop.Payout.Fee:Set(0.0)
+                            SilentLogger.LogInfo("[Apply Payout (Auto Shop)] Payout should've been applied ツ")
+                        end
+                    }
+                }
+            },
+
+            CluckinBell = {
+                Info = {
+                    Hide = {
+                        hash = J("SN_CluckinBell_Hide"),
+                        name = "Hide",
+                        type = eFeatureType.Button,
+                        desc = "Hides this information.",
+                        func = function(dontShowAgain)
+                            if dontShowAgain then
+                                CONFIG.info.cluckin_bell = true
+                                FileMgr.SaveConfig(CONFIG)
+                            end
+
+                            HIDE_CLUCKIN_BELL_INFO = true
+                            SilentLogger.LogInfo("[Hide (Cluckin' Bell)] Information should've been hidden ツ")
+                        end
+                    },
+
+                    DontShowAgain = {
+                        hash = J("SN_CluckinBell_DontShowAgain"),
+                        name = "Don't Show Again",
+                        type = eFeatureType.Toggle,
+                        desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Don't Show Again (Cluckin' Bell)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                        end
+                    }
+                },
+
+                Preps = {
+                    Stage = {
+                        hash = J("SN_CluckinBell_Stage"),
+                        name = "Stage",
+                        type = eFeatureType.Combo,
+                        desc = "Select the desired stage.",
+                        list = eTable.Heist.CluckinBell.Stages,
+                        func = function(ftr)
+                            local list  = eTable.Heist.CluckinBell.Stages
+                            local index = list[ftr:GetListIndex() + 1].index
+                            SilentLogger.LogInfo(F("[Stage (Cluckin' Bell)] Selected stage: %s ツ", list:GetName(index)))
+                        end
+                    },
+
+                    Complete = {
+                        hash = J("SN_CluckinBell_Complete"),
+                        name = "Apply & Complete Preps",
+                        type = eFeatureType.Button,
+                        desc = "Applies all changes and completes all preparations.",
+                        func = function(stage)
+                            eStat.MPX_SALV23_INST_PROG:Set(stage)
+                            SilentLogger.LogInfo(F("[Apply & Complete Preps (Cluckin' Bell)] Preps should've been completed ツ"))
+                        end
+                    },
+
+                    Reset = {
+                        hash = J("SN_CluckinBell_Reset"),
+                        name = "Reset Preps",
+                        type = eFeatureType.Button,
+                        desc = "Resets all preparations.",
+                        func = function()
+                            eStat.MPX_SALV23_INST_PROG:Set(0)
+                            SilentLogger.LogInfo("[Reset Preps (Doomsday)] Preps should've been reset ツ")
+                        end
+                    }
+                },
+
+                Misc = {
+                    Teleport = {
+                        hash = J("SN_CluckinBell_Teleport"),
+                        name = "Teleport to Mission",
+                        type = eFeatureType.Button,
+                        desc = "Teleports you to The Cluckin' Bell Farm Raid mission.",
+                        func = function()
+                            GTA.TeleportXYZ(U(eTable.Teleports.CluckinBell))
+                            SilentLogger.LogInfo("[Teleport to Mission (Cluckin' Bell)] You should've been teleported to the mission ツ")
+                        end
+                    },
+
+                    Finish = {
+                        hash = Utils.Joaat("SN_CluckinBell_Finish"),
+                        name = "Instant Finish",
+                        type = eFeatureType.Button,
+                        desc = "Finishes the heist instantly. Use after you can see the minimap.",
+                        func = function()
+                            Helper.NewInstantFinishHeist()
+                            SilentLogger.LogInfo("[Instant Finish (Cluckin' Bell)] Heist should've been finished ツ")
+                        end
+                    },
+
+                    Cooldown = {
+                        hash = J("SN_CluckinBell_Cooldown"),
+                        name = "Kill Cooldown",
+                        type = eFeatureType.Button,
+                        desc = "Skips the mission's setup cooldown. Doesn't skip the cooldown between transactions (20 mins).",
+                        func = function()
+                            eStat.MPX_SALV23_CFR_COOLDOWN:Set(-1)
+                            SilentLogger.LogInfo("[Kill Cooldown (Cluckin' Bell)] Cooldown should've been killed ツ")
+                        end
+                    }
+                }
+            },
+
+            GuzmanFlies = {
+                Info = {
+                    Hide = {
+                        hash = J("SN_GuzmanFlies_Hide"),
+                        name = "Hide",
+                        type = eFeatureType.Button,
+                        desc = "Hides this information.",
+                        func = function(dontShowAgain)
+                            if dontShowAgain then
+                                CONFIG.info.guzman_flies = true
+                                FileMgr.SaveConfig(CONFIG)
+                            end
+
+                            HIDE_GUZMAN_FLIES_INFO = true
+                            SilentLogger.LogInfo("[Hide (Guzman Flies)] Information should've been hidden ツ")
+                        end
+                    },
+
+                    DontShowAgain = {
+                        hash = J("SN_GuzmanFlies_DontShowAgain"),
+                        name = "Don't Show Again",
+                        type = eFeatureType.Toggle,
+                        desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                        func = function(ftr)
+                            SilentLogger.LogInfo(F("[Don't Show Again (Guzman Flies)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                        end
+                    }
+                },
+
+                Preps = {
+                    Stage = {
+                        hash = J("SN_GuzmanFlies_Stage"),
+                        name = "Stage",
+                        type = eFeatureType.Combo,
+                        desc = "Select the desired stage.",
+                        list = eTable.Heist.GuzmanFlies.Stages,
+                        func = function(ftr)
+                            local list  = eTable.Heist.GuzmanFlies.Stages
+                            local index = list[ftr:GetListIndex() + 1].index
+                            SilentLogger.LogInfo(F("[Stage (Guzman)] Selected stage: %s ツ", list:GetName(index)))
+                        end
+                    },
+
+                    Complete = {
+                        hash = J("SN_GuzmanFlies_Complete"),
+                        name = "Apply & Complete Preps",
+                        type = eFeatureType.Button,
+                        desc = "Applies all changes and completes all preparations.",
+                        func = function(stage)
+                            eStat.MPX_HACKER24_INST_BS:Set(stage)
+                            SilentLogger.LogInfo(F("[Apply & Complete Preps (Guzman)] Preps should've been completed ツ"))
+                        end
+                    },
+
+                    Reset = {
+                        hash = J("SN_GuzmanFlies_Reset"),
+                        name = "Reset Preps",
+                        type = eFeatureType.Button,
+                        desc = "Resets all preparations.",
+                        func = function()
+                            eStat.MPX_HACKER24_INST_BS:Set(0)
+                            SilentLogger.LogInfo("[Reset Preps (Guzman)] Preps should've been reset ツ")
+                        end
+                    }
+                },
+
+                Misc = {
+                    Teleport = {
+                        Entrance = {
+                            hash = J("SN_GuzmanFlies_Teleport"),
+                            name = "Teleport to Entrance",
+                            type = eFeatureType.Button,
+                            desc = "Teleports you to the McKenzie Field Hangar's entrance.",
+                            func = function()
+                                GTA.TeleportToBlip(eTable.BlipSprites.FieldHangar)
+                                SilentLogger.LogInfo("[Teleport to Entrance (Guzman)] You should've been teleported to the entrance ツ")
+                            end
+                        },
+
+                        Laptop = {
+                            hash = J("SN_GuzmanFlies_Laptop"),
+                            name = "Teleport to Laptop",
+                            type = eFeatureType.Button,
+                            desc = "Teleports you to the McKenzie Field Hangar's laptop.",
+                            func = function()
+                                GTA.TeleportXYZ(U(eTable.Teleports.FieldHangar))
+                                SilentLogger.LogInfo("[Teleport to Laptop (Guzman)] You should've been teleported to the laptop ツ")
+                            end
+                        }
+                    },
+
+                    Finish = {
+                        hash = Utils.Joaat("SN_GuzmanFlies_Finish"),
+                        name = "Instant Finish",
+                        type = eFeatureType.Button,
+                        desc = "Finishes the heist instantly. Use after you can see the minimap.",
+                        func = function()
+                            Helper.NewInstantFinishHeist()
+                            SilentLogger.LogInfo("[Instant Finish (Guzman)] Heist should've been finished ツ")
+                        end
+                    },
+
+                    Cooldown = {
+                        hash = J("SN_GuzmanFlies_Cooldown"),
+                        name = "Kill Cooldown",
+                        type = eFeatureType.Button,
+                        desc = "Skips the mission's setup cooldown. Doesn't skip the cooldown between transactions (20 mins).",
+                        func = function()
+                            eStat.MPX_HACKER24_MFM_COOLDOWN:Set(-1)
+                            SilentLogger.LogInfo("[Kill Cooldown (Guzman)] Cooldown should've been killed ツ")
+                        end
+                    }
+                }
+            }
         }
     },
 
     Business = {
         Bunker = {
+            Info = {
+                Hide = {
+                    hash = J("SN_Bunker_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.bunker = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_BUNKER_INFO = true
+                        SilentLogger.LogInfo("[Hide (Bunker)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_Bunker_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Bunker)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             Sale = {
                 Price = {
                     hash = J("SN_Bunker_Price"),
@@ -4083,6 +4363,34 @@ eFeature = {
         },
 
         Hangar = {
+            Info = {
+                Hide = {
+                    hash = J("SN_Hangar_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.hangar_cargo = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_HANGAR_CARGO_INFO = true
+                        SilentLogger.LogInfo("[Hide (Hangar)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_Hangar_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Hangar)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             Sale = {
                 Price = {
                     hash = J("SN_Hangar_Price"),
@@ -4101,15 +4409,34 @@ eFeature = {
                                     Script.Yield(1000)
                                 end
 
-                                eTunable.Business.Hangar.Price.Mixed:Set(math.floor(4000000 / eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()))
-                                eTunable.Business.Hangar.RonsCut:Set(0.0)
+                                eTunable.Business.Hangar.Price.Mixed:Reset()
+
+                                local forceMixed        = true
+                                local totalValue        = Helper.GetHangarWarehouseValue(forceMixed)
+                                local defaultCratePrice = eTunable.Business.Hangar.Price.Mixed:Get()
+
+                                if totalValue and totalValue > 0 then
+                                    local newCratePrice = math.floor(defaultCratePrice * (4000000 / totalValue))
+                                    eTunable.Business.Hangar.Price.Mixed:Set(newCratePrice)
+
+                                    while Helper.GetHangarWarehouseValue(true) > 4000000 do
+                                        newCratePrice = newCratePrice - 1
+                                        eTunable.Business.Hangar.Price.Mixed:Set(newCratePrice)
+                                    end
+                                else
+                                    local totalCrates = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()
+
+                                    if totalCrates > 0 then
+                                        eTunable.Business.Hangar.Price.Mixed:Set(math.floor(4000000 / totalCrates))
+                                    end
+                                end
 
                                 if not loggedHangarPrice then
                                     SilentLogger.LogInfo("[Maximize Price (Hangar)] Price should've been maximized ツ")
                                     loggedHangarPrice = true
                                 end
                             else
-                                eTunable.Business.Hangar.Price:Reset()
+                                eTunable.Business.Hangar.Price.Mixed:Reset()
                                 eTunable.Business.Hangar.RonsCut:Reset()
                                 SilentLogger.LogInfo("[Maximize Price (Hangar)] Price should've been reset ツ")
                                 loggedHangarPrice = false
@@ -4186,7 +4513,7 @@ eFeature = {
                         type = eFeatureType.Toggle,
                         desc = "Enables deeper cargo management for your Hangar.",
                         func = function(ftr)
-                            if SCRIPT_EDTN == eTable.Editions.Standard then
+                            if Script.IsStandardEdition() then
                                 SilentLogger.LogInfo("[Pocket Dimension (Hangar)] This feature requires «Supporter» Script Edition ツ")
                                 ftr:Toggle(false)
                                 return
@@ -4254,11 +4581,21 @@ eFeature = {
                         end
                     },
 
+                    CustomDelay = {
+                        hash = J("SN_Hangar_CustomDelay"),
+                        name = "?",
+                        type = eFeatureType.Button,
+                        desc = "Why are you reading this description? Dummy.",
+                        func = function()
+                            SilentLogger.LogInfo("[? (Hangar)] Why are you pressing this button? Dummy ツ")
+                        end
+                    },
+
                     CustomLimit = {
                         hash = J("SN_Hangar_CustomLimit"),
                         name = "Custom Limit",
                         type = eFeatureType.Button,
-                        desc = "Set a custom cargo limit for the Pocket Dimension supplier. The default limit is unlimited.",
+                        desc = "Set a custom cargo limit for the deeper supplier. The default limit is unlimited.",
                         func = function()
                             SilentLogger.LogInfo("[Custom Cargo Limit (Hangar)] Custom cargo limit should've been enabled ツ")
                         end
@@ -4281,7 +4618,7 @@ eFeature = {
                         hash = J("SN_Hangar_Limit"),
                         name = "Limit",
                         type = eFeatureType.InputInt,
-                        desc = "Select the desired cargo limit at which the deeper supplier should stop. Set to 0 to use the default.",
+                        desc = "Select the preferred cargo limit at which the deeper supplier should stop. Set to 0 to use the default.",
                         defv = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get() + 50,
                         lims = { 0, INT32_MAX },
                         step = 50,
@@ -4309,7 +4646,7 @@ eFeature = {
                         hash = J("SN_Hangar_Type"),
                         name = "Type",
                         type = eFeatureType.Combo,
-                        desc = "Select the desired cargo type for the deeper supplier to source. Set to Animal Materials to use the default.",
+                        desc = "Select the preferred cargo type for the deeper supplier to source. Set to Animal Materials to use the default.",
                         list = eTable.Business.Hangar.Cargoes,
                         func = function(ftr)
                             local list  = eTable.Business.Hangar.Cargoes
@@ -4864,12 +5201,40 @@ eFeature = {
         },
 
         Nightclub = {
+            Info = {
+                Hide = {
+                    hash = J("SN_Nightclub_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.nightclub = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_NIGHTCLUB_INFO = true
+                        SilentLogger.LogInfo("[Hide (Nightclub)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_Nightclub_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Nightclub)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             Sale = {
                 Price = {
                     hash = J("SN_Nightclub_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "CAUTION: might be unsafe, bans reported in the past.\nApplies the maximum price for goods. Don't sell «All Goods».",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nApplies the maximum price for goods. Don't use «Sell All Goods» button.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if not GTA.IsInSessionAlone() then
@@ -5190,6 +5555,34 @@ eFeature = {
         },
 
         CrateWarehouse = {
+            Info = {
+                Hide = {
+                    hash = J("SN_CrateWarehouse_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.special_cargo = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_SPECIAL_CARGO_INFO = true
+                        SilentLogger.LogInfo("[Hide (Special Cargo)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_CrateWarehouse_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Special Cargo)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             Sale = {
                 Price = {
                     hash = J("SN_CrateWarehouse_Price"),
@@ -5778,6 +6171,34 @@ eFeature = {
 
     Money = {
         Casino = {
+            Info = {
+                Hide = {
+                    hash = J("SN_Casino_Hide"),
+                    name = "Hide",
+                    type = eFeatureType.Button,
+                    desc = "Hides this information.",
+                    func = function(dontShowAgain)
+                        if dontShowAgain then
+                            CONFIG.info.casino = true
+                            FileMgr.SaveConfig(CONFIG)
+                        end
+
+                        HIDE_CASINO_INFO = true
+                        SilentLogger.LogInfo("[Hide (Casino)] Information should've been hidden ツ")
+                    end
+                },
+
+                DontShowAgain = {
+                    hash = J("SN_Casino_DontShowAgain"),
+                    name = "Don't Show Again",
+                    type = eFeatureType.Toggle,
+                    desc = "Prevents this information from showing again. Config reset in script's «Settings» is required to forget this choice.",
+                    func = function(ftr)
+                        SilentLogger.LogInfo(F("[Don't Show Again (Casino)] Information will%s be shown again ツ", ftr:IsToggled() and " not" or ""))
+                    end
+                }
+            },
+
             LuckyWheel = {
                 Select = {
                     hash = J("SN_Casino_LuckyWheelSelect"),
@@ -5961,6 +6382,33 @@ eFeature = {
                 func = function(ftr)
                     SilentLogger.LogInfo(F("[I Acknowledge (Easy Money)] Easy Money should've been %s ツ", (ftr:IsToggled()) and "enabled" or "disabled"))
                 end
+            },
+
+            Instant = {
+                Give30m = {
+                    hash = J("SN_EasyMoney_Give30m"),
+                    name = "Give 30mil",
+                    type = eFeatureType.Button,
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nGives you 30 million dollars in a few seconds.",
+                    func = function(ftrAcknowledge)
+                        if not ftrAcknowledge:IsToggled() then
+                            SilentLogger.LogError("[Give 30mil (Easy Money)] You must acknowledge the risks first ツ")
+                            return
+                        end
+
+                        GTA.TriggerTransaction(0xA174F633)
+                        Script.Yield(3000)
+                        GTA.TriggerTransaction(0xED97AFC1)
+                        Script.Yield(3000)
+                        GTA.TriggerTransaction(0x176D9D54)
+                        Script.Yield(3000)
+                        GTA.TriggerTransaction(0x4B6A869C)
+                        Script.Yield(3000)
+                        GTA.TriggerTransaction(0x921FCF3C)
+                        Script.Yield(3000)
+                        GTA.TriggerTransaction(0x314FB8B0)
+                    end
+                }
             },
 
             Freeroam = {
@@ -7297,6 +7745,20 @@ eFeature = {
                 type = eFeatureType.Button,
                 desc = "ATTENTION: cannot be undone.\nResets the config to default.",
                 func = function()
+                    HIDE_AGENCY_INFO         = false
+                    HIDE_APARTMENT_INFO      = false
+                    HIDE_AUTO_SHOP_INFO      = false
+                    HIDE_BUNKER_INFO         = false
+                    HIDE_CASINO_INFO         = false
+                    HIDE_CAYO_PERICO_INFO    = false
+                    HIDE_CLUCKIN_BELL_INFO   = false
+                    HIDE_DIAMOND_CASINO_INFO = false
+                    HIDE_DOOMSDAY_INFO       = false
+                    HIDE_GUZMAN_FLIES_INFO   = false
+                    HIDE_HANGAR_CARGO_INFO   = false
+                    HIDE_SALVAGE_YARD_INFO   = false
+                    HIDE_SPECIAL_CARGO_INFO  = false
+
                     loggedAutoOpen        = CONFIG.autoopen
                     loggedYolo            = CONFIG.yolo_mode
                     loggedCompatibility   = CONFIG.compatibility_mode
@@ -7309,6 +7771,7 @@ eFeature = {
                     loggedAutoDeposit     = CONFIG.easy_money.autodeposit
                     loggedDummyPrevention = CONFIG.easy_money.dummy_prevention
                     loggedAllow300kLoop   = CONFIG.easy_money.allow_300k_loop
+
                     FileMgr.ResetConfig()
                     CONFIG = Json.DecodeFromFile(CONFIG_PATH)
                     SilentLogger.LogInfo("[Reset (Settings)] Config should've been reset to default ツ")

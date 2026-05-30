@@ -311,7 +311,7 @@ function Helper.ApplyDoomsdayPreset(preps)
     CONFIG.logging = temp
 end
 
-function Helper.GetHangarWarehouseValue()
+function Helper.GetHangarWarehouseValue(forceMixed)
     local function GetCargoTypeFromCrateType(crateType)
         if crateType == -1 then
             return -1
@@ -371,7 +371,7 @@ function Helper.GetHangarWarehouseValue()
             multiplier = eTunable.Business.Hangar.Multiplier:Get()
         end
 
-        return price[cargoType] * multiplier or 0
+        return math.floor((price[cargoType] * multiplier) + 0.5) or 0
     end
 
     local function GetBonusPercentageForCargoType(cargoType, amount)
@@ -408,6 +408,10 @@ function Helper.GetHangarWarehouseValue()
 
     local mixed       = 8
     local totalCrates = GetAmountForCargoType(mixed)
+
+    if forceMixed then
+        return GetPriceForCargoType(mixed) * totalCrates
+    end
 
     local value            = 0
     local uniqueTypesCount = 0

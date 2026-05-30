@@ -2,6 +2,13 @@
 
 --#region Casino
 
+FeatureMgr.AddFeature(eFeature.Money.Casino.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Money.Casino.Info.DontShowAgain)
+    eFeature.Money.Casino.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Money.Casino.Info.DontShowAgain)
+
 FeatureMgr.AddFeature(eFeature.Money.Casino.LuckyWheel.Select)
 
 FeatureMgr.AddFeature(eFeature.Money.Casino.LuckyWheel.Give, function(f)
@@ -39,6 +46,11 @@ end)
 --#region Easy Money
 
 FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Acknowledge)
+
+FeatureMgr.AddFeature(eFeature.Money.EasyMoney.Instant.Give30m, function(f)
+    local ftr = FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Acknowledge)
+    eFeature.Money.EasyMoney.Instant.Give30m.func(ftr)
+end)
 
 for i = 1, #easyLoops do
     local ftr = FeatureMgr.GetFeature(eFeature.Money.EasyMoney.Acknowledge)

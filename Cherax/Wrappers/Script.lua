@@ -1,5 +1,9 @@
 --#region Script
 
+function Script.IsStandardEdition()
+    return SCRIPT_EDTN == eTable.Editions.Standard
+end
+
 function Script.LoadDefaultTranslation()
     local path = F("%s\\EN.json", TRANS_DIR)
 
@@ -494,21 +498,21 @@ Script.RegisterLooped(function()
     FeatureMgr.GetFeature(eFeature.Business.Nightclub.Misc.Setup):SetVisible(not ePackedStat.Business.Nightclub.Setup.DJ:Get())
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Cuts.MaxPayout) then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if not Script.IsStandardEdition() then
             local ftr = eFeature.Heist.Apartment.Cuts.Double
             eFeature.Heist.Apartment.Cuts.Presets.func(FeatureMgr.GetFeature(ftr):IsToggled())
         end
     end
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Cuts.MaxPayout) then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if not Script.IsStandardEdition() then
             FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Crew):Toggle(false):SetVisible(false)
             eFeature.Heist.CayoPerico.Cuts.Presets.func()
         end
     end
 
     if FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Cuts.MaxPayout) then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if not Script.IsStandardEdition() then
             FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Crew):Toggle(true):SetVisible(false)
             eFeature.Heist.DiamondCasino.Cuts.Presets.func()
         end
@@ -541,7 +545,7 @@ Script.RegisterLooped(function()
 
     IS_FLEECA_ACTIVE = eStat.MPX_HEIST_MISSION_RCONT_ID_0:Get() == eTable.Heist.Apartment.Data.FleecaJob.RcontIDs[1]
     HANGAR_STOCK     = eStat.MPX_HANGAR_CONTRABAND_TOTAL:Get()
-    HANGAR_VALUE     = Helper.GetHangarWarehouseValue()
+    HANGAR_VALUE     = Helper.GetHangarWarehouseValue(FeatureMgr.GetFeatureBool(eFeature.Business.Hangar.Sale.Price))
     GLOBAL_XP_SYNCED = eStat.MPPLY_GLOBALXP:Get() == eGlobal.Player.RP:Get()
     KD_RATIO         = eStat.MPPLY_KILLS_PLAYERS:Get() / ((eStat.MPPLY_DEATHS_PLAYER:Get() == 0) and 1.0 or eStat.MPPLY_DEATHS_PLAYER:Get())
     NEW_KD_RATIO     = kills / ((deaths == 0) and 1.0 or deaths)
@@ -567,7 +571,7 @@ Script.RegisterLooped(function()
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Dates.Apply):SetVisible(CURRENT_DATE ~= NEW_DATE)
     FeatureMgr.GetFeature(eFeature.Dev.Stats.Prostitutes.Apply):SetVisible(PRIVATE_DANCES ~= dances or SEX_ACTS ~= acts)
 
-    FeatureMgr.GetFeature(eFeature.Settings.Info.Copy):SetVisible(SCRIPT_EDTN == eTable.Editions.Standard)
+    FeatureMgr.GetFeature(eFeature.Settings.Info.Copy):SetVisible(Script.IsStandardEdition())
 
     Helper.RegisterAsBoss()
 
@@ -632,6 +636,108 @@ Script.RegisterLooped(function()
     end
 
     Script.Yield()
+end)
+
+HIDE_AGENCY_INFO         = CONFIG.info.agency
+HIDE_APARTMENT_INFO      = CONFIG.info.apartment
+HIDE_AUTO_SHOP_INFO      = CONFIG.info.auto_shop
+HIDE_BUNKER_INFO         = CONFIG.info.bunker
+HIDE_CASINO_INFO         = CONFIG.info.casino
+HIDE_CAYO_PERICO_INFO    = CONFIG.info.cayo_perico
+HIDE_CLUCKIN_BELL_INFO   = CONFIG.info.cluckin_bell
+HIDE_DIAMOND_CASINO_INFO = CONFIG.info.diamond_casino
+HIDE_DOOMSDAY_INFO       = CONFIG.info.doomsday
+HIDE_GUZMAN_FLIES_INFO   = CONFIG.info.guzman_flies
+HIDE_NIGHTCLUB_INFO      = CONFIG.info.nightclub
+HIDE_HANGAR_CARGO_INFO   = CONFIG.info.hangar_cargo
+HIDE_SALVAGE_YARD_INFO   = CONFIG.info.salvage_yard
+HIDE_SPECIAL_CARGO_INFO  = CONFIG.info.special_cargo
+
+SHOW_SUPPORTER_TOOLTIP     = false
+SHOW_YOLO_TOOLTIP          = false
+SHOW_COMPATIBILITY_TOOLTIP = false
+SHOW_POCKET_DELAY_TOOLTIP  = false
+SHOW_DONT_TOOLTIP          = false
+
+SUPPORTER_TOOLTIP     = "This feature requires «Supporter» Script Edition."
+YOLO_TOOLTIP          = "This feature requires «YOLO Mode» in script's «Settings» to be enabled."
+COMPATIBILITY_TOOLTIP = "This feature requires «Compatibility Mode» in script's «Settings» to be disabled."
+POCKET_DELAY_TOOLTIP  = "This feature can be faster with adjustments in script's «Settings»."
+
+Script.RegisterLooped(function()
+    if ShouldUnload() then return end
+
+    local supporterFeatures = {
+        eFeature.Heist.Apartment.Cuts.MaxPayout,
+        eFeature.Heist.CayoPerico.Cuts.MaxPayout,
+        eFeature.Heist.DiamondCasino.Cuts.MaxPayout,
+        eFeature.Heist.Doomsday.Cuts.MaxPayout,
+        eFeature.Business.Hangar.Supplies.PocketDimension.Toggle
+    }
+
+    local yoloFeatures = {
+        eFeature.Business.Bunker.Sale.Price,
+        eFeature.Business.Hangar.Sale.Price,
+        eFeature.Business.Nightclub.Sale.Price,
+        eFeature.Business.CrateWarehouse.Sale.Price,
+        eFeature.Money.Casino.Slots.Win,
+        eFeature.Money.EasyMoney.Acknowledge,
+        eFeature.Money.EasyMoney.Instant.Give30m,
+        eFeature.Money.EasyMoney.Freeroam._5k,
+        eFeature.Money.EasyMoney.Freeroam._50k,
+        eFeature.Money.EasyMoney.Freeroam._100k,
+        eFeature.Money.EasyMoney.Freeroam._180k,
+        eFeature.Money.EasyMoney.Freeroam._680k,
+        eFeature.Money.EasyMoney.Property._300k
+    }
+
+    local ftr = FeatureMgr.GetHoveredFeature()
+
+    if ftr then
+        for _, feature in ipairs(supporterFeatures) do
+            if ftr:GetHash() == feature.hash and Script.IsStandardEdition() then
+                SHOW_SUPPORTER_TOOLTIP = true
+                break
+            else
+                SHOW_SUPPORTER_TOOLTIP = false
+            end
+        end
+
+        for _, feature in ipairs(yoloFeatures) do
+            if ftr:GetHash() == feature.hash and not CONFIG.yolo_mode then
+                SHOW_YOLO_TOOLTIP = true
+                break
+            else
+                SHOW_YOLO_TOOLTIP = false
+            end
+        end
+
+        if ftr:GetHash() == eFeature.Settings.RegisterAsBoss.AutoRegister.hash then
+            SHOW_COMPATIBILITY_TOOLTIP = true
+        else
+            SHOW_COMPATIBILITY_TOOLTIP = false
+        end
+
+        if ftr:GetHash() == eFeature.Settings.Config.Yolo.hash then
+            SHOW_DONT_TOOLTIP = true
+        else
+            SHOW_DONT_TOOLTIP = false
+        end
+
+        if ftr:GetHash() == eFeature.Business.Hangar.Supplies.PocketDimension.CustomDelay.hash then
+            SHOW_POCKET_DELAY_TOOLTIP = true
+        else
+            SHOW_POCKET_DELAY_TOOLTIP = false
+        end
+    else
+        SHOW_SUPPORTER_TOOLTIP     = false
+        SHOW_YOLO_TOOLTIP          = false
+        SHOW_COMPATIBILITY_TOOLTIP = false
+        SHOW_DONT_TOOLTIP          = false
+        SHOW_POCKET_DELAY_TOOLTIP  = false
+    end
+
+    Script.Yield(500)
 end)
 
 FileMgr.ExportTranslation("EN")

@@ -2,6 +2,13 @@
 
 --#region Bunker
 
+FeatureMgr.AddFeature(eFeature.Business.Bunker.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Business.Bunker.Info.DontShowAgain)
+    eFeature.Business.Bunker.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.Bunker.Info.DontShowAgain)
+
 FeatureMgr.AddLoop(eFeature.Business.Bunker.Sale.Price, nil, function(f)
     eFeature.Business.Bunker.Sale.Price.func(f)
 end)
@@ -64,6 +71,13 @@ end)
 
 --#region Hangar Cargo
 
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Business.Hangar.Info.DontShowAgain)
+    eFeature.Business.Hangar.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Info.DontShowAgain)
+
 FeatureMgr.AddLoop(eFeature.Business.Hangar.Sale.Price, nil, function(f)
     eFeature.Business.Hangar.Sale.Price.func(f)
 end)
@@ -83,7 +97,7 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle, function(f)
     eFeature.Business.Hangar.Supplies.PocketDimension.Toggle.func(f)
-    if SCRIPT_EDTN == eTable.Editions.Standard then return end
+    if Script.IsStandardEdition() then return end
 
     if f:IsToggled() then
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.Supply):SetVisible(false)
@@ -91,6 +105,7 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle, 
             :SetVisible(false)
             :Toggle(false)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.StartStop):SetVisible(true)
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomDelay):SetVisible(true)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit):SetVisible(true)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomType):SetVisible(true)
     else
@@ -100,6 +115,7 @@ FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle, 
             :SetVisible(false)
             :Toggle(false)
 
+        FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomDelay):SetVisible(false)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit):SetVisible(false)
         FeatureMgr.GetFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter)
             :SetVisible(false)
@@ -126,6 +142,8 @@ end, function(f)
     eFeature.Business.Hangar.Supplies.PocketDimension.StartStop.func(f, false, false, 0, 0, 0)
 end)
     :SetVisible(false)
+
+FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomDelay):SetVisible(false)
 
 FeatureMgr.AddFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit, function(f)
     f:SetVisible(false)
@@ -278,6 +296,13 @@ FeatureMgr.AddFeature(eFeature.Business.MoneyFronts.OverallHeat.Select)
 
 --#region Nightclub
 
+FeatureMgr.AddFeature(eFeature.Business.Nightclub.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Business.Nightclub.Info.DontShowAgain)
+    eFeature.Business.Nightclub.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.Nightclub.Info.DontShowAgain)
+
 FeatureMgr.AddLoop(eFeature.Business.Nightclub.Sale.Price, nil, function(f)
     eFeature.Business.Nightclub.Sale.Price.func(f)
 end)
@@ -341,6 +366,13 @@ FeatureMgr.AddFeature(eFeature.Business.Nightclub.Popularity.Select)
 --#endregion
 
 --#region Special Cargo
+
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Business.CrateWarehouse.Info.DontShowAgain)
+    eFeature.Business.CrateWarehouse.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Business.CrateWarehouse.Info.DontShowAgain)
 
 FeatureMgr.AddLoop(eFeature.Business.CrateWarehouse.Sale.Price, nil, function(f)
     eFeature.Business.CrateWarehouse.Sale.Price.func(f)

@@ -6,6 +6,24 @@ function Renderer.RenderHeistTool()
     if ImGui.BeginTabItem("Heist Tool") then
         if ImGui.BeginTabBar("Heist Tabs") then
             if ImGui.BeginTabItem("Apartment") then
+                if not CONFIG.info.apartment then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Information") then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Known limitations per player per heist:")
+                            ImGui.TextColored("Max. Payout:", r, g, b, a, "$3,000,000")
+                            ImGui.TextColored("Min. Cooldown:", r, g, b, a, "±0 minutes")
+                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                            ImGui.TextColored("Ignoring these limitations will result in a transaction error!", r, g, b, a)
+                            ClickGUI.RenderFeature(eFeature.Heist.Apartment.Info.Hide)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Heist.Apartment.Info.DontShowAgain)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Preps") then
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Preps.Heist)
@@ -70,7 +88,17 @@ function Renderer.RenderHeistTool()
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.Bonus)
                         ImGui.ResetFrameBgStyle()
+
+                        if Script.IsStandardEdition() then
+                            ImGui.BeginDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.MaxPayout)
+
+                        if Script.IsStandardEdition() then
+                            ImGui.EndDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.Double)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.Presets)
                         ClickGUI.RenderFeature(eFeature.Heist.Apartment.Cuts.Player1.Toggle)
@@ -98,6 +126,24 @@ function Renderer.RenderHeistTool()
             end
 
             if ImGui.BeginTabItem("Cayo Perico") then
+                if not CONFIG.info.cayo_perico then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Information") then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Known limitations per player per heist:")
+                            ImGui.TextColored("Max. Payout:", r, g, b, a, "$2,550,000")
+                            ImGui.TextColored("Min. Cooldown:", r, g, b, a, "±15-20 minutes")
+                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                            ImGui.TextColored("Ignoring these limitations will result in a transaction error!", r, g, b, a)
+                            ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Info.Hide)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Info.DontShowAgain)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Preps") then
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Preps.Difficulty)
@@ -183,7 +229,17 @@ function Renderer.RenderHeistTool()
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.Crew)
                         ImGui.ResetFrameBgStyle()
+
+                        if Script.IsStandardEdition() then
+                            ImGui.BeginDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.MaxPayout)
+
+                        if Script.IsStandardEdition() then
+                            ImGui.EndDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.Presets)
                         ClickGUI.RenderFeature(eFeature.Heist.CayoPerico.Cuts.Player1.Toggle)
                         ImGui.SameLine()
@@ -212,6 +268,24 @@ function Renderer.RenderHeistTool()
             end
 
             if ImGui.BeginTabItem("Diamond Casino") then
+                if not CONFIG.info.diamond_casino then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Information") then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Known limitations per player per heist:")
+                            ImGui.TextColored("Max. Payout:", r, g, b, a, "$3,619,000")
+                            ImGui.TextColored("Min. Cooldown:", r, g, b, a, "±15-20 minutes")
+                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                            ImGui.TextColored("Ignoring these limitations will result in a transaction error!", r, g, b, a)
+                            ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Info.Hide)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Info.DontShowAgain)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Preps") then
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Preps.Difficulty)
@@ -291,7 +365,17 @@ function Renderer.RenderHeistTool()
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Crew)
                         ImGui.ResetFrameBgStyle()
+
+                        if Script.IsStandardEdition() then
+                            ImGui.BeginDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.MaxPayout)
+
+                        if Script.IsStandardEdition() then
+                            ImGui.EndDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Presets)
                         ClickGUI.RenderFeature(eFeature.Heist.DiamondCasino.Cuts.Player1.Toggle)
                         ImGui.SameLine()
@@ -322,6 +406,24 @@ function Renderer.RenderHeistTool()
             end
 
             if ImGui.BeginTabItem("Doomsday") then
+                if not CONFIG.info.doomsday then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Information") then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Known limitations per player per heist:")
+                            ImGui.TextColored("Max. Payout:", r, g, b, a, "$2,550,000")
+                            ImGui.TextColored("Min. Cooldown:", r, g, b, a, "±15-20 minutes")
+                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                            ImGui.TextColored("Ignoring these limitations will result in a transaction error!", r, g, b, a)
+                            ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Info.Hide)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Info.DontShowAgain)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Preps") then
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Preps.Act)
@@ -381,9 +483,18 @@ function Renderer.RenderHeistTool()
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Cuts") then
+                        if Script.IsStandardEdition() then
+                            ImGui.BeginDisabled()
+                        end
+
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Cuts.MaxPayout)
                         ImGui.ResetFrameBgStyle()
+
+                        if Script.IsStandardEdition() then
+                            ImGui.EndDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Cuts.Presets)
                         ClickGUI.RenderFeature(eFeature.Heist.Doomsday.Cuts.Player1.Toggle)
                         ImGui.SameLine()
@@ -412,6 +523,24 @@ function Renderer.RenderHeistTool()
             end
 
             if ImGui.BeginTabItem("Salvage Yard") then
+                if not CONFIG.info.salvage_yard then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Information") then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Known limitations for salvaging and selling the vehicles:")
+                            ImGui.TextColored("Max. Payout:", r, g, b, a, "$2,100,000")
+                            ImGui.TextColored("Min. Cooldown:", r, g, b, a, "±15-20 minutes")
+                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                            ImGui.TextColored("Ignoring these limitations will result in a transaction error!", r, g, b, a)
+                            ClickGUI.RenderFeature(eFeature.Heist.SalvageYard.Info.Hide)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Heist.SalvageYard.Info.DontShowAgain)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Slot 1") then
                         ClickGUI.RenderFeature(eFeature.Heist.SalvageYard.Slot1.Available)
@@ -504,6 +633,24 @@ function Renderer.RenderHeistTool()
                 end
 
                 if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.Agency) then
+                    if not HIDE_AGENCY_INFO then
+                        if ImGui.BeginColumns(1) then
+                            if ClickGUI.BeginCustomChildWindow("Information") then
+                                local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                                ImGui.TextColored("Known limitations per heist:")
+                                ImGui.TextColored("Max. Payout:", r, g, b, a, "$2,500,000")
+                                ImGui.TextColored("Min. Cooldown:", r, g, b, a, "±15-20 minutes")
+                                local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                                ImGui.TextColored("Ignoring these limitations will result in a transaction error!", r, g, b, a)
+                                ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Info.Hide)
+                                ImGui.SameLine()
+                                ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Info.DontShowAgain)
+                                ClickGUI.EndCustomChildWindow()
+                            end
+                            ImGui.EndColumns()
+                        end
+                    end
+
                     if ImGui.BeginColumns(3) then
                         if ClickGUI.BeginCustomChildWindow("Preps") then
                             ClickGUI.RenderFeature(eFeature.Heist.FlashOps.Agency.Preps.Contract)
@@ -548,6 +695,24 @@ function Renderer.RenderHeistTool()
                 end
 
                 if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.AutoShop) then
+                    if not HIDE_AUTO_SHOP_INFO then
+                        if ImGui.BeginColumns(1) then
+                            if ClickGUI.BeginCustomChildWindow("Information") then
+                                local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                                ImGui.TextColored("Known limitations per heist:")
+                                ImGui.TextColored("Max. Payout:", r, g, b, a, "$2,000,000")
+                                ImGui.TextColored("Min. Cooldown:", r, g, b, a, "±15-20 minutes")
+                                local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                                ImGui.TextColored("Ignoring these limitations will result in a transaction error!", r, g, b, a)
+                                ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Info.Hide)
+                                ImGui.SameLine()
+                                ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Info.DontShowAgain)
+                                ClickGUI.EndCustomChildWindow()
+                            end
+                            ImGui.EndColumns()
+                        end
+                    end
+
                     if ImGui.BeginColumns(3) then
                         if ClickGUI.BeginCustomChildWindow("Preps") then
                             ClickGUI.RenderFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Contract)
@@ -592,6 +757,24 @@ function Renderer.RenderHeistTool()
                 end
 
                 if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.CluckinBell) then
+                    if not HIDE_CLUCKIN_BELL_INFO then
+                        if ImGui.BeginColumns(1) then
+                            if ClickGUI.BeginCustomChildWindow("Information") then
+                                local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                                ImGui.TextColored("Known limitations per heist:")
+                                ImGui.TextColored("Max. Payout:", r, g, b, a, "$1,000,000")
+                                ImGui.TextColored("Min. Cooldown:", r, g, b, a, "±15-20 minutes")
+                                local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                                ImGui.TextColored("Ignoring these limitations will result in a transaction error!", r, g, b, a)
+                                ClickGUI.RenderFeature(eFeature.Heist.FlashOps.CluckinBell.Info.Hide)
+                                ImGui.SameLine()
+                                ClickGUI.RenderFeature(eFeature.Heist.FlashOps.CluckinBell.Info.DontShowAgain)
+                                ClickGUI.EndCustomChildWindow()
+                            end
+                            ImGui.EndColumns()
+                        end
+                    end
+
                     if ImGui.BeginColumns(3) then
                         if ClickGUI.BeginCustomChildWindow("Preps") then
                             ClickGUI.RenderFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Stage)
@@ -625,6 +808,24 @@ function Renderer.RenderHeistTool()
                 end
 
                 if FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Toggles.GuzmanFlies) then
+                    if not HIDE_GUZMAN_FLIES_INFO then
+                        if ImGui.BeginColumns(1) then
+                            if ClickGUI.BeginCustomChildWindow("Information") then
+                                local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                                ImGui.TextColored("Known limitations per heist:")
+                                ImGui.TextColored("Max. Payout:", r, g, b, a, "$550,000")
+                                ImGui.TextColored("Min. Cooldown:", r, g, b, a, "±15-20 minutes")
+                                local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                                ImGui.TextColored("Ignoring these limitations will result in a transaction error!", r, g, b, a)
+                                ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Info.Hide)
+                                ImGui.SameLine()
+                                ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Info.DontShowAgain)
+                                ClickGUI.EndCustomChildWindow()
+                            end
+                            ImGui.EndColumns()
+                        end
+                    end
+
                     if ImGui.BeginColumns(3) then
                         if ClickGUI.BeginCustomChildWindow("Preps") then
                             ClickGUI.RenderFeature(eFeature.Heist.FlashOps.GuzmanFlies.Preps.Stage)
@@ -669,13 +870,37 @@ function Renderer.RenderBusinessTool()
     if ImGui.BeginTabItem("Business Tool") then
         if ImGui.BeginTabBar("Business Tabs") then
             if ImGui.BeginTabItem("Bunker") then
+                if not HIDE_BUNKER_INFO then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Information") then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Known limitations per sale:")
+                            ImGui.TextColored("Max. Payout:", r, g, b, a, "$2,500,000")
+                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                            ImGui.TextColored("Ignoring these limitations may result in a transaction error or even a ban!", r, g, b, a)
+                            ClickGUI.RenderFeature(eFeature.Business.Bunker.Info.Hide)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Business.Bunker.Info.DontShowAgain)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
-                        if CONFIG.yolo_mode then
-                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                            ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.Price)
-                            ImGui.ResetFrameBgStyle()
+                        if not CONFIG.yolo_mode then
+                            ImGui.BeginDisabled()
                         end
+
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.Price)
+                        ImGui.ResetFrameBgStyle()
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.EndDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.NoXp)
                         ClickGUI.RenderFeature(eFeature.Business.Bunker.Sale.Sell)
                         ClickGUI.EndCustomChildWindow()
@@ -718,13 +943,37 @@ function Renderer.RenderBusinessTool()
             end
 
             if ImGui.BeginTabItem("Hangar Cargo") then
+                if not HIDE_HANGAR_CARGO_INFO then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Information") then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Known limitations per sale:")
+                            ImGui.TextColored("Max. Payout:", r, g, b, a, "$4,000,000")
+                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                            ImGui.TextColored("Ignoring these limitations may result in a transaction error or even a ban!", r, g, b, a)
+                            ClickGUI.RenderFeature(eFeature.Business.Hangar.Info.Hide)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Business.Hangar.Info.DontShowAgain)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
-                        if CONFIG.yolo_mode then
-                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                            ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.Price)
-                            ImGui.ResetFrameBgStyle()
+                        if not CONFIG.yolo_mode then
+                            ImGui.BeginDisabled()
                         end
+
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.Price)
+                        ImGui.ResetFrameBgStyle()
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.EndDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.NoXp)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Sale.Sell)
                         ClickGUI.EndCustomChildWindow()
@@ -735,7 +984,16 @@ function Renderer.RenderBusinessTool()
                     if ClickGUI.BeginCustomChildWindow("Supplies") then
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Supply)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.Supplier)
+
+                        if Script.IsStandardEdition() then
+                            ImGui.BeginDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle)
+
+                        if Script.IsStandardEdition() then
+                            ImGui.EndDisabled()
+                        end
 
                         if FeatureMgr.GetFeatureBool(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle) then
                             local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
@@ -744,6 +1002,19 @@ function Renderer.RenderBusinessTool()
                         end
 
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.StartStop)
+
+                        if FeatureMgr.GetFeatureBool(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle) then
+                            ImGui.SameLine()
+                        end
+
+                        ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomDelay)
+
+                        if FeatureMgr.GetFeatureBool(eFeature.Business.Hangar.Supplies.PocketDimension.Toggle) then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.Separator()
+                            ImGui.TextColored("Custom Delay:", r, g, b, a, F("%.3f", CONFIG.pocket_dimension.delay))
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomLimit)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Filter)
 
@@ -754,6 +1025,7 @@ function Renderer.RenderBusinessTool()
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Limit)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.CustomType)
                         ClickGUI.RenderFeature(eFeature.Business.Hangar.Supplies.PocketDimension.Type)
+
                         ClickGUI.EndCustomChildWindow()
                     end
 
@@ -852,14 +1124,38 @@ function Renderer.RenderBusinessTool()
             end
 
             if ImGui.BeginTabItem("Nightclub") then
-                if ImGui.BeginColumns(3) then
-                    if CONFIG.yolo_mode then
-                        if ClickGUI.BeginCustomChildWindow("Sale") then
-                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                            ClickGUI.RenderFeature(eFeature.Business.Nightclub.Sale.Price)
-                            ImGui.ResetFrameBgStyle()
+                if not HIDE_NIGHTCLUB_INFO then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Information") then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Known limitations per sale:")
+                            ImGui.TextColored("Max. Payout:", r, g, b, a, "$4,000,000")
+                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                            ImGui.TextColored("Ignoring these limitations may result in a transaction error or even a ban!", r, g, b, a)
+                            ClickGUI.RenderFeature(eFeature.Business.Nightclub.Info.Hide)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Business.Nightclub.Info.DontShowAgain)
                             ClickGUI.EndCustomChildWindow()
                         end
+                        ImGui.EndColumns()
+                    end
+                end
+
+                if ImGui.BeginColumns(3) then
+                    if ClickGUI.BeginCustomChildWindow("Sale") then
+                        if not CONFIG.yolo_mode then
+                            ImGui.BeginDisabled()
+                        end
+
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Business.Nightclub.Sale.Price)
+                        ImGui.ResetFrameBgStyle()
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.EndDisabled()
+                        end
+
+                        ClickGUI.EndCustomChildWindow()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Safe") then
@@ -913,13 +1209,36 @@ function Renderer.RenderBusinessTool()
             end
 
             if ImGui.BeginTabItem("Special Cargo") then
+                if not HIDE_SPECIAL_CARGO_INFO then
+                    if ImGui.BeginColumns(1) then
+                        if ClickGUI.BeginCustomChildWindow("Information") then
+                            local r, g, b, a = U(eBtnStyle.GREEN.Hovered)
+                            ImGui.TextColored("Known limitations per sale:")
+                            ImGui.TextColored("Max. Payout:", r, g, b, a, "$6,000,000")
+                            ImGui.TextColored("Ignoring these limitations may result in a transaction error or even a ban!", U(eBtnStyle.RED.Hovered))
+                            ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Info.Hide)
+                            ImGui.SameLine()
+                            ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Info.DontShowAgain)
+                            ClickGUI.EndCustomChildWindow()
+                        end
+                        ImGui.EndColumns()
+                    end
+                end
+
                 if ImGui.BeginColumns(3) then
                     if ClickGUI.BeginCustomChildWindow("Sale") then
-                        if CONFIG.yolo_mode then
-                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                            ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.Price)
-                            ImGui.ResetFrameBgStyle()
+                        if not CONFIG.yolo_mode then
+                            ImGui.BeginDisabled()
                         end
+
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.Price)
+                        ImGui.ResetFrameBgStyle()
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.EndDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.NoXp)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.NoCrateback)
                         ClickGUI.RenderFeature(eFeature.Business.CrateWarehouse.Sale.Sell)
@@ -1049,11 +1368,18 @@ function Renderer.RenderMoneyTool()
                     ImGui.TableNextColumn()
 
                     if ClickGUI.BeginCustomChildWindow("Slot Machines") then
-                        if CONFIG.yolo_mode then
-                            ImGui.PushButtonStyle(eBtnStyle.RED)
-                            ClickGUI.RenderFeature(eFeature.Money.Casino.Slots.Win)
-                            ImGui.ResetButtonStyle()
+                        if not CONFIG.yolo_mode then
+                            ImGui.BeginDisabled()
                         end
+
+                        ImGui.PushButtonStyle(eBtnStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Money.Casino.Slots.Win)
+                        ImGui.ResetButtonStyle()
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.EndDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Money.Casino.Slots.Lose)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -1072,44 +1398,88 @@ function Renderer.RenderMoneyTool()
                 ImGui.EndTabItem()
             end
 
-            if CONFIG.yolo_mode then
-                if ImGui.BeginTabItem("Easy Money") then
-                    if ImGui.BeginColumns(1) then
-                        if ClickGUI.BeginCustomChildWindow("Acknowledgment") then
-                            local r, g, b, a = U(eBtnStyle.RED.Hovered)
-                            ImGui.TextColored("Please, make sure to read all feature descriptions carefully before using them!")
-                            ImGui.TextColored("Remember, any form of feature misuse or abuse can lead to a ban!")
-                            ImGui.TextColored("Use these features responsibly and at your own risk!", r, g, b, a)
-                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Acknowledge)
-                            ClickGUI.EndCustomChildWindow()
+            if ImGui.BeginTabItem("Easy Money") then
+                if ImGui.BeginColumns(1) then
+                    if ClickGUI.BeginCustomChildWindow("Acknowledgment") then
+                        local r, g, b, a = U(eBtnStyle.RED.Hovered)
+                        ImGui.TextColored("This tab contains features that were once safe, but are now considered unsafe.")
+                        ImGui.TextColored("Using any of these features may and most likely will result in a ban.")
+                        ImGui.TextColored("Please, use with responsibility and at your own risk!", r, g, b, a)
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.BeginDisabled()
                         end
-                        ImGui.EndColumns()
+
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Acknowledge)
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.EndDisabled()
+                        end
+
+                        ClickGUI.EndCustomChildWindow()
                     end
-
-                    if ImGui.BeginColumns(2) then
-                        if ClickGUI.BeginCustomChildWindow("Freeroam") then
-                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
-                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._50k)
-                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._100k)
-                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._180k)
-                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._680k)
-                            ImGui.ResetFrameBgStyle()
-                            ClickGUI.EndCustomChildWindow()
-                        end
-
-                        ImGui.TableNextColumn()
-
-                        if ClickGUI.BeginCustomChildWindow("Property") then
-                            ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
-                            ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Property._300k)
-                            ImGui.ResetFrameBgStyle()
-                            ClickGUI.EndCustomChildWindow()
-                        end
-                        ImGui.EndColumns()
-                    end
-                    ImGui.EndTabItem()
+                    ImGui.EndColumns()
                 end
+
+                if ImGui.BeginColumns(3) then
+                    if ClickGUI.BeginCustomChildWindow("Instant") then
+                        if not CONFIG.yolo_mode then
+                            ImGui.BeginDisabled()
+                        end
+
+                        ImGui.PushButtonStyle(eBtnStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Instant.Give30m)
+                        ImGui.ResetButtonStyle()
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.EndDisabled()
+                        end
+
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("Freeroam") then
+                        if not CONFIG.yolo_mode then
+                            ImGui.BeginDisabled()
+                        end
+
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._5k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._50k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._100k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._180k)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Freeroam._680k)
+                        ImGui.ResetFrameBgStyle()
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.EndDisabled()
+                        end
+
+                        ClickGUI.EndCustomChildWindow()
+                    end
+
+                    ImGui.TableNextColumn()
+
+                    if ClickGUI.BeginCustomChildWindow("Property") then
+                        if not CONFIG.yolo_mode then
+                            ImGui.BeginDisabled()
+                        end
+
+                        ImGui.PushFrameBgStyle(eFrameBgStyle.RED)
+                        ClickGUI.RenderFeature(eFeature.Money.EasyMoney.Property._300k)
+                        ImGui.ResetFrameBgStyle()
+
+                        if not CONFIG.yolo_mode then
+                            ImGui.EndDisabled()
+                        end
+
+                        ClickGUI.EndCustomChildWindow()
+                    end
+                    ImGui.EndColumns()
+                end
+                ImGui.EndTabItem()
             end
 
             if ImGui.BeginTabItem("Misc") then
@@ -1450,7 +1820,7 @@ function Renderer.RenderSettings()
 
                     ImGui.TableNextColumn()
 
-                    if SCRIPT_EDTN ~= eTable.Editions.Standard then
+                    if not Script.IsStandardEdition() then
                         if ClickGUI.BeginCustomChildWindow("Pocket Dimension") then
                             ClickGUI.RenderFeature(eFeature.Settings.PocketDimension.Validation)
                             ClickGUI.RenderFeature(eFeature.Settings.PocketDimension.Delay)
@@ -1476,9 +1846,18 @@ function Renderer.RenderSettings()
                     end
 
                     if ClickGUI.BeginCustomChildWindow("Register As Boss") then
+                        if CONFIG.compatibility_mode then
+                            ImGui.BeginDisabled()
+                        end
+
                         ImGui.PushFrameBgStyle(eFrameBgStyle.ORANGE)
                         ClickGUI.RenderFeature(eFeature.Settings.RegisterAsBoss.AutoRegister)
                         ImGui.ResetFrameBgStyle()
+
+                        if CONFIG.compatibility_mode then
+                            ImGui.EndDisabled()
+                        end
+
                         ClickGUI.RenderFeature(eFeature.Settings.RegisterAsBoss.Type)
                         ClickGUI.EndCustomChildWindow()
                     end
@@ -1501,6 +1880,36 @@ function Renderer.RenderClickGUI()
         Renderer.RenderDevTool()
         Renderer.RenderSettings()
         ImGui.EndTabBar()
+    end
+
+    if SHOW_SUPPORTER_TOOLTIP then
+        ImGui.BeginTooltip()
+        ImGui.TextColored(SUPPORTER_TOOLTIP)
+        ImGui.EndTooltip()
+    end
+
+    if SHOW_YOLO_TOOLTIP then
+        ImGui.BeginTooltip()
+        ImGui.TextColored(YOLO_TOOLTIP, U(eBtnStyle.RED.Hovered))
+        ImGui.EndTooltip()
+    end
+
+    if SHOW_COMPATIBILITY_TOOLTIP then
+        ImGui.BeginTooltip()
+        ImGui.TextColored(COMPATIBILITY_TOOLTIP)
+        ImGui.EndTooltip()
+    end
+
+    if SHOW_POCKET_DELAY_TOOLTIP then
+        ImGui.BeginTooltip()
+        ImGui.TextColored(POCKET_DELAY_TOOLTIP)
+        ImGui.EndTooltip()
+    end
+
+    if SHOW_DONT_TOOLTIP then
+        ImGui.BeginTooltip()
+        ImGui.TextColored((CONFIG.yolo_mode) and "PLEASE." or "DON'T.", U(eBtnStyle.RED.Hovered))
+        ImGui.EndTooltip()
     end
 end
 
@@ -2109,6 +2518,7 @@ function Renderer.RenderListGUI()
             local EasyMoneyTab = MoneyToolTab:AddSubTab("Easy Money", "Easy Money")
             if EasyMoneyTab then
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Acknowledge)
+                EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Instant.Give30m)
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._5k)
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._50k)
                 EasyMoneyTab:AddFeature(eFeature.Money.EasyMoney.Freeroam._100k)
@@ -2265,7 +2675,7 @@ function Renderer.RenderListGUI()
         UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.CayoPerico)
         UnlockAllPOISubTab:AddFeature(eFeature.Settings.UnlockAllPoi.DiamondCasino)
 
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if not Script.IsStandardEdition() then
             local PocketDimensionSubTab = SettingsTab:AddSubTab("Pocket Dimension", "Pocket Dimension")
             PocketDimensionSubTab:AddFeature(eFeature.Settings.PocketDimension.Validation)
             PocketDimensionSubTab:AddFeature(eFeature.Settings.PocketDimension.Delay)

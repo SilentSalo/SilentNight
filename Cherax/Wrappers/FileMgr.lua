@@ -15,13 +15,29 @@ DEFAULT_CONFIG = {
         }
     },
 
+    info = {
+        agency         = false,
+        apartment      = false,
+        auto_shop      = false,
+        bunker         = false,
+        cayo_perico    = false,
+        cluckin_bell   = false,
+        diamond_casino = false,
+        doomsday       = false,
+        guzman_flies   = false,
+        nightclub      = false,
+        hangar_cargo   = false,
+        salvage_yard   = false,
+        special_cargo  = false
+    },
+
     instant_finish = {
         agency         = 1,
         apartment      = 0,
         auto_shop      = 1,
         cayo_perico    = 1,
         diamond_casino = 0,
-        doomsday       = 1
+        doomsday       = 1,
     },
 
     unlock_all_poi = {

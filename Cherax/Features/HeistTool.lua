@@ -17,6 +17,13 @@ end)
 
 --#region Apartment
 
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Heist.Apartment.Info.DontShowAgain)
+    eFeature.Heist.Apartment.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Apartment.Info.DontShowAgain)
+
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Heist)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Preps.Complete, function(f)
@@ -78,7 +85,7 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.Apartment.Cuts.MaxPayout, function(f)
     if f:IsToggled() then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if not Script.IsStandardEdition() then
             FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Double):SetVisible(true)
             local ftr = FeatureMgr.GetFeature(eFeature.Heist.Apartment.Cuts.Presets)
             ftr:SetListIndex(0)
@@ -202,6 +209,13 @@ FeatureMgr.AddFeature(eFeature.Heist.Apartment.Presets.Copy)
 
 --#region Cayo Perico
 
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Heist.CayoPerico.Info.DontShowAgain)
+    eFeature.Heist.CayoPerico.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Info.DontShowAgain)
+
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Difficulty)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Preps.Approach)
@@ -314,7 +328,7 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Cuts.MaxPayout, function(f)
     if f:IsToggled() then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if not Script.IsStandardEdition() then
             local ftr = FeatureMgr.GetFeature(eFeature.Heist.CayoPerico.Cuts.Presets)
             ftr:SetListIndex(0)
             ftr:SetVisible(false)
@@ -445,6 +459,13 @@ FeatureMgr.AddFeature(eFeature.Heist.CayoPerico.Presets.Copy)
 --#endregion
 
 --#region Diamond Casino
+
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Heist.DiamondCasino.Info.DontShowAgain)
+    eFeature.Heist.DiamondCasino.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Info.DontShowAgain)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Preps.Difficulty)
 
@@ -608,7 +629,7 @@ end)
 
 FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Cuts.MaxPayout, function(f)
     if f:IsToggled() then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if not Script.IsStandardEdition() then
             local ftr = FeatureMgr.GetFeature(eFeature.Heist.DiamondCasino.Cuts.Presets)
             ftr:SetListIndex(0)
             ftr:SetVisible(false)
@@ -737,6 +758,13 @@ FeatureMgr.AddFeature(eFeature.Heist.DiamondCasino.Presets.Copy)
 
 --#region Doomsday
 
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Heist.Doomsday.Info.DontShowAgain)
+    eFeature.Heist.Doomsday.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Info.DontShowAgain)
+
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Act)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Preps.Complete, function(f)
@@ -790,7 +818,7 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Misc.DoomsdayHack)
 
 FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Cuts.MaxPayout, function(f)
     if f:IsToggled() then
-        if SCRIPT_EDTN ~= eTable.Editions.Standard then
+        if not Script.IsStandardEdition() then
             local ftr = FeatureMgr.GetFeature(eFeature.Heist.Doomsday.Cuts.Presets)
             ftr:SetListIndex(0)
             ftr:SetVisible(false)
@@ -902,6 +930,13 @@ FeatureMgr.AddFeature(eFeature.Heist.Doomsday.Presets.Copy)
 --#endregion
 
 --#region Salvage Yard
+
+FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Heist.SalvageYard.Info.DontShowAgain)
+    eFeature.Heist.SalvageYard.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.SalvageYard.Info.DontShowAgain)
 
 for i = 1, 3 do
     FeatureMgr.AddFeature(salvageSlotsAvailable[i])
@@ -1032,6 +1067,13 @@ end)
 
 --#region Agency
 
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.Agency.Info.DontShowAgain)
+    eFeature.Heist.FlashOps.Agency.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Info.DontShowAgain)
+
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Preps.Contract)
 
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.Agency.Preps.Complete, function(f)
@@ -1069,6 +1111,13 @@ end)
 --#endregion
 
 --#region Auto Shop
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.AutoShop.Info.DontShowAgain)
+    eFeature.Heist.FlashOps.AutoShop.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Info.DontShowAgain)
 
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.AutoShop.Preps.Contract)
 
@@ -1108,6 +1157,13 @@ end)
 
 --#region Cluckin' Bell
 
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.CluckinBell.Info.DontShowAgain)
+    eFeature.Heist.FlashOps.CluckinBell.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Info.DontShowAgain)
+
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Stage)
 
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Preps.Complete, function(f)
@@ -1127,6 +1183,13 @@ FeatureMgr.AddFeature(eFeature.Heist.FlashOps.CluckinBell.Misc.Cooldown)
 --#endregion
 
 --#region Guzman Files
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Info.Hide, function(f)
+    local dontShowAgain = FeatureMgr.GetFeatureBool(eFeature.Heist.FlashOps.GuzmanFlies.Info.DontShowAgain)
+    eFeature.Heist.FlashOps.GuzmanFlies.Info.Hide.func(dontShowAgain)
+end)
+
+FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Info.DontShowAgain)
 
 FeatureMgr.AddFeature(eFeature.Heist.FlashOps.GuzmanFlies.Preps.Stage)
 
