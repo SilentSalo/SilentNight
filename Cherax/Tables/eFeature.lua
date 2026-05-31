@@ -4595,7 +4595,7 @@ eFeature = {
                         hash = J("SN_Hangar_CustomLimit"),
                         name = "Custom Limit",
                         type = eFeatureType.Button,
-                        desc = "Set a custom cargo limit for the deeper supplier. The default limit is unlimited.",
+                        desc = "Set a custom cargo limit for the Pocket Dimension supplier. The default limit is unlimited.",
                         func = function()
                             SilentLogger.LogInfo("[Custom Cargo Limit (Hangar)] Custom cargo limit should've been enabled ツ")
                         end
@@ -5234,7 +5234,7 @@ eFeature = {
                     hash = J("SN_Nightclub_Price"),
                     name = "Maximize Price",
                     type = eFeatureType.Toggle,
-                    desc = "CAUTION: might be unsafe, bans reported in the past.\nApplies the maximum price for goods. Don't use «Sell All Goods» button.",
+                    desc = "CAUTION: might be unsafe, bans reported in the past.\nApplies the maximum price for your goods. Don't use «Sell All Goods» button.",
                     func = function(ftr)
                         if ftr:IsToggled() then
                             if not GTA.IsInSessionAlone() then
@@ -7755,6 +7755,7 @@ eFeature = {
                     HIDE_DIAMOND_CASINO_INFO = false
                     HIDE_DOOMSDAY_INFO       = false
                     HIDE_GUZMAN_FLIES_INFO   = false
+                    HIDE_NIGHTCLUB_INFO      = false
                     HIDE_HANGAR_CARGO_INFO   = false
                     HIDE_SALVAGE_YARD_INFO   = false
                     HIDE_SPECIAL_CARGO_INFO  = false
